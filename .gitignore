@@ -37,3 +37,7 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
+# Ignore dotenv files
+.env*
+!.env.example
