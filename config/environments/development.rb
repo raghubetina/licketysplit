@@ -1,6 +1,22 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+    # Bullet configuration for N+1 query detection
+    Bullet.enable = true
+    Bullet.rails_logger = true  # Log to server log
+    Bullet.add_footer = true    # Display in HTML footer
+    Bullet.console = true       # Log to browser console
+
+    # Disable unused eager loading detection to avoid conflicts with Goldiloader
+    # Goldiloader automatically eager loads associations, which Bullet may see as "unused"
+    Bullet.unused_eager_loading_enable = false
+
+    # Keep N+1 detection active - this is the main benefit
+    Bullet.n_plus_one_query_enable = true
+
+    # Optional: Counter cache suggestions
+    Bullet.counter_cache_enable = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.
