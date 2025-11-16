@@ -1,21 +1,21 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-    # Bullet configuration for N+1 query detection
-    Bullet.enable = true
-    Bullet.rails_logger = true  # Log to server log
-    Bullet.add_footer = true    # Display in HTML footer
-    Bullet.console = true       # Log to browser console
+  # Bullet configuration for N+1 query detection
+  Bullet.enable = true
+  Bullet.rails_logger = true  # Log to server log
+  Bullet.add_footer = true    # Display in HTML footer
+  Bullet.console = true       # Log to browser console
 
-    # Disable unused eager loading detection to avoid conflicts with Goldiloader
-    # Goldiloader automatically eager loads associations, which Bullet may see as "unused"
-    Bullet.unused_eager_loading_enable = false
+  # Disable unused eager loading detection to avoid conflicts with Goldiloader
+  # Goldiloader automatically eager loads associations, which Bullet may see as "unused"
+  Bullet.unused_eager_loading_enable = false
 
-    # Keep N+1 detection active - this is the main benefit
-    Bullet.n_plus_one_query_enable = true
+  # Keep N+1 detection active - this is the main benefit
+  Bullet.n_plus_one_query_enable = true
 
-    # Optional: Counter cache suggestions
-    Bullet.counter_cache_enable = true
+  # Optional: Counter cache suggestions
+  Bullet.counter_cache_enable = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -36,14 +36,14 @@ Rails.application.configure do
   if Rails.root.join("tmp/caching-dev.txt").exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
-    config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
+    config.public_file_server.headers = {"cache-control" => "public, max-age=#{2.days.to_i}"}
   else
     config.action_controller.perform_caching = false
-  
-  # Use SolidQueue for background jobs in development
-  # This matches production behavior and helps catch job-related issues early
-  config.active_job.queue_adapter = :solid_queue
-end
+
+    # Use SolidQueue for background jobs in development
+    # This matches production behavior and helps catch job-related issues early
+    config.active_job.queue_adapter = :solid_queue
+  end
 
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
@@ -58,7 +58,7 @@ end
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

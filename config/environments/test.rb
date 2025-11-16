@@ -4,21 +4,21 @@
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
-    # Bullet configuration for N+1 query detection
-    Bullet.enable = true
-    Bullet.rails_logger = true  # Log to server log
-    Bullet.add_footer = true    # Display in HTML footer
-    Bullet.console = true       # Log to browser console
+  # Bullet configuration for N+1 query detection
+  Bullet.enable = true
+  Bullet.rails_logger = true  # Log to server log
+  Bullet.add_footer = true    # Display in HTML footer
+  Bullet.console = true       # Log to browser console
 
-    # Disable unused eager loading detection to avoid conflicts with Goldiloader
-    # Goldiloader automatically eager loads associations, which Bullet may see as "unused"
-    Bullet.unused_eager_loading_enable = false
+  # Disable unused eager loading detection to avoid conflicts with Goldiloader
+  # Goldiloader automatically eager loads associations, which Bullet may see as "unused"
+  Bullet.unused_eager_loading_enable = false
 
-    # Keep N+1 detection active - this is the main benefit
-    Bullet.n_plus_one_query_enable = true
+  # Keep N+1 detection active - this is the main benefit
+  Bullet.n_plus_one_query_enable = true
 
-    # Optional: Counter cache suggestions
-    Bullet.counter_cache_enable = true
+  # Optional: Counter cache suggestions
+  Bullet.counter_cache_enable = true
 
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -32,7 +32,7 @@ Rails.application.configure do
   config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with cache-control for performance.
-  config.public_file_server.headers = { "cache-control" => "public, max-age=3600" }
+  config.public_file_server.headers = {"cache-control" => "public, max-age=3600"}
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -53,7 +53,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.default_url_options = {host: "example.com"}
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
