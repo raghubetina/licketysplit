@@ -2,3 +2,12 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
+
+// Ahoy analytics tracking
+import ahoy from "ahoy.js"
+
+// Track page views
+ahoy.trackView();
+
+// Example: Track custom events
+// ahoy.track("Clicked Button", {button: "signup"});

@@ -249,6 +249,11 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.1.100.tgz#b1f85f3482425fb91e5eba1deb55152ee0bb2f85"
   integrity sha512-j4vJQqz51CDVYv2UafKRu4jiZi5/gTnm7NkyL+VMIgEw3s8jtVtmzu9uItUaZccUg9NJ6o05yVyBAHxNfTuCRA==
 
+ahoy.js@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/ahoy.js/-/ahoy.js-0.4.4.tgz#51bb393fbc6e53962eefac7155642c2d85405238"
+  integrity sha512-LpEf/4Xe4YWAbCN3SUjf58hhWKQzqECRdXJDCRSUp9cgwTul+CnukXxKXavGvoyiYg1QkdVQuO6tx/HELgizlA==
+
 ansi-regex@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"

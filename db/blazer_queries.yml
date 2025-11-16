@@ -1,0 +1,45 @@
+# Sample Blazer queries for Ahoy analytics
+# Import these in Blazer UI or via rake blazer:import
+
+- name: "Daily Active Users"
+  statement: |
+    SELECT
+      DATE(started_at) as day,
+      COUNT(DISTINCT user_id) as unique_users
+    FROM ahoy_visits
+    WHERE started_at >= CURRENT_DATE - INTERVAL '30 days'
+    GROUP BY 1
+    ORDER BY 1
+
+- name: "Top Pages (Last 7 Days)"
+  statement: |
+    SELECT
+      properties->>'page' as page,
+      COUNT(*) as views
+    FROM ahoy_events
+    WHERE name = '$view'
+      AND time >= CURRENT_DATE - INTERVAL '7 days'
+    GROUP BY 1
+    ORDER BY 2 DESC
+    LIMIT 20
+
+- name: "Browser Breakdown"
+  statement: |
+    SELECT
+      browser,
+      COUNT(*) as visits
+    FROM ahoy_visits
+    WHERE started_at >= CURRENT_DATE - INTERVAL '30 days'
+    GROUP BY 1
+    ORDER BY 2 DESC
+
+- name: "Traffic Sources"
+  statement: |
+    SELECT
+      COALESCE(referring_domain, 'Direct') as source,
+      COUNT(*) as visits
+    FROM ahoy_visits
+    WHERE started_at >= CURRENT_DATE - INTERVAL '30 days'
+    GROUP BY 1
+    ORDER BY 2 DESC
+    LIMIT 20
