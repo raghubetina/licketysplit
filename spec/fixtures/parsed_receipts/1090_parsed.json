@@ -1,0 +1,129 @@
+{
+  "restaurant_name": "FIVE GUYS",
+  "restaurant_address": "2640 Reynolds Ranch Pkwy - Ste 140, Lodi, CA 95240",
+  "restaurant_phone_number": "(209) 333-9750",
+  "receipt_at": "2017-05-25T13:00:17+00:00",
+  "total": 32.66,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Little Hamburger",
+      "description": null,
+      "quantity": 1,
+      "price": 5.19,
+      "line_item_total": 5.19,
+      "addons_attributes": [
+        {
+          "description": "Lettuce",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Pickles",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Tomatoes",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Grilled Onions",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Grilled Mushrooms",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Mustard",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Ketchup",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Jalapeno Peppers",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "Large Fry",
+      "description": null,
+      "quantity": 2,
+      "price": 5.78,
+      "line_item_total": 11.56
+    },
+    {
+      "name": "Large Soda",
+      "description": null,
+      "quantity": 1,
+      "price": 2.69,
+      "line_item_total": 2.69
+    },
+    {
+      "name": "Cheeseburger",
+      "description": null,
+      "quantity": 1,
+      "price": 7.19,
+      "line_item_total": 7.19,
+      "addons_attributes": [
+        {
+          "description": "Mayo",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Lettuce",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "Pickles",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "BBQ Sauce",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "Regular Soda",
+      "description": null,
+      "quantity": 1,
+      "price": 3.68,
+      "line_item_total": 3.68
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Sales Tax",
+      "amount": 2.35
+    }
+  ],
+  "discounts_attributes": []
+}

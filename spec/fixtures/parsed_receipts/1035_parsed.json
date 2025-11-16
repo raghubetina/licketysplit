@@ -1,0 +1,74 @@
+{
+  "restaurant_name": "Argonaut Diner 2000",
+  "restaurant_address": "1084 Yonkers Avenue, Yonkers, NY 10704",
+  "restaurant_phone_number": "(914) 237-5055",
+  "receipt_at": null,
+  "total": 26.38,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Coffee",
+      "description": null,
+      "quantity": 1,
+      "price": 1.45,
+      "line_item_total": 1.45
+    },
+    {
+      "name": "Tea",
+      "description": null,
+      "quantity": 1,
+      "price": 1.45,
+      "line_item_total": 1.45
+    },
+    {
+      "name": "Waffle",
+      "description": null,
+      "quantity": 1,
+      "price": 5.5,
+      "line_item_total": 5.5
+    },
+    {
+      "name": "Old Fashion French Toast",
+      "description": null,
+      "quantity": 1,
+      "price": 4.95,
+      "line_item_total": 4.95
+    },
+    {
+      "name": "Side Home Fries",
+      "description": null,
+      "quantity": 1,
+      "price": 2.95,
+      "line_item_total": 2.95
+    },
+    {
+      "name": "Banana",
+      "description": null,
+      "quantity": 1,
+      "price": 2.5,
+      "line_item_total": 2.5
+    },
+    {
+      "name": "Whipped Cream",
+      "description": null,
+      "quantity": 1,
+      "price": 2.5,
+      "line_item_total": 2.5
+    },
+    {
+      "name": "w/ 2 EGGS",
+      "description": null,
+      "quantity": 1,
+      "price": 2.95,
+      "line_item_total": 2.95
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 2.13
+    }
+  ],
+  "discounts_attributes": []
+}

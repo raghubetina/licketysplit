@@ -1,0 +1,25 @@
+{
+  "restaurant_name": "IN-N-OUT BURGER SANTA CLARA",
+  "restaurant_address": null,
+  "restaurant_phone_number": "176 1 262 1110",
+  "receipt_at": "2012-04-27T12:49:00+00:00",
+  "total": 2.17,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "HAMB",
+      "description": "W GR X L X T M Inst pro",
+      "quantity": 1,
+      "price": 2.0,
+      "line_item_total": 2.0
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax 8.25%",
+      "amount": 0.17
+    }
+  ],
+  "discounts_attributes": []
+}

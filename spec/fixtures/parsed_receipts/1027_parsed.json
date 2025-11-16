@@ -1,0 +1,83 @@
+{
+  "restaurant_name": "Longboards",
+  "restaurant_address": "92-161 Waipahe Place, Kapolei, HI 96707",
+  "restaurant_phone_number": "(808) 679-4700",
+  "receipt_at": "2019-01-11T12:46:00+00:00",
+  "total": 44.31,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Green Salad",
+      "description": null,
+      "quantity": 1,
+      "price": 8.0,
+      "line_item_total": 8.0,
+      "addons_attributes": [
+        {
+          "description": "Ranch",
+          "quantity": 1,
+          "price": 0.0,
+          "price_per": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Wagyu Cheeseburger",
+      "description": null,
+      "quantity": 1,
+      "price": 19.0,
+      "line_item_total": 19.0,
+      "addons_attributes": [
+        {
+          "description": "Medium Well",
+          "quantity": 1,
+          "price": 0.0,
+          "price_per": 0.0
+        },
+        {
+          "description": "Garlic Fries",
+          "quantity": 1,
+          "price": 2.0,
+          "price_per": 2.0
+        },
+        {
+          "description": "ADD RAW ONIONS & BACON PLZ",
+          "quantity": 1,
+          "price": 0.0,
+          "price_per": 0.0
+        }
+      ]
+    },
+    {
+      "name": "Drink of the Day",
+      "description": null,
+      "quantity": 1,
+      "price": 9.75,
+      "line_item_total": 9.75
+    },
+    {
+      "name": "Tea",
+      "description": null,
+      "quantity": 1,
+      "price": 4.0,
+      "line_item_total": 4.0
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "HI HNLKO 4.712% GET (tax)",
+      "amount": 1.86
+    },
+    {
+      "description": "Gratuity",
+      "amount": 3.0
+    }
+  ],
+  "discounts_attributes": [
+    {
+      "description": "Ohana Discount Breakfast",
+      "amount": 3.3
+    }
+  ]
+}

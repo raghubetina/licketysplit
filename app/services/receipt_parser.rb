@@ -31,7 +31,8 @@ class ReceiptParser
   private
 
   def configure_chat
-    chat.model = "gpt-4o-mini"  # Good balance of speed and accuracy for OCR
+    chat.model = "gpt-5.1"  # Latest model for better accuracy
+    chat.reasoning_effort = "medium"  # Enable reasoning for complex receipts
     chat.schema = receipt_schema
   end
 

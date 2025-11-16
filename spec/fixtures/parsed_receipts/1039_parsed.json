@@ -1,0 +1,45 @@
+{
+  "restaurant_name": "CARL'S JR 1100375",
+  "restaurant_address": "8105 MADISON AVE, FAIR OAKS, CA",
+  "restaurant_phone_number": "(916) 962-3415",
+  "receipt_at": "2016-12-19T19:42:42+00:00",
+  "total": 13.05,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Santa Fe Ckn",
+      "description": null,
+      "quantity": 2,
+      "price": 5.69,
+      "line_item_total": 11.38,
+      "addons_attributes": [
+        {
+          "description": "American Ch",
+          "quantity": 1,
+          "price": 0.7,
+          "price_per": 0.7
+        },
+        {
+          "description": "E Green Chile",
+          "quantity": 1,
+          "price": 0.0,
+          "price_per": 0.0
+        },
+        {
+          "description": "S Santa Fe Sce",
+          "quantity": 1,
+          "price": 0.0,
+          "price_per": 0.0
+        }
+      ]
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 0.97
+    }
+  ],
+  "discounts_attributes": []
+}

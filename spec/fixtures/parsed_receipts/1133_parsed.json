@@ -1,0 +1,32 @@
+{
+  "restaurant_name": "MOONSTAR RESTAURANT",
+  "restaurant_address": "383 Gellert Blvd., Daly City, CA 94015",
+  "restaurant_phone_number": "650-992-2888",
+  "receipt_at": null,
+  "total": 146.57,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "FRI-SUN DINNER",
+      "description": null,
+      "quantity": 5,
+      "price": 29.88,
+      "line_item_total": 149.4,
+      "discount": 14.94,
+      "discount_description": "50% OFF BIRTHDAY"
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax (9%)",
+      "amount": 12.11
+    }
+  ],
+  "discounts_attributes": [
+    {
+      "description": "50% OFF BIRTHDAY",
+      "amount": 14.94
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "restaurant_name": "ZOCA RESTAURANT",
+  "restaurant_address": "98 Garfield Parkway, Bethany Beach, DE 19930",
+  "restaurant_phone_number": "(302) 616-2120",
+  "receipt_at": "2019-07-30T19:53:00+00:00",
+  "total": 152,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Flying Dog Numero Uno BTL",
+      "description": null,
+      "quantity": 1,
+      "price": 8,
+      "line_item_total": 8
+    },
+    {
+      "name": "House Recipe",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    },
+    {
+      "name": "Sandia Margarita",
+      "description": "@13.00/ea",
+      "quantity": 2,
+      "price": 13,
+      "line_item_total": 26
+    },
+    {
+      "name": "Totem Honey Bee",
+      "description": null,
+      "quantity": 1,
+      "price": 11,
+      "line_item_total": 11
+    },
+    {
+      "name": "Queso Fresco Guacamole",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    },
+    {
+      "name": "Queso Fundido Mexican Street Corn Dip",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12,
+      "discount": 12,
+      "discount_description": "Complimentary item comp"
+    },
+    {
+      "name": "Salsa De Molcajete",
+      "description": null,
+      "quantity": 1,
+      "price": 8,
+      "line_item_total": 8
+    },
+    {
+      "name": "Taquitos Carne Asada",
+      "description": "@15.00/ea",
+      "quantity": 2,
+      "price": 15,
+      "line_item_total": 30
+    },
+    {
+      "name": "Taquitos Baja California Shrimp",
+      "description": null,
+      "quantity": 1,
+      "price": 14,
+      "line_item_total": 14
+    },
+    {
+      "name": "Mole Enchilada",
+      "description": null,
+      "quantity": 1,
+      "price": 19,
+      "line_item_total": 19
+    },
+    {
+      "name": "Quesadilla Chicken",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Sales Tax",
+      "amount": 0
+    }
+  ],
+  "discounts_attributes": [
+    {
+      "description": "Complimentary item comp - Queso Fundido Mexican Street Corn Dip",
+      "amount": 12
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "timestamp": "2025-11-16T21:27:09Z",
+  "total_receipts": 21,
+  "successful": 21,
+  "failed": 0,
+  "results": [
+    {
+      "receipt": "1002-receipt.jpg",
+      "status": "success",
+      "restaurant": "Taco Bell 017314",
+      "total": 7.61,
+      "line_items": 2,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 2
+    },
+    {
+      "receipt": "1005-receipt.jpg",
+      "status": "success",
+      "restaurant": "SASKA'S",
+      "total": 179.94,
+      "line_items": 5,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 4
+    },
+    {
+      "receipt": "1007-receipt.jpg",
+      "status": "success",
+      "restaurant": "Katana Sushi",
+      "total": 143.71,
+      "line_items": 9,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 0
+    },
+    {
+      "receipt": "1018-receipt.jpg",
+      "status": "success",
+      "restaurant": "IN-N-OUT BURGER SANTA CLARA",
+      "total": 2.17,
+      "line_items": 1,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 0
+    },
+    {
+      "receipt": "1026-receipt.jpg",
+      "status": "success",
+      "restaurant": "CHRIS'S HAMBURGERS",
+      "total": 51.82,
+      "line_items": 12,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 0
+    },
+    {
+      "receipt": "1027-receipt.jpg",
+      "status": "success",
+      "restaurant": "Longboards",
+      "total": 44.31,
+      "line_items": 4,
+      "fees": 2,
+      "discounts": 1,
+      "addons": 4
+    },
+    {
+      "receipt": "1035-receipt.jpg",
+      "status": "success",
+      "restaurant": "Argonaut Diner 2000",
+      "total": 26.38,
+      "line_items": 8,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 0
+    },
+    {
+      "receipt": "1039-receipt.jpg",
+      "status": "success",
+      "restaurant": "CARL'S JR 1100375",
+      "total": 13.05,
+      "line_items": 1,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 3
+    },
+    {
+      "receipt": "1046-receipt.jpg",
+      "status": "success",
+      "restaurant": "Araxi Burger Aventura",
+      "total": 38.86,
+      "line_items": 3,
+      "fees": 2,
+      "discounts": 1,
+      "addons": 0
+    },
+    {
+      "receipt": "1054-receipt.jpg",
+      "status": "success",
+      "restaurant": "BIG JO'S",
+      "total": 56.5,
+      "line_items": 7,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 2
+    },
+    {
+      "receipt": "1056-receipt.jpg",
+      "status": "success",
+      "restaurant": "ZOCA RESTAURANT",
+      "total": 152,
+      "line_items": 11,
+      "fees": 1,
+      "discounts": 1,
+      "addons": 0
+    },
+    {
+      "receipt": "1077-receipt.jpg",
+      "status": "success",
+      "restaurant": "NaanChing",
+      "total": 69.79,
+      "line_items": 6,
+      "fees": 2,
+      "discounts": 0,
+      "addons": 5
+    },
+    {
+      "receipt": "1086-receipt.jpg",
+      "status": "success",
+      "restaurant": "Calogero's",
+      "total": 157.51,
+      "line_items": 9,
+      "fees": 1,
+      "discounts": 1,
+      "addons": 0
+    },
+    {
+      "receipt": "1090-receipt.jpg",
+      "status": "success",
+      "restaurant": "FIVE GUYS",
+      "total": 32.66,
+      "line_items": 5,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 12
+    },
+    {
+      "receipt": "1097-receipt.jpg",
+      "status": "success",
+      "restaurant": "El Pollo Loco Restaurant 5451",
+      "total": 13.12,
+      "line_items": 2,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 3
+    },
+    {
+      "receipt": "1100-receipt.jpg",
+      "status": "success",
+      "restaurant": "McDonald's",
+      "total": 26.15,
+      "line_items": 8,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 6
+    },
+    {
+      "receipt": "1102-receipt.jpg",
+      "status": "success",
+      "restaurant": "OM INDIAN FOOD",
+      "total": 16.24,
+      "line_items": 3,
+      "fees": 1,
+      "discounts": 1,
+      "addons": 0
+    },
+    {
+      "receipt": "1103-receipt.jpg",
+      "status": "success",
+      "restaurant": "Crisfield Seafood Restaurant",
+      "total": 42.74,
+      "line_items": 2,
+      "fees": 2,
+      "discounts": 0,
+      "addons": 1
+    },
+    {
+      "receipt": "1116-receipt.jpg",
+      "status": "success",
+      "restaurant": "Villaggio Grille",
+      "total": 34.12,
+      "line_items": 5,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 0
+    },
+    {
+      "receipt": "1119-receipt.jpg",
+      "status": "success",
+      "restaurant": "Panda Express #2614",
+      "total": 27.44,
+      "line_items": 6,
+      "fees": 1,
+      "discounts": 0,
+      "addons": 10
+    },
+    {
+      "receipt": "1133-receipt.jpg",
+      "status": "success",
+      "restaurant": "MOONSTAR RESTAURANT",
+      "total": 146.57,
+      "line_items": 1,
+      "fees": 1,
+      "discounts": 1,
+      "addons": 0
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "restaurant_name": "Katana Sushi",
+  "restaurant_address": "2818 Hewitt Ave, Everett, WA 98201",
+  "restaurant_phone_number": "425-512-9361",
+  "receipt_at": "2018-05-11T20:47:00+00:00",
+  "total": 143.71,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Hamachi Collar",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    },
+    {
+      "name": "Mega Poke Bowl",
+      "description": null,
+      "quantity": 1,
+      "price": 17,
+      "line_item_total": 17
+    },
+    {
+      "name": "Hamachi - Sashimi",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    },
+    {
+      "name": "Maguro - Sashimi",
+      "description": null,
+      "quantity": 1,
+      "price": 11,
+      "line_item_total": 11
+    },
+    {
+      "name": "Salmon - Sashimi",
+      "description": null,
+      "quantity": 1,
+      "price": 10,
+      "line_item_total": 10
+    },
+    {
+      "name": "Sockeye Salmon - Sashimi",
+      "description": "3 pieces",
+      "quantity": 3,
+      "price": 12,
+      "line_item_total": 36
+    },
+    {
+      "name": "Hamachi Japapeno",
+      "description": null,
+      "quantity": 1,
+      "price": 12,
+      "line_item_total": 12
+    },
+    {
+      "name": "Salmon Collar",
+      "description": null,
+      "quantity": 1,
+      "price": 10,
+      "line_item_total": 10
+    },
+    {
+      "name": "Escolar - Sashimi",
+      "description": null,
+      "quantity": 1,
+      "price": 11,
+      "line_item_total": 11
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 12.71
+    }
+  ],
+  "discounts_attributes": []
+}

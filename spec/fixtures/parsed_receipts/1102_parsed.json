@@ -1,0 +1,44 @@
+{
+  "restaurant_name": "OM INDIAN FOOD",
+  "restaurant_address": "204 Spring St, New York, NY 10012",
+  "restaurant_phone_number": "(646) 756-4000",
+  "receipt_at": "2016-04-15T12:03:14+00:00",
+  "total": 16.24,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Vegetable Biryani",
+      "description": null,
+      "quantity": 1,
+      "price": 12.95,
+      "line_item_total": 12.95
+    },
+    {
+      "name": "Malai Kofta",
+      "description": null,
+      "quantity": 1,
+      "price": 12.95,
+      "line_item_total": 12.95
+    },
+    {
+      "name": "Onion Naan",
+      "description": null,
+      "quantity": 1,
+      "price": 3.95,
+      "line_item_total": 3.95
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "TAX",
+      "amount": 1.32
+    }
+  ],
+  "discounts_attributes": [
+    {
+      "description": "LUNCH DISCOUNT 50% OFF",
+      "amount": 14.93
+    }
+  ]
+}

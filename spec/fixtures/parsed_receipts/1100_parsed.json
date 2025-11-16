@@ -1,0 +1,118 @@
+{
+  "restaurant_name": "McDonald's",
+  "restaurant_address": "16725 Stony Plain Rd, Edmonton AB T5P 4A9",
+  "restaurant_phone_number": "780-414-8362",
+  "receipt_at": "2018-03-10T19:39:12+00:00",
+  "total": 26.15,
+  "currency": "CAD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Delivery",
+      "description": null,
+      "quantity": 1,
+      "price": 0,
+      "line_item_total": 0
+    },
+    {
+      "name": "10 McNuggets EVM",
+      "description": null,
+      "quantity": 1,
+      "price": 10.29,
+      "line_item_total": 10.29,
+      "addons_attributes": [
+        {
+          "description": "Barbeque Sauce",
+          "quantity": 2,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "M French Fries",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "L Coke",
+      "description": null,
+      "quantity": 1,
+      "price": 0.4,
+      "line_item_total": 0.4,
+      "addons_attributes": [
+        {
+          "description": "Barbeque Sauce",
+          "quantity": 0,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "HM GrChs S-Fry Yog",
+      "description": "Happy Meal Grilled Cheese with Small Fries & Yogurt",
+      "quantity": 1,
+      "price": 3.99,
+      "line_item_total": 3.99,
+      "addons_attributes": [
+        {
+          "description": "Snoopy",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "HM Apple Juice",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "6 Cookies",
+      "description": null,
+      "quantity": 1,
+      "price": 2.89,
+      "line_item_total": 2.89,
+      "addons_attributes": [
+        {
+          "description": "6 Choc Chip Cookie",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "Baked Apple Pie",
+      "description": null,
+      "quantity": 1,
+      "price": 1.19,
+      "line_item_total": 1.19
+    },
+    {
+      "name": "L French Fries",
+      "description": null,
+      "quantity": 1,
+      "price": 3.29,
+      "line_item_total": 3.29
+    },
+    {
+      "name": "L Iced Tea",
+      "description": null,
+      "quantity": 1,
+      "price": 2.99,
+      "line_item_total": 2.99
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "GST",
+      "amount": 1.11
+    }
+  ],
+  "discounts_attributes": []
+}

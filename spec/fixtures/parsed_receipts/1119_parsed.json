@@ -1,0 +1,118 @@
+{
+  "restaurant_name": "Panda Express #2614",
+  "restaurant_address": "Brooklyn, NY",
+  "restaurant_phone_number": "(718)246-3898",
+  "receipt_at": "2017-12-22T16:58:01+00:00",
+  "total": 27.44,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Plate",
+      "description": "1 Plate combo with sides and entrees",
+      "quantity": 1,
+      "price": 9.1,
+      "line_item_total": 9.1,
+      "addons_attributes": [
+        {
+          "description": "CHOW MEIN-1/2",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "CHOW MEIN-1/2",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "BROCCOLI BEEF",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "BEIJING BEEF",
+          "quantity": 1,
+          "price": 0
+        }
+      ]
+    },
+    {
+      "name": "Plate",
+      "description": "1 Plate combo with sides and entrees",
+      "quantity": 1,
+      "price": 9.1,
+      "line_item_total": 9.1,
+      "addons_attributes": [
+        {
+          "description": "CHOW MEIN-1/2",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "CHOW MEIN-1/2",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "CKN EGG ROLL",
+          "quantity": 1,
+          "price": 0
+        },
+        {
+          "description": "KUNG PAO CKN",
+          "quantity": 1,
+          "price": 0
+        }
+      ]
+    },
+    {
+      "name": "XTRA ENTREE",
+      "description": "GRILL TERIYAKI CKN",
+      "quantity": 1,
+      "price": 1.5,
+      "line_item_total": 1.5,
+      "addons_attributes": [
+        {
+          "description": "GRILL TERIYAKI CKN",
+          "quantity": 1,
+          "price": 0
+        }
+      ]
+    },
+    {
+      "name": "XTRA ENTREE",
+      "description": "GRILL TERIYAKI CKN",
+      "quantity": 1,
+      "price": 1.5,
+      "line_item_total": 1.5,
+      "addons_attributes": [
+        {
+          "description": "GRILL TERIYAKI CKN",
+          "quantity": 1,
+          "price": 0
+        }
+      ]
+    },
+    {
+      "name": "PEPSI 20 OZ",
+      "description": null,
+      "quantity": 1,
+      "price": 2,
+      "line_item_total": 2
+    },
+    {
+      "name": "PEPSI 20 OZ",
+      "description": null,
+      "quantity": 1,
+      "price": 2,
+      "line_item_total": 2
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "TAX",
+      "amount": 2.24
+    }
+  ],
+  "discounts_attributes": []
+}

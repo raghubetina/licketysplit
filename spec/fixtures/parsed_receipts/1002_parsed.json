@@ -1,0 +1,46 @@
+{
+  "restaurant_name": "Taco Bell 017314",
+  "restaurant_address": "7230 Pendleton Pike, Lawrence, IN 46226",
+  "restaurant_phone_number": "(317) 541-1897",
+  "receipt_at": "2016-09-01T15:35:38+00:00",
+  "total": 7.61,
+  "currency": "USD",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "name": "Power Veg Bowl",
+      "description": null,
+      "quantity": 1,
+      "price": 4.99,
+      "line_item_total": 4.99,
+      "addons_attributes": [
+        {
+          "description": "No Sour Cream",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        },
+        {
+          "description": "No Cheese",
+          "quantity": 1,
+          "price": 0,
+          "price_per": 0
+        }
+      ]
+    },
+    {
+      "name": "Lg Orange Crsh Fz",
+      "description": null,
+      "quantity": 1,
+      "price": 1.99,
+      "line_item_total": 1.99
+    }
+  ],
+  "fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 0.63
+    }
+  ],
+  "discounts_attributes": []
+}
