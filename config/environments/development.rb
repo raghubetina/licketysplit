@@ -23,7 +23,11 @@ Rails.application.configure do
     config.public_file_server.headers = { "cache-control" => "public, max-age=#{2.days.to_i}" }
   else
     config.action_controller.perform_caching = false
-  end
+  
+  # Use SolidQueue for background jobs in development
+  # This matches production behavior and helps catch job-related issues early
+  config.active_job.queue_adapter = :solid_queue
+end
 
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
@@ -66,4 +70,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Use SolidQueue for background jobs in development
+  # This matches production behavior and helps catch job-related issues early
+  config.active_job.queue_adapter = :solid_queue
 end
