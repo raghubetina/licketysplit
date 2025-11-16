@@ -22,7 +22,7 @@
 #
 class LineItemParticipant < ApplicationRecord
   # Associations
-  belongs_to :line_item
+  belongs_to :line_item, counter_cache: :participants_count
   belongs_to :participant
 
   # Validations

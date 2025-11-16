@@ -9,9 +9,9 @@
 #  discount_description :string
 #  line_item_total      :decimal(10, 2)
 #  name                 :string           not null
+#  participants_count   :integer          default(0)
 #  price                :decimal(10, 2)   not null
 #  quantity             :integer          default(1)
-#  shared_by_count      :integer          default(1)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  check_id             :uuid             not null
@@ -36,7 +36,6 @@ class LineItem < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :quantity, presence: true, numericality: {greater_than: 0}
   validates :discount, numericality: {greater_than_or_equal_to: 0}
-  validates :shared_by_count, numericality: {greater_than: 0}
 
   # Nested attributes
   accepts_nested_attributes_for :addons, allow_destroy: true
@@ -59,15 +58,10 @@ class LineItem < ApplicationRecord
   end
 
   def amount_per_participant
-    return 0 if participants.empty?
+    return 0 if participants_count == 0
 
-    # If shared_by_count is set, use that for splitting
-    divisor = (shared_by_count > 1) ? shared_by_count : participants.count
-    total_with_addons / divisor
-  end
-
-  def participant_count
-    participants.count
+    # Divide by the number of participants sharing this item
+    total_with_addons / participants_count
   end
 
   private
@@ -75,7 +69,6 @@ class LineItem < ApplicationRecord
   def set_defaults
     self.quantity ||= 1
     self.discount ||= 0
-    self.shared_by_count ||= 1
   end
 
   def calculate_total

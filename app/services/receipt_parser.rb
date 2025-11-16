@@ -63,24 +63,40 @@ class ReceiptParser
               type: "object",
               properties: {
                 name: { type: "string", description: "Item name/description" },
+                description: {
+                  type: ["string", "null"],
+                  description: "Additional item details (size, preparation, etc.)"
+                },
                 quantity: { type: "integer", description: "Quantity ordered", default: 1 },
                 unit_price: { type: "number", description: "Price per unit" },
                 total_price: { type: "number", description: "Total for this line item" },
+                item_discount: {
+                  type: ["number", "null"],
+                  description: "Discount amount for this specific item (positive number)"
+                },
+                item_discount_description: {
+                  type: ["string", "null"],
+                  description: "Description of the item-specific discount"
+                },
                 modifications: {
                   type: ["array", "null"],
                   description: "Modifications or add-ons for this item",
                   items: {
                     type: "object",
                     properties: {
-                      name: { type: "string", description: "Modification name" },
-                      price: { type: "number", description: "Additional cost" }
+                      name: { type: "string", description: "Modification/addon name" },
+                      quantity: { type: "integer", description: "Quantity of this addon", default: 1 },
+                      price_per: { type: ["number", "null"], description: "Price per unit of addon" },
+                      total_price: { type: "number", description: "Total cost for this addon" },
+                      discount: { type: ["number", "null"], description: "Discount on this addon" },
+                      discount_description: { type: ["string", "null"], description: "Description of addon discount" }
                     },
-                    required: ["name", "price"],
+                    required: ["name", "quantity", "price_per", "total_price", "discount", "discount_description"],
                     additionalProperties: false
                   }
                 }
               },
-              required: ["name", "quantity", "unit_price", "total_price", "modifications"],
+              required: ["name", "description", "quantity", "unit_price", "total_price", "item_discount", "item_discount_description", "modifications"],
               additionalProperties: false
             }
           },
@@ -146,18 +162,36 @@ class ReceiptParser
     items.map do |item|
       line_item = {
         name: item[:name],
+        description: item[:description],
         quantity: item[:quantity],
         price: item[:unit_price],
         line_item_total: item[:total_price]
       }
 
+      # Add item-specific discount if present
+      if item[:item_discount].present? && item[:item_discount] > 0
+        line_item[:discount] = item[:item_discount]
+        line_item[:discount_description] = item[:item_discount_description]
+      end
+
       if item[:modifications].present?
         line_item[:addons_attributes] = item[:modifications].map do |mod|
-          {
+          addon = {
             description: mod[:name],
-            price: mod[:price],
-            quantity: 1
+            quantity: mod[:quantity] || 1,
+            price: mod[:total_price]
           }
+
+          # Add price_per if present
+          addon[:price_per] = mod[:price_per] if mod[:price_per].present?
+
+          # Add addon discount if present
+          if mod[:discount].present? && mod[:discount] > 0
+            addon[:discount] = mod[:discount]
+            addon[:discount_description] = mod[:discount_description]
+          end
+
+          addon
         end
       end
 

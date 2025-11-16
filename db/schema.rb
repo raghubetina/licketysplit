@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_16_205345) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -207,7 +207,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_205345) do
     t.decimal "discount", precision: 10, scale: 2, default: "0.0"
     t.string "discount_description"
     t.decimal "line_item_total", precision: 10, scale: 2
-    t.integer "shared_by_count", default: 1
+    t.integer "participants_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_id"], name: "index_line_items_on_check_id"
