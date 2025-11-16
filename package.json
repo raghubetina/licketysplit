@@ -3,14 +3,25 @@
   "private": true,
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "devDependencies": {
-    "esbuild": "^0.27.0"
+    "@thoughtbot/eslint-config": "^1.0.3",
+    "@thoughtbot/stylelint-config": "^5.0.0",
+    "esbuild": "^0.27.0",
+    "eslint": "^8.9.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.25.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css:compile": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
     "build:css:prefix": "postcss ./app/assets/builds/application.css --use=autoprefixer --output=./app/assets/builds/application.css",
     "build:css": "yarn build:css:compile && yarn build:css:prefix",
-    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\""
+    "watch:css": "nodemon --watch ./app/assets/stylesheets/ --ext scss --exec \"yarn build:css\"",
+    "lint": "run-p lint:eslint lint:stylelint lint:prettier",
+    "lint:eslint": "eslint --max-warnings=0 --no-error-on-unmatched-pattern 'app/javascript/**/*.js'",
+    "lint:stylelint": "stylelint 'app/assets/stylesheets/**/*.css'",
+    "lint:prettier": "prettier --check 'app/**/*.{js,css,scss,json}'",
+    "fix:prettier": "prettier --write 'app/**/*.{js,css,scss,json}'"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
