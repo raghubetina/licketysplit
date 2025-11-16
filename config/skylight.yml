@@ -1,0 +1,13 @@
+# Skylight Performance Monitoring Configuration
+# https://www.skylight.io/support
+
+authentication: <%= ENV["SKYLIGHT_AUTHENTICATION"] %>
+
+# Uncomment to customize settings:
+# ignored_endpoints:
+#   - HeartbeatController#ping
+#   - HealthController#check
+
+# Enable in additional environments:
+# staging:
+#   authentication: <%= ENV["SKYLIGHT_AUTHENTICATION"] %>
