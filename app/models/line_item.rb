@@ -38,6 +38,9 @@ class LineItem < ApplicationRecord
   validates :discount, numericality: {greater_than_or_equal_to: 0}
   validates :shared_by_count, numericality: {greater_than: 0}
 
+  # Nested attributes
+  accepts_nested_attributes_for :addons, allow_destroy: true
+
   # Callbacks
   before_validation :set_defaults
   before_save :calculate_total

@@ -88,6 +88,12 @@ GEM
       activesupport (>= 7.1)
       device_detector (>= 1)
       safely_block (>= 0.4)
+    ai-chat (0.2.4)
+      base64 (> 0.1.1)
+      json (~> 2.0)
+      marcel (~> 1.0)
+      openai (~> 0.16)
+      tty-spinner (~> 0.9.3)
     amazing_print (2.0.0)
     annotaterb (4.20.0)
       activerecord (>= 6.0.0)
@@ -171,6 +177,14 @@ GEM
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-aarch64-linux-musl)
+    ffi (1.17.2-arm-linux-gnu)
+    ffi (1.17.2-arm-linux-musl)
+    ffi (1.17.2-arm64-darwin)
+    ffi (1.17.2-x86_64-darwin)
+    ffi (1.17.2-x86_64-linux-gnu)
+    ffi (1.17.2-x86_64-linux-musl)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -189,6 +203,9 @@ GEM
     herb (0.8.0-x86_64-linux-musl)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
+    image_processing (1.14.0)
+      mini_magick (>= 4.9.5, < 6)
+      ruby-vips (>= 2.0.17, < 3)
     io-console (0.8.1)
     irb (1.15.3)
       pp (>= 0.6.0)
@@ -215,6 +232,8 @@ GEM
     marcel (1.1.0)
     matrix (0.4.3)
     method_source (1.1.0)
+    mini_magick (5.3.1)
+      logger
     mini_mime (1.1.5)
     minitest (5.26.1)
     msgpack (1.8.0)
@@ -244,6 +263,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
+    openai (0.36.0)
+      connection_pool
     parallel (1.27.0)
     parser (3.3.10.0)
       ast (~> 2.4.1)
@@ -377,6 +398,9 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
+    ruby-vips (2.2.5)
+      ffi (~> 1.12)
+      logger
     rubyzip (3.2.2)
     safely_block (0.5.0)
     securerandom (0.4.1)
@@ -433,6 +457,9 @@ GEM
     thruster (0.1.16-x86_64-linux)
     timeout (0.4.4)
     tsort (0.2.0)
+    tty-cursor (0.7.1)
+    tty-spinner (0.9.3)
+      tty-cursor (~> 0.7)
     turbo-rails (2.0.20)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -473,6 +500,7 @@ PLATFORMS
 DEPENDENCIES
   action_dispatch-testing-integration-capybara!
   ahoy_matey
+  ai-chat (< 1.0.0)
   amazing_print
   annotaterb
   better_errors
@@ -494,6 +522,7 @@ DEPENDENCIES
   goldiloader
   groupdate
   herb
+  image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

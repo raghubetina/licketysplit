@@ -20,6 +20,9 @@
 #  index_checks_on_status  (status)
 #
 class Check < ApplicationRecord
+  # Active Storage
+  has_one_attached :receipt_image
+
   # Associations
   has_many :participants, dependent: :destroy
   has_many :line_items, dependent: :destroy
@@ -31,6 +34,12 @@ class Check < ApplicationRecord
   # Validations
   validates :status, inclusion: {in: %w[draft reviewing finalized]}
   validates :currency, presence: true
+
+  # Nested attributes
+  accepts_nested_attributes_for :line_items, allow_destroy: true
+  accepts_nested_attributes_for :fees, allow_destroy: true
+  accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :participants, allow_destroy: true
 
   # Enums
   enum :status, {draft: "draft", reviewing: "reviewing", finalized: "finalized"}
