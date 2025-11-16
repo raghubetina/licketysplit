@@ -1,0 +1,17 @@
+# StandardRB configuration
+# https://github.com/standardrb/standard
+
+ruby_version: 3.4
+
+plugins:
+  - standard-rails
+
+ignore:
+  - 'db/schema.rb'
+  - 'db/migrate/**/*'
+  - 'vendor/**/*'
+  - 'node_modules/**/*'
+  - 'bin/**/*'
+  - 'public/**/*'
+  - 'tmp/**/*'
+  - 'log/**/*'
