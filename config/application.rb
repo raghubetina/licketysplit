@@ -38,6 +38,7 @@ module Licketysplit
 
     # Don't generate system test files.
       config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
     g.system_tests = nil
     g.scaffold_stylesheet false
   end
