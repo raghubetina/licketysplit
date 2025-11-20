@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-20T06:20:52Z",
+  "timestamp": "2025-11-20T07:25:35Z",
   "total_receipts": 21,
   "successful": 21,
   "failed": 0,
@@ -42,15 +42,15 @@
       "line_items": 1,
       "fees": 1,
       "discounts": 0,
-      "addons": 0
+      "addons": 6
     },
     {
       "receipt": "1026-receipt.jpg",
       "status": "success",
-      "restaurant": "CHRIS'S HAMBURGERS",
+      "restaurant": "Chris's Hamburgers",
       "total": 51.82,
       "line_items": 12,
-      "fees": 1,
+      "fees": 0,
       "discounts": 0,
       "addons": 0
     },
@@ -62,12 +62,12 @@
       "line_items": 4,
       "fees": 2,
       "discounts": 1,
-      "addons": 4
+      "addons": 5
     },
     {
       "receipt": "1035-receipt.jpg",
       "status": "success",
-      "restaurant": "Argonaut Diner 2000",
+      "restaurant": "Argonaut Diner2000",
       "total": 26.38,
       "line_items": 8,
       "fees": 1,
@@ -111,13 +111,13 @@
       "total": 152,
       "line_items": 11,
       "fees": 1,
-      "discounts": 1,
+      "discounts": 0,
       "addons": 0
     },
     {
       "receipt": "1077-receipt.jpg",
       "status": "success",
-      "restaurant": "NAANCHING",
+      "restaurant": "NaanChing",
       "total": 69.79,
       "line_items": 6,
       "fees": 2,
@@ -152,7 +152,7 @@
       "line_items": 2,
       "fees": 1,
       "discounts": 0,
-      "addons": 4
+      "addons": 5
     },
     {
       "receipt": "1100-receipt.jpg",
@@ -162,12 +162,12 @@
       "line_items": 7,
       "fees": 1,
       "discounts": 0,
-      "addons": 7
+      "addons": 6
     },
     {
       "receipt": "1102-receipt.jpg",
       "status": "success",
-      "restaurant": "OM INDIAN FOOD",
+      "restaurant": "OM Indian Food",
       "total": 16.24,
       "line_items": 3,
       "fees": 1,
@@ -182,7 +182,7 @@
       "line_items": 2,
       "fees": 2,
       "discounts": 0,
-      "addons": 1
+      "addons": 0
     },
     {
       "receipt": "1116-receipt.jpg",
@@ -202,7 +202,7 @@
       "line_items": 6,
       "fees": 1,
       "discounts": 0,
-      "addons": 0
+      "addons": 8
     },
     {
       "receipt": "1133-receipt.jpg",
@@ -211,7 +211,7 @@
       "total": 146.57,
       "line_items": 1,
       "fees": 1,
-      "discounts": 1,
+      "discounts": 0,
       "addons": 0
     }
   ]

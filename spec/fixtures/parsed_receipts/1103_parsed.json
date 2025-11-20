@@ -1,8 +1,8 @@
 {
   "restaurant_name": "Crisfield Seafood Restaurant",
-  "restaurant_address": "8012 Georgia Ave.\nSilver Spring, MD 20910",
+  "restaurant_address": "8012 Georgia Ave., Silver Spring, MD 20910",
   "restaurant_phone_number": "(301) 589-1306",
-  "billed_on": "2017-12-29T20:38:16+00:00",
+  "billed_on": "2017-12-29T20:41:08+00:00",
   "grand_total": 42.74,
   "currency": "USD",
   "status": "reviewing",
@@ -12,15 +12,7 @@
       "description": "Crisfield Special Platter",
       "quantity": 1,
       "unit_price": 27,
-      "total_price": 27,
-      "addons_attributes": [
-        {
-          "description": "COOK MEDIUM",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        }
-      ]
+      "total_price": 27
     },
     {
       "position": 2,
@@ -32,11 +24,11 @@
   ],
   "global_fees_attributes": [
     {
-      "description": "Carry Out",
+      "description": "Carry out fee",
       "amount": 1.93
     },
     {
-      "description": "TAX",
+      "description": "Tax",
       "amount": 2.31
     }
   ],

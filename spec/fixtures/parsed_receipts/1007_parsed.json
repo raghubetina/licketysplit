@@ -11,64 +11,64 @@
       "position": 1,
       "description": "Hamachi Collar",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
       "position": 2,
       "description": "Mega Poke Bowl",
       "quantity": 1,
-      "unit_price": 17.0,
-      "total_price": 17.0
+      "unit_price": 17,
+      "total_price": 17
     },
     {
       "position": 3,
       "description": "Hamachi - Sashimi",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
       "position": 4,
       "description": "Maguro - Sashimi",
       "quantity": 1,
-      "unit_price": 11.0,
-      "total_price": 11.0
+      "unit_price": 11,
+      "total_price": 11
     },
     {
       "position": 5,
       "description": "Salmon - Sashimi",
       "quantity": 1,
-      "unit_price": 10.0,
-      "total_price": 10.0
+      "unit_price": 10,
+      "total_price": 10
     },
     {
       "position": 6,
       "description": "Sockeye Salmon - Sashimi",
       "quantity": 3,
-      "unit_price": 12.0,
-      "total_price": 36.0
+      "unit_price": 12,
+      "total_price": 36
     },
     {
       "position": 7,
       "description": "Hamachi Japapeno",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
       "position": 8,
       "description": "Salmon Collar",
       "quantity": 1,
-      "unit_price": 10.0,
-      "total_price": 10.0
+      "unit_price": 10,
+      "total_price": 10
     },
     {
       "position": 9,
       "description": "Escolar - Sashimi",
       "quantity": 1,
-      "unit_price": 11.0,
-      "total_price": 11.0
+      "unit_price": 11,
+      "total_price": 11
     }
   ],
   "global_fees_attributes": [

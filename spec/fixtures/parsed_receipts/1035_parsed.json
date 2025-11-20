@@ -1,8 +1,8 @@
 {
-  "restaurant_name": "Argonaut Diner 2000",
+  "restaurant_name": "Argonaut Diner2000",
   "restaurant_address": "1084 Yonkers Avenue, Yonkers, NY 10704",
   "restaurant_phone_number": "(914) 237-5055",
-  "billed_on": "2017-08-13T11:01:00-04:00",
+  "billed_on": null,
   "grand_total": 26.38,
   "currency": "USD",
   "status": "reviewing",
@@ -58,7 +58,7 @@
     },
     {
       "position": 8,
-      "description": "W/ 2 EGGS",
+      "description": "With 2 Eggs",
       "quantity": 1,
       "unit_price": 2.95,
       "total_price": 2.95

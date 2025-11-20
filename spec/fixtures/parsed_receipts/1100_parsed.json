@@ -23,24 +23,18 @@
       "addons_attributes": [
         {
           "description": "Barbeque Sauce",
-          "quantity": 1,
+          "quantity": 2,
           "unit_price": 0,
           "total_price": 0
         },
         {
-          "description": "Barbeque Sauce",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "L Coke",
+          "description": "Large Coke",
           "quantity": 1,
           "unit_price": 0.4,
           "total_price": 0.4
         },
         {
-          "description": "M French Fries",
+          "description": "Medium French Fries",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
@@ -49,19 +43,19 @@
     },
     {
       "position": 3,
-      "description": "HM GrChs S-Fry Yog",
+      "description": "Happy Meal Grilled Cheese Small Fries Yogurt",
       "quantity": 1,
       "unit_price": 3.99,
       "total_price": 3.99,
       "addons_attributes": [
         {
-          "description": "Snoopy",
+          "description": "Snoopy toy",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
         },
         {
-          "description": "HM Apple Juice",
+          "description": "Happy Meal Apple Juice",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
@@ -76,7 +70,7 @@
       "total_price": 2.89,
       "addons_attributes": [
         {
-          "description": "6 Choc Chip Cookie",
+          "description": "6 Chocolate Chip Cookies",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
@@ -92,14 +86,14 @@
     },
     {
       "position": 6,
-      "description": "L French Fries",
+      "description": "Large French Fries",
       "quantity": 1,
       "unit_price": 3.29,
       "total_price": 3.29
     },
     {
       "position": 7,
-      "description": "L Iced Tea",
+      "description": "Large Iced Tea",
       "quantity": 1,
       "unit_price": 2.99,
       "total_price": 2.99

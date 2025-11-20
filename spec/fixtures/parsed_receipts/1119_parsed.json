@@ -9,50 +9,102 @@
   "line_items_attributes": [
     {
       "position": 1,
-      "description": "1 Plate - CHOW MEIN-1/2, CHOW MEIN-1/2, BROCCOLI BEEF, BEIJING BEEF",
+      "description": "Plate",
       "quantity": 1,
       "unit_price": 9.1,
-      "total_price": 9.1
+      "total_price": 9.1,
+      "addons_attributes": [
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Broccoli Beef",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Beijing Beef",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
     },
     {
       "position": 2,
-      "description": "1 Plate - CHOW MEIN-1/2, CHOW MEIN-1/2, CKN EGG ROLL, KUNG PAO CKN",
+      "description": "Plate",
       "quantity": 1,
       "unit_price": 9.1,
-      "total_price": 9.1
+      "total_price": 9.1,
+      "addons_attributes": [
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chicken Egg Roll",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Kung Pao Chicken",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
     },
     {
       "position": 3,
-      "description": "XTRA ENTREE - GRILL TERIYAKI CKN",
+      "description": "Extra Entree Grill Teriyaki Chicken",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5
     },
     {
       "position": 4,
-      "description": "XTRA ENTREE - GRILL TERIYAKI CKN",
+      "description": "Extra Entree Grill Teriyaki Chicken",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5
     },
     {
       "position": 5,
-      "description": "PEPSI 20 OZ",
+      "description": "Pepsi 20 oz",
       "quantity": 1,
-      "unit_price": 2.0,
-      "total_price": 2.0
+      "unit_price": 2,
+      "total_price": 2
     },
     {
       "position": 6,
-      "description": "PEPSI 20 OZ",
+      "description": "Pepsi 20 oz",
       "quantity": 1,
-      "unit_price": 2.0,
-      "total_price": 2.0
+      "unit_price": 2,
+      "total_price": 2
     }
   ],
   "global_fees_attributes": [
     {
-      "description": "TAX",
+      "description": "Tax",
       "amount": 2.24
     }
   ],

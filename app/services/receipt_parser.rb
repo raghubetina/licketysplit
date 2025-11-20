@@ -19,16 +19,20 @@ class ReceiptParser
     )
 
     chat.user(
-      "Your job is to extract structured data from images of restaurant receipts.\n\n" \
-      "- Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.\n" \
-      "- Addon prices are often shown inline (e.g. 'Grilled Onion ($0.75)') - extract 0.75 to the addon's unit_price and total_price fields.\n" \
-      "- Taxes (e.g. sales tax) should be included as global fees.\n" \
-      "- Surcharges (e.g. health insurance surcharge) should be included as global fees.\n" \
-      "- Tip/gratuity should be included as a global fee.\n" \
-      "- Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.\n" \
-      "- Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.\n" \
-      "- The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.\n" \
-      "- Default quantity to 1 if unclear.",
+      <<~PROMPT,
+        Your job is to extract structured data from images of restaurant receipts.
+
+        - Descriptions should be clean item names without quantity or price info (e.g. 'CB - Combo' not 'CB x 2 - Combo ($7.85 each)') - extract quantity and unit_price to their own fields.
+        - Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.
+        - Addon descriptions should also be clean (e.g. 'Grilled Onion' not 'Grilled Onion ($0.75)') - extract the price to unit_price and total_price fields.
+        - Taxes (e.g. sales tax) should be included as global fees.
+        - Surcharges (e.g. health insurance surcharge) should be included as global fees.
+        - Tip/gratuity should be included as a global fee.
+        - Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.
+        - Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.
+        - The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.
+        - Default quantity to 1 if unclear.
+      PROMPT
       image: image_path
     )
 

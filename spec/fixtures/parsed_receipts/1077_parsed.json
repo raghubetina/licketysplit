@@ -1,7 +1,7 @@
 {
-  "restaurant_name": "NAANCHING",
+  "restaurant_name": "NaanChing",
   "restaurant_address": "103 Montgomery St, Jersey City, NJ 07302",
-  "restaurant_phone_number": "201-984-0709",
+  "restaurant_phone_number": null,
   "billed_on": "2019-03-24T19:14:55+00:00",
   "grand_total": 69.79,
   "currency": "USD",
@@ -51,7 +51,7 @@
       "total_price": 16,
       "addons_attributes": [
         {
-          "description": "MILD PLEASE",
+          "description": "Mild",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
@@ -73,7 +73,7 @@
       "total_price": 12,
       "addons_attributes": [
         {
-          "description": "MAKE IT MILD PLEASE",
+          "description": "Mild",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
