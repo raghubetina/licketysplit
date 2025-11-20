@@ -1,102 +1,90 @@
 {
   "restaurant_name": "CHRIS'S HAMBURGERS",
-  "restaurant_address": "7701 ATLANTIC AVE., CUDAHY, CA 90201",
+  "restaurant_address": "7701 Atlantic Ave., Cudahy, CA 90201",
   "restaurant_phone_number": "(323)562-4125",
-  "receipt_at": "2018-07-22T19:24:00+00:00",
-  "total": 51.82,
+  "billed_on": "2018-07-22T19:24:00+00:00",
+  "grand_total": 51.82,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 21.49,
-      "line_item_total": 21.49
+      "unit_price": 19.67,
+      "total_price": 19.67
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.5,
-      "line_item_total": 0.5
+      "unit_price": 0.5,
+      "total_price": 0.5
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.5,
-      "line_item_total": 0.5
+      "unit_price": 0.5,
+      "total_price": 0.5
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.5,
-      "line_item_total": 0.5
+      "unit_price": 0.5,
+      "total_price": 0.5
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.5,
-      "line_item_total": 0.5
+      "unit_price": 0.5,
+      "total_price": 0.5
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 7.89,
-      "line_item_total": 7.89
+      "unit_price": 7.89,
+      "total_price": 7.89
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 3.09,
-      "line_item_total": 3.09
+      "unit_price": 3.09,
+      "total_price": 3.09
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 5.49,
-      "line_item_total": 5.49
+      "unit_price": 5.49,
+      "total_price": 5.49
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 5.49,
-      "line_item_total": 5.49
+      "unit_price": 5.49,
+      "total_price": 5.49
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.99,
-      "line_item_total": 0.99
+      "unit_price": 0.99,
+      "total_price": 0.99
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 0.99,
-      "line_item_total": 0.99
+      "unit_price": 0.99,
+      "total_price": 0.99
     },
     {
-      "name": "TAXABLE T1",
-      "description": null,
+      "description": "TAXABLE T1",
       "quantity": 1,
-      "price": 4.39,
-      "line_item_total": 4.39
+      "unit_price": 4.39,
+      "total_price": 4.39
     }
   ],
-  "fees_attributes": [
+  "global_fees_attributes": [
     {
-      "description": "TAX1 (sales tax)",
+      "description": "TAX1",
       "amount": 1.82
     }
   ],
-  "discounts_attributes": []
+  "global_discounts_attributes": []
 }

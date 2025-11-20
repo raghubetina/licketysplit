@@ -4,14 +4,13 @@
 # Database name: primary
 #
 #  id                   :uuid             not null, primary key
-#  description          :text
+#  description          :text             not null
 #  discount             :decimal(10, 2)   default(0.0)
 #  discount_description :string
-#  line_item_total      :decimal(10, 2)
-#  name                 :string           not null
 #  participants_count   :integer          default(0)
-#  price                :decimal(10, 2)   not null
 #  quantity             :integer          default(1)
+#  total_price          :decimal(10, 2)
+#  unit_price           :decimal(10, 2)   not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  check_id             :uuid             not null
@@ -25,6 +24,8 @@
 #  fk_rails_...  (check_id => checks.id)
 #
 class LineItem < ApplicationRecord
+  include HasWarnings
+
   # Associations
   belongs_to :check
   has_many :line_item_participants, dependent: :destroy
@@ -32,10 +33,10 @@ class LineItem < ApplicationRecord
   has_many :addons, dependent: :destroy
 
   # Validations
-  validates :name, presence: true
-  validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
-  validates :quantity, presence: true, numericality: {greater_than: 0}
-  validates :discount, numericality: {greater_than_or_equal_to: 0}
+  validates :description, presence: true
+  validates :unit_price, presence: true, numericality: true
+  validates :quantity, presence: true, numericality: {greater_than_or_equal_to: 1}
+  validates :discount, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
 
   # Nested attributes
   accepts_nested_attributes_for :addons, allow_destroy: true
@@ -46,15 +47,15 @@ class LineItem < ApplicationRecord
 
   # Instance methods
   def base_total
-    (price * quantity) - discount
+    (unit_price * quantity) - discount
   end
 
-  def addon_total
-    addons.sum(:addon_total)
+  def addons_total
+    addons.sum(:total_price)
   end
 
   def total_with_addons
-    base_total + addon_total
+    base_total + addons_total
   end
 
   def amount_per_participant
@@ -72,6 +73,28 @@ class LineItem < ApplicationRecord
   end
 
   def calculate_total
-    self.line_item_total = base_total
+    self.total_price = base_total
+  end
+
+  def run_warning_checks
+    # Warn about negative prices (likely comped items)
+    if unit_price && unit_price < 0
+      add_warning(:unit_price, "is negative (#{unit_price}). This might be a comped item that should be recorded as a discount instead.")
+    end
+
+    # Warn about zero quantity
+    if quantity && quantity == 0
+      add_warning(:quantity, "is zero. Items with no quantity should typically be removed.")
+    end
+
+    # Warn about unusually high discount
+    if discount && unit_price && discount > unit_price
+      add_warning(:discount, "exceeds the item price. Please verify this is correct.")
+    end
+
+    # Warn about suspiciously high price
+    if unit_price && unit_price > 1000
+      add_warning(:unit_price, "seems unusually high (#{unit_price}). Please verify this is correct.")
+    end
   end
 end

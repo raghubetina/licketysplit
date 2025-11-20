@@ -10,9 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_16_195143) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_045853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
+
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addons", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "line_item_id", null: false
+    t.string "description", null: false
+    t.integer "quantity", default: 1
+    t.decimal "unit_price", precision: 10, scale: 2
+    t.decimal "discount", precision: 10, scale: 2, default: "0.0"
+    t.string "discount_description"
+    t.decimal "total_price", precision: 10, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["line_item_id"], name: "index_addons_on_line_item_id"
+  end
 
   create_table "ahoy_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "visit_id"
@@ -111,6 +153,73 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_195143) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "checks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "billed_on"
+    t.string "receipt_image"
+    t.string "restaurant_name"
+    t.string "restaurant_address"
+    t.string "restaurant_phone_number"
+    t.decimal "grand_total", precision: 10, scale: 2
+    t.string "currency", default: "USD"
+    t.string "status", default: "draft"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_checks_on_status"
+  end
+
+  create_table "global_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "check_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_global_discounts_on_check_id"
+  end
+
+  create_table "global_fees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "check_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_global_fees_on_check_id"
+  end
+
+  create_table "line_item_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "line_item_id", null: false
+    t.uuid "participant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["line_item_id", "participant_id"], name: "index_line_item_participants_unique", unique: true
+    t.index ["line_item_id"], name: "index_line_item_participants_on_line_item_id"
+    t.index ["participant_id"], name: "index_line_item_participants_on_participant_id"
+  end
+
+  create_table "line_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "check_id", null: false
+    t.text "description", null: false
+    t.integer "quantity", default: 1
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
+    t.decimal "discount", precision: 10, scale: 2, default: "0.0"
+    t.string "discount_description"
+    t.decimal "total_price", precision: 10, scale: 2
+    t.integer "participants_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id"], name: "index_line_items_on_check_id"
+  end
+
+  create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "check_id", null: false
+    t.string "name", null: false
+    t.string "payment_status", default: "unpaid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id", "name"], name: "index_participants_on_check_id_and_name", unique: true
+    t.index ["check_id"], name: "index_participants_on_check_id"
+    t.index ["payment_status"], name: "index_participants_on_payment_status"
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -255,10 +364,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_195143) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "treats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "check_id", null: false
+    t.uuid "participant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_id", "participant_id"], name: "index_treats_on_check_id_and_participant_id", unique: true
+    t.index ["check_id"], name: "index_treats_on_check_id"
+    t.index ["participant_id"], name: "index_treats_on_participant_id"
+  end
+
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addons", "line_items"
+  add_foreign_key "global_discounts", "checks"
+  add_foreign_key "global_fees", "checks"
+  add_foreign_key "line_item_participants", "line_items"
+  add_foreign_key "line_item_participants", "participants"
+  add_foreign_key "line_items", "checks"
+  add_foreign_key "participants", "checks"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "treats", "checks"
+  add_foreign_key "treats", "participants"
 end

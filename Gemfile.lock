@@ -263,7 +263,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
-    openai (0.36.0)
+    openai (0.36.1)
       connection_pool
     parallel (1.27.0)
     parser (3.3.10.0)
@@ -500,7 +500,7 @@ PLATFORMS
 DEPENDENCIES
   action_dispatch-testing-integration-capybara!
   ahoy_matey
-  ai-chat (< 1.0.0)
+  ai-chat
   amazing_print
   annotaterb
   better_errors

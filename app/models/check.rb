@@ -4,14 +4,14 @@
 # Database name: primary
 #
 #  id                      :uuid             not null, primary key
+#  billed_on               :datetime
 #  currency                :string           default("USD")
-#  receipt_at              :datetime
+#  grand_total             :decimal(10, 2)
 #  receipt_image           :string
 #  restaurant_address      :string
 #  restaurant_name         :string
 #  restaurant_phone_number :string
 #  status                  :string           default("draft")
-#  total                   :decimal(10, 2)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #
@@ -26,8 +26,8 @@ class Check < ApplicationRecord
   # Associations
   has_many :participants, dependent: :destroy
   has_many :line_items, dependent: :destroy
-  has_many :fees, dependent: :destroy
-  has_many :discounts, dependent: :destroy
+  has_many :global_fees, dependent: :destroy
+  has_many :global_discounts, dependent: :destroy
   has_many :treats, dependent: :destroy
   has_many :treated_participants, through: :treats, source: :participant
 
@@ -37,8 +37,8 @@ class Check < ApplicationRecord
 
   # Nested attributes
   accepts_nested_attributes_for :line_items, allow_destroy: true
-  accepts_nested_attributes_for :fees, allow_destroy: true
-  accepts_nested_attributes_for :discounts, allow_destroy: true
+  accepts_nested_attributes_for :global_fees, allow_destroy: true
+  accepts_nested_attributes_for :global_discounts, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true
 
   # Enums
@@ -53,11 +53,11 @@ class Check < ApplicationRecord
   end
 
   def total_fees
-    fees.sum(:amount)
+    global_fees.sum(:amount)
   end
 
   def total_discounts
-    discounts.sum(:amount)
+    global_discounts.sum(:amount)
   end
 
   def calculated_total

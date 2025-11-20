@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_045853) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -47,11 +47,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
     t.uuid "line_item_id", null: false
     t.string "description", null: false
     t.integer "quantity", default: 1
-    t.decimal "price_per", precision: 10, scale: 2
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "unit_price", precision: 10, scale: 2
     t.decimal "discount", precision: 10, scale: 2, default: "0.0"
     t.string "discount_description"
-    t.decimal "addon_total", precision: 10, scale: 2
+    t.decimal "total_price", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["line_item_id"], name: "index_addons_on_line_item_id"
@@ -157,12 +156,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
   end
 
   create_table "checks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "receipt_at"
+    t.datetime "billed_on"
     t.string "receipt_image"
     t.string "restaurant_name"
     t.string "restaurant_address"
     t.string "restaurant_phone_number"
-    t.decimal "total", precision: 10, scale: 2
+    t.decimal "grand_total", precision: 10, scale: 2
     t.string "currency", default: "USD"
     t.string "status", default: "draft"
     t.datetime "created_at", null: false
@@ -170,22 +169,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
     t.index ["status"], name: "index_checks_on_status"
   end
 
-  create_table "discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "global_discounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "check_id", null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["check_id"], name: "index_discounts_on_check_id"
+    t.index ["check_id"], name: "index_global_discounts_on_check_id"
   end
 
-  create_table "fees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "global_fees", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "check_id", null: false
     t.decimal "amount", precision: 10, scale: 2, null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["check_id"], name: "index_fees_on_check_id"
+    t.index ["check_id"], name: "index_global_fees_on_check_id"
   end
 
   create_table "line_item_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -200,13 +199,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
 
   create_table "line_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "check_id", null: false
-    t.string "name", null: false
-    t.text "description"
+    t.text "description", null: false
     t.integer "quantity", default: 1
-    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "unit_price", precision: 10, scale: 2, null: false
     t.decimal "discount", precision: 10, scale: 2, default: "0.0"
     t.string "discount_description"
-    t.decimal "line_item_total", precision: 10, scale: 2
+    t.decimal "total_price", precision: 10, scale: 2
     t.integer "participants_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -379,8 +377,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_16_210546) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addons", "line_items"
-  add_foreign_key "discounts", "checks"
-  add_foreign_key "fees", "checks"
+  add_foreign_key "global_discounts", "checks"
+  add_foreign_key "global_fees", "checks"
   add_foreign_key "line_item_participants", "line_items"
   add_foreign_key "line_item_participants", "participants"
   add_foreign_key "line_items", "checks"
