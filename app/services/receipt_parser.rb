@@ -19,15 +19,16 @@ class ReceiptParser
     )
 
     chat.user(
-      "Parse this receipt and extract structured data according to the JSON schema. " \
-      "Key rules:\n" \
-      "1. Line items: Use 'description' field for the complete item name/description\n" \
-      "2. Addons: Modifications like 'Extra cheese', 'Add bacon', 'Make it spicy' belong in the item's 'addons' array, NOT as separate line items\n" \
-      "3. Quantities: Default to 1 if unclear, never use 0\n" \
-      "4. Negative prices: Convert items with negative prices (comps/voids) to global_discounts with positive amounts\n" \
-      "5. Fees: Include all taxes, tips, and service charges in global_fees\n" \
-      "6. Discounts: Record all promotions and discounts as positive amounts in global_discounts\n" \
-      "7. grand_total: Extract the final total amount shown on the receipt",
+      "Your job is to extract structured data from images of restaurant receipts.\n\n" \
+      "- Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.\n" \
+      "- Addon prices are often shown inline (e.g. 'Grilled Onion ($0.75)') - extract 0.75 to the addon's unit_price and total_price fields.\n" \
+      "- Taxes (e.g. sales tax) should be included as global fees.\n" \
+      "- Surcharges (e.g. health insurance surcharge) should be included as global fees.\n" \
+      "- Tip/gratuity should be included as a global fee.\n" \
+      "- Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.\n" \
+      "- Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.\n" \
+      "- The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.\n" \
+      "- Default quantity to 1 if unclear.",
       image: image_path
     )
 
