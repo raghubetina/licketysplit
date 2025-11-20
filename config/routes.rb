@@ -17,4 +17,10 @@ Rails.application.routes.draw do
     resources :participants, only: [:new, :create, :destroy]
     resources :line_items, only: [:edit, :update]
   end
+
+  resources :line_items, only: [] do
+    member do
+      post :toggle_participant
+    end
+  end
 end

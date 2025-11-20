@@ -1,3 +1,5 @@
+<%= turbo_stream_from @check %>
+
 <div class="container py-3">
   <% if flash[:notice] %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -36,53 +38,49 @@
       No items found on this receipt.
     </div>
   <% else %>
-    <%= form_with model: @check, local: true do |f| %>
-      <div class="card mb-3">
-        <div class="card-header py-2">
-          <strong class="small">Items</strong>
-        </div>
+    <div class="card mb-3">
+      <div class="card-header py-2">
+        <strong class="small">Items</strong>
+      </div>
 
-        <ul class="list-group list-group-flush">
-          <% @line_items.each_with_index do |item, index| %>
-            <%= f.fields_for :line_items_attributes, item, index: index do |item_fields| %>
-              <%= item_fields.hidden_field :id %>
-
-              <li class="list-group-item py-2 px-3">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div class="d-flex align-items-baseline">
-                    <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(item.total_price, precision: 2) %></span>
-                    <span>
-                      <strong class="small"><%= item.description %></strong>
-                      <% if item.quantity > 1 %>
-                        <span class="text-muted small">(<%= item.quantity %>x @ $<%= number_with_precision(item.unit_price, precision: 2) %> each)</span>
-                      <% end %>
-                    </span>
-                  </div>
-                  <strong class="small">$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
-                </div>
-                <% item.addons.each do |addon| %>
-                  <div class="d-flex align-items-baseline mb-1">
-                    <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
-                    <span class="text-muted small">+ <%= addon.description %></span>
-                  </div>
-                <% end %>
-
-                <div class="d-flex flex-wrap gap-2">
-                  <% @participants.each do |participant| %>
-                    <div class="form-check form-check-inline m-0">
-                      <%= check_box_tag "check[line_items_attributes][#{index}][participant_ids][]",
-                          participant.id,
-                          item.participant_ids.include?(participant.id),
-                          id: "item_#{index}_participant_#{participant.id}",
-                          class: "form-check-input" %>
-                      <%= label_tag "item_#{index}_participant_#{participant.id}",
-                          participant.name,
-                          class: "form-check-label small" %>
-                    </div>
+      <ul class="list-group list-group-flush">
+        <% @line_items.each_with_index do |item, index| %>
+          <li class="list-group-item py-2 px-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="d-flex align-items-baseline">
+                <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(item.total_price, precision: 2) %></span>
+                <span>
+                  <strong class="small"><%= item.description %></strong>
+                  <% if item.quantity > 1 %>
+                    <span class="text-muted small">(<%= item.quantity %>x @ $<%= number_with_precision(item.unit_price, precision: 2) %> each)</span>
                   <% end %>
-                </div>
-              </li>
+                </span>
+              </div>
+              <strong class="small">$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
+            </div>
+            <% item.addons.each do |addon| %>
+              <div class="d-flex align-items-baseline mb-1">
+                <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
+                <span class="text-muted small">+ <%= addon.description %></span>
+              </div>
             <% end %>
+
+            <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(item) %>">
+              <% @participants.each do |participant| %>
+                <div class="form-check form-check-inline m-0">
+                  <%= check_box_tag "participant_#{participant.id}",
+                      participant.id,
+                      item.participant_ids.include?(participant.id),
+                      id: "item_#{item.id}_participant_#{participant.id}",
+                      class: "form-check-input",
+                      data: { action: "change->checkbox-toggle#toggle" } %>
+                  <%= label_tag "item_#{item.id}_participant_#{participant.id}",
+                      participant.name,
+                      class: "form-check-label small" %>
+                </div>
+              <% end %>
+            </div>
+          </li>
           <% end %>
         </ul>
 
@@ -158,11 +156,6 @@
           </div>
         </div>
       <% end %>
-
-      <div class="d-grid mb-4">
-        <%= f.submit "Save Selections", class: "btn btn-primary btn-lg" %>
-      </div>
-    <% end %>
 
     <div class="card">
       <div class="card-header py-2">
