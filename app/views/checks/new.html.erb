@@ -1,15 +1,31 @@
-<div class="container py-4">
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="mb-0">New Check</h2>
-        </div>
-        <div class="card-body">
-          <p class="text-muted">Check creation form coming soon. For now, use the receipt parser rake task to import receipts.</p>
-          <%= link_to "Back to Checks", checks_path, class: "btn btn-secondary" %>
-        </div>
-      </div>
+<div class="container py-3">
+  <h1 class="h4 mb-3">Split a Check</h1>
+
+  <% if @check.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @check.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
-  </div>
+  <% end %>
+
+  <%= form_with url: checks_path, method: :post, local: true, multipart: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :receipt_image, "Receipt Photo", class: "form-label" %>
+      <%= f.file_field :receipt_image, class: "form-control", accept: "image/*", capture: "environment" %>
+      <div class="form-text">Take a photo or upload an image of your receipt</div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :participant_names, "Who's splitting?", class: "form-label" %>
+      <%= f.text_area :participant_names, class: "form-control", rows: 3, placeholder: "Alice, Bob, Charlie, Dana" %>
+      <div class="form-text">Enter names separated by commas</div>
+    </div>
+
+    <div class="d-grid">
+      <%= f.submit "Parse Receipt", class: "btn btn-primary btn-lg" %>
+    </div>
+  <% end %>
 </div>
