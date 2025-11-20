@@ -6,6 +6,8 @@ namespace :receipts do
     failed = 0
     errors = []
 
+    sample_participants = %w[Alice Bob Carol Dave Eve]
+
     puts "=" * 60
     puts "Importing Parsed Receipts into Database"
     puts "=" * 60
@@ -38,8 +40,12 @@ namespace :receipts do
           )
         end
 
+        sample_participants.each do |name|
+          check.participants.create!(name: name)
+        end
+
         imported += 1
-        puts "✓ Imported receipt #{receipt_number}: #{check.restaurant_name} - $#{check.grand_total}"
+        puts "✓ Imported receipt #{receipt_number}: #{check.restaurant_name} - $#{check.grand_total} (#{sample_participants.count} participants)"
 
         warnings_found = false
         check.line_items.each do |item|
@@ -87,6 +93,7 @@ namespace :receipts do
 
     puts
     puts "Total checks in database: #{Check.count}"
+    puts "Total participants: #{Participant.count}"
     puts "Total line items: #{LineItem.count}"
     puts "Total global fees: #{GlobalFee.count}"
     puts "Total global discounts: #{GlobalDiscount.count}"
