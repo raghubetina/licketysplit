@@ -41,3 +41,4 @@
 # Ignore dotenv files
 .env*
 !.env.example
+.playwright-mcp/
