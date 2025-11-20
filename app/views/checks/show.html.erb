@@ -123,7 +123,7 @@
           </div>
 
           <ul class="list-group list-group-flush">
-            <% @global_fees.order(:amount).each do |fee| %>
+            <% @global_fees.order(amount: :desc).each do |fee| %>
               <li class="list-group-item py-2 px-3">
                 <div class="d-flex justify-content-between small">
                   <span class="text-muted">
