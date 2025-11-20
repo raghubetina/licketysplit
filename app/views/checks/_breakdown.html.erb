@@ -2,101 +2,13 @@
 <% participants ||= check.participants.order(:name) %>
 <% line_items ||= check.line_items.includes(:participants, :addons).order(:position, :created_at) %>
 
-<%= turbo_frame_tag "breakdown" do %>
-  <div class="card">
-    <div class="card-header py-2">
-      <strong class="small">Who Owes What</strong>
-    </div>
-    <% participants.each do |participant| %>
-      <% participant_items = line_items.select { |item| item.participant_ids.include?(participant.id) } %>
-      <% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
-      <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
-      <div class="card-body py-2 px-3 border-bottom">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <strong>
-            <%= participant.name %>
-            <% if participant_items.any? && check.subtotal > 0 %>
-              <span class="fw-normal text-muted small">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
-            <% end %>
-          </strong>
-          <strong>$<%= number_with_precision(check.amount_owed_by(participant), precision: 2) %></strong>
-        </div>
-
-        <% if participant_items.any? %>
-          <% participant_items.each do |item| %>
-            <% share = item.amount_per_participant %>
-            <div class="d-flex justify-content-between small text-muted">
-              <span>
-                <%= item.description %>
-                <% other_participants = item.participants.where.not(id: participant.id) %>
-                <% if other_participants.any? %>
-                  <span class="text-muted">(shared with <%= other_participants.map(&:name).join(", ") %>)</span>
-                <% end %>
-              </span>
-              <span>$<%= number_with_precision(share, precision: 2) %></span>
-            </div>
-          <% end %>
-
-          <% if check.subtotal > 0 && check.total_discounts > 0 %>
-            <% discounts_share = check.total_discounts * proportion %>
-            <div class="d-flex justify-content-between small text-success">
-              <span>Share of discounts</span>
-              <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
-            </div>
-          <% end %>
-
-          <% if check.subtotal > 0 && check.total_fees > 0 %>
-            <% fees_share = check.total_fees * proportion %>
-            <div class="d-flex justify-content-between small text-muted">
-              <span>Share of tax, tip, and other fees</span>
-              <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
-            </div>
-          <% end %>
-        <% else %>
-          <div class="small text-muted fst-italic">No items assigned</div>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% unassigned_items = line_items.select { |item| item.participants_count == 0 } %>
-    <% if unassigned_items.any? %>
-      <% unassigned_subtotal = unassigned_items.sum { |item| item.total_with_addons } %>
-      <% unassigned_proportion = check.subtotal > 0 ? unassigned_subtotal / check.subtotal : 0 %>
-      <div class="card-body py-2 px-3 border-bottom bg-warning-subtle">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <strong>
-            Remaining
-            <% if check.subtotal > 0 %>
-              <span class="fw-normal text-muted small">(share: <%= number_to_percentage(unassigned_proportion * 100, precision: 0) %>)</span>
-            <% end %>
-          </strong>
-          <% unassigned_total = unassigned_subtotal + (check.total_fees - check.total_discounts) * unassigned_proportion %>
-          <strong>$<%= number_with_precision(unassigned_total, precision: 2) %></strong>
-        </div>
-
-        <% unassigned_items.each do |item| %>
-          <div class="d-flex justify-content-between small text-muted">
-            <span><%= item.description %></span>
-            <span>$<%= number_with_precision(item.total_with_addons, precision: 2) %></span>
-          </div>
-        <% end %>
-
-        <% if check.subtotal > 0 && check.total_discounts > 0 %>
-          <% discounts_share = check.total_discounts * unassigned_proportion %>
-          <div class="d-flex justify-content-between small text-success">
-            <span>Share of discounts</span>
-            <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
-          </div>
-        <% end %>
-
-        <% if check.subtotal > 0 && check.total_fees > 0 %>
-          <% fees_share = check.total_fees * unassigned_proportion %>
-          <div class="d-flex justify-content-between small text-muted">
-            <span>Share of tax, tip, and other fees</span>
-            <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+<div class="card">
+  <div class="card-header py-2">
+    <strong class="small">Who Owes What</strong>
   </div>
-<% end %>
+  <% participants.each do |participant| %>
+    <%= render partial: "checks/participant_breakdown", locals: { participant: participant, check: check, line_items: line_items } %>
+  <% end %>
+
+  <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items } %>
+</div>

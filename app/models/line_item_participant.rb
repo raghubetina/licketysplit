@@ -53,11 +53,25 @@ class LineItemParticipant < ApplicationRecord
       locals: {line_item: line_item, check: check}
     )
 
-    # Update the breakdown section
+    # Update affected participants' breakdown entries
+    # This includes: the toggled participant + anyone sharing the line item
+    affected_participants = line_item.participants.to_a
+    affected_participants << participant unless affected_participants.include?(participant)
+
+    affected_participants.each do |affected_participant|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(affected_participant, :breakdown),
+        partial: "checks/participant_breakdown",
+        locals: {participant: affected_participant, check: check}
+      )
+    end
+
+    # Always update the remaining section (items may become assigned/unassigned)
     broadcast_replace_to(
       check,
-      target: "breakdown",
-      partial: "checks/breakdown",
+      target: "remaining_breakdown",
+      partial: "checks/remaining_breakdown",
       locals: {check: check}
     )
   end
