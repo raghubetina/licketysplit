@@ -2,52 +2,47 @@
   "restaurant_name": "Villaggio Grille",
   "restaurant_address": "4780 Wharf Parkway, Orange Beach, AL 36561",
   "restaurant_phone_number": "251-224-6510",
-  "receipt_at": "2019-06-08T11:45:00+00:00",
-  "total": 34.12,
+  "billed_on": "2019-06-08T11:45:00+00:00",
+  "grand_total": 34.12,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "name": "P-VILLAGIO BREEZE",
-      "description": null,
+      "description": "P-VILLAGIO BREEZE",
       "quantity": 1,
-      "price": 0.01,
-      "line_item_total": 0.01
+      "unit_price": 0.01,
+      "total_price": 0.01
     },
     {
-      "name": "ADD SALAD",
-      "description": null,
+      "description": "ADD SALAD",
       "quantity": 1,
-      "price": 3.0,
-      "line_item_total": 3.0
+      "unit_price": 3.0,
+      "total_price": 3.0
     },
     {
-      "name": "LUNCH SEAFOOD PASTA",
-      "description": null,
+      "description": "LUNCH SEAFOOD PASTA",
       "quantity": 1,
-      "price": 14.0,
-      "line_item_total": 14.0
+      "unit_price": 14.0,
+      "total_price": 14.0
     },
     {
-      "name": "KID PEPERONI PIZZA",
-      "description": null,
+      "description": "KID PEPERONI PIZZA",
       "quantity": 1,
-      "price": 7.0,
-      "line_item_total": 7.0
+      "unit_price": 7.0,
+      "total_price": 7.0
     },
     {
-      "name": "KID ALFREDO",
-      "description": null,
+      "description": "KID ALFREDO",
       "quantity": 1,
-      "price": 7.0,
-      "line_item_total": 7.0
+      "unit_price": 7.0,
+      "total_price": 7.0
     }
   ],
-  "fees_attributes": [
+  "global_fees_attributes": [
     {
       "description": "Tax",
       "amount": 3.11
     }
   ],
-  "discounts_attributes": []
+  "global_discounts_attributes": []
 }

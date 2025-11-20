@@ -2,101 +2,88 @@
   "restaurant_name": "ZOCA RESTAURANT",
   "restaurant_address": "98 Garfield Parkway, Bethany Beach, DE 19930",
   "restaurant_phone_number": "(302) 616-2120",
-  "receipt_at": "2019-07-30T19:53:00+00:00",
-  "total": 152,
+  "billed_on": "2019-07-30T19:53:00+00:00",
+  "grand_total": 152.0,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "name": "Flying Dog Numero Uno BTL",
-      "description": null,
+      "description": "Flying Dog Numero Uno BTL",
       "quantity": 1,
-      "price": 8,
-      "line_item_total": 8
+      "unit_price": 8.0,
+      "total_price": 8.0
     },
     {
-      "name": "House Recipe",
-      "description": null,
+      "description": "House Recipe",
       "quantity": 1,
-      "price": 12,
-      "line_item_total": 12
+      "unit_price": 12.0,
+      "total_price": 12.0
     },
     {
-      "name": "Sandia Margarita",
-      "description": "@13.00/ea",
+      "description": "Sandia Margarita (@13.00/ea)",
       "quantity": 2,
-      "price": 13,
-      "line_item_total": 26
+      "unit_price": 13.0,
+      "total_price": 26.0
     },
     {
-      "name": "Totem Honey Bee",
-      "description": null,
+      "description": "Totem Honey Bee",
       "quantity": 1,
-      "price": 11,
-      "line_item_total": 11
+      "unit_price": 11.0,
+      "total_price": 11.0
     },
     {
-      "name": "Queso Fresco Guacamole",
-      "description": null,
+      "description": "Queso Fresco Guacamole",
       "quantity": 1,
-      "price": 12,
-      "line_item_total": 12
+      "unit_price": 12.0,
+      "total_price": 12.0
     },
     {
-      "name": "Queso Fundido Mexican Street Corn Dip",
-      "description": null,
+      "description": "Queso Fundido Mexican Street Corn Dip",
       "quantity": 1,
-      "price": 12,
-      "line_item_total": 12,
-      "discount": 12,
-      "discount_description": "Complimentary item comp"
+      "unit_price": 12.0,
+      "total_price": 12.0
     },
     {
-      "name": "Salsa De Molcajete",
-      "description": null,
+      "description": "Salsa De Molcajete",
       "quantity": 1,
-      "price": 8,
-      "line_item_total": 8
+      "unit_price": 8.0,
+      "total_price": 8.0
     },
     {
-      "name": "Taquitos Carne Asada",
-      "description": "@15.00/ea",
+      "description": "Taquitos Carne Asada (@15.00/ea)",
       "quantity": 2,
-      "price": 15,
-      "line_item_total": 30
+      "unit_price": 15.0,
+      "total_price": 30.0
     },
     {
-      "name": "Taquitos Baja California Shrimp",
-      "description": null,
+      "description": "Taquitos Baja California Shrimp",
       "quantity": 1,
-      "price": 14,
-      "line_item_total": 14
+      "unit_price": 14.0,
+      "total_price": 14.0
     },
     {
-      "name": "Mole Enchilada",
-      "description": null,
+      "description": "Mole Enchilada",
       "quantity": 1,
-      "price": 19,
-      "line_item_total": 19
+      "unit_price": 19.0,
+      "total_price": 19.0
     },
     {
-      "name": "Quesadilla Chicken",
-      "description": null,
+      "description": "Quesadilla Chicken",
       "quantity": 1,
-      "price": 12,
-      "line_item_total": 12
+      "unit_price": 12.0,
+      "total_price": 12.0
     }
   ],
-  "fees_attributes": [
+  "global_fees_attributes": [
     {
       "description": "Sales Tax",
-      "amount": 0
+      "amount": 0.0
     }
   ],
-  "discounts_attributes": [
+  "global_discounts_attributes": [
     {
-      "description": "Complimentary item comp - Queso Fundido Mexican Street Corn Dip",
-      "amount": 12
+      "description": "COMPLIMENTARY ITEM COMPS: Queso Fundido Mexican Street Corn Dip",
+      "amount": 12.0
     }
   ]
 }

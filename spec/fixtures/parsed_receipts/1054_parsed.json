@@ -1,83 +1,76 @@
 {
   "restaurant_name": "BIG JO'S",
-  "restaurant_address": "1955 BROADWAY, SANTA MONICA, CA 90404",
+  "restaurant_address": "1955 Broadway, Santa Monica, CA 90404",
   "restaurant_phone_number": "(310) 828-3191",
-  "receipt_at": "2018-01-25T11:47:00+00:00",
-  "total": 56.5,
+  "billed_on": "2018-01-25T11:47:00-08:00",
+  "grand_total": 56.5,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "name": "HB",
       "description": "HB - Regular Price",
       "quantity": 1,
-      "price": 4,
-      "line_item_total": 4
+      "unit_price": 4.0,
+      "total_price": 4.0
     },
     {
-      "name": "French Fries",
-      "description": "French Fries x 2 ($2.50 each)",
+      "description": "French Fries",
       "quantity": 2,
-      "price": 2.5,
-      "line_item_total": 5
+      "unit_price": 2.5,
+      "total_price": 5.0
     },
     {
-      "name": "Turkey Burger",
       "description": "Turkey Burger - Combo",
       "quantity": 1,
-      "price": 8.85,
-      "line_item_total": 8.85
+      "unit_price": 8.85,
+      "total_price": 8.85
     },
     {
-      "name": "HB",
-      "description": "HB - Combo, Grilled Onion ($0.75)",
+      "description": "HB - Combo",
       "quantity": 1,
-      "price": 8.35,
-      "line_item_total": 8.35,
+      "unit_price": 7.6,
+      "total_price": 7.6,
       "addons_attributes": [
         {
           "description": "Grilled Onion",
           "quantity": 1,
-          "price": 0.75,
-          "price_per": 0.75
+          "unit_price": 0.75,
+          "total_price": 0.75
         }
       ]
     },
     {
-      "name": "CB",
-      "description": "CB x 2 - Combo ($7.85 each)",
+      "description": "CB - Combo",
       "quantity": 2,
-      "price": 7.85,
-      "line_item_total": 15.7
+      "unit_price": 7.85,
+      "total_price": 15.7
     },
     {
-      "name": "CB",
-      "description": "CB - Regular Price, Grilled Onion ($0.75)",
+      "description": "CB - Regular Price",
       "quantity": 1,
-      "price": 5,
-      "line_item_total": 5,
+      "unit_price": 4.25,
+      "total_price": 4.25,
       "addons_attributes": [
         {
           "description": "Grilled Onion",
           "quantity": 1,
-          "price": 0.75,
-          "price_per": 0.75
+          "unit_price": 0.75,
+          "total_price": 0.75
         }
       ]
     },
     {
-      "name": "Chill Fries",
       "description": "Chill Fries",
       "quantity": 1,
-      "price": 4.35,
-      "line_item_total": 4.35
+      "unit_price": 4.35,
+      "total_price": 4.35
     }
   ],
-  "fees_attributes": [
+  "global_fees_attributes": [
     {
       "description": "Sales Tax",
       "amount": 5.25
     }
   ],
-  "discounts_attributes": []
+  "global_discounts_attributes": []
 }

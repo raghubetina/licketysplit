@@ -2,82 +2,67 @@
   "restaurant_name": "Calogero's",
   "restaurant_address": "919 Franklin Ave., Garden City, NY 11530",
   "restaurant_phone_number": "516-2942922",
-  "receipt_at": "2018-04-20T20:29:00+00:00",
-  "total": 157.51,
+  "billed_on": "2018-04-20T20:29:00+00:00",
+  "grand_total": 157.51,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "name": "Shrimp Scampi",
-      "description": null,
+      "description": "Shrimp Scampi",
       "quantity": 1,
-      "price": 27.0,
-      "line_item_total": 27.0
+      "unit_price": 27.0,
+      "total_price": 27.0
     },
     {
-      "name": "Chicken Milanese",
-      "description": null,
+      "description": "Chicken Milanese",
       "quantity": 2,
-      "price": 23.0,
-      "line_item_total": 46.0
+      "unit_price": 23.0,
+      "total_price": 46.0
     },
     {
-      "name": "Veal Milanese",
-      "description": null,
+      "description": "Veal Milanese",
       "quantity": 1,
-      "price": 27.0,
-      "line_item_total": 27.0
+      "unit_price": 27.0,
+      "total_price": 27.0
     },
     {
-      "name": "Grey Goose",
-      "description": null,
+      "description": "Grey Goose",
       "quantity": 3,
-      "price": 10.0,
-      "line_item_total": 30.0
+      "unit_price": 10.0,
+      "total_price": 30.0
     },
     {
-      "name": "Pineapple Juice",
-      "description": null,
+      "description": "Pineapple Juice",
       "quantity": 1,
-      "price": 3.0,
-      "line_item_total": 3.0
+      "unit_price": 3.0,
+      "total_price": 3.0
     },
     {
-      "name": "Belvedere",
-      "description": null,
+      "description": "Belvedere",
       "quantity": 1,
-      "price": 12.0,
-      "line_item_total": 12.0
+      "unit_price": 12.0,
+      "total_price": 12.0
     },
     {
-      "name": "Becks Non Alcoholic",
-      "description": null,
+      "description": "Becks Non Alcoholic",
       "quantity": 1,
-      "price": 6.0,
-      "line_item_total": 6.0
+      "unit_price": 6.0,
+      "total_price": 6.0
     },
     {
-      "name": "Corona",
-      "description": null,
+      "description": "Corona",
       "quantity": 1,
-      "price": 6.0,
-      "line_item_total": 6.0
-    },
-    {
-      "name": "Comp Item",
-      "description": null,
-      "quantity": 1,
-      "price": -12.0,
-      "line_item_total": -12.0
+      "unit_price": 6.0,
+      "total_price": 6.0
     }
   ],
-  "fees_attributes": [
+  "global_fees_attributes": [
     {
       "description": "Tax",
       "amount": 12.51
     }
   ],
-  "discounts_attributes": [
+  "global_discounts_attributes": [
     {
       "description": "Comp Item",
       "amount": 12.0
