@@ -29,7 +29,7 @@ class LineItem < ApplicationRecord
 
   belongs_to :check
   has_many :line_item_participants, dependent: :destroy
-  has_many :participants, through: :line_item_participants, after_add: :update_counter, after_remove: :update_counter
+  has_many :participants, through: :line_item_participants
   has_many :addons, dependent: :destroy
 
   validates :description, presence: true
@@ -68,10 +68,6 @@ class LineItem < ApplicationRecord
 
   def calculate_total
     self.total_price = base_total
-  end
-
-  def update_counter(_participant)
-    update_column(:participants_count, participants.count)
   end
 
   def run_warning_checks

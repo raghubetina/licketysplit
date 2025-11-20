@@ -4,14 +4,13 @@ class LineItemsController < ApplicationController
   def toggle_participant
     participant = Participant.find(params[:participant_id])
 
-    if @line_item.participants.include?(participant)
-      @line_item.participants.delete(participant)
-    else
-      @line_item.participants << participant
-    end
+    line_item_participant = @line_item.line_item_participants.find_by(participant: participant)
 
-    # Manually broadcast refresh since association callbacks may not fire
-    @line_item.check.broadcast_refresh
+    if line_item_participant
+      line_item_participant.destroy
+    else
+      @line_item.line_item_participants.create!(participant: participant)
+    end
 
     head :ok
   end

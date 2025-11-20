@@ -21,8 +21,10 @@
 #  fk_rails_...  (participant_id => participants.id)
 #
 class LineItemParticipant < ApplicationRecord
-  belongs_to :line_item, counter_cache: :participants_count
+  belongs_to :line_item, counter_cache: :participants_count, touch: true
   belongs_to :participant
+
+  broadcasts_refreshes_to ->(lip) { lip.line_item.check }
 
   validates :participant_id, uniqueness: {
     scope: :line_item_id,
