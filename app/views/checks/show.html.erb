@@ -78,7 +78,7 @@
       <div class="card mb-3 bg-light">
         <div class="card-body py-2 px-3">
           <div class="d-flex justify-content-between small">
-            <strong>Subtotal</strong>
+            <strong>Item total</strong>
             <strong>$<%= number_with_precision(@check.subtotal, precision: 2) %></strong>
           </div>
         </div>
@@ -93,6 +93,15 @@
                 <span>-$<%= number_with_precision(discount.amount, precision: 2) %></span>
               </div>
             <% end %>
+          </div>
+        </div>
+
+        <div class="card mb-3 bg-light">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between small">
+              <strong>After discounts</strong>
+              <strong>$<%= number_with_precision(@check.subtotal - @check.total_discounts, precision: 2) %></strong>
+            </div>
           </div>
         </div>
       <% end %>
@@ -126,18 +135,23 @@
         <strong class="small">Who Owes What</strong>
       </div>
       <% @participants.each do |participant| %>
+        <% participant_items = @line_items.select { |item| item.participant_ids.include?(participant.id) } %>
+        <% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
+        <% proportion = @check.subtotal > 0 ? items_subtotal / @check.subtotal : 0 %>
         <div class="card-body py-2 px-3 border-bottom">
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <strong><%= participant.name %></strong>
+            <strong>
+              <%= participant.name %>
+              <% if participant_items.any? && @check.subtotal > 0 %>
+                <span class="fw-normal text-muted small">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
+              <% end %>
+            </strong>
             <strong>$<%= number_with_precision(@check.amount_owed_by(participant), precision: 2) %></strong>
           </div>
 
-          <% participant_items = @line_items.select { |item| item.participant_ids.include?(participant.id) } %>
           <% if participant_items.any? %>
-            <% items_subtotal = 0 %>
             <% participant_items.each do |item| %>
               <% share = item.amount_per_participant %>
-              <% items_subtotal += share %>
               <div class="d-flex justify-content-between small text-muted">
                 <span>
                   <%= item.description %>
@@ -150,25 +164,19 @@
               </div>
             <% end %>
 
-            <% net_adjustment = @check.total_fees - @check.total_discounts %>
-            <% if @check.subtotal > 0 && net_adjustment != 0 %>
-              <% proportion = items_subtotal / @check.subtotal %>
-              <% adjustment_share = net_adjustment * proportion %>
+            <% if @check.subtotal > 0 && @check.total_discounts > 0 %>
+              <% discounts_share = @check.total_discounts * proportion %>
+              <div class="d-flex justify-content-between small text-success">
+                <span>Share of discounts</span>
+                <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
+              </div>
+            <% end %>
+
+            <% if @check.subtotal > 0 && @check.total_fees > 0 %>
+              <% fees_share = @check.total_fees * proportion %>
               <div class="d-flex justify-content-between small text-muted">
-                <span>
-                  <% if net_adjustment > 0 %>
-                    Tax/fees (<%= number_to_percentage(proportion * 100, precision: 0) %>)
-                  <% else %>
-                    Discounts (<%= number_to_percentage(proportion * 100, precision: 0) %>)
-                  <% end %>
-                </span>
-                <span>
-                  <% if adjustment_share >= 0 %>
-                    $<%= number_with_precision(adjustment_share, precision: 2) %>
-                  <% else %>
-                    -$<%= number_with_precision(adjustment_share.abs, precision: 2) %>
-                  <% end %>
-                </span>
+                <span>Share of tax, tip, and other fees</span>
+                <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
               </div>
             <% end %>
           <% else %>
