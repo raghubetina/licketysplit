@@ -38,23 +38,23 @@
           <div class="card mb-3">
             <div class="card-body py-2 px-3">
               <div class="d-flex justify-content-between align-items-start mb-2">
-                <div class="flex-grow-1 me-2">
-                  <strong class="small"><%= item.description %></strong>
-                  <% if item.addons.any? %>
-                    <div class="text-muted small">
-                      <% item.addons.each do |addon| %>
-                        + <%= addon.description %><%= ", " unless addon == item.addons.last %>
-                      <% end %>
-                    </div>
-                  <% end %>
+                <div class="d-flex align-items-start">
+                  <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(item.unit_price, precision: 2) %></span>
+                  <div>
+                    <strong class="small"><%= item.description %></strong>
+                    <% if item.quantity > 1 %>
+                      <span class="text-muted small">×<%= item.quantity %></span>
+                    <% end %>
+                  </div>
                 </div>
-                <div class="text-end">
-                  <strong>$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
-                  <% if item.quantity > 1 %>
-                    <div class="text-muted small">×<%= item.quantity %></div>
-                  <% end %>
-                </div>
+                <strong class="small">$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
               </div>
+              <% item.addons.each do |addon| %>
+                <div class="d-flex align-items-start mb-1 ps-2">
+                  <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
+                  <span class="text-muted small">+ <%= addon.description %></span>
+                </div>
+              <% end %>
 
               <div class="d-flex flex-wrap gap-2">
                 <% @participants.each do |participant| %>
@@ -103,14 +103,56 @@
       <div class="card-header py-2">
         <strong class="small">Who Owes What</strong>
       </div>
-      <ul class="list-group list-group-flush">
-        <% @participants.each do |participant| %>
-          <li class="list-group-item d-flex justify-content-between align-items-center py-2">
-            <span><%= participant.name %></span>
+      <% @participants.each do |participant| %>
+        <div class="card-body py-2 px-3 border-bottom">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <strong><%= participant.name %></strong>
             <strong>$<%= number_with_precision(@check.amount_owed_by(participant), precision: 2) %></strong>
-          </li>
-        <% end %>
-      </ul>
+          </div>
+
+          <% participant_items = @line_items.select { |item| item.participant_ids.include?(participant.id) } %>
+          <% if participant_items.any? %>
+            <% items_subtotal = 0 %>
+            <% participant_items.each do |item| %>
+              <% share = item.amount_per_participant %>
+              <% items_subtotal += share %>
+              <div class="d-flex justify-content-between small text-muted">
+                <span>
+                  <%= item.description %>
+                  <% if item.participants_count > 1 %>
+                    <span class="text-muted">(÷<%= item.participants_count %>)</span>
+                  <% end %>
+                </span>
+                <span>$<%= number_with_precision(share, precision: 2) %></span>
+              </div>
+            <% end %>
+
+            <% net_adjustment = @check.total_fees - @check.total_discounts %>
+            <% if @check.subtotal > 0 && net_adjustment != 0 %>
+              <% proportion = items_subtotal / @check.subtotal %>
+              <% adjustment_share = net_adjustment * proportion %>
+              <div class="d-flex justify-content-between small text-muted">
+                <span>
+                  <% if net_adjustment > 0 %>
+                    Tax/fees (<%= number_to_percentage(proportion * 100, precision: 0) %>)
+                  <% else %>
+                    Discounts (<%= number_to_percentage(proportion * 100, precision: 0) %>)
+                  <% end %>
+                </span>
+                <span>
+                  <% if adjustment_share >= 0 %>
+                    $<%= number_with_precision(adjustment_share, precision: 2) %>
+                  <% else %>
+                    -$<%= number_with_precision(adjustment_share.abs, precision: 2) %>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="small text-muted fst-italic">No items assigned</div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
