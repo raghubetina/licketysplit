@@ -31,52 +31,56 @@
     </div>
   <% else %>
     <%= form_with model: @check, local: true do |f| %>
-      <% @line_items.each_with_index do |item, index| %>
-        <%= f.fields_for :line_items_attributes, item, index: index do |item_fields| %>
-          <%= item_fields.hidden_field :id %>
+      <div class="card mb-3">
+        <div class="card-header py-2">
+          <strong class="small">Items</strong>
+        </div>
 
-          <div class="card mb-3">
-            <div class="card-body py-2 px-3">
-              <div class="d-flex justify-content-between align-items-start mb-2">
-                <div class="d-flex align-items-start">
-                  <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(item.unit_price, precision: 2) %></span>
-                  <div>
-                    <strong class="small"><%= item.description %></strong>
-                    <% if item.quantity > 1 %>
-                      <span class="text-muted small">×<%= item.quantity %></span>
-                    <% end %>
+        <ul class="list-group list-group-flush">
+          <% @line_items.each_with_index do |item, index| %>
+            <%= f.fields_for :line_items_attributes, item, index: index do |item_fields| %>
+              <%= item_fields.hidden_field :id %>
+
+              <li class="list-group-item py-2 px-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div class="d-flex align-items-start">
+                    <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(item.unit_price, precision: 2) %></span>
+                    <div>
+                      <strong class="small"><%= item.description %></strong>
+                      <% if item.quantity > 1 %>
+                        <span class="text-muted small">×<%= item.quantity %></span>
+                      <% end %>
+                    </div>
                   </div>
+                  <strong class="small">$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
                 </div>
-                <strong class="small">$<%= number_with_precision(item.total_with_addons, precision: 2) %></strong>
-              </div>
-              <% item.addons.each do |addon| %>
-                <div class="d-flex align-items-start mb-1 ps-2">
-                  <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
-                  <span class="text-muted small">+ <%= addon.description %></span>
-                </div>
-              <% end %>
-
-              <div class="d-flex flex-wrap gap-2">
-                <% @participants.each do |participant| %>
-                  <div class="form-check form-check-inline m-0">
-                    <%= check_box_tag "check[line_items_attributes][#{index}][participant_ids][]",
-                        participant.id,
-                        item.participant_ids.include?(participant.id),
-                        id: "item_#{index}_participant_#{participant.id}",
-                        class: "form-check-input" %>
-                    <%= label_tag "item_#{index}_participant_#{participant.id}",
-                        participant.name,
-                        class: "form-check-label small" %>
+                <% item.addons.each do |addon| %>
+                  <div class="d-flex align-items-start mb-1 ps-2">
+                    <span class="text-muted small me-2" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
+                    <span class="text-muted small">+ <%= addon.description %></span>
                   </div>
                 <% end %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
 
-      <div class="card mb-3 bg-light">
-        <div class="card-body py-2 px-3">
+                <div class="d-flex flex-wrap gap-2">
+                  <% @participants.each do |participant| %>
+                    <div class="form-check form-check-inline m-0">
+                      <%= check_box_tag "check[line_items_attributes][#{index}][participant_ids][]",
+                          participant.id,
+                          item.participant_ids.include?(participant.id),
+                          id: "item_#{index}_participant_#{participant.id}",
+                          class: "form-check-input" %>
+                      <%= label_tag "item_#{index}_participant_#{participant.id}",
+                          participant.name,
+                          class: "form-check-label small" %>
+                    </div>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+
+        <div class="card-footer py-2 px-3">
           <div class="d-flex justify-content-between small">
             <strong>Item total</strong>
             <strong>$<%= number_with_precision(@check.subtotal, precision: 2) %></strong>
@@ -86,18 +90,22 @@
 
       <% if @global_discounts.any? %>
         <div class="card mb-3">
-          <div class="card-body py-2 px-3">
-            <% @global_discounts.each do |discount| %>
-              <div class="d-flex justify-content-between small text-success">
-                <span><%= discount.description %></span>
-                <span>-$<%= number_with_precision(discount.amount, precision: 2) %></span>
-              </div>
-            <% end %>
+          <div class="card-header py-2">
+            <strong class="small">Discounts</strong>
           </div>
-        </div>
 
-        <div class="card mb-3 bg-light">
-          <div class="card-body py-2 px-3">
+          <ul class="list-group list-group-flush">
+            <% @global_discounts.each do |discount| %>
+              <li class="list-group-item py-2 px-3">
+                <div class="d-flex justify-content-between small text-success">
+                  <span><%= discount.description %></span>
+                  <span>-$<%= number_with_precision(discount.amount, precision: 2) %></span>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+
+          <div class="card-footer py-2 px-3">
             <div class="d-flex justify-content-between small">
               <strong>After discounts</strong>
               <strong>$<%= number_with_precision(@check.subtotal - @check.total_discounts, precision: 2) %></strong>
@@ -108,37 +116,42 @@
 
       <% if @global_fees.any? %>
         <% subtotal_after_discounts = @check.subtotal - @check.total_discounts %>
+
         <div class="card mb-3">
-          <div class="card-body py-2 px-3">
+          <div class="card-header py-2">
+            <strong class="small">Tax, tip, and other fees</strong>
+          </div>
+
+          <ul class="list-group list-group-flush">
             <% @global_fees.order(:amount).each do |fee| %>
-              <div class="d-flex justify-content-between small">
-                <span class="text-muted">
-                  <%= fee.description %>
-                  <% if subtotal_after_discounts > 0 %>
-                    <span class="text-muted">(<%= number_to_percentage((fee.amount / subtotal_after_discounts) * 100, precision: 1) %>)</span>
-                  <% end %>
-                </span>
-                <span>+$<%= number_with_precision(fee.amount, precision: 2) %></span>
+              <li class="list-group-item py-2 px-3">
+                <div class="d-flex justify-content-between small">
+                  <span class="text-muted">
+                    <%= fee.description %>
+                    <% if subtotal_after_discounts > 0 %>
+                      <span class="text-muted">(<%= number_to_percentage((fee.amount / subtotal_after_discounts) * 100, precision: 1) %>)</span>
+                    <% end %>
+                  </span>
+                  <span>+$<%= number_with_precision(fee.amount, precision: 2) %></span>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+
+          <div class="card-footer py-2 px-3">
+            <div class="d-flex justify-content-between small">
+              <strong>Grand total</strong>
+              <strong>$<%= number_with_precision(@check.calculated_total, precision: 2) %></strong>
+            </div>
+            <% if @check.grand_total.present? && @check.grand_total != @check.calculated_total %>
+              <div class="d-flex justify-content-between small text-muted">
+                <span>Receipt showed</span>
+                <span>$<%= number_with_precision(@check.grand_total, precision: 2) %></span>
               </div>
             <% end %>
           </div>
         </div>
       <% end %>
-
-      <div class="card mb-3 bg-light">
-        <div class="card-body py-2 px-3">
-          <div class="d-flex justify-content-between small">
-            <strong>Grand total</strong>
-            <strong>$<%= number_with_precision(@check.calculated_total, precision: 2) %></strong>
-          </div>
-          <% if @check.grand_total.present? && @check.grand_total != @check.calculated_total %>
-            <div class="d-flex justify-content-between small text-muted">
-              <span>Receipt showed</span>
-              <span>$<%= number_with_precision(@check.grand_total, precision: 2) %></span>
-            </div>
-          <% end %>
-        </div>
-      </div>
 
       <div class="d-grid mb-4">
         <%= f.submit "Save Selections", class: "btn btn-primary btn-lg" %>
