@@ -21,25 +21,19 @@
 #  fk_rails_...  (check_id => checks.id)
 #
 class Participant < ApplicationRecord
-  # Associations
   belongs_to :check
   has_many :line_item_participants, dependent: :destroy
   has_many :line_items, through: :line_item_participants
   has_one :treat, dependent: :destroy
 
-  # Validations
   validates :name, presence: true
   validates :name, uniqueness: {scope: :check_id, message: "already exists for this check"}
-  validates :payment_status, inclusion: {in: %w[unpaid paid]}
 
-  # Enums
   enum :payment_status, {unpaid: "unpaid", paid: "paid"}
 
-  # Scopes
   scope :treated, -> { joins(:treat) }
   scope :not_treated, -> { where.missing(:treat) }
 
-  # Instance methods
   def amount_owed
     check.amount_owed_by(self)
   end

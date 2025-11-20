@@ -4,11 +4,9 @@ namespace :receipts do
     require "json"
     require "fileutils"
 
-    # Get all receipt images from fixtures
     receipt_dir = Rails.root.join("spec/fixtures/files/receipts")
     output_dir = Rails.root.join("spec/fixtures/parsed_receipts")
 
-    # Ensure output directory exists
     FileUtils.mkdir_p(output_dir)
 
     receipt_files = Dir.glob(receipt_dir.join("*.jpg")).sort
@@ -30,26 +28,23 @@ namespace :receipts do
       puts "#{index + 1}/#{receipt_files.length}: Processing #{filename}..."
 
       begin
-        # Parse the receipt
         parser = ReceiptParser.new(receipt_path)
         parsed_data = parser.parse
 
-        # Store the parsed data
         output_file = output_dir.join("#{receipt_number}_parsed.json")
         File.write(output_file, JSON.pretty_generate(parsed_data))
 
-        # Collect summary stats
         result = {
           receipt: filename,
           status: "success",
           restaurant: parsed_data[:restaurant_name],
           total: parsed_data[:grand_total],
-          line_items: parsed_data[:line_items_attributes]&.size || 0,
-          fees: parsed_data[:global_fees_attributes]&.size || 0,
-          discounts: parsed_data[:global_discounts_attributes]&.size || 0,
-          addons: parsed_data[:line_items_attributes]&.sum { |item|
+          line_items: parsed_data[:line_items_attributes].size,
+          fees: parsed_data[:global_fees_attributes].size,
+          discounts: parsed_data[:global_discounts_attributes].size,
+          addons: parsed_data[:line_items_attributes].sum { |item|
             item[:addons_attributes]&.size || 0
-          } || 0
+          }
         }
 
         successful += 1
@@ -66,7 +61,6 @@ namespace :receipts do
 
         puts "  ✗ Failed: #{e.message}"
 
-        # Store error details
         error_file = output_dir.join("#{receipt_number}_error.json")
         File.write(error_file, JSON.pretty_generate({
           receipt: filename,
@@ -79,7 +73,6 @@ namespace :receipts do
       puts
     end
 
-    # Generate summary report
     puts "=" * 60
     puts "Summary Report"
     puts "=" * 60
@@ -106,12 +99,11 @@ namespace :receipts do
       puts
     end
 
-    # Calculate statistics
     if successful > 0
       successful_results = results.select { |r| r[:status] == "success" }
       avg_items = successful_results.sum { |r| r[:line_items] } / successful_results.length.to_f
       avg_fees = successful_results.sum { |r| r[:fees] } / successful_results.length.to_f
-      total_value = successful_results.sum { |r| r[:total] || 0 }
+      total_value = successful_results.sum { |r| r[:total] }
 
       puts "Statistics:"
       puts "  Average items per receipt: #{avg_items.round(1)}"
@@ -120,7 +112,6 @@ namespace :receipts do
       puts
     end
 
-    # Save the full report
     report_file = output_dir.join("parsing_report.json")
     File.write(report_file, JSON.pretty_generate({
       timestamp: Time.current.iso8601,
@@ -134,7 +125,6 @@ namespace :receipts do
     puts "Parsed fixtures saved to: #{output_dir}"
     puts
 
-    # Show token usage estimate (if we can track it)
     puts "Note: Check your OpenAI dashboard for actual API usage and costs."
     puts "Estimated tokens used: ~#{successful * 1500} tokens"
     puts
@@ -151,11 +141,7 @@ namespace :receipts do
       puts "Loaded fixture for receipt #{receipt_number}:"
       puts "Restaurant: #{data[:restaurant_name]}"
       puts "Total: $#{data[:grand_total]}"
-      puts "Items: #{data[:line_items_attributes]&.size || 0}"
-
-      # You can create a Check record from this data
-      # check = Check.new(data)
-      # check.save!
+      puts "Items: #{data[:line_items_attributes].size}"
     else
       puts "Fixture not found: #{fixture_file}"
     end
@@ -176,7 +162,6 @@ namespace :receipts do
       receipt_number = File.basename(fixture_path).match(/(\d+)/)[1]
       data = JSON.parse(File.read(fixture_path), symbolize_names: true)
 
-      factory_content += "  # Receipt #{receipt_number}: #{data[:restaurant_name]}\n"
       factory_content += "  factory :check_#{receipt_number}, class: 'Check' do\n"
       factory_content += "    restaurant_name { #{data[:restaurant_name].inspect} }\n"
       factory_content += "    grand_total { #{data[:grand_total]} }\n"
@@ -185,10 +170,8 @@ namespace :receipts do
       factory_content += "\n"
       factory_content += "    after(:create) do |check|\n"
 
-      # Add line items
       if data[:line_items_attributes]&.any?
-        factory_content += "      # Create line items\n"
-        data[:line_items_attributes].each_with_index do |item, i|
+        data[:line_items_attributes].each do |item|
           factory_content += "      check.line_items.create!(\n"
           factory_content += "        description: #{item[:description].inspect},\n"
           factory_content += "        quantity: #{item[:quantity] || 1},\n"
@@ -198,9 +181,7 @@ namespace :receipts do
         end
       end
 
-      # Add global fees
       if data[:global_fees_attributes]&.any?
-        factory_content += "      # Create global fees\n"
         data[:global_fees_attributes].each do |fee|
           factory_content += "      check.global_fees.create!(\n"
           factory_content += "        description: #{fee[:description].inspect},\n"

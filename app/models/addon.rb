@@ -25,20 +25,16 @@
 class Addon < ApplicationRecord
   include HasWarnings
 
-  # Associations
   belongs_to :line_item
 
-  # Validations
   validates :description, presence: true
   validates :unit_price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :quantity, presence: true, numericality: {greater_than_or_equal_to: 1}
   validates :discount, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
 
-  # Callbacks
   before_validation :set_defaults
   before_save :calculate_total
 
-  # Instance methods
   def base_total
     (unit_price * quantity) - discount
   end
@@ -55,17 +51,10 @@ class Addon < ApplicationRecord
   end
 
   def run_warning_checks
-    # Warn about zero quantity
-    if quantity && quantity == 0
-      add_warning(:quantity, "is zero. Addons with no quantity should typically be removed.")
-    end
-
-    # Warn about unusually high price for an addon
     if unit_price && unit_price > 100
       add_warning(:unit_price, "seems high for an addon (#{unit_price}). Please verify this is correct.")
     end
 
-    # Warn if discount exceeds price
     if discount && unit_price && discount > unit_price
       add_warning(:discount, "exceeds the addon price. Please verify this is correct.")
     end

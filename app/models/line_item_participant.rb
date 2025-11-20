@@ -21,17 +21,13 @@
 #  fk_rails_...  (participant_id => participants.id)
 #
 class LineItemParticipant < ApplicationRecord
-  # Associations
   belongs_to :line_item, counter_cache: :participants_count
   belongs_to :participant
 
-  # Validations
   validates :participant_id, uniqueness: {
     scope: :line_item_id,
     message: "is already associated with this line item"
   }
-
-  # Callbacks
   validate :participant_belongs_to_same_check
 
   private

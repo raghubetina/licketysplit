@@ -16,7 +16,6 @@ class ReceiptReviewsController < ApplicationController
   private
 
   def load_all_receipts
-    # Load all parsed receipt fixtures
     fixture_dir = Rails.root.join("spec/fixtures/parsed_receipts")
     receipts = []
 
@@ -29,9 +28,9 @@ class ReceiptReviewsController < ApplicationController
         restaurant: parsed_data[:restaurant_name],
         total: parsed_data[:grand_total],
         date: parsed_data[:billed_on],
-        item_count: parsed_data[:line_items_attributes]&.size || 0,
-        fee_count: parsed_data[:global_fees_attributes]&.size || 0,
-        discount_count: parsed_data[:global_discounts_attributes]&.size || 0,
+        item_count: parsed_data[:line_items_attributes].size,
+        fee_count: parsed_data[:global_fees_attributes].size,
+        discount_count: parsed_data[:global_discounts_attributes].size,
         addon_count: count_addons(parsed_data[:line_items_attributes])
       }
     end
@@ -47,7 +46,6 @@ class ReceiptReviewsController < ApplicationController
   end
 
   def count_addons(line_items)
-    return 0 unless line_items
     line_items.sum { |item| item[:addons_attributes]&.size || 0 }
   end
 end

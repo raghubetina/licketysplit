@@ -20,10 +20,8 @@
 #  index_checks_on_status  (status)
 #
 class Check < ApplicationRecord
-  # Active Storage
   has_one_attached :receipt_image
 
-  # Associations
   has_many :participants, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_many :global_fees, dependent: :destroy
@@ -31,23 +29,17 @@ class Check < ApplicationRecord
   has_many :treats, dependent: :destroy
   has_many :treated_participants, through: :treats, source: :participant
 
-  # Validations
-  validates :status, inclusion: {in: %w[draft reviewing finalized]}
   validates :currency, presence: true
 
-  # Nested attributes
   accepts_nested_attributes_for :line_items, allow_destroy: true
   accepts_nested_attributes_for :global_fees, allow_destroy: true
   accepts_nested_attributes_for :global_discounts, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true
 
-  # Enums
   enum :status, {draft: "draft", reviewing: "reviewing", finalized: "finalized"}
 
-  # Callbacks
   before_validation :set_defaults
 
-  # Instance methods
   def subtotal
     line_items.sum { |item| item.total_with_addons }
   end
@@ -67,22 +59,10 @@ class Check < ApplicationRecord
   def amount_owed_by(participant)
     return 0.0 if treated_participants.include?(participant)
 
-    # Calculate base amount from line items
-    base_amount = line_items
-      .joins(:line_item_participants)
-      .where(line_item_participants: {participant_id: participant.id})
-      .sum { |item| item.amount_per_participant }
+    base_amount = calculate_base_amount(participant)
 
-    # Add proportional share of fees minus discounts
-    net_adjustment = total_fees - total_discounts
-    if subtotal > 0 && net_adjustment != 0
-      proportion = base_amount / subtotal
-      base_amount += (net_adjustment * proportion)
-    end
-
-    # If this participant isn't treated, they also need to cover treated participants
     if treats.any?
-      treated_total = treated_participants.sum { |tp| amount_owed_by_base(tp) }
+      treated_total = treated_participants.sum { |tp| calculate_base_amount(tp) }
       non_treated_count = participants.count - treated_participants.count
       base_amount += (treated_total / non_treated_count) if non_treated_count > 0
     end
@@ -92,8 +72,7 @@ class Check < ApplicationRecord
 
   private
 
-  def amount_owed_by_base(participant)
-    # Base calculation without treat redistribution
+  def calculate_base_amount(participant)
     base_amount = line_items
       .joins(:line_item_participants)
       .where(line_item_participants: {participant_id: participant.id})

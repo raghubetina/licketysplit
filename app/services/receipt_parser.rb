@@ -4,14 +4,13 @@ class ReceiptParser
   attr_reader :image_path, :chat
 
   def initialize(image_path)
-    @image_path = image_path.to_s  # Ensure it's a string, not Pathname
+    @image_path = image_path.to_s
     @chat = AI::Chat.new
   end
 
   def parse
     configure_chat
 
-    # Set system context for consistent parsing
     chat.system(
       "You are a receipt parser. Extract structured data from receipt images " \
       "following the provided JSON schema exactly. Be precise with numbers and " \
@@ -43,8 +42,8 @@ class ReceiptParser
   private
 
   def configure_chat
-    chat.model = "gpt-5.1"  # Latest model for better accuracy
-    chat.reasoning_effort = "low"  # Enable reasoning for complex receipts
+    chat.model = "gpt-5.1"
+    chat.reasoning_effort = "low"
     chat.schema = receipt_schema
   end
 
@@ -252,20 +251,14 @@ class ReceiptParser
       restaurant_phone_number: parsed_data[:restaurant][:phone],
       billed_on: parse_date(parsed_data[:billed_on]),
       grand_total: parsed_data[:grand_total],
-      currency: parsed_data[:currency] || "USD",
+      currency: parsed_data[:currency],
       status: "reviewing",
       line_items_attributes: transform_line_items(parsed_data[:line_items]),
       global_fees_attributes: parsed_data[:global_fees].map { |fee|
-        {
-          description: fee[:description],
-          amount: fee[:amount]
-        }
+        {description: fee[:description], amount: fee[:amount]}
       },
       global_discounts_attributes: parsed_data[:global_discounts].map { |discount|
-        {
-          description: discount[:description],
-          amount: discount[:amount]
-        }
+        {description: discount[:description], amount: discount[:amount]}
       }
     }
   end
@@ -279,13 +272,12 @@ class ReceiptParser
         total_price: item[:total_price]
       }
 
-      # Add item-specific discount if present
-      if item[:line_item_discount].present? && item[:line_item_discount] > 0
+      if item[:line_item_discount] && item[:line_item_discount] > 0
         line_item[:discount] = item[:line_item_discount]
         line_item[:discount_description] = item[:line_item_discount_description]
       end
 
-      if item[:addons].present? && item[:addons].any?
+      if item[:addons].any?
         line_item[:addons_attributes] = item[:addons].map do |addon_data|
           addon = {
             description: addon_data[:description],
@@ -294,8 +286,7 @@ class ReceiptParser
             total_price: addon_data[:total_price]
           }
 
-          # Add addon discount if present
-          if addon_data[:addon_discount].present? && addon_data[:addon_discount] > 0
+          if addon_data[:addon_discount] && addon_data[:addon_discount] > 0
             addon[:discount] = addon_data[:addon_discount]
             addon[:discount_description] = addon_data[:addon_discount_description]
           end
@@ -310,7 +301,6 @@ class ReceiptParser
 
   def parse_date(date_string)
     return nil if date_string.blank?
-
     DateTime.parse(date_string)
   rescue ArgumentError
     nil

@@ -1,5 +1,3 @@
-# Provides warning functionality for models
-# Warnings are like validations but don't prevent saving
 module HasWarnings
   extend ActiveSupport::Concern
 
@@ -21,7 +19,7 @@ module HasWarnings
     end
 
     def warnings_for(attribute)
-      warnings.select { |w| w[:attribute] == attribute }.map { |w| w[:message] } # standard:disable Rails/Pluck
+      warnings.filter_map { |w| w[:message] if w[:attribute] == attribute }
     end
 
     def full_warnings_messages

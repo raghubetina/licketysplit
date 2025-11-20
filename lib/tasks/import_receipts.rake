@@ -14,24 +14,21 @@ namespace :receipts do
       receipt_number = File.basename(file).match(/(\d+)_parsed/)[1]
 
       begin
-        # Read the parsed data
         parsed_data = JSON.parse(File.read(file), symbolize_names: true)
 
-        # Create the Check with all nested attributes
         check = Check.create!(
           restaurant_name: parsed_data[:restaurant_name],
           restaurant_address: parsed_data[:restaurant_address],
           restaurant_phone_number: parsed_data[:restaurant_phone_number],
           billed_on: parsed_data[:billed_on],
           grand_total: parsed_data[:grand_total],
-          currency: parsed_data[:currency] || "USD",
+          currency: parsed_data[:currency],
           status: "draft",
-          line_items_attributes: parsed_data[:line_items_attributes] || [],
-          global_fees_attributes: parsed_data[:global_fees_attributes] || [],
-          global_discounts_attributes: parsed_data[:global_discounts_attributes] || []
+          line_items_attributes: parsed_data[:line_items_attributes],
+          global_fees_attributes: parsed_data[:global_fees_attributes],
+          global_discounts_attributes: parsed_data[:global_discounts_attributes]
         )
 
-        # Attach the receipt image if it exists
         image_path = Rails.root.join("spec/fixtures/files/receipts/#{receipt_number}-receipt.jpg")
         if File.exist?(image_path)
           check.receipt_image.attach(
@@ -44,7 +41,6 @@ namespace :receipts do
         imported += 1
         puts "✓ Imported receipt #{receipt_number}: #{check.restaurant_name} - $#{check.grand_total}"
 
-        # Check for warnings in line items and addons
         warnings_found = false
         check.line_items.each do |item|
           if item.has_warnings?
@@ -101,7 +97,6 @@ namespace :receipts do
   task clear: :environment do
     puts "Clearing all receipts from database..."
 
-    # Delete in order to respect foreign key constraints
     LineItemParticipant.destroy_all
     Addon.destroy_all
     LineItem.destroy_all

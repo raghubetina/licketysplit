@@ -26,26 +26,21 @@
 class LineItem < ApplicationRecord
   include HasWarnings
 
-  # Associations
   belongs_to :check
   has_many :line_item_participants, dependent: :destroy
   has_many :participants, through: :line_item_participants
   has_many :addons, dependent: :destroy
 
-  # Validations
   validates :description, presence: true
   validates :unit_price, presence: true, numericality: true
   validates :quantity, presence: true, numericality: {greater_than_or_equal_to: 1}
   validates :discount, numericality: {greater_than_or_equal_to: 0}, allow_nil: true
 
-  # Nested attributes
   accepts_nested_attributes_for :addons, allow_destroy: true
 
-  # Callbacks
   before_validation :set_defaults
   before_save :calculate_total
 
-  # Instance methods
   def base_total
     (unit_price * quantity) - discount
   end
@@ -60,8 +55,6 @@ class LineItem < ApplicationRecord
 
   def amount_per_participant
     return 0 if participants_count == 0
-
-    # Divide by the number of participants sharing this item
     total_with_addons / participants_count
   end
 
@@ -77,22 +70,14 @@ class LineItem < ApplicationRecord
   end
 
   def run_warning_checks
-    # Warn about negative prices (likely comped items)
     if unit_price && unit_price < 0
       add_warning(:unit_price, "is negative (#{unit_price}). This might be a comped item that should be recorded as a discount instead.")
     end
 
-    # Warn about zero quantity
-    if quantity && quantity == 0
-      add_warning(:quantity, "is zero. Items with no quantity should typically be removed.")
-    end
-
-    # Warn about unusually high discount
     if discount && unit_price && discount > unit_price
       add_warning(:discount, "exceeds the item price. Please verify this is correct.")
     end
 
-    # Warn about suspiciously high price
     if unit_price && unit_price > 1000
       add_warning(:unit_price, "seems unusually high (#{unit_price}). Please verify this is correct.")
     end

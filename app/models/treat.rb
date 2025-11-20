@@ -21,17 +21,13 @@
 #  fk_rails_...  (participant_id => participants.id)
 #
 class Treat < ApplicationRecord
-  # Associations
   belongs_to :check
   belongs_to :participant
 
-  # Validations
   validates :participant_id, uniqueness: {
     scope: :check_id,
     message: "is already being treated for this check"
   }
-
-  # Callbacks
   validate :participant_belongs_to_check
 
   private
