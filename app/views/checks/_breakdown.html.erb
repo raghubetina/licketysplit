@@ -6,9 +6,11 @@
   <div class="card-header py-2">
     <strong class="small">Who Owes What</strong>
   </div>
-  <% participants.each do |participant| %>
-    <%= render partial: "checks/participant_breakdown", locals: { participant: participant, check: check, line_items: line_items } %>
-  <% end %>
+  <div class="list-group list-group-flush">
+    <% participants.each do |participant| %>
+      <%= render partial: "checks/participant_breakdown", locals: { participant: participant, check: check, line_items: line_items } %>
+    <% end %>
+  </div>
 
   <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items } %>
 </div>
