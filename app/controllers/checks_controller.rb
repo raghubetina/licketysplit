@@ -7,7 +7,7 @@ class ChecksController < ApplicationController
   end
 
   def show
-    @line_items = @check.line_items.includes(:addons, :participants)
+    @line_items = @check.line_items.includes(:addons, :participants).order(:position)
     @global_fees = @check.global_fees
     @global_discounts = @check.global_discounts
     @participants = @check.participants.order(:name)

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-20T05:17:43Z",
+  "timestamp": "2025-11-20T06:20:52Z",
   "total_receipts": 21,
   "successful": 21,
   "failed": 0,
@@ -19,18 +19,18 @@
       "status": "success",
       "restaurant": "SASKA'S",
       "total": 179.94,
-      "line_items": 4,
+      "line_items": 5,
       "fees": 1,
       "discounts": 0,
-      "addons": 5
+      "addons": 4
     },
     {
       "receipt": "1007-receipt.jpg",
       "status": "success",
       "restaurant": "Katana Sushi",
-      "total": 153.71,
+      "total": 143.71,
       "line_items": 9,
-      "fees": 2,
+      "fees": 1,
       "discounts": 0,
       "addons": 0
     },
@@ -59,10 +59,10 @@
       "status": "success",
       "restaurant": "Longboards",
       "total": 44.31,
-      "line_items": 5,
+      "line_items": 4,
       "fees": 2,
       "discounts": 1,
-      "addons": 3
+      "addons": 4
     },
     {
       "receipt": "1035-receipt.jpg",
@@ -77,7 +77,7 @@
     {
       "receipt": "1039-receipt.jpg",
       "status": "success",
-      "restaurant": "CARL'S JR",
+      "restaurant": "Carl's Jr",
       "total": 13.05,
       "line_items": 1,
       "fees": 1,
@@ -108,7 +108,7 @@
       "receipt": "1056-receipt.jpg",
       "status": "success",
       "restaurant": "ZOCA RESTAURANT",
-      "total": 152.0,
+      "total": 152,
       "line_items": 11,
       "fees": 1,
       "discounts": 1,
@@ -117,7 +117,7 @@
     {
       "receipt": "1077-receipt.jpg",
       "status": "success",
-      "restaurant": "NaanChing",
+      "restaurant": "NAANCHING",
       "total": 69.79,
       "line_items": 6,
       "fees": 2,
@@ -137,7 +137,7 @@
     {
       "receipt": "1090-receipt.jpg",
       "status": "success",
-      "restaurant": "Five Guys",
+      "restaurant": "FIVE GUYS",
       "total": 32.66,
       "line_items": 5,
       "fees": 1,
@@ -152,22 +152,22 @@
       "line_items": 2,
       "fees": 1,
       "discounts": 0,
-      "addons": 3
+      "addons": 4
     },
     {
       "receipt": "1100-receipt.jpg",
       "status": "success",
       "restaurant": "McDonald's",
       "total": 26.15,
-      "line_items": 13,
+      "line_items": 7,
       "fees": 1,
       "discounts": 0,
-      "addons": 0
+      "addons": 7
     },
     {
       "receipt": "1102-receipt.jpg",
       "status": "success",
-      "restaurant": "OM Indian Food",
+      "restaurant": "OM INDIAN FOOD",
       "total": 16.24,
       "line_items": 3,
       "fees": 1,
@@ -182,7 +182,7 @@
       "line_items": 2,
       "fees": 2,
       "discounts": 0,
-      "addons": 0
+      "addons": 1
     },
     {
       "receipt": "1116-receipt.jpg",

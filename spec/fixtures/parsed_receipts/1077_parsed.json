@@ -1,85 +1,91 @@
 {
-  "restaurant_name": "NaanChing",
+  "restaurant_name": "NAANCHING",
   "restaurant_address": "103 Montgomery St, Jersey City, NJ 07302",
-  "restaurant_phone_number": "2019840709",
-  "billed_on": "2019-03-24T19:14:55-04:00",
+  "restaurant_phone_number": "201-984-0709",
+  "billed_on": "2019-03-24T19:14:55+00:00",
   "grand_total": 69.79,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "Chicken Lollipop",
       "quantity": 1,
-      "unit_price": 9.0,
-      "total_price": 9.0,
+      "unit_price": 9,
+      "total_price": 9,
       "addons_attributes": [
         {
           "description": "Med",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
     {
+      "position": 2,
       "description": "Thai Fried Rice",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0,
+      "unit_price": 12,
+      "total_price": 12,
       "addons_attributes": [
         {
           "description": "Vegetables",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         },
         {
           "description": "Med",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
     {
+      "position": 3,
       "description": "Chicken Tikka Masala",
       "quantity": 1,
-      "unit_price": 16.0,
-      "total_price": 16.0,
+      "unit_price": 16,
+      "total_price": 16,
       "addons_attributes": [
         {
           "description": "MILD PLEASE",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
     {
+      "position": 4,
       "description": "Naan",
       "quantity": 1,
-      "unit_price": 3.0,
-      "total_price": 3.0
+      "unit_price": 3,
+      "total_price": 3
     },
     {
+      "position": 5,
       "description": "Vegetable Biryani",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0,
+      "unit_price": 12,
+      "total_price": 12,
       "addons_attributes": [
         {
           "description": "MAKE IT MILD PLEASE",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
     {
+      "position": 6,
       "description": "Mango Lassi",
       "quantity": 1,
-      "unit_price": 4.0,
-      "total_price": 4.0
+      "unit_price": 4,
+      "total_price": 4
     }
   ],
   "global_fees_attributes": [

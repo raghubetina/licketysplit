@@ -85,11 +85,16 @@ class ReceiptParser
           },
           line_items: {
             type: "array",
-            description: "List of line items on the receipt",
+            description: "List of line items on the receipt, in order they appear",
             items: {
               type: "object",
               description: "Single line item on the receipt",
               properties: {
+                position: {
+                  type: "integer",
+                  minimum: 1,
+                  description: "Position of the item on the receipt (1 for first item, 2 for second, etc.)"
+                },
                 description: {
                   type: "string",
                   description: "Full description of the item"
@@ -167,6 +172,7 @@ class ReceiptParser
                 }
               },
               required: [
+                "position",
                 "description",
                 "quantity",
                 "unit_price",
@@ -266,6 +272,7 @@ class ReceiptParser
   def transform_line_items(items)
     items.map do |item|
       line_item = {
+        position: item[:position],
         description: item[:description],
         quantity: item[:quantity],
         unit_price: item[:unit_price],

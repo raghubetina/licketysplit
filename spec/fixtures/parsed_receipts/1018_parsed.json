@@ -8,7 +8,8 @@
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "description": "HAMB (W GR X L X T M Inst pro)",
+      "position": 1,
+      "description": "HAMB W GR X L X T M Inst pro",
       "quantity": 1,
       "unit_price": 2.0,
       "total_price": 2.0

@@ -8,6 +8,7 @@
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "Burrito Cmb - Chk Ranchero Bur",
       "quantity": 1,
       "unit_price": 8.28,
@@ -26,7 +27,13 @@
           "total_price": 0.0
         },
         {
-          "description": "SM DRINK - Coke",
+          "description": "SM DRINK",
+          "quantity": 1,
+          "unit_price": 0.0,
+          "total_price": 0.0
+        },
+        {
+          "description": "Coke",
           "quantity": 1,
           "unit_price": 0.0,
           "total_price": 0.0
@@ -34,6 +41,7 @@
       ]
     },
     {
+      "position": 2,
       "description": "Bur-BRC",
       "quantity": 2,
       "unit_price": 1.89,

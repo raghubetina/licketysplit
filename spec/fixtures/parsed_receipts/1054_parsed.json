@@ -1,65 +1,72 @@
 {
   "restaurant_name": "BIG JO'S",
-  "restaurant_address": "1955 Broadway, Santa Monica, CA 90404",
+  "restaurant_address": "1955 BROADWAY, SANTA MONICA, CA 90404",
   "restaurant_phone_number": "(310) 828-3191",
-  "billed_on": "2018-01-25T11:47:00-08:00",
+  "billed_on": "2018-01-25T11:47:00+00:00",
   "grand_total": 56.5,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "HB - Regular Price",
       "quantity": 1,
       "unit_price": 4.0,
       "total_price": 4.0
     },
     {
-      "description": "French Fries",
+      "position": 2,
+      "description": "French Fries x 2 ($2.50 each)",
       "quantity": 2,
       "unit_price": 2.5,
       "total_price": 5.0
     },
     {
+      "position": 3,
       "description": "Turkey Burger - Combo",
       "quantity": 1,
       "unit_price": 8.85,
       "total_price": 8.85
     },
     {
+      "position": 4,
       "description": "HB - Combo",
       "quantity": 1,
-      "unit_price": 7.6,
-      "total_price": 7.6,
+      "unit_price": 8.35,
+      "total_price": 8.35,
       "addons_attributes": [
         {
-          "description": "Grilled Onion",
+          "description": "Grilled Onion ($0.75)",
           "quantity": 1,
-          "unit_price": 0.75,
-          "total_price": 0.75
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },
     {
-      "description": "CB - Combo",
+      "position": 5,
+      "description": "CB x 2 - Combo ($7.85 each)",
       "quantity": 2,
       "unit_price": 7.85,
       "total_price": 15.7
     },
     {
+      "position": 6,
       "description": "CB - Regular Price",
       "quantity": 1,
-      "unit_price": 4.25,
-      "total_price": 4.25,
+      "unit_price": 5.0,
+      "total_price": 5.0,
       "addons_attributes": [
         {
-          "description": "Grilled Onion",
+          "description": "Grilled Onion ($0.75)",
           "quantity": 1,
-          "unit_price": 0.75,
-          "total_price": 0.75
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },
     {
+      "position": 7,
       "description": "Chill Fries",
       "quantity": 1,
       "unit_price": 4.35,

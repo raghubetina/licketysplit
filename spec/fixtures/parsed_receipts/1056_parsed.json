@@ -3,87 +3,98 @@
   "restaurant_address": "98 Garfield Parkway, Bethany Beach, DE 19930",
   "restaurant_phone_number": "(302) 616-2120",
   "billed_on": "2019-07-30T19:53:00+00:00",
-  "grand_total": 152.0,
+  "grand_total": 152,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "Flying Dog Numero Uno BTL",
       "quantity": 1,
-      "unit_price": 8.0,
-      "total_price": 8.0
+      "unit_price": 8,
+      "total_price": 8
     },
     {
+      "position": 2,
       "description": "House Recipe",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
+      "position": 3,
       "description": "Sandia Margarita (@13.00/ea)",
       "quantity": 2,
-      "unit_price": 13.0,
-      "total_price": 26.0
+      "unit_price": 13,
+      "total_price": 26
     },
     {
+      "position": 4,
       "description": "Totem Honey Bee",
       "quantity": 1,
-      "unit_price": 11.0,
-      "total_price": 11.0
+      "unit_price": 11,
+      "total_price": 11
     },
     {
+      "position": 5,
       "description": "Queso Fresco Guacamole",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
+      "position": 6,
       "description": "Queso Fundido Mexican Street Corn Dip",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     },
     {
+      "position": 7,
       "description": "Salsa De Molcajete",
       "quantity": 1,
-      "unit_price": 8.0,
-      "total_price": 8.0
+      "unit_price": 8,
+      "total_price": 8
     },
     {
+      "position": 8,
       "description": "Taquitos Carne Asada (@15.00/ea)",
       "quantity": 2,
-      "unit_price": 15.0,
-      "total_price": 30.0
+      "unit_price": 15,
+      "total_price": 30
     },
     {
+      "position": 9,
       "description": "Taquitos Baja California Shrimp",
       "quantity": 1,
-      "unit_price": 14.0,
-      "total_price": 14.0
+      "unit_price": 14,
+      "total_price": 14
     },
     {
+      "position": 10,
       "description": "Mole Enchilada",
       "quantity": 1,
-      "unit_price": 19.0,
-      "total_price": 19.0
+      "unit_price": 19,
+      "total_price": 19
     },
     {
+      "position": 11,
       "description": "Quesadilla Chicken",
       "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 12.0
+      "unit_price": 12,
+      "total_price": 12
     }
   ],
   "global_fees_attributes": [
     {
       "description": "Sales Tax",
-      "amount": 0.0
+      "amount": 0
     }
   ],
   "global_discounts_attributes": [
     {
-      "description": "COMPLIMENTARY ITEM COMPS: Queso Fundido Mexican Street Corn Dip",
-      "amount": 12.0
+      "description": "Complimentary item comp: Queso Fundido Mexican Street Corn Dip",
+      "amount": 12
     }
   ]
 }

@@ -8,7 +8,8 @@
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "description": "FRI-SUN DINNER $29.88",
+      "position": 1,
+      "description": "FRI-SUN DINNER",
       "quantity": 5,
       "unit_price": 29.88,
       "total_price": 149.4

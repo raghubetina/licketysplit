@@ -2,43 +2,49 @@
   "restaurant_name": "Panda Express #2614",
   "restaurant_address": "Brooklyn, NY",
   "restaurant_phone_number": "(718)246-3898",
-  "billed_on": "2017-12-22T16:58:01+00:00",
+  "billed_on": "2017-12-22T16:58:01-05:00",
   "grand_total": 27.44,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
-      "description": "1 Plate - Chow Mein 1/2, Chow Mein 1/2, Broccoli Beef, Beijing Beef",
+      "position": 1,
+      "description": "1 Plate - CHOW MEIN-1/2, CHOW MEIN-1/2, BROCCOLI BEEF, BEIJING BEEF",
       "quantity": 1,
       "unit_price": 9.1,
       "total_price": 9.1
     },
     {
-      "description": "1 Plate - Chow Mein 1/2, Chow Mein 1/2, Ckn Egg Roll, Kung Pao Ckn",
+      "position": 2,
+      "description": "1 Plate - CHOW MEIN-1/2, CHOW MEIN-1/2, CKN EGG ROLL, KUNG PAO CKN",
       "quantity": 1,
       "unit_price": 9.1,
       "total_price": 9.1
     },
     {
-      "description": "Xtra Entree - Grill Teriyaki Ckn",
+      "position": 3,
+      "description": "XTRA ENTREE - GRILL TERIYAKI CKN",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5
     },
     {
-      "description": "Xtra Entree - Grill Teriyaki Ckn",
+      "position": 4,
+      "description": "XTRA ENTREE - GRILL TERIYAKI CKN",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5
     },
     {
-      "description": "Pepsi 20 oz",
+      "position": 5,
+      "description": "PEPSI 20 OZ",
       "quantity": 1,
       "unit_price": 2.0,
       "total_price": 2.0
     },
     {
-      "description": "Pepsi 20 oz",
+      "position": 6,
+      "description": "PEPSI 20 OZ",
       "quantity": 1,
       "unit_price": 2.0,
       "total_price": 2.0

@@ -8,6 +8,7 @@
 #  discount             :decimal(10, 2)   default(0.0)
 #  discount_description :string
 #  participants_count   :integer          default(0)
+#  position             :integer          default(0)
 #  quantity             :integer          default(1)
 #  total_price          :decimal(10, 2)
 #  unit_price           :decimal(10, 2)   not null

@@ -2,24 +2,27 @@
   "restaurant_name": "Araxi Burger Aventura",
   "restaurant_address": "17861 Biscayne Blvd, Aventura, FL 33160",
   "restaurant_phone_number": null,
-  "billed_on": "2019-03-17T17:39:00+00:00",
+  "billed_on": "2019-03-17T17:39:00-04:00",
   "grand_total": 38.86,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "Vanilla Bean",
       "quantity": 2,
       "unit_price": 6,
       "total_price": 12
     },
     {
+      "position": 2,
       "description": "Classic Burger 4oz",
       "quantity": 1,
       "unit_price": 8,
       "total_price": 8
     },
     {
+      "position": 3,
       "description": "Route 66 Burger 8oz",
       "quantity": 1,
       "unit_price": 14,

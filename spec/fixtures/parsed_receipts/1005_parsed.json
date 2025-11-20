@@ -2,68 +2,73 @@
   "restaurant_name": "SASKA'S",
   "restaurant_address": "3768 Mission Blvd, San Diego, CA 92109",
   "restaurant_phone_number": "(858) 488-7311",
-  "billed_on": "2017-08-15T17:51:00-07:00",
+  "billed_on": "2017-08-15T17:51:00+00:00",
   "grand_total": 179.94,
   "currency": "USD",
   "status": "reviewing",
   "line_items_attributes": [
     {
+      "position": 1,
       "description": "Draft Blackhouse",
       "quantity": 1,
-      "unit_price": 7.0,
-      "total_price": 7.0
+      "unit_price": 7,
+      "total_price": 7
     },
     {
+      "position": 2,
       "description": "\"Cowboy\" 16oz Ribeye",
       "quantity": 1,
-      "unit_price": 45.0,
-      "total_price": 71.0,
+      "unit_price": 45,
+      "total_price": 45,
       "addons_attributes": [
         {
           "description": "Make It Blue",
           "quantity": 1,
-          "unit_price": 5.0,
-          "total_price": 5.0
+          "unit_price": 5,
+          "total_price": 5
         },
         {
           "description": "Add Lobster",
           "quantity": 1,
-          "unit_price": 21.0,
-          "total_price": 21.0
+          "unit_price": 21,
+          "total_price": 21
         }
       ]
     },
     {
+      "position": 3,
       "description": "CK Manhattan",
       "quantity": 2,
-      "unit_price": 5.0,
-      "total_price": 10.0,
+      "unit_price": 5,
+      "total_price": 10
+    },
+    {
+      "position": 4,
+      "description": "Whistle Pig Rye 10yr",
+      "quantity": 2,
+      "unit_price": 20,
+      "total_price": 40,
       "addons_attributes": [
-        {
-          "description": "Whistle Pig Rye 10yr",
-          "quantity": 2,
-          "unit_price": 20.0,
-          "total_price": 40.0
-        },
         {
           "description": "BMOD Up",
           "quantity": 2,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
     {
+      "position": 5,
       "description": "\"Duke\" 16oz Top Sirloin",
       "quantity": 1,
-      "unit_price": 34.0,
-      "total_price": 39.0,
+      "unit_price": 34,
+      "total_price": 34,
       "addons_attributes": [
         {
           "description": "Make It Blue",
           "quantity": 1,
-          "unit_price": 5.0,
-          "total_price": 5.0
+          "unit_price": 5,
+          "total_price": 5
         }
       ]
     }
