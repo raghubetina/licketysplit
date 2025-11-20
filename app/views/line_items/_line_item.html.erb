@@ -1,0 +1,42 @@
+<%# Accepts: line_item (required), check (optional - will be derived from line_item if not provided), participants (optional - will be queried if not provided) %>
+<% check ||= line_item.check %>
+<% participants ||= check.participants.order(:name) %>
+
+<%= turbo_frame_tag dom_id(line_item) do %>
+  <li class="list-group-item py-2 px-3">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <div class="d-flex align-items-baseline">
+        <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.total_price, precision: 2) %></span>
+        <span>
+          <strong class="small"><%= line_item.description %></strong>
+          <% if line_item.quantity > 1 %>
+            <span class="text-muted small">(<%= line_item.quantity %>x @ $<%= number_with_precision(line_item.unit_price, precision: 2) %> each)</span>
+          <% end %>
+        </span>
+      </div>
+      <strong class="small">$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
+    </div>
+    <% line_item.addons.each do |addon| %>
+      <div class="d-flex align-items-baseline mb-1">
+        <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
+        <span class="text-muted small">+ <%= addon.description %></span>
+      </div>
+    <% end %>
+
+    <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
+      <% participants.each do |participant| %>
+        <div class="form-check form-check-inline m-0">
+          <%= check_box_tag "participant_#{participant.id}",
+              participant.id,
+              line_item.participant_ids.include?(participant.id),
+              id: "item_#{line_item.id}_participant_#{participant.id}",
+              class: "form-check-input",
+              data: { action: "change->checkbox-toggle#toggle" } %>
+          <%= label_tag "item_#{line_item.id}_participant_#{participant.id}",
+              participant.name,
+              class: "form-check-label small" %>
+        </div>
+      <% end %>
+    </div>
+  </li>
+<% end %>

@@ -20,8 +20,6 @@
 #  index_checks_on_status  (status)
 #
 class Check < ApplicationRecord
-  broadcasts_refreshes
-
   has_one_attached :receipt_image
 
   has_many :participants, dependent: :destroy

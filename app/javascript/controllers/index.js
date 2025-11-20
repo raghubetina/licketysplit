@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import CheckboxToggleController from "./checkbox_toggle_controller"
 application.register("checkbox-toggle", CheckboxToggleController)
+
+import StreamHighlightController from "./stream_highlight_controller"
+application.register("stream-highlight", StreamHighlightController)

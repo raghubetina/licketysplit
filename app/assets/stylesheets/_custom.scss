@@ -1,13 +1,12 @@
 // Custom application styles
 
-// Highlight animation for Turbo morphing updates
+// Highlight animation for Turbo Stream updates
 @keyframes turbo-highlight {
   from { background-color: rgba(var(--bs-warning-rgb), 0.3); }
   to { background-color: transparent; }
 }
 
-// Apply to elements that were just morphed
-// Turbo adds this attribute during morph transitions
-.turbo-morph-added {
+// Applied by stream_highlight_controller when elements are updated via Turbo Streams
+.turbo-stream-updated {
   animation: turbo-highlight 1.5s ease-out;
 }

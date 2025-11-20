@@ -21,16 +21,16 @@
 #  fk_rails_...  (participant_id => participants.id)
 #
 class LineItemParticipant < ApplicationRecord
-  belongs_to :line_item, counter_cache: :participants_count, touch: true
+  belongs_to :line_item, counter_cache: :participants_count
   belongs_to :participant
-
-  broadcasts_refreshes_to ->(lip) { lip.line_item.check }
 
   validates :participant_id, uniqueness: {
     scope: :line_item_id,
     message: "is already associated with this line item"
   }
   validate :participant_belongs_to_same_check
+
+  after_commit :broadcast_updates, on: [:create, :destroy]
 
   private
 
@@ -40,5 +40,25 @@ class LineItemParticipant < ApplicationRecord
     if line_item.check_id != participant.check_id
       errors.add(:participant, "must belong to the same check as the line item")
     end
+  end
+
+  def broadcast_updates
+    check = line_item.check
+
+    # Update the specific line item
+    broadcast_replace_to(
+      check,
+      target: ActionView::RecordIdentifier.dom_id(line_item),
+      partial: "line_items/line_item",
+      locals: {line_item: line_item, check: check}
+    )
+
+    # Update the breakdown section
+    broadcast_replace_to(
+      check,
+      target: "breakdown",
+      partial: "checks/breakdown",
+      locals: {check: check}
+    )
   end
 end
