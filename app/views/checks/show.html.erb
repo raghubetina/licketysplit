@@ -32,7 +32,7 @@
   <% else %>
     <%= form_with model: @check, local: true do |f| %>
       <% @line_items.each_with_index do |item, index| %>
-        <%= f.fields_for :line_items_attributes, item, index: item.id do |item_fields| %>
+        <%= f.fields_for :line_items_attributes, item, index: index do |item_fields| %>
           <%= item_fields.hidden_field :id %>
 
           <div class="card mb-3">
@@ -59,12 +59,12 @@
               <div class="d-flex flex-wrap gap-2">
                 <% @participants.each do |participant| %>
                   <div class="form-check form-check-inline m-0">
-                    <%= check_box_tag "check[line_items_attributes][#{item.id}][participant_ids][]",
+                    <%= check_box_tag "check[line_items_attributes][#{index}][participant_ids][]",
                         participant.id,
                         item.participant_ids.include?(participant.id),
-                        id: "item_#{item.id}_participant_#{participant.id}",
+                        id: "item_#{index}_participant_#{participant.id}",
                         class: "form-check-input" %>
-                    <%= label_tag "item_#{item.id}_participant_#{participant.id}",
+                    <%= label_tag "item_#{index}_participant_#{participant.id}",
                         participant.name,
                         class: "form-check-label small" %>
                   </div>
