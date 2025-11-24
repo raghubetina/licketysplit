@@ -34,12 +34,51 @@ class Addon < ApplicationRecord
 
   before_validation :set_defaults
   before_save :calculate_total
+  after_commit :broadcast_updates
 
   def base_total
     (unit_price * quantity) - discount
   end
 
   private
+
+  def broadcast_updates
+    check = line_item.check
+
+    # Update the addon itself
+    broadcast_replace_to(
+      check,
+      target: ActionView::RecordIdentifier.dom_id(self),
+      partial: "addons/addon",
+      locals: {addon: self, line_item: line_item}
+    )
+
+    # Update the parent line item (total changes)
+    broadcast_replace_to(
+      check,
+      target: ActionView::RecordIdentifier.dom_id(line_item),
+      partial: "line_items/line_item",
+      locals: {line_item: line_item, check: check}
+    )
+
+    # Update all participants assigned to the parent line item
+    line_item.participants.each do |participant|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
+        partial: "checks/participant_breakdown",
+        locals: {participant: participant, check: check}
+      )
+    end
+
+    # Update the remaining section
+    broadcast_replace_to(
+      check,
+      target: "remaining_breakdown",
+      partial: "checks/remaining_breakdown",
+      locals: {check: check}
+    )
+  end
 
   def set_defaults
     self.quantity ||= 1

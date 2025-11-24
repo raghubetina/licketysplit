@@ -41,6 +41,7 @@ class LineItem < ApplicationRecord
 
   before_validation :set_defaults
   before_save :calculate_total
+  after_commit :broadcast_updates
 
   def base_total
     (unit_price * quantity) - discount
@@ -60,6 +61,34 @@ class LineItem < ApplicationRecord
   end
 
   private
+
+  def broadcast_updates
+    # Update the line item itself
+    broadcast_replace_to(
+      check,
+      target: ActionView::RecordIdentifier.dom_id(self),
+      partial: "line_items/line_item",
+      locals: {line_item: self, check: check}
+    )
+
+    # Update all participants assigned to this item
+    participants.each do |participant|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
+        partial: "checks/participant_breakdown",
+        locals: {participant: participant, check: check}
+      )
+    end
+
+    # Update the remaining section
+    broadcast_replace_to(
+      check,
+      target: "remaining_breakdown",
+      partial: "checks/remaining_breakdown",
+      locals: {check: check}
+    )
+  end
 
   def set_defaults
     self.quantity ||= 1
