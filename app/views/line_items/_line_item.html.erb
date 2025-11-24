@@ -40,7 +40,7 @@
 
   <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
     <% participants.each do |participant| %>
-      <div class="form-check form-check-inline m-0">
+      <div class="form-check form-check-inline m-0 participant-checkbox">
         <%= check_box_tag "participant_#{participant.id}",
             participant.id,
             line_item.participant_ids.include?(participant.id),

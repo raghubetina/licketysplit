@@ -10,3 +10,10 @@
 .turbo-stream-updated {
   animation: turbo-highlight 1.5s ease-out;
 }
+
+// Participant checkbox tap targets
+.participant-checkbox {
+  background-color: var(--bs-light);
+  padding: 0.25rem 0.5rem 0.25rem 1.75rem;
+  border-radius: var(--bs-border-radius-sm);
+}
