@@ -2,7 +2,7 @@
 
 <%= turbo_frame_tag dom_id(line_item, :content) do %>
     <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
-      <div class="row g-2 mb-2">
+      <div class="row g-2 mb-3">
         <div class="col-12 col-sm-6">
           <%= f.label :description, class: "form-label small mb-1" %>
           <%= f.text_field :description, class: "form-control form-control-sm" %>
@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div class="row g-2 mb-2">
+      <div class="row g-2 mb-3">
         <div class="col-6 col-sm-3">
           <%= f.label :discount, class: "form-label small mb-1" %>
           <div class="input-group input-group-sm">

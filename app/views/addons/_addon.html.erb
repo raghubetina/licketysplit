@@ -1,7 +1,7 @@
 <%# Accepts: addon (required), line_item (required) %>
 
-<%= turbo_frame_tag dom_id(addon) do %>
-  <div class="d-flex align-items-baseline mb-3">
+<%= turbo_frame_tag dom_id(addon), class: "d-flex flex-column gap-3" do %>
+  <div class="d-flex align-items-baseline">
     <%= link_to edit_line_item_addon_path(line_item, addon), class: "text-muted me-2", title: "Edit addon" do %>
       <i class="bi bi-pencil small"></i>
     <% end %>
@@ -9,7 +9,7 @@
     <span class="text-muted small">+ <%= addon.description %></span>
   </div>
   <% if addon.discount && addon.discount > 0 %>
-    <div class="d-flex align-items-baseline mb-3 ms-4">
+    <div class="d-flex align-items-baseline ms-4">
       <span class="text-success small me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(addon.discount, precision: 2) %></span>
       <span class="text-success small">
         <% if addon.discount_description.present? %>

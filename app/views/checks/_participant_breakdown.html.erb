@@ -4,8 +4,8 @@
 <% participant_items = line_items.select { |item| item.participant_ids.include?(participant.id) } %>
 <% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
 <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
-<div id="<%= dom_id(participant, :breakdown) %>" class="list-group-item py-2 px-3">
-  <div class="d-flex justify-content-between align-items-center mb-2">
+<div id="<%= dom_id(participant, :breakdown) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3">
+  <div class="d-flex justify-content-between align-items-center">
     <strong>
       <%= participant.name %>
       <% if participant_items.any? && check.subtotal > 0 %>

@@ -2,9 +2,9 @@
 <% check ||= line_item.check %>
 <% participants ||= check.participants.order(:name) %>
 
-<li id="<%= dom_id(line_item) %>" class="list-group-item py-3 px-3">
-  <%= turbo_frame_tag dom_id(line_item, :content) do %>
-    <div class="d-flex justify-content-between align-items-start mb-3">
+<li id="<%= dom_id(line_item) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3">
+  <%= turbo_frame_tag dom_id(line_item, :content), class: "d-flex flex-column gap-3" do %>
+    <div class="d-flex justify-content-between align-items-start">
       <div class="d-flex align-items-baseline">
         <%= link_to edit_check_line_item_path(check, line_item), class: "text-muted me-2", title: "Edit item" do %>
           <i class="bi bi-pencil small"></i>
@@ -20,7 +20,7 @@
       <strong class="small">$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
     </div>
     <% if line_item.discount && line_item.discount > 0 %>
-      <div class="d-flex align-items-baseline mb-3">
+      <div class="d-flex align-items-baseline">
         <span class="me-2" style="width: 1em;"></span>
         <span class="text-success small me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(line_item.discount, precision: 2) %></span>
         <span class="text-success small">
@@ -38,7 +38,7 @@
     <%= render partial: "addons/addon", locals: { addon: addon, line_item: line_item } %>
   <% end %>
 
-  <div class="d-flex flex-wrap gap-2 mt-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
+  <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
     <% participants.each do |participant| %>
       <div class="form-check form-check-inline m-0 participant-checkbox">
         <%= check_box_tag "participant_#{participant.id}",

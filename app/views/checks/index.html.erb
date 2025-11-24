@@ -22,7 +22,7 @@
                 <div class="card-body">
                   <h5 class="card-title"><%= check.restaurant_name %></h5>
 
-                  <div class="small text-muted mb-2">
+                  <div class="small text-muted mb-3">
                     <% if check.billed_on.present? %>
                       <i class="bi bi-calendar"></i> <%= check.billed_on.strftime("%B %d, %Y") %>
                     <% else %>

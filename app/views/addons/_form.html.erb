@@ -1,9 +1,9 @@
 <%# Accepts: addon (required), line_item (required) %>
 
 <%= turbo_frame_tag dom_id(addon) do %>
-  <div class="mb-2">
+  <div class="mb-3">
     <%= form_with model: [line_item, addon], class: "addon-form" do |f| %>
-      <div class="row g-2 mb-2">
+      <div class="row g-2 mb-3">
         <div class="col-12 col-sm-6">
           <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Description" %>
         </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="row g-2 mb-2">
+      <div class="row g-2 mb-3">
         <div class="col-6 col-sm-3">
           <div class="input-group input-group-sm">
             <span class="input-group-text">-$</span>
