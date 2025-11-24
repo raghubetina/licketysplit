@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :checks do
     resources :participants, only: [:new, :create, :destroy]
-    resources :line_items, only: [:show, :edit, :update]
+    resources :line_items, only: [:create, :show, :edit, :update]
   end
 
   resources :line_items, only: [] do

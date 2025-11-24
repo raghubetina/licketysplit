@@ -1,0 +1,35 @@
+<%# Accepts: line_item (required), check (required) %>
+
+<li id="new_line_item_form" class="list-group-item py-3 px-3">
+  <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
+    <% if line_item.errors.any? %>
+      <div class="alert alert-danger small mb-3">
+        <% line_item.errors.full_messages.each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="row g-2 mb-3">
+      <div class="col-12 col-sm-6">
+        <%= f.label :description, class: "form-label small mb-1" %>
+        <%= f.text_field :description, class: "form-control form-control-sm #{'is-invalid' if line_item.errors[:description].any?}" %>
+      </div>
+      <div class="col-6 col-sm-3">
+        <%= f.label :quantity, "Quantity", class: "form-label small mb-1" %>
+        <%= f.number_field :quantity, min: 1, value: line_item.quantity || 1, class: "form-control form-control-sm #{'is-invalid' if line_item.errors[:quantity].any?}" %>
+      </div>
+      <div class="col-6 col-sm-3">
+        <%= f.label :unit_price, "Price", class: "form-label small mb-1" %>
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <%= f.number_field :unit_price, step: 0.01, class: "form-control form-control-sm #{'is-invalid' if line_item.errors[:unit_price].any?}" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+      <%= f.submit "Add Item", class: "btn btn-sm btn-primary" %>
+    </div>
+  <% end %>
+</li>

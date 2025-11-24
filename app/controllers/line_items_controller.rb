@@ -1,6 +1,33 @@
 class LineItemsController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update]
-  before_action :set_line_item
+  before_action :set_check, only: [:create, :show, :edit, :update]
+  before_action :set_line_item, only: [:show, :edit, :update, :toggle_participant]
+
+  def create
+    @line_item = @check.line_items.build(line_item_params)
+    if @line_item.save
+      respond_to do |format|
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(
+            "new_line_item_form",
+            partial: "line_items/new_form",
+            locals: {line_item: LineItem.new, check: @check}
+          )
+        }
+        format.html { redirect_to @check }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream {
+          render turbo_stream: turbo_stream.replace(
+            "new_line_item_form",
+            partial: "line_items/new_form",
+            locals: {line_item: @line_item, check: @check}
+          ), status: :unprocessable_entity
+        }
+        format.html { redirect_to @check, alert: @line_item.errors.full_messages.join(", ") }
+      end
+    end
+  end
 
   def show
     render partial: "line_items/line_item", locals: {line_item: @line_item, check: @check}

@@ -63,13 +63,23 @@ class LineItem < ApplicationRecord
   private
 
   def broadcast_updates
-    # Update the line item itself
-    broadcast_replace_to(
-      check,
-      target: ActionView::RecordIdentifier.dom_id(self),
-      partial: "line_items/line_item",
-      locals: {line_item: self, check: check}
-    )
+    if previously_new_record?
+      # Append new line item to the list
+      broadcast_append_to(
+        check,
+        target: "line_items_list",
+        partial: "line_items/line_item",
+        locals: {line_item: self, check: check}
+      )
+    else
+      # Update the line item itself
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(self),
+        partial: "line_items/line_item",
+        locals: {line_item: self, check: check}
+      )
+    end
 
     # Update all participants assigned to this item
     participants.each do |participant|

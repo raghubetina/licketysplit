@@ -9,7 +9,7 @@
         <%= link_to edit_check_line_item_path(check, line_item), class: "text-muted me-2", title: "Edit item" do %>
           <i class="bi bi-pencil small"></i>
         <% end %>
-        <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.total_price, precision: 2) %></span>
+        <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>
         <span>
           <strong class="small"><%= line_item.description %></strong>
           <% if line_item.quantity > 1 %>
