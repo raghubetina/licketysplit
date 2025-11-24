@@ -32,24 +32,25 @@
         </span>
       </div>
     <% end %>
-    <% line_item.addons.each do |addon| %>
-      <%= render partial: "addons/addon", locals: { addon: addon, line_item: line_item } %>
-    <% end %>
-
-    <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
-      <% participants.each do |participant| %>
-        <div class="form-check form-check-inline m-0">
-          <%= check_box_tag "participant_#{participant.id}",
-              participant.id,
-              line_item.participant_ids.include?(participant.id),
-              id: "item_#{line_item.id}_participant_#{participant.id}",
-              class: "form-check-input",
-              data: { action: "change->checkbox-toggle#toggle" } %>
-          <%= label_tag "item_#{line_item.id}_participant_#{participant.id}",
-              participant.name,
-              class: "form-check-label small" %>
-        </div>
-      <% end %>
-    </div>
   <% end %>
+
+  <% line_item.addons.each do |addon| %>
+    <%= render partial: "addons/addon", locals: { addon: addon, line_item: line_item } %>
+  <% end %>
+
+  <div class="d-flex flex-wrap gap-2" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
+    <% participants.each do |participant| %>
+      <div class="form-check form-check-inline m-0">
+        <%= check_box_tag "participant_#{participant.id}",
+            participant.id,
+            line_item.participant_ids.include?(participant.id),
+            id: "item_#{line_item.id}_participant_#{participant.id}",
+            class: "form-check-input",
+            data: { action: "change->checkbox-toggle#toggle" } %>
+        <%= label_tag "item_#{line_item.id}_participant_#{participant.id}",
+            participant.name,
+            class: "form-check-label small" %>
+      </div>
+    <% end %>
+  </div>
 </li>
