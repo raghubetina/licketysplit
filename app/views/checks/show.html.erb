@@ -47,9 +47,6 @@
         <% @line_items.each do |item| %>
           <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants } %>
         <% end %>
-      </ul>
-
-      <ul class="list-group list-group-flush border-top">
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>
 

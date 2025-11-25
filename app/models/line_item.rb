@@ -64,10 +64,10 @@ class LineItem < ApplicationRecord
 
   def broadcast_updates
     if previously_new_record?
-      # Append new line item to the list
-      broadcast_append_to(
+      # Insert new line item before the new item form
+      broadcast_before_to(
         check,
-        target: "line_items_list",
+        target: "new_line_item_form",
         partial: "line_items/line_item",
         locals: {line_item: self, check: check}
       )
