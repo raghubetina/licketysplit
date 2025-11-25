@@ -1,40 +1,38 @@
 <%# Accepts: addon (required), line_item (required) %>
 
-<%= turbo_frame_tag dom_id(addon) do %>
-  <div class="mb-3">
-    <%= form_with model: [line_item, addon], class: "addon-form" do |f| %>
-      <div class="row g-2 mb-3">
-        <div class="col-12 col-sm-6">
-          <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Description" %>
-        </div>
-        <div class="col-6 col-sm-3">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text">$</span>
-            <%= f.number_field :unit_price, step: 0.01, class: "form-control form-control-sm", placeholder: "Price" %>
-          </div>
-        </div>
-        <div class="col-6 col-sm-3">
-          <%= f.number_field :quantity, min: 1, class: "form-control form-control-sm", placeholder: "Qty" %>
+<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
+  <%= form_with model: [line_item, addon], class: "addon-form" do |f| %>
+    <div class="row g-2 mb-3">
+      <div class="col-12 col-sm-6">
+        <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Description" %>
+      </div>
+      <div class="col-6 col-sm-3">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <%= f.number_field :unit_price, step: 0.01, class: "form-control form-control-sm", placeholder: "Price" %>
         </div>
       </div>
+      <div class="col-6 col-sm-3">
+        <%= f.number_field :quantity, min: 1, class: "form-control form-control-sm", placeholder: "Qty" %>
+      </div>
+    </div>
 
-      <div class="row g-2 mb-3">
-        <div class="col-6 col-sm-3">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text">-$</span>
-            <%= f.number_field :discount, step: 0.01, min: 0, class: "form-control form-control-sm", placeholder: "Discount" %>
-          </div>
-        </div>
-        <div class="col-6 col-sm-6">
-          <%= f.text_field :discount_description, class: "form-control form-control-sm", placeholder: "Discount reason" %>
-        </div>
-        <div class="col-12 col-sm-3">
-          <div class="d-flex gap-1">
-            <%= link_to "Cancel", line_item_addon_path(line_item, addon), class: "btn btn-sm btn-outline-secondary flex-grow-1" %>
-            <%= f.submit "Save", class: "btn btn-sm btn-primary flex-grow-1" %>
-          </div>
+    <div class="row g-2">
+      <div class="col-6 col-sm-3">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">-$</span>
+          <%= f.number_field :discount, step: 0.01, min: 0, class: "form-control form-control-sm", placeholder: "Discount" %>
         </div>
       </div>
-    <% end %>
-  </div>
-<% end %>
+      <div class="col-6 col-sm-6">
+        <%= f.text_field :discount_description, class: "form-control form-control-sm", placeholder: "Discount reason" %>
+      </div>
+      <div class="col-12 col-sm-3">
+        <div class="d-flex gap-1">
+          <%= link_to "Cancel", line_item_addon_path(line_item, addon), class: "btn btn-sm btn-outline-secondary flex-grow-1" %>
+          <%= f.submit "Save", class: "btn btn-sm btn-primary flex-grow-1" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -3,18 +3,34 @@ class AddonsController < ApplicationController
   before_action :set_addon
 
   def show
-    render partial: "addons/addon", locals: {addon: @addon, line_item: @line_item}
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@addon),
+      partial: "addons/addon",
+      locals: {addon: @addon, line_item: @line_item}
+    )
   end
 
   def edit
-    render partial: "addons/form", locals: {addon: @addon, line_item: @line_item}
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@addon),
+      partial: "addons/form",
+      locals: {addon: @addon, line_item: @line_item}
+    )
   end
 
   def update
     if @addon.update(addon_params)
-      render partial: "addons/addon", locals: {addon: @addon, line_item: @line_item}
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@addon),
+        partial: "addons/addon",
+        locals: {addon: @addon, line_item: @line_item}
+      )
     else
-      render partial: "addons/form", locals: {addon: @addon, line_item: @line_item}, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@addon),
+        partial: "addons/form",
+        locals: {addon: @addon, line_item: @line_item}
+      ), status: :unprocessable_entity
     end
   end
 

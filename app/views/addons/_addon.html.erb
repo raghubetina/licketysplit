@@ -1,6 +1,6 @@
 <%# Accepts: addon (required), line_item (required) %>
 
-<%= turbo_frame_tag dom_id(addon), class: "d-flex flex-column gap-3" do %>
+<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
   <div class="d-flex align-items-baseline">
     <%= link_to edit_line_item_addon_path(line_item, addon), class: "text-muted me-2", title: "Edit addon" do %>
       <i class="bi bi-pencil small"></i>
@@ -20,4 +20,4 @@
       </span>
     </div>
   <% end %>
-<% end %>
+</div>

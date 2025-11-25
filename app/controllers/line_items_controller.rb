@@ -30,18 +30,34 @@ class LineItemsController < ApplicationController
   end
 
   def show
-    render partial: "line_items/line_item", locals: {line_item: @line_item, check: @check}
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@line_item, :content),
+      partial: "line_items/line_item_content",
+      locals: {line_item: @line_item, check: @check}
+    )
   end
 
   def edit
-    render partial: "line_items/form", locals: {line_item: @line_item, check: @check}
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@line_item, :content),
+      partial: "line_items/form",
+      locals: {line_item: @line_item, check: @check}
+    )
   end
 
   def update
     if @line_item.update(line_item_params)
-      render partial: "line_items/line_item", locals: {line_item: @line_item, check: @check}
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@line_item, :content),
+        partial: "line_items/line_item_content",
+        locals: {line_item: @line_item, check: @check}
+      )
     else
-      render partial: "line_items/form", locals: {line_item: @line_item, check: @check}, status: :unprocessable_entity
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@line_item, :content),
+        partial: "line_items/form",
+        locals: {line_item: @line_item, check: @check}
+      ), status: :unprocessable_entity
     end
   end
 

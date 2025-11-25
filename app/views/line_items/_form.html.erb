@@ -1,7 +1,7 @@
 <%# Accepts: line_item (required), check (required) %>
 
-<%= turbo_frame_tag dom_id(line_item, :content) do %>
-    <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
+<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3">
+  <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
       <div class="row g-2 mb-3">
         <div class="col-12 col-sm-6">
           <%= f.label :description, class: "form-label small mb-1" %>
@@ -43,5 +43,5 @@
           <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
         </div>
       </div>
-    <% end %>
-<% end %>
+  <% end %>
+</div>

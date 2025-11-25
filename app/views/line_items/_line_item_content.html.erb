@@ -1,0 +1,32 @@
+<%# Accepts: line_item (required), check (required) %>
+
+<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3">
+  <div class="d-flex justify-content-between align-items-start">
+    <div class="d-flex align-items-baseline">
+      <%= link_to edit_check_line_item_path(check, line_item), class: "text-muted me-2", title: "Edit item" do %>
+        <i class="bi bi-pencil small"></i>
+      <% end %>
+      <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>
+      <span>
+        <strong class="small"><%= line_item.description %></strong>
+        <% if line_item.quantity > 1 %>
+          <span class="text-muted small">(<%= line_item.quantity %>x @ $<%= number_with_precision(line_item.unit_price, precision: 2) %> each)</span>
+        <% end %>
+      </span>
+    </div>
+    <strong class="small">$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
+  </div>
+  <% if line_item.discount && line_item.discount > 0 %>
+    <div class="d-flex align-items-baseline">
+      <span class="me-2" style="width: 1em;"></span>
+      <span class="text-success small me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(line_item.discount, precision: 2) %></span>
+      <span class="text-success small">
+        <% if line_item.discount_description.present? %>
+          <%= line_item.discount_description %>
+        <% else %>
+          Discount
+        <% end %>
+      </span>
+    </div>
+  <% end %>
+</div>
