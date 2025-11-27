@@ -48,7 +48,11 @@
       </div>
     </div>
     <% if @check.receipt_image.attached? %>
-      <%= image_tag @check.receipt_image, class: "card-img-bottom" %>
+      <%= cl_image_tag @check.receipt_image.key,
+          width: 800,
+          quality: :auto,
+          fetch_format: :auto,
+          class: "card-img-bottom" %>
     <% end %>
   </div>
 

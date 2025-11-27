@@ -12,7 +12,15 @@
             <div class="col">
               <div class="card h-100">
                 <% if check.receipt_image.attached? %>
-                  <%= image_tag check.receipt_image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+                  <%= cl_image_tag check.receipt_image.key,
+                      width: 400,
+                      height: 200,
+                      crop: :fill,
+                      gravity: :auto,
+                      quality: :auto,
+                      fetch_format: :auto,
+                      class: "card-img-top",
+                      style: "height: 200px; object-fit: cover;" %>
                 <% else %>
                   <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                     <i class="bi bi-receipt fs-1 text-white"></i>
