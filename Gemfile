@@ -55,6 +55,7 @@ group :development do
   gem "web-console"
 end
 gem "goldiloader"
+gem "memo_wise"
 
 group :development, :test do
   gem "pry-rails"

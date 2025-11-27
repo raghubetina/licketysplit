@@ -20,6 +20,8 @@
 #  index_checks_on_status  (status)
 #
 class Check < ApplicationRecord
+  prepend MemoWise
+
   has_one_attached :receipt_image
 
   has_many :participants, dependent: :destroy
@@ -43,18 +45,22 @@ class Check < ApplicationRecord
   def subtotal
     line_items.sum { |item| item.total_with_addons }
   end
+  memo_wise :subtotal
 
   def total_fees
     global_fees.sum(:amount)
   end
+  memo_wise :total_fees
 
   def total_discounts
     global_discounts.sum(:amount)
   end
+  memo_wise :total_discounts
 
   def calculated_total
     subtotal + total_fees - total_discounts
   end
+  memo_wise :calculated_total
 
   def amount_owed_by(participant)
     return 0.0 if treated_participants.include?(participant)
@@ -69,6 +75,7 @@ class Check < ApplicationRecord
 
     base_amount.round(2)
   end
+  memo_wise :amount_owed_by
 
   private
 
