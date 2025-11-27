@@ -1,4 +1,6 @@
 class AddonsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :set_line_item
   before_action :set_addon
 

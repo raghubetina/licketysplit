@@ -1,4 +1,6 @@
 class LineItemsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :set_check, only: [:create, :show, :edit, :update]
   before_action :set_line_item, only: [:show, :edit, :update, :toggle_participant]
 
