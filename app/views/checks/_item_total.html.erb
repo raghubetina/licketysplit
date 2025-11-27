@@ -1,0 +1,7 @@
+<%# Accepts: check (required) %>
+<div id="item_total" class="card-footer py-3 px-3">
+  <div class="d-flex justify-content-between small">
+    <strong>Item total</strong>
+    <strong>$<%= number_with_precision(check.subtotal, precision: 2) %></strong>
+  </div>
+</div>

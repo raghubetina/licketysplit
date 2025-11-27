@@ -29,6 +29,8 @@ class GlobalDiscount < ApplicationRecord
   private
 
   def broadcast_updates
+    check.reload if destroyed?
+
     if destroyed?
       broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
     else
@@ -53,6 +55,20 @@ class GlobalDiscount < ApplicationRecord
       check,
       target: "remaining_breakdown",
       partial: "checks/remaining_breakdown",
+      locals: {check: check}
+    )
+
+    broadcast_replace_to(
+      check,
+      target: "after_discounts_total",
+      partial: "checks/after_discounts_total",
+      locals: {check: check}
+    )
+
+    broadcast_replace_to(
+      check,
+      target: "grand_total",
+      partial: "checks/grand_total",
       locals: {check: check}
     )
   end

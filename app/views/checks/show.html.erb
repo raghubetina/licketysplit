@@ -50,12 +50,7 @@
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>
 
-        <div class="card-footer py-3 px-3">
-          <div class="d-flex justify-content-between small">
-            <strong>Item total</strong>
-            <strong>$<%= number_with_precision(@check.subtotal, precision: 2) %></strong>
-          </div>
-        </div>
+        <%= render partial: "checks/item_total", locals: { check: @check } %>
       </div>
 
       <% if @global_discounts.any? %>
@@ -70,12 +65,7 @@
             <% end %>
           </ul>
 
-          <div class="card-footer py-3 px-3">
-            <div class="d-flex justify-content-between small">
-              <strong>After discounts</strong>
-              <strong>$<%= number_with_precision(@check.subtotal - @check.total_discounts, precision: 2) %></strong>
-            </div>
-          </div>
+          <%= render partial: "checks/after_discounts_total", locals: { check: @check } %>
         </div>
       <% end %>
 
@@ -93,18 +83,7 @@
             <% end %>
           </ul>
 
-          <div class="card-footer py-3 px-3">
-            <div class="d-flex justify-content-between small">
-              <strong>Grand total</strong>
-              <strong>$<%= number_with_precision(@check.calculated_total, precision: 2) %></strong>
-            </div>
-            <% if @check.grand_total.present? && @check.grand_total != @check.calculated_total %>
-              <div class="d-flex justify-content-between small text-muted">
-                <span>Receipt showed</span>
-                <span>$<%= number_with_precision(@check.grand_total, precision: 2) %></span>
-              </div>
-            <% end %>
-          </div>
+          <%= render partial: "checks/grand_total", locals: { check: @check } %>
         </div>
       <% end %>
 
