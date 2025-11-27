@@ -12,7 +12,7 @@
     <div class="mx-auto" style="max-width: 300px;">
       <%= qr_code_svg(check_url(@check), level: :m) %>
     </div>
-    <div class="text-muted mt-2">Scan to share this check</div>
+    <div class="text-muted mt-2">Scan to join</div>
     <button class="btn btn-primary w-100 mt-2"
             data-controller="clipboard"
             data-clipboard-text-value="<%= check_url(@check) %>"
