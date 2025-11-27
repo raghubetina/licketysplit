@@ -1,0 +1,28 @@
+<%# Accepts: global_fee (required), check (required) %>
+
+<li id="new_global_fee_form" class="list-group-item py-3 px-3">
+  <%= form_with model: [check, global_fee], class: "global-fee-form" do |f| %>
+    <% if global_fee.errors.any? %>
+      <div class="alert alert-danger small mb-2 py-1">
+        <% global_fee.errors.full_messages.each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="row g-2 align-items-end">
+      <div class="col">
+        <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Fee description (e.g., Tax, Tip)" %>
+      </div>
+      <div class="col-auto">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <%= f.number_field :amount, step: 0.01, min: 0, class: "form-control form-control-sm", style: "width: 80px;", placeholder: "0.00" %>
+        </div>
+      </div>
+      <div class="col-auto">
+        <%= f.submit "Add Fee", class: "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</li>

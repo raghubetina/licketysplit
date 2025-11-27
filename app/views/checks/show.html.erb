@@ -53,40 +53,41 @@
         <%= render partial: "checks/item_total", locals: { check: @check } %>
       </div>
 
-      <% if @global_discounts.any? %>
-        <div class="card mb-3">
-          <div class="card-header py-3">
-            <strong class="small">Discounts</strong>
-          </div>
+      <div class="card mb-3">
+        <div class="card-header py-3">
+          <strong class="small">Discounts</strong>
+        </div>
 
-          <ul class="list-group list-group-flush">
-            <% @global_discounts.each do |discount| %>
-              <%= render partial: "global_discounts/global_discount", locals: { global_discount: discount, check: @check } %>
-            <% end %>
-          </ul>
+        <ul class="list-group list-group-flush">
+          <% @global_discounts.each do |discount| %>
+            <%= render partial: "global_discounts/global_discount", locals: { global_discount: discount, check: @check } %>
+          <% end %>
+          <%= render partial: "global_discounts/new_form", locals: { global_discount: GlobalDiscount.new, check: @check } %>
+        </ul>
 
+        <% if @global_discounts.any? %>
           <%= render partial: "checks/after_discounts_total", locals: { check: @check } %>
+        <% end %>
+      </div>
+
+      <% subtotal_after_discounts = @check.subtotal - @check.total_discounts %>
+
+      <div class="card mb-3">
+        <div class="card-header py-3">
+          <strong class="small">Tax, tip, and other fees</strong>
         </div>
-      <% end %>
 
-      <% if @global_fees.any? %>
-        <% subtotal_after_discounts = @check.subtotal - @check.total_discounts %>
+        <ul class="list-group list-group-flush">
+          <% @global_fees.order(amount: :desc).each do |fee| %>
+            <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check, subtotal_after_discounts: subtotal_after_discounts } %>
+          <% end %>
+          <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
+        </ul>
 
-        <div class="card mb-3">
-          <div class="card-header py-3">
-            <strong class="small">Tax, tip, and other fees</strong>
-          </div>
-
-          <ul class="list-group list-group-flush">
-            <% @global_fees.order(amount: :desc).each do |fee| %>
-              <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check, subtotal_after_discounts: subtotal_after_discounts } %>
-            <% end %>
-          </ul>
-
-          <%= render partial: "checks/grand_total", locals: { check: @check } %>
-        </div>
-      <% end %>
+        <%= render partial: "checks/grand_total", locals: { check: @check } %>
+      </div>
 
     <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items } %>
   <% end %>
 </div>
+

@@ -2,7 +2,24 @@ class GlobalDiscountsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :set_check
-  before_action :set_global_discount
+  before_action :set_global_discount, only: [:show, :edit, :update, :destroy]
+
+  def create
+    @global_discount = @check.global_discounts.build(global_discount_params)
+    if @global_discount.save
+      render turbo_stream: turbo_stream.replace(
+        "new_global_discount_form",
+        partial: "global_discounts/new_form",
+        locals: {global_discount: GlobalDiscount.new, check: @check}
+      )
+    else
+      render turbo_stream: turbo_stream.replace(
+        "new_global_discount_form",
+        partial: "global_discounts/new_form",
+        locals: {global_discount: @global_discount, check: @check}
+      ), status: :unprocessable_entity
+    end
+  end
 
   def show
     render turbo_stream: turbo_stream.replace(

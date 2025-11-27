@@ -33,6 +33,13 @@ class GlobalDiscount < ApplicationRecord
 
     if destroyed?
       broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    elsif previously_new_record?
+      broadcast_before_to(
+        check,
+        target: "new_global_discount_form",
+        partial: "global_discounts/global_discount",
+        locals: {global_discount: self, check: check}
+      )
     else
       broadcast_replace_to(
         check,
