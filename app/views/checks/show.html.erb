@@ -76,7 +76,7 @@
         </div>
 
         <ul class="list-group list-group-flush">
-          <% @global_fees.order(amount: :desc).each do |fee| %>
+          <% @global_fees.in_order_of(:fee_type, %w[tax other tip]).order(amount: :desc).each do |fee| %>
             <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
           <% end %>
 
