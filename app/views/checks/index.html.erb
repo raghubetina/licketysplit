@@ -53,6 +53,9 @@
                 &middot;
                 <%= check.line_items.size %> items
               </small>
+              <% if check.participants.any? %>
+                <div class="small text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
+              <% end %>
             </div>
             <span class="text-success fw-semibold">
               <%= check.currency_symbol %><%= number_with_precision(check.grand_total, precision: 2) %>
@@ -82,6 +85,9 @@
                 &middot;
                 <%= check.line_items.size %> items
               </small>
+              <% if check.participants.any? %>
+                <div class="small text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
+              <% end %>
             </div>
             <span class="text-success fw-semibold">
               <%= check.currency_symbol %><%= number_with_precision(check.grand_total, precision: 2) %>

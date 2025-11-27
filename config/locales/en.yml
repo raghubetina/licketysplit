@@ -13,3 +13,7 @@ en:
     edit_title: Edit party member
     delete_title: Delete party member
     delete_confirm: Delete this party member?
+    count:
+      zero: no party members
+      one: 1 party member
+      other: "%{count} party members"
