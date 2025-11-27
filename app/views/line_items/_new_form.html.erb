@@ -13,7 +13,7 @@
     <div class="row g-2 mb-3">
       <div class="col-12 col-sm-6">
         <%= f.label :description, class: "form-label small mb-1" %>
-        <%= f.text_field :description, class: "form-control form-control-sm #{'is-invalid' if line_item.errors[:description].any?}" %>
+        <%= f.text_field :description, class: "form-control form-control-sm #{'is-invalid' if line_item.errors[:description].any?}", placeholder: "Add an item…" %>
       </div>
       <div class="col-6 col-sm-3">
         <%= f.label :quantity, "Quantity", class: "form-label small mb-1" %>
