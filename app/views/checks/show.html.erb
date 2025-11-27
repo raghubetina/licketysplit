@@ -80,12 +80,7 @@
             <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
           <% end %>
 
-          <% unless @check.has_tip? %>
-            <li class="list-group-item py-3 px-3">
-              <div class="small text-muted mb-2">Add a tip:</div>
-              <%= render partial: "global_fees/tip_controls", locals: { check: @check, current_tip: nil } %>
-            </li>
-          <% end %>
+          <%= render partial: "global_fees/tip_suggestion", locals: { check: @check } %>
 
           <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
         </ul>

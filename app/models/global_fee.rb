@@ -94,5 +94,12 @@ class GlobalFee < ApplicationRecord
       partial: "checks/grand_total",
       locals: {check: check}
     )
+
+    broadcast_replace_to(
+      check,
+      target: "tip_suggestion",
+      partial: "global_fees/tip_suggestion",
+      locals: {check: check}
+    )
   end
 end

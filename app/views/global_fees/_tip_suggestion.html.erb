@@ -1,0 +1,10 @@
+<%# Accepts: check (required) %>
+
+<div id="tip_suggestion">
+  <% unless check.has_tip? %>
+    <li class="list-group-item py-3 px-3">
+      <div class="small text-muted mb-2">Add a tip:</div>
+      <%= render partial: "global_fees/tip_controls", locals: { check: check, current_tip: nil } %>
+    </li>
+  <% end %>
+</div>
