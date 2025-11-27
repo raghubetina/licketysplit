@@ -4,17 +4,17 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import AutogrowController from "./autogrow_controller"
+application.register("autogrow", AutogrowController)
 
 import CheckboxToggleController from "./checkbox_toggle_controller"
 application.register("checkbox-toggle", CheckboxToggleController)
 
-import StreamHighlightController from "./stream_highlight_controller"
-application.register("stream-highlight", StreamHighlightController)
-
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
 
-import AutogrowController from "./autogrow_controller"
-application.register("autogrow", AutogrowController)
+import HelloController from "./hello_controller"
+application.register("hello", HelloController)
+
+import StreamHighlightController from "./stream_highlight_controller"
+application.register("stream-highlight", StreamHighlightController)
