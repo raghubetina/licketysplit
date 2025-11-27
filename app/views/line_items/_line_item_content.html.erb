@@ -3,10 +3,10 @@
 <div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3">
   <div class="d-flex justify-content-between align-items-start">
     <div class="d-flex align-items-baseline">
-      <%= button_to edit_check_line_item_path(check, line_item), method: :get, class: "btn btn-sm btn-outline-secondary me-1", title: "Edit item", form: { data: { turbo_stream: true } } do %>
+      <%= link_to edit_check_line_item_path(check, line_item), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit item", data: { turbo_stream: true } do %>
         <i class="bi bi-pencil small"></i>
       <% end %>
-      <%= button_to check_line_item_path(check, line_item), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete item", form: { data: { turbo_confirm: "Delete this item?" } } do %>
+      <%= button_to check_line_item_path(check, line_item), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete item", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this item?" } } do %>
         <i class="bi bi-trash small"></i>
       <% end %>
       <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>

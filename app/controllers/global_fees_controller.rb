@@ -22,29 +22,19 @@ class GlobalFeesController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          dom_id(@global_fee),
-          partial: "global_fees/global_fee",
-          locals: {global_fee: @global_fee, check: @check}
-        )
-      end
-      format.html { redirect_to check_path(@check) }
-    end
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@global_fee),
+      partial: "global_fees/global_fee",
+      locals: {global_fee: @global_fee, check: @check}
+    )
   end
 
   def edit
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          dom_id(@global_fee),
-          partial: "global_fees/form",
-          locals: {global_fee: @global_fee, check: @check}
-        )
-      end
-      format.html { redirect_to check_path(@check) }
-    end
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@global_fee),
+      partial: "global_fees/form",
+      locals: {global_fee: @global_fee, check: @check}
+    )
   end
 
   def update

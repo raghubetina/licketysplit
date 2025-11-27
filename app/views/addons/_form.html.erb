@@ -29,7 +29,7 @@
       </div>
       <div class="col-12 col-sm-3">
         <div class="d-flex gap-1">
-          <%= button_to "Cancel", line_item_addon_path(line_item, addon), method: :get, class: "btn btn-sm btn-secondary flex-grow-1", form: { data: { turbo_stream: true } } %>
+          <%= link_to "Cancel", line_item_addon_path(line_item, addon), class: "btn btn-sm btn-secondary flex-grow-1", data: { turbo_stream: true } %>
           <%= f.submit "Save", class: "btn btn-sm btn-primary flex-grow-1" %>
         </div>
       </div>

@@ -2,10 +2,10 @@
 
 <div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
   <div class="d-flex align-items-baseline">
-    <%= button_to edit_line_item_addon_path(line_item, addon), method: :get, class: "btn btn-sm btn-outline-secondary me-1", title: "Edit addon", form: { data: { turbo_stream: true } } do %>
+    <%= link_to edit_line_item_addon_path(line_item, addon), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit addon", data: { turbo_stream: true } do %>
       <i class="bi bi-pencil small"></i>
     <% end %>
-    <%= button_to line_item_addon_path(line_item, addon), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete addon", form: { data: { turbo_confirm: "Delete this addon?" } } do %>
+    <%= button_to line_item_addon_path(line_item, addon), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete addon", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this addon?" } } do %>
       <i class="bi bi-trash small"></i>
     <% end %>
     <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
