@@ -1,4 +1,5 @@
 <%= turbo_stream_from @check %>
+<%= turbo_refreshes_with method: :morph, scroll: :preserve %>
 
 <div class="container py-3">
   <% if flash[:notice] %>
@@ -7,6 +8,26 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
   <% end %>
+
+  <% if @check.parsing? %>
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary mb-3" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h2 class="h5">Parsing your receipt...</h2>
+      <p class="text-muted">This usually takes a few seconds</p>
+    </div>
+
+    <% if @check.receipt_image.attached? %>
+      <div class="card">
+        <%= cl_image_tag @check.receipt_image.key,
+            width: 800,
+            quality: :auto,
+            fetch_format: :auto,
+            class: "card-img" %>
+      </div>
+    <% end %>
+  <% else %>
 
   <div class="text-center mb-3">
     <div class="mx-auto" style="max-width: 300px;">
@@ -75,7 +96,9 @@
     <div class="alert alert-warning">
       <%= t("participants.add_prompt") %>
     </div>
-  <% elsif @line_items.empty? %>
+  <% end %>
+
+  <% if @line_items.empty? %>
     <div class="alert alert-warning">
       No items found on this receipt.
     </div>
@@ -93,46 +116,50 @@
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>
 
-        <%= render partial: "checks/item_total", locals: { check: @check } %>
+      <%= render partial: "checks/item_total", locals: { check: @check } %>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header py-3">
+        <strong>Discounts</strong>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-header py-3">
-          <strong>Discounts</strong>
-        </div>
-
-        <ul class="list-group list-group-flush">
-          <% @global_discounts.each do |discount| %>
-            <%= render partial: "global_discounts/global_discount", locals: { global_discount: discount, check: @check } %>
-          <% end %>
-          <%= render partial: "global_discounts/new_form", locals: { global_discount: GlobalDiscount.new, check: @check } %>
-        </ul>
-
-        <% if @global_discounts.any? %>
-          <%= render partial: "checks/after_discounts_total", locals: { check: @check } %>
+      <ul class="list-group list-group-flush">
+        <% @global_discounts.each do |discount| %>
+          <%= render partial: "global_discounts/global_discount", locals: { global_discount: discount, check: @check } %>
         <% end %>
+        <%= render partial: "global_discounts/new_form", locals: { global_discount: GlobalDiscount.new, check: @check } %>
+      </ul>
+
+      <% if @global_discounts.any? %>
+        <%= render partial: "checks/after_discounts_total", locals: { check: @check } %>
+      <% end %>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header py-3">
+        <strong>Tax, tip, and other fees</strong>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-header py-3">
-          <strong>Tax, tip, and other fees</strong>
-        </div>
+      <ul class="list-group list-group-flush">
+        <% @global_fees.in_order_of(:fee_type, %w[tax other tip]).order(amount: :desc).each do |fee| %>
+          <% next if !@show_zero_items && fee.amount == 0 %>
+          <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
+        <% end %>
 
-        <ul class="list-group list-group-flush">
-          <% @global_fees.in_order_of(:fee_type, %w[tax other tip]).order(amount: :desc).each do |fee| %>
-            <% next if !@show_zero_items && fee.amount == 0 %>
-            <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
-          <% end %>
+        <%= render partial: "global_fees/tip_suggestion", locals: { check: @check } %>
 
-          <%= render partial: "global_fees/tip_suggestion", locals: { check: @check } %>
+        <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
+      </ul>
 
-          <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
-        </ul>
+      <%= render partial: "checks/grand_total", locals: { check: @check } %>
+    </div>
 
-        <%= render partial: "checks/grand_total", locals: { check: @check } %>
-      </div>
+    <% if @participants.any? %>
+      <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items } %>
+    <% end %>
+  <% end %>
 
-    <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items } %>
   <% end %>
 </div>
 

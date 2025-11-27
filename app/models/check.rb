@@ -27,6 +27,10 @@ class Check < ApplicationRecord
 
   has_one_attached :receipt_image
 
+  def receipt_image_url
+    receipt_image.url
+  end
+
   has_many :participants, dependent: :destroy
   has_many :line_items, dependent: :destroy
   has_many :global_fees, dependent: :destroy
@@ -41,7 +45,7 @@ class Check < ApplicationRecord
   accepts_nested_attributes_for :global_discounts, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true
 
-  enum :status, {draft: "draft", reviewing: "reviewing", finalized: "finalized"}
+  enum :status, {parsing: "parsing", draft: "draft", reviewing: "reviewing", finalized: "finalized"}
 
   def subtotal
     line_items.sum { |item| item.total_with_addons }

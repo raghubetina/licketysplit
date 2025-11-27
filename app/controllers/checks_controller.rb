@@ -42,30 +42,21 @@ class ChecksController < ApplicationController
       return render :index, status: :unprocessable_entity
     end
 
-    parser = ReceiptParser.new(params[:receipt_image].tempfile.path)
-    parsed_data = parser.parse
-
-    @check = Check.new(parsed_data)
+    @check = Check.new(status: "parsing")
     @check.receipt_image.attach(params[:receipt_image])
 
     if params[:participant_names].present?
       names = params[:participant_names].split(",").map(&:strip).compact_blank
-      names.each do |name|
-        @check.participants.build(name: name)
-      end
+      names.each { |name| @check.participants.build(name: name) }
     end
 
     if @check.save
-      redirect_to @check, notice: "Check created! Now assign items to participants."
+      ParseReceiptJob.perform_later(@check)
+      redirect_to @check
     else
       @recent_checks = load_recent_checks
       render :index, status: :unprocessable_entity
     end
-  rescue => e
-    @check = Check.new
-    @check.errors.add(:base, "Failed to parse receipt: #{e.message}")
-    @recent_checks = load_recent_checks
-    render :index, status: :unprocessable_entity
   end
 
   def edit

@@ -44,6 +44,8 @@ class Addon < ApplicationRecord
 
   def broadcast_updates
     check = line_item.check
+    return if check.parsing?
+
     check.reload if destroyed?
 
     if destroyed?

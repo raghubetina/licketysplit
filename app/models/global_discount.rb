@@ -29,6 +29,8 @@ class GlobalDiscount < ApplicationRecord
   private
 
   def broadcast_updates
+    return if check.parsing?
+
     check.reload
 
     if destroyed?

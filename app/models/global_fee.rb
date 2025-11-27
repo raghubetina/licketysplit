@@ -52,6 +52,8 @@ class GlobalFee < ApplicationRecord
   end
 
   def broadcast_updates
+    return if check.parsing?
+
     check.reload
 
     if destroyed?
