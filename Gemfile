@@ -95,5 +95,5 @@ gem "auto_strip_attributes"
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem "action_dispatch-testing-integration-capybara", github: "thoughtbot/action_dispatch-testing-integration-capybara", tag: "v0.1.1", require: "action_dispatch/testing/integration/capybara/rspec"
+  gem "action_dispatch-testing-integration-capybara", github: "thoughtbot/action_dispatch-testing-integration-capybara", tag: "v0.2.0", require: "action_dispatch/testing/integration/capybara/rspec"
 end
