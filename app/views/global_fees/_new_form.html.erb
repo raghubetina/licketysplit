@@ -10,9 +10,25 @@
       </div>
     <% end %>
 
+    <% default_fee_type = if !check.has_tip?
+                            "tip"
+                          elsif !check.global_fees.tax.exists?
+                            "tax"
+                          else
+                            "other"
+                          end %>
+    <div class="d-flex gap-2 mb-2">
+      <% GlobalFee.fee_types.keys.each do |fee_type| %>
+        <div class="form-check form-check-inline mb-0">
+          <%= f.radio_button :fee_type, fee_type, class: "form-check-input", checked: fee_type == default_fee_type %>
+          <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label small" %>
+        </div>
+      <% end %>
+    </div>
+
     <div class="row g-2 align-items-end">
       <div class="col">
-        <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Fee description (e.g., Tax, Tip)" %>
+        <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Fee description" %>
       </div>
       <div class="col-auto">
         <div class="input-group input-group-sm">
