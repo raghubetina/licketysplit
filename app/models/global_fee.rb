@@ -31,6 +31,13 @@ class GlobalFee < ApplicationRecord
   def broadcast_updates
     if destroyed?
       broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    else
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(self),
+        partial: "global_fees/global_fee",
+        locals: {global_fee: self, check: check}
+      )
     end
 
     check.participants.each do |participant|

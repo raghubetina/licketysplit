@@ -31,6 +31,13 @@ class GlobalDiscount < ApplicationRecord
   def broadcast_updates
     if destroyed?
       broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    else
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(self),
+        partial: "global_discounts/global_discount",
+        locals: {global_discount: self, check: check}
+      )
     end
 
     check.participants.each do |participant|

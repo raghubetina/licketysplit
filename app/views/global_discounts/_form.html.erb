@@ -1,0 +1,23 @@
+<%# Accepts: global_discount (required), check (required) %>
+
+<li id="<%= dom_id(global_discount) %>" class="list-group-item py-3 px-3">
+  <%= form_with model: [check, global_discount], class: "global-discount-form" do |f| %>
+    <div class="row g-2 align-items-end">
+      <div class="col">
+        <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Description" %>
+      </div>
+      <div class="col-auto">
+        <div class="input-group input-group-sm">
+          <span class="input-group-text">$</span>
+          <%= f.number_field :amount, step: 0.01, min: 0, class: "form-control form-control-sm", style: "width: 80px;" %>
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="d-flex gap-1">
+          <%= button_to "Cancel", check_global_discount_path(check, global_discount), method: :get, class: "btn btn-sm btn-secondary" %>
+          <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</li>

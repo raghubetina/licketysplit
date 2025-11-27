@@ -1,6 +1,40 @@
 class GlobalDiscountsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :set_check
   before_action :set_global_discount
+
+  def show
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@global_discount),
+      partial: "global_discounts/global_discount",
+      locals: {global_discount: @global_discount, check: @check}
+    )
+  end
+
+  def edit
+    render turbo_stream: turbo_stream.replace(
+      dom_id(@global_discount),
+      partial: "global_discounts/form",
+      locals: {global_discount: @global_discount, check: @check}
+    )
+  end
+
+  def update
+    if @global_discount.update(global_discount_params)
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@global_discount),
+        partial: "global_discounts/global_discount",
+        locals: {global_discount: @global_discount, check: @check}
+      )
+    else
+      render turbo_stream: turbo_stream.replace(
+        dom_id(@global_discount),
+        partial: "global_discounts/form",
+        locals: {global_discount: @global_discount, check: @check}
+      ), status: :unprocessable_entity
+    end
+  end
 
   def destroy
     @global_discount.destroy
@@ -15,5 +49,9 @@ class GlobalDiscountsController < ApplicationController
 
   def set_global_discount
     @global_discount = @check.global_discounts.find(params[:id])
+  end
+
+  def global_discount_params
+    params.require(:global_discount).permit(:description, :amount)
   end
 end

@@ -1,7 +1,7 @@
 <%# Accepts: addon (required), line_item (required) %>
 
 <div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-baseline">
     <%= button_to edit_line_item_addon_path(line_item, addon), method: :get, class: "btn btn-sm btn-outline-secondary me-1", title: "Edit addon" do %>
       <i class="bi bi-pencil small"></i>
     <% end %>
