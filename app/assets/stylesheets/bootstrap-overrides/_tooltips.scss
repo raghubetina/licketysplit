@@ -1,0 +1,85 @@
+// Tooltips
+
+// scss-docs-start tooltip-variables
+// $tooltip-font-size:                 $font-size-sm;
+// $tooltip-max-width:                 200px;
+// $tooltip-color:                     var(--#{$prefix}body-bg);
+// $tooltip-bg:                        var(--#{$prefix}emphasis-color);
+// $tooltip-border-radius:             var(--#{$prefix}border-radius);
+// $tooltip-opacity:                   .9;
+// $tooltip-padding-y:                 $spacer * .25;
+// $tooltip-padding-x:                 $spacer * .5;
+// $tooltip-margin:                    null; // TODO: remove this in v6
+
+// $tooltip-arrow-width:               .8rem;
+// $tooltip-arrow-height:              .4rem;
+// fusv-disable
+// $tooltip-arrow-color:               null; // Deprecated in Bootstrap 5.2.0 for CSS variables
+// fusv-enable
+// scss-docs-end tooltip-variables
+
+// Form tooltips must come after regular tooltips
+// scss-docs-start tooltip-feedback-variables
+// $form-feedback-tooltip-padding-y:     $tooltip-padding-y;
+// $form-feedback-tooltip-padding-x:     $tooltip-padding-x;
+// $form-feedback-tooltip-font-size:     $tooltip-font-size;
+// $form-feedback-tooltip-line-height:   null;
+// $form-feedback-tooltip-opacity:       $tooltip-opacity;
+// $form-feedback-tooltip-border-radius: $tooltip-border-radius;
+// scss-docs-end tooltip-feedback-variables
+
+
+// Popovers
+
+// scss-docs-start popover-variables
+// $popover-font-size:                 $font-size-sm;
+// $popover-bg:                        var(--#{$prefix}body-bg);
+// $popover-max-width:                 276px;
+// $popover-border-width:              var(--#{$prefix}border-width);
+// $popover-border-color:              var(--#{$prefix}border-color-translucent);
+// $popover-border-radius:             var(--#{$prefix}border-radius-lg);
+// $popover-inner-border-radius:       calc(#{$popover-border-radius} - #{$popover-border-width}); // stylelint-disable-line function-disallowed-list
+// $popover-box-shadow:                var(--#{$prefix}box-shadow);
+
+// $popover-header-font-size:          $font-size-base;
+// $popover-header-bg:                 var(--#{$prefix}secondary-bg);
+// $popover-header-color:              $headings-color;
+// $popover-header-padding-y:          .5rem;
+// $popover-header-padding-x:          $spacer;
+
+// $popover-body-color:                var(--#{$prefix}body-color);
+// $popover-body-padding-y:            $spacer;
+// $popover-body-padding-x:            $spacer;
+
+// $popover-arrow-width:               1rem;
+// $popover-arrow-height:              .5rem;
+// scss-docs-end popover-variables
+
+// fusv-disable
+// Deprecated in Bootstrap 5.2.0 for CSS variables
+// $popover-arrow-color:               $popover-bg;
+// $popover-arrow-outer-color:         var(--#{$prefix}border-color-translucent);
+// fusv-enable
+
+
+// Toasts
+
+// scss-docs-start toast-variables
+// $toast-max-width:                   350px;
+// $toast-padding-x:                   .75rem;
+// $toast-padding-y:                   .5rem;
+// $toast-font-size:                   .875rem;
+// $toast-color:                       null;
+// $toast-background-color:            rgba(var(--#{$prefix}body-bg-rgb), .85);
+// $toast-border-width:                var(--#{$prefix}border-width);
+// $toast-border-color:                var(--#{$prefix}border-color-translucent);
+// $toast-border-radius:               var(--#{$prefix}border-radius);
+// $toast-box-shadow:                  var(--#{$prefix}box-shadow);
+// $toast-spacing:                     $container-padding-x;
+
+// $toast-header-color:                var(--#{$prefix}secondary-color);
+// $toast-header-background-color:     rgba(var(--#{$prefix}body-bg-rgb), .85);
+// $toast-header-border-color:         $toast-border-color;
+// scss-docs-end toast-variables
+
+

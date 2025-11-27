@@ -1,0 +1,77 @@
+// Navs
+
+// scss-docs-start nav-variables
+// $nav-link-padding-y:                .5rem;
+// $nav-link-padding-x:                1rem;
+// $nav-link-font-size:                null;
+// $nav-link-font-weight:              null;
+// $nav-link-color:                    var(--#{$prefix}link-color);
+// $nav-link-hover-color:              var(--#{$prefix}link-hover-color);
+// $nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+// $nav-link-disabled-color:           var(--#{$prefix}secondary-color);
+// $nav-link-focus-box-shadow:         $focus-ring-box-shadow;
+
+// $nav-tabs-border-color:             var(--#{$prefix}border-color);
+// $nav-tabs-border-width:             var(--#{$prefix}border-width);
+// $nav-tabs-border-radius:            var(--#{$prefix}border-radius);
+// $nav-tabs-link-hover-border-color:  var(--#{$prefix}secondary-bg) var(--#{$prefix}secondary-bg) $nav-tabs-border-color;
+// $nav-tabs-link-active-color:        var(--#{$prefix}emphasis-color);
+// $nav-tabs-link-active-bg:           var(--#{$prefix}body-bg);
+// $nav-tabs-link-active-border-color: var(--#{$prefix}border-color) var(--#{$prefix}border-color) $nav-tabs-link-active-bg;
+
+// $nav-pills-border-radius:           var(--#{$prefix}border-radius);
+// $nav-pills-link-active-color:       $component-active-color;
+// $nav-pills-link-active-bg:          $component-active-bg;
+
+// $nav-underline-gap:                 1rem;
+// $nav-underline-border-width:        .125rem;
+// $nav-underline-link-active-color:   var(--#{$prefix}emphasis-color);
+// scss-docs-end nav-variables
+
+
+// Navbar
+
+// scss-docs-start navbar-variables
+// $navbar-padding-y:                  $spacer * .5;
+// $navbar-padding-x:                  null;
+
+// $navbar-nav-link-padding-x:         .5rem;
+
+// $navbar-brand-font-size:            $font-size-lg;
+// Compute the navbar-brand padding-y so the navbar-brand will have the same height as navbar-text and nav-link
+// $nav-link-height:                   $font-size-base * $line-height-base + $nav-link-padding-y * 2;
+// $navbar-brand-height:               $navbar-brand-font-size * $line-height-base;
+// $navbar-brand-padding-y:            ($nav-link-height - $navbar-brand-height) * .5;
+// $navbar-brand-margin-end:           1rem;
+
+// $navbar-toggler-padding-y:          .25rem;
+// $navbar-toggler-padding-x:          .75rem;
+// $navbar-toggler-font-size:          $font-size-lg;
+// $navbar-toggler-border-radius:      $btn-border-radius;
+// $navbar-toggler-focus-width:        $btn-focus-width;
+// $navbar-toggler-transition:         box-shadow .15s ease-in-out;
+
+// $navbar-light-color:                rgba(var(--#{$prefix}emphasis-color-rgb), .65);
+// $navbar-light-hover-color:          rgba(var(--#{$prefix}emphasis-color-rgb), .8);
+// $navbar-light-active-color:         rgba(var(--#{$prefix}emphasis-color-rgb), 1);
+// $navbar-light-disabled-color:       rgba(var(--#{$prefix}emphasis-color-rgb), .3);
+// $navbar-light-icon-color:           rgba($body-color, .75);
+// $navbar-light-toggler-icon-bg:      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-light-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+// $navbar-light-toggler-border-color: rgba(var(--#{$prefix}emphasis-color-rgb), .15);
+// $navbar-light-brand-color:          $navbar-light-active-color;
+// $navbar-light-brand-hover-color:    $navbar-light-active-color;
+// scss-docs-end navbar-variables
+
+// scss-docs-start navbar-dark-variables
+// $navbar-dark-color:                 rgba($white, .55);
+// $navbar-dark-hover-color:           rgba($white, .75);
+// $navbar-dark-active-color:          $white;
+// $navbar-dark-disabled-color:        rgba($white, .25);
+// $navbar-dark-icon-color:            $navbar-dark-color;
+// $navbar-dark-toggler-icon-bg:       url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path stroke='#{$navbar-dark-icon-color}' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
+// $navbar-dark-toggler-border-color:  rgba($white, .1);
+// $navbar-dark-brand-color:           $navbar-dark-active-color;
+// $navbar-dark-brand-hover-color:     $navbar-dark-active-color;
+// scss-docs-end navbar-dark-variables
+
+

@@ -1,0 +1,35 @@
+// Alerts
+//
+// Define alert colors, border radius, and padding.
+
+// scss-docs-start alert-variables
+// $alert-padding-y:               $spacer;
+// $alert-padding-x:               $spacer;
+// $alert-margin-bottom:           1rem;
+// $alert-border-radius:           var(--#{$prefix}border-radius);
+// $alert-link-font-weight:        $font-weight-bold;
+// $alert-border-width:            var(--#{$prefix}border-width);
+// $alert-dismissible-padding-r:   $alert-padding-x * 3; // 3x covers width of x plus default padding on either side
+// scss-docs-end alert-variables
+
+// fusv-disable
+// $alert-bg-scale:                -80%; // Deprecated in v5.2.0, to be removed in v6
+// $alert-border-scale:            -70%; // Deprecated in v5.2.0, to be removed in v6
+// $alert-color-scale:             40%; // Deprecated in v5.2.0, to be removed in v6
+// fusv-enable
+
+// Progress bars
+
+// scss-docs-start progress-variables
+// $progress-height:                   1rem;
+// $progress-font-size:                $font-size-base * .75;
+// $progress-bg:                       var(--#{$prefix}secondary-bg);
+// $progress-border-radius:            var(--#{$prefix}border-radius);
+// $progress-box-shadow:               var(--#{$prefix}box-shadow-inset);
+// $progress-bar-color:                $white;
+// $progress-bar-bg:                   $primary;
+// $progress-bar-animation-timing:     1s linear infinite;
+// $progress-bar-transition:           width .6s ease;
+// scss-docs-end progress-variables
+
+

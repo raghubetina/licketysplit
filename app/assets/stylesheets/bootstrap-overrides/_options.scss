@@ -1,0 +1,37 @@
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+// $enable-caret:                true;
+// $enable-rounded:              true;
+// $enable-shadows:              false;
+// $enable-gradients:            false;
+// $enable-transitions:          true;
+// $enable-reduced-motion:       true;
+$enable-smooth-scroll:        false;
+// $enable-grid-classes:         true;
+// $enable-container-classes:    true;
+// $enable-cssgrid:              false;
+// $enable-button-pointers:      true;
+// $enable-rfs:                  true;
+// $enable-validation-icons:     true;
+// $enable-negative-margins:     false;
+// $enable-deprecation-messages: true;
+// $enable-important-utilities:  true;
+
+// $enable-dark-mode:            true;
+// $color-mode-type:             data; // `data` or `media-query`
+
+// Prefix for :root CSS variables
+
+// $variable-prefix:             bs-; // Deprecated in v5.2.0 for the shorter `$prefix`
+// $prefix:                      $variable-prefix;
+
+// Gradient
+//
+// The gradient which is added to components if `$enable-gradients` is `true`
+// This gradient is also added to elements with `.bg-gradient`
+// scss-docs-start variable-gradient
+// $gradient: linear-gradient(180deg, rgba($white, .15), rgba($white, 0));
+// scss-docs-end variable-gradient
+

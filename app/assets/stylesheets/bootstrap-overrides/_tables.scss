@@ -1,0 +1,58 @@
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+// scss-docs-start table-variables
+// $table-cell-padding-y:        .5rem;
+// $table-cell-padding-x:        .5rem;
+// $table-cell-padding-y-sm:     .25rem;
+// $table-cell-padding-x-sm:     .25rem;
+
+// $table-cell-vertical-align:   top;
+
+// $table-color:                 var(--#{$prefix}emphasis-color);
+// $table-bg:                    var(--#{$prefix}body-bg);
+// $table-accent-bg:             transparent;
+
+// $table-th-font-weight:        null;
+
+// $table-striped-color:         $table-color;
+// $table-striped-bg-factor:     .05;
+// $table-striped-bg:            rgba(var(--#{$prefix}emphasis-color-rgb), $table-striped-bg-factor);
+
+// $table-active-color:          $table-color;
+// $table-active-bg-factor:      .1;
+// $table-active-bg:             rgba(var(--#{$prefix}emphasis-color-rgb), $table-active-bg-factor);
+
+// $table-hover-color:           $table-color;
+// $table-hover-bg-factor:       .075;
+// $table-hover-bg:              rgba(var(--#{$prefix}emphasis-color-rgb), $table-hover-bg-factor);
+
+// $table-border-factor:         .2;
+// $table-border-width:          var(--#{$prefix}border-width);
+// $table-border-color:          var(--#{$prefix}border-color);
+
+// $table-striped-order:         odd;
+// $table-striped-columns-order: even;
+
+// $table-group-separator-color: currentcolor;
+
+// $table-caption-color:         var(--#{$prefix}secondary-color);
+
+// $table-bg-scale:              -80%;
+// scss-docs-end table-variables
+
+// scss-docs-start table-loop
+// $table-variants: (
+//   "primary":    shift-color($primary, $table-bg-scale),
+//   "secondary":  shift-color($secondary, $table-bg-scale),
+//   "success":    shift-color($success, $table-bg-scale),
+//   "info":       shift-color($info, $table-bg-scale),
+//   "warning":    shift-color($warning, $table-bg-scale),
+//   "danger":     shift-color($danger, $table-bg-scale),
+//   "light":      $light,
+//   "dark":       $dark,
+// ) !default;
+// scss-docs-end table-loop
+
+
