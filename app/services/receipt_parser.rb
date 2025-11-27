@@ -49,6 +49,7 @@ class ReceiptParser
   def configure_chat
     chat.model = "gpt-5.1"
     chat.reasoning_effort = "low"
+    chat.code_interpreter = true
     chat.schema = receipt_schema
   end
 
