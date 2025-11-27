@@ -2,9 +2,10 @@
   "restaurant_name": "ZOCA RESTAURANT",
   "restaurant_address": "98 Garfield Parkway, Bethany Beach, DE 19930",
   "restaurant_phone_number": "(302) 616-2120",
-  "billed_on": "2019-07-30T19:53:00-04:00",
+  "billed_on": "2019-07-30T19:53:00+00:00",
   "grand_total": 152.0,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {

@@ -2,9 +2,10 @@
   "restaurant_name": "Araxi Burger Aventura",
   "restaurant_address": "17861 Biscayne Blvd, Aventura, FL 33160",
   "restaurant_phone_number": null,
-  "billed_on": "2019-03-17T17:39:00+00:00",
+  "billed_on": "2019-03-17T17:39:00-04:00",
   "grand_total": 38.86,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -43,7 +44,7 @@
   ],
   "global_discounts_attributes": [
     {
-      "description": "10% discount",
+      "description": "10% (10.00%)",
       "amount": 3.4
     }
   ]

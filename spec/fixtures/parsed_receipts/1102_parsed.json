@@ -2,9 +2,10 @@
   "restaurant_name": "OM Indian Food",
   "restaurant_address": "204 Spring St, New York, NY 10012",
   "restaurant_phone_number": "(646) 756-4000",
-  "billed_on": "2016-04-15T12:03:14-04:00",
+  "billed_on": "2016-04-15T12:03:14+00:00",
   "grand_total": 16.24,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -31,14 +32,14 @@
   ],
   "global_fees_attributes": [
     {
-      "description": "TAX",
+      "description": "Tax",
       "amount": 1.32,
       "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": [
     {
-      "description": "LUNCH DISCOUNT 50% OFF",
+      "description": "Lunch discount 50% off",
       "amount": 14.93
     }
   ]

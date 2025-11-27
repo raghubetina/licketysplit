@@ -40,20 +40,22 @@
         </div>
         <%= render partial: "checks/header_stats", locals: { check: @check } %>
       </div>
-      <div class="form-check form-switch mt-3">
-        <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
-          <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
-          <label class="form-check-label small" for="showZeroItems">Show $0 items</label>
-        <% end %>
-      </div>
     </div>
     <% if @check.receipt_image.attached? %>
       <%= cl_image_tag @check.receipt_image.key,
           width: 800,
           quality: :auto,
           fetch_format: :auto,
-          class: "card-img-bottom" %>
+          class: "card-img" %>
     <% end %>
+    <div class="card-footer">
+      <div class="form-check form-switch m-0">
+        <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
+          <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
+          <label class="form-check-label small" for="showZeroItems">Show $0 items</label>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="card mb-3">

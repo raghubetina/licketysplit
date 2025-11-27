@@ -3,8 +3,9 @@
   "restaurant_address": "2818 Hewitt Ave, Everett, WA 98201",
   "restaurant_phone_number": "425-512-9361",
   "billed_on": "2018-05-11T20:47:00+00:00",
-  "grand_total": 143.71,
+  "grand_total": 153.71,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {

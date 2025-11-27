@@ -1,10 +1,11 @@
 {
   "restaurant_name": "Taco Bell 017314",
   "restaurant_address": "7230 Pendleton Pike, Lawrence, IN 46226",
-  "restaurant_phone_number": "(317) 541-1897",
-  "billed_on": "2016-09-01T15:35:38-04:00",
+  "restaurant_phone_number": "(317) 541-1857",
+  "billed_on": "2016-09-01T20:35:38+00:00",
   "grand_total": 7.61,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -17,20 +18,20 @@
         {
           "description": "No Sour Cream",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         },
         {
           "description": "No Cheese",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },
     {
       "position": 2,
-      "description": "Lrg Orange Crsh Fz",
+      "description": "Rg Orange Crsh Fz",
       "quantity": 1,
       "unit_price": 1.99,
       "total_price": 1.99

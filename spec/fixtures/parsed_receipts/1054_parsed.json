@@ -2,9 +2,10 @@
   "restaurant_name": "BIG JO'S",
   "restaurant_address": "1955 Broadway, Santa Monica, CA 90404",
   "restaurant_phone_number": "(310) 828-3191",
-  "billed_on": "2018-01-25T11:47:00-08:00",
+  "billed_on": "2018-01-25T11:47:00+00:00",
   "grand_total": 56.5,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -33,7 +34,7 @@
       "description": "HB Combo",
       "quantity": 1,
       "unit_price": 7.6,
-      "total_price": 8.35,
+      "total_price": 7.6,
       "addons_attributes": [
         {
           "description": "Grilled Onion",
@@ -55,7 +56,7 @@
       "description": "CB",
       "quantity": 1,
       "unit_price": 4.25,
-      "total_price": 5.0,
+      "total_price": 4.25,
       "addons_attributes": [
         {
           "description": "Grilled Onion",

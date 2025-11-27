@@ -5,6 +5,7 @@
   "billed_on": "2017-12-29T20:41:08+00:00",
   "grand_total": 42.74,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -12,15 +13,7 @@
       "description": "Crisfield Special Platter",
       "quantity": 1,
       "unit_price": 27.0,
-      "total_price": 27.0,
-      "addons_attributes": [
-        {
-          "description": "Cook medium",
-          "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
-        }
-      ]
+      "total_price": 27.0
     },
     {
       "position": 2,

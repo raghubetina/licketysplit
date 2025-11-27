@@ -5,20 +5,21 @@
   "billed_on": "2019-01-11T12:46:00+00:00",
   "grand_total": 44.31,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
       "position": 1,
       "description": "Green Salad",
       "quantity": 1,
-      "unit_price": 8,
-      "total_price": 8,
+      "unit_price": 8.0,
+      "total_price": 8.0,
       "addons_attributes": [
         {
           "description": "Ranch",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },
@@ -26,26 +27,26 @@
       "position": 2,
       "description": "Wagyu Cheeseburger",
       "quantity": 1,
-      "unit_price": 19,
-      "total_price": 19,
+      "unit_price": 19.0,
+      "total_price": 19.0,
       "addons_attributes": [
         {
           "description": "Medium Well",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         },
         {
           "description": "Garlic Fries",
           "quantity": 1,
-          "unit_price": 2,
-          "total_price": 2
+          "unit_price": 2.0,
+          "total_price": 2.0
         },
         {
-          "description": "Raw Onions & Bacon",
+          "description": "Add raw onions and bacon",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },
@@ -60,8 +61,8 @@
       "position": 4,
       "description": "Tea",
       "quantity": 1,
-      "unit_price": 4,
-      "total_price": 4
+      "unit_price": 4.0,
+      "total_price": 4.0
     }
   ],
   "global_fees_attributes": [
@@ -72,7 +73,7 @@
     },
     {
       "description": "Gratuity",
-      "amount": 3,
+      "amount": 3.0,
       "fee_type": "tip"
     }
   ],

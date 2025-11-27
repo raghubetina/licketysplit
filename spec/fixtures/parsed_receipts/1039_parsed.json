@@ -1,36 +1,37 @@
 {
   "restaurant_name": "CARL'S JR",
-  "restaurant_address": "8105 MADISON AVE, FAIR OAKS, CA",
+  "restaurant_address": "8105 Madison Ave, Fair Oaks, CA",
   "restaurant_phone_number": "(916) 962-3415",
   "billed_on": "2016-12-19T19:42:42+00:00",
   "grand_total": 13.05,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
       "position": 1,
-      "description": "Santa Fe Ckn",
+      "description": "Santa Fe Chicken",
       "quantity": 2,
       "unit_price": 5.69,
       "total_price": 11.38,
       "addons_attributes": [
         {
-          "description": "American Ch",
+          "description": "American cheese",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         },
         {
-          "description": "Green Chile",
+          "description": "Green chile",
           "quantity": 1,
           "unit_price": 0.7,
           "total_price": 0.7
         },
         {
-          "description": "Santa Fe Sce",
+          "description": "Santa Fe sauce",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     }

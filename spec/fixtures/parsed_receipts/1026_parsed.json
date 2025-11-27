@@ -1,10 +1,11 @@
 {
-  "restaurant_name": "Chris's Hamburgers",
-  "restaurant_address": "7701 Atlantic Ave., Cudahy, CA 90201",
-  "restaurant_phone_number": "(323) 562-4125",
+  "restaurant_name": "CHRIS'S HAMBURGERS",
+  "restaurant_address": "7701 ATLANTIC AVE., CUDAHY CA 90201",
+  "restaurant_phone_number": "(323)562-4125",
   "billed_on": "2018-07-22T19:24:00+00:00",
   "grand_total": 51.82,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -46,22 +47,22 @@
       "position": 6,
       "description": "Taxable item",
       "quantity": 1,
-      "unit_price": 0.5,
-      "total_price": 0.5
+      "unit_price": 7.89,
+      "total_price": 7.89
     },
     {
       "position": 7,
       "description": "Taxable item",
       "quantity": 1,
-      "unit_price": 7.89,
-      "total_price": 7.89
+      "unit_price": 3.09,
+      "total_price": 3.09
     },
     {
       "position": 8,
       "description": "Taxable item",
       "quantity": 1,
-      "unit_price": 3.09,
-      "total_price": 3.09
+      "unit_price": 5.49,
+      "total_price": 5.49
     },
     {
       "position": 9,
@@ -74,8 +75,8 @@
       "position": 10,
       "description": "Taxable item",
       "quantity": 1,
-      "unit_price": 5.49,
-      "total_price": 5.49
+      "unit_price": 0.99,
+      "total_price": 0.99
     },
     {
       "position": 11,
@@ -83,26 +84,12 @@
       "quantity": 1,
       "unit_price": 0.99,
       "total_price": 0.99
-    },
-    {
-      "position": 12,
-      "description": "Taxable item",
-      "quantity": 1,
-      "unit_price": 0.99,
-      "total_price": 0.99
-    },
-    {
-      "position": 13,
-      "description": "Taxable item",
-      "quantity": 1,
-      "unit_price": 4.37,
-      "total_price": 4.37
     }
   ],
   "global_fees_attributes": [
     {
       "description": "TAX1",
-      "amount": 1.82,
+      "amount": 4.39,
       "fee_type": "tax"
     }
   ],

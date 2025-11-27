@@ -89,6 +89,11 @@ class ReceiptParser
             description: "Currency code (ISO 4217)",
             default: "USD"
           },
+          currency_symbol: {
+            type: "string",
+            description: "Currency symbol as displayed on the receipt (e.g. '$', '€', '£', '¥')",
+            default: "$"
+          },
           line_items: {
             type: "array",
             description: "List of line items on the receipt, in order they appear",
@@ -250,6 +255,7 @@ class ReceiptParser
           "restaurant",
           "billed_on",
           "currency",
+          "currency_symbol",
           "line_items",
           "global_discounts",
           "subtotal_before_fees",
@@ -269,6 +275,7 @@ class ReceiptParser
       billed_on: parse_date(parsed_data[:billed_on]),
       grand_total: parsed_data[:grand_total],
       currency: parsed_data[:currency],
+      currency_symbol: parsed_data[:currency_symbol],
       status: "reviewing",
       line_items_attributes: transform_line_items(parsed_data[:line_items]),
       global_fees_attributes: parsed_data[:global_fees].map { |fee|

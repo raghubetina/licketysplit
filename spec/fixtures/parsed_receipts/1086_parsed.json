@@ -5,6 +5,7 @@
   "billed_on": "2018-04-20T20:29:00+00:00",
   "grand_total": 157.51,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -62,6 +63,15 @@
       "quantity": 1,
       "unit_price": 6.0,
       "total_price": 6.0
+    },
+    {
+      "position": 9,
+      "description": "Comp Item",
+      "quantity": 1,
+      "unit_price": 12.0,
+      "total_price": 0.0,
+      "discount": 12.0,
+      "discount_description": "Comped item"
     }
   ],
   "global_fees_attributes": [
@@ -71,10 +81,5 @@
       "fee_type": "tax"
     }
   ],
-  "global_discounts_attributes": [
-    {
-      "description": "Comp Item",
-      "amount": 12.0
-    }
-  ]
+  "global_discounts_attributes": []
 }

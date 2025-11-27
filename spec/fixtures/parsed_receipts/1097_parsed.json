@@ -1,42 +1,43 @@
 {
   "restaurant_name": "El Pollo Loco",
-  "restaurant_address": "7519 S. Atlantic Ave, Cudahy, CA 90201",
+  "restaurant_address": "7519 S. Atlantic Ave., Cudahy, CA 90201",
   "restaurant_phone_number": "323-560-0758",
-  "billed_on": "2017-06-28T17:38:00+00:00",
+  "billed_on": "2017-06-28T17:36:00+00:00",
   "grand_total": 13.12,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
       "position": 1,
-      "description": "Burrito Cmb",
+      "description": "Burrito Combo - Chicken Ranchero",
       "quantity": 1,
       "unit_price": 8.28,
       "total_price": 8.28,
       "addons_attributes": [
         {
-          "description": "Chk Ranchero Bur",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
           "description": "Avo Slcs",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         },
         {
           "description": "Ind Chips",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
         },
         {
-          "description": "SM DRINK Coke",
+          "description": "SM Drink",
           "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
+          "unit_price": 0.0,
+          "total_price": 0.0
+        },
+        {
+          "description": "Coke",
+          "quantity": 1,
+          "unit_price": 0.0,
+          "total_price": 0.0
         }
       ]
     },

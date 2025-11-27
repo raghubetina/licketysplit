@@ -5,6 +5,7 @@
   "billed_on": "2017-08-15T17:51:00+00:00",
   "grand_total": 179.94,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {

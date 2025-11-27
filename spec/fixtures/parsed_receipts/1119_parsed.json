@@ -2,9 +2,10 @@
   "restaurant_name": "Panda Express #2614",
   "restaurant_address": "Brooklyn, NY",
   "restaurant_phone_number": "(718)246-3898",
-  "billed_on": "2017-12-22T16:58:01-05:00",
+  "billed_on": "2017-12-22T16:58:01+00:00",
   "grand_total": 27.44,
   "currency": "USD",
+  "currency_symbol": "$",
   "status": "reviewing",
   "line_items_attributes": [
     {
@@ -12,25 +13,77 @@
       "description": "Plate",
       "quantity": 1,
       "unit_price": 9.1,
-      "total_price": 9.1
+      "total_price": 9.1,
+      "addons_attributes": [
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Broccoli Beef",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Beijing Beef",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
     },
     {
       "position": 2,
       "description": "Plate",
       "quantity": 1,
       "unit_price": 9.1,
-      "total_price": 9.1
+      "total_price": 9.1,
+      "addons_attributes": [
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chow Mein 1/2",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Chicken Egg Roll",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Kung Pao Chicken",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
     },
     {
       "position": 3,
-      "description": "Extra entree - Grilled Teriyaki Chicken",
+      "description": "Extra Entree - Grilled Teriyaki Chicken",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5
     },
     {
       "position": 4,
-      "description": "Extra entree - Grilled Teriyaki Chicken",
+      "description": "Extra Entree - Grilled Teriyaki Chicken",
       "quantity": 1,
       "unit_price": 1.5,
       "total_price": 1.5

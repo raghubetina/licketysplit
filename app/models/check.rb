@@ -6,6 +6,7 @@
 #  id                      :uuid             not null, primary key
 #  billed_on               :datetime
 #  currency                :string           default("USD")
+#  currency_symbol         :string           default("$")
 #  grand_total             :decimal(10, 2)
 #  line_items_count        :integer          default(0), not null
 #  participants_count      :integer          default(0), not null
@@ -41,8 +42,6 @@ class Check < ApplicationRecord
   accepts_nested_attributes_for :participants, allow_destroy: true
 
   enum :status, {draft: "draft", reviewing: "reviewing", finalized: "finalized"}
-
-  before_validation :set_defaults
 
   def subtotal
     line_items.sum { |item| item.total_with_addons }
@@ -106,10 +105,5 @@ class Check < ApplicationRecord
     end
 
     base_amount
-  end
-
-  def set_defaults
-    self.currency ||= "USD"
-    self.status ||= "draft"
   end
 end
