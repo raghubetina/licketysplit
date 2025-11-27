@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   root "checks#index"
 
   resources :checks do
-    resources :participants, only: [:new, :create, :destroy]
+    resources :participants, only: [:create, :show, :edit, :update, :destroy]
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]
     resources :global_discounts, only: [:create, :show, :edit, :update, :destroy]
     resources :global_fees, only: [:create, :show, :edit, :update, :destroy] do

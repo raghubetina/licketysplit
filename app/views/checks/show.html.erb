@@ -38,10 +38,7 @@
             <% end %>
           </div>
         </div>
-        <div class="text-end">
-          <div class="h4 mb-0"><%= @check.currency == "USD" ? "$" : @check.currency %><%= number_with_precision(@check.grand_total, precision: 2) %></div>
-          <div class="text-muted small"><%= @participants.count %> people</div>
-        </div>
+        <%= render partial: "checks/header_stats", locals: { check: @check } %>
       </div>
     </div>
     <% if @check.receipt_image.attached? %>
@@ -49,9 +46,22 @@
     <% end %>
   </div>
 
+  <div class="card mb-3">
+    <div class="card-header py-3">
+      <strong class="small">Participants</strong>
+    </div>
+
+    <ul class="list-group list-group-flush">
+      <% @participants.each do |participant| %>
+        <%= render partial: "participants/participant", locals: { participant: participant, check: @check } %>
+      <% end %>
+      <%= render partial: "participants/new_form", locals: { participant: Participant.new, check: @check } %>
+    </ul>
+  </div>
+
   <% if @participants.empty? %>
     <div class="alert alert-warning">
-      No participants yet. <%= link_to "Add participants", new_check_participant_path(@check) %> to start splitting.
+      Add participants above to start splitting the check.
     </div>
   <% elsif @line_items.empty? %>
     <div class="alert alert-warning">

@@ -31,6 +31,8 @@ class Participant < ApplicationRecord
 
   enum :payment_status, {unpaid: "unpaid", paid: "paid"}
 
+  after_commit :broadcast_updates
+
   scope :treated, -> { joins(:treat) }
   scope :not_treated, -> { where.missing(:treat) }
 
@@ -48,5 +50,70 @@ class Participant < ApplicationRecord
 
   def mark_as_unpaid!
     update!(payment_status: "unpaid")
+  end
+
+  private
+
+  def broadcast_updates
+    check.reload if destroyed?
+
+    if destroyed?
+      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self, :breakdown))
+    elsif previously_new_record?
+      broadcast_before_to(
+        check,
+        target: "new_participant_form",
+        partial: "participants/participant",
+        locals: {participant: self, check: check}
+      )
+      broadcast_append_to(
+        check,
+        target: "participant_breakdowns",
+        partial: "checks/participant_breakdown",
+        locals: {participant: self, check: check}
+      )
+    else
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(self),
+        partial: "participants/participant",
+        locals: {participant: self, check: check}
+      )
+    end
+
+    # Update all line items to refresh participant checkboxes
+    check.line_items.each do |line_item|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(line_item),
+        partial: "line_items/line_item",
+        locals: {line_item: line_item, check: check, participants: check.participants.order(:name)}
+      )
+    end
+
+    # Update breakdown for remaining participants
+    check.participants.each do |participant|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
+        partial: "checks/participant_breakdown",
+        locals: {participant: participant, check: check}
+      )
+    end
+
+    broadcast_replace_to(
+      check,
+      target: "remaining_breakdown",
+      partial: "checks/remaining_breakdown",
+      locals: {check: check}
+    )
+
+    broadcast_replace_to(
+      check,
+      target: "header_stats",
+      partial: "checks/header_stats",
+      locals: {check: check}
+    )
   end
 end
