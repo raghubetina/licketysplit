@@ -1,13 +1,11 @@
 module ChecksHelper
-  def qr_code_svg(url, size: 100)
-    qrcode = RQRCode::QRCode.new(url)
+  def qr_code_svg(url, level: :h)
+    qrcode = RQRCode::QRCode.new(url, level: level)
     qrcode.as_svg(
       viewbox: true,
       use_path: true,
       svg_attributes: {
-        width: size,
-        height: size,
-        class: "qr-code"
+        class: "qr-code w-100"
       }
     ).html_safe
   end

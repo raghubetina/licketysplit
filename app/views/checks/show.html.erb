@@ -9,7 +9,9 @@
   <% end %>
 
   <div class="text-center mb-3">
-    <%= qr_code_svg(check_url(@check), size: 120) %>
+    <div class="mx-auto" style="max-width: 300px;">
+      <%= qr_code_svg(check_url(@check), level: :m) %>
+    </div>
     <div class="text-muted small mt-2">Scan to share this check</div>
     <button class="btn btn-sm btn-outline-secondary mt-2"
             data-controller="clipboard"
@@ -19,25 +21,32 @@
     </button>
   </div>
 
-  <% if @check.receipt_image.attached? %>
-    <div class="mb-3">
-      <%= image_tag @check.receipt_image, class: "img-fluid rounded" %>
-    </div>
-  <% end %>
-
-  <div class="d-flex justify-content-between align-items-start mb-3">
-    <div>
-      <h1 class="h5 mb-3"><%= @check.restaurant_name || "Check" %></h1>
-      <div class="text-muted small">
-        <% if @check.billed_on.present? %>
-          <%= @check.billed_on.strftime("%b %d, %Y") %>
-        <% end %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h1 class="h5 mb-1"><%= @check.restaurant_name || "Check" %></h1>
+          <div class="text-muted small">
+            <% if @check.restaurant_address.present? %>
+              <div><i class="bi bi-geo-alt"></i> <%= @check.restaurant_address %></div>
+            <% end %>
+            <% if @check.restaurant_phone_number.present? %>
+              <div><i class="bi bi-telephone"></i> <%= @check.restaurant_phone_number %></div>
+            <% end %>
+            <% if @check.billed_on.present? %>
+              <div><i class="bi bi-calendar"></i> <%= @check.billed_on.strftime("%b %d, %Y") %></div>
+            <% end %>
+          </div>
+        </div>
+        <div class="text-end">
+          <div class="h4 mb-0"><%= @check.currency == "USD" ? "$" : @check.currency %><%= number_with_precision(@check.grand_total, precision: 2) %></div>
+          <div class="text-muted small"><%= @participants.count %> people</div>
+        </div>
       </div>
     </div>
-    <div class="text-end">
-      <div class="h4 mb-0">$<%= number_with_precision(@check.grand_total, precision: 2) %></div>
-      <div class="text-muted small"><%= @participants.count %> people</div>
-    </div>
+    <% if @check.receipt_image.attached? %>
+      <%= image_tag @check.receipt_image, class: "card-img-bottom" %>
+    <% end %>
   </div>
 
   <% if @participants.empty? %>
