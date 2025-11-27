@@ -12,7 +12,7 @@
               method: :post,
               params: { percentage: pct },
               class: "btn btn-sm #{is_current ? 'btn-outline-success' : 'btn-outline-secondary'}" do %>
-          <%= pct %>%
+          <%= pct %>% ($<%= number_with_precision(tip_amount, precision: 2) %>)
         <% end %>
       <% end %>
     </div>
