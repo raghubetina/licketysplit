@@ -4,6 +4,7 @@ class ChecksController < ApplicationController
   def index
     @check = Check.new
     @recent_checks = load_recent_checks
+    @all_checks = Check.order(created_at: :desc) if session[:show_all_checks]
   end
 
   def show
@@ -98,10 +99,6 @@ class ChecksController < ApplicationController
   end
 
   def load_recent_checks
-    if session[:show_all_checks]
-      return Check.order(created_at: :desc).limit(50)
-    end
-
     visited_ids = JSON.parse(cookies[:visited_checks] || "[]")
     return [] if visited_ids.empty?
 

@@ -34,6 +34,35 @@
     </div>
   </div>
 
+  <% if @all_checks.present? %>
+    <div class="card mb-4">
+      <div class="card-header">
+        <strong>All Checks</strong>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% @all_checks.each do |check| %>
+          <%= link_to check, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
+            <div>
+              <div class="fw-semibold"><%= check.restaurant_name || "Untitled Check" %></div>
+              <small class="text-muted">
+                <% if check.billed_on.present? %>
+                  <%= check.billed_on.strftime("%b %d, %Y") %>
+                <% else %>
+                  No date
+                <% end %>
+                &middot;
+                <%= check.line_items.size %> items
+              </small>
+            </div>
+            <span class="text-success fw-semibold">
+              <%= check.currency_symbol %><%= number_with_precision(check.grand_total, precision: 2) %>
+            </span>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <% if @recent_checks.any? %>
     <div class="card">
       <div class="card-header">
