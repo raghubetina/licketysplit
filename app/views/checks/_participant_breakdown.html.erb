@@ -9,7 +9,7 @@
     <strong>
       <%= participant.name %>
       <% if participant_items.any? && check.subtotal > 0 %>
-        <span class="fw-normal text-muted small">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
+        <span class="fw-normal text-muted">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
       <% end %>
     </strong>
     <strong>$<%= number_with_precision(check.amount_owed_by(participant), precision: 2) %></strong>
@@ -18,7 +18,7 @@
   <% if participant_items.any? %>
     <% participant_items.each do |item| %>
       <% share = item.amount_per_participant %>
-      <div class="d-flex justify-content-between small text-muted">
+      <div class="d-flex justify-content-between text-muted">
         <span>
           <%= item.description %>
           <% other_participants = item.participants.reject { |p| p.id == participant.id } %>
@@ -32,7 +32,7 @@
 
     <% if check.subtotal > 0 && check.total_discounts > 0 %>
       <% discounts_share = check.total_discounts * proportion %>
-      <div class="d-flex justify-content-between small text-success">
+      <div class="d-flex justify-content-between text-success">
         <span>Share of discounts</span>
         <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
       </div>
@@ -40,12 +40,12 @@
 
     <% if check.subtotal > 0 && check.total_fees > 0 %>
       <% fees_share = check.total_fees * proportion %>
-      <div class="d-flex justify-content-between small text-muted">
+      <div class="d-flex justify-content-between text-muted">
         <span>Share of tax, tip, and other fees</span>
         <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
       </div>
     <% end %>
   <% else %>
-    <div class="small text-muted fst-italic">No items assigned</div>
+    <div class="text-muted fst-italic">No items assigned</div>
   <% end %>
 </div>

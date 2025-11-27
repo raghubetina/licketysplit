@@ -52,7 +52,7 @@ class GlobalFee < ApplicationRecord
   end
 
   def broadcast_updates
-    check.reload if destroyed?
+    check.reload
 
     if destroyed?
       broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
@@ -99,6 +99,13 @@ class GlobalFee < ApplicationRecord
       check,
       target: "tip_suggestion",
       partial: "global_fees/tip_suggestion",
+      locals: {check: check}
+    )
+
+    broadcast_replace_to(
+      check,
+      target: "header_stats",
+      partial: "checks/header_stats",
       locals: {check: check}
     )
   end

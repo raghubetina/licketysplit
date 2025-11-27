@@ -1,13 +1,13 @@
 <%# Accepts: global_fee (required), check (required) %>
 
 <li id="<%= dom_id(global_fee) %>" class="list-group-item py-3 px-3">
-  <div class="d-flex justify-content-between align-items-center small">
+  <div class="d-flex justify-content-between align-items-center">
     <div class="d-flex align-items-baseline text-muted">
       <%= link_to edit_check_global_fee_path(check, global_fee), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit fee", data: { turbo_stream: true } do %>
-        <i class="bi bi-pencil small"></i>
+        <i class="bi bi-pencil"></i>
       <% end %>
       <%= button_to check_global_fee_path(check, global_fee), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete fee", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this fee?" } } do %>
-        <i class="bi bi-trash small"></i>
+        <i class="bi bi-trash"></i>
       <% end %>
       <span>
         <%= global_fee.description %>

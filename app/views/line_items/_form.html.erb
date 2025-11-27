@@ -4,38 +4,38 @@
   <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
       <div class="row g-2 mb-3">
         <div class="col-12 col-sm-6">
-          <%= f.label :description, class: "form-label small mb-1" %>
+          <%= f.label :description, class: "form-label mb-1" %>
           <%= f.text_field :description, class: "form-control form-control-sm" %>
         </div>
         <div class="col-6 col-sm-3">
-          <%= f.label :unit_price, "Price", class: "form-label small mb-1" %>
+          <%= f.label :unit_price, "Price", class: "form-label mb-1" %>
           <div class="input-group input-group-sm">
             <span class="input-group-text">$</span>
             <%= f.number_field :unit_price, step: 0.01, class: "form-control form-control-sm" %>
           </div>
         </div>
         <div class="col-6 col-sm-3">
-          <%= f.label :quantity, "Qty", class: "form-label small mb-1" %>
+          <%= f.label :quantity, "Qty", class: "form-label mb-1" %>
           <%= f.number_field :quantity, min: 1, class: "form-control form-control-sm" %>
         </div>
       </div>
 
       <div class="row g-2 mb-3">
         <div class="col-6 col-sm-3">
-          <%= f.label :discount, class: "form-label small mb-1" %>
+          <%= f.label :discount, class: "form-label mb-1" %>
           <div class="input-group input-group-sm">
             <span class="input-group-text">$</span>
             <%= f.number_field :discount, step: 0.01, min: 0, class: "form-control form-control-sm" %>
           </div>
         </div>
         <div class="col-6 col-sm-9">
-          <%= f.label :discount_description, "Discount reason", class: "form-label small mb-1" %>
+          <%= f.label :discount_description, "Discount reason", class: "form-label mb-1" %>
           <%= f.text_field :discount_description, class: "form-control form-control-sm", placeholder: "e.g., Comp, Employee discount" %>
         </div>
       </div>
 
       <div class="d-flex justify-content-between align-items-center">
-        <div class="small text-muted">
+        <div class="text-muted">
           Total: $<%= number_with_precision(line_item.total_price, precision: 2) %>
         </div>
         <div class="d-flex gap-2">

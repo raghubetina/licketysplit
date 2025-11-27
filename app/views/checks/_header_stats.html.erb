@@ -1,9 +1,9 @@
 <%# Accepts: check (required) %>
 
 <div id="header_stats" class="text-end">
-  <div class="h4 mb-0"><%= check.currency_symbol %><%= number_with_precision(check.grand_total, precision: 2) %></div>
-  <div class="text-muted small"><%= t("participants.count", count: check.participants.count) %></div>
+  <div class="h4 mb-0"><%= check.currency_symbol %><%= number_with_precision(check.calculated_total, precision: 2) %></div>
+  <div class="text-muted"><%= t("participants.count", count: check.participants.count) %></div>
   <% if check.participants.any? %>
-    <div class="text-muted small"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
+    <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
   <% end %>
 </div>

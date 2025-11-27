@@ -4,26 +4,26 @@
   <div class="d-flex justify-content-between align-items-start">
     <div class="d-flex align-items-baseline">
       <%= link_to edit_check_line_item_path(check, line_item), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit item", data: { turbo_stream: true } do %>
-        <i class="bi bi-pencil small"></i>
+        <i class="bi bi-pencil"></i>
       <% end %>
       <%= button_to check_line_item_path(check, line_item), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete item", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this item?" } } do %>
-        <i class="bi bi-trash small"></i>
+        <i class="bi bi-trash"></i>
       <% end %>
-      <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>
+      <span class="text-muted me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>
       <span>
-        <strong class="small"><%= line_item.description %></strong>
+        <strong><%= line_item.description %></strong>
         <% if line_item.quantity > 1 %>
-          <span class="text-muted small">(<%= line_item.quantity %>x @ $<%= number_with_precision(line_item.unit_price, precision: 2) %> each)</span>
+          <span class="text-muted">(<%= line_item.quantity %>x @ $<%= number_with_precision(line_item.unit_price, precision: 2) %> each)</span>
         <% end %>
       </span>
     </div>
-    <strong class="small">$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
+    <strong>$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
   </div>
   <% if line_item.discount && line_item.discount > 0 %>
     <div class="d-flex align-items-baseline">
       <span class="me-2" style="width: 1em;"></span>
-      <span class="text-success small me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(line_item.discount, precision: 2) %></span>
-      <span class="text-success small">
+      <span class="text-success me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(line_item.discount, precision: 2) %></span>
+      <span class="text-success">
         <% if line_item.discount_description.present? %>
           <%= line_item.discount_description %>
         <% else %>

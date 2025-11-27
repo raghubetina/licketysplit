@@ -44,7 +44,7 @@
           <%= link_to check, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
             <div>
               <div class="fw-semibold"><%= check.restaurant_name || "Untitled Check" %></div>
-              <small class="text-muted">
+              <div class="text-muted">
                 <% if check.billed_on.present? %>
                   <%= check.billed_on.strftime("%b %d, %Y") %>
                 <% else %>
@@ -52,9 +52,9 @@
                 <% end %>
                 &middot;
                 <%= check.line_items.size %> items
-              </small>
+              </div>
               <% if check.participants.any? %>
-                <div class="small text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
+                <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
               <% end %>
             </div>
             <span class="text-success fw-semibold">
@@ -76,7 +76,7 @@
           <%= link_to check, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
             <div>
               <div class="fw-semibold"><%= check.restaurant_name || "Untitled Check" %></div>
-              <small class="text-muted">
+              <div class="text-muted">
                 <% if check.billed_on.present? %>
                   <%= check.billed_on.strftime("%b %d, %Y") %>
                 <% else %>
@@ -84,9 +84,9 @@
                 <% end %>
                 &middot;
                 <%= check.line_items.size %> items
-              </small>
+              </div>
               <% if check.participants.any? %>
-                <div class="small text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
+                <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
               <% end %>
             </div>
             <span class="text-success fw-semibold">

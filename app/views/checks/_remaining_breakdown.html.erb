@@ -10,7 +10,7 @@
       <strong>
         Remaining
         <% if check.subtotal > 0 %>
-          <span class="fw-normal text-muted small">(share: <%= number_to_percentage(unassigned_proportion * 100, precision: 0) %>)</span>
+          <span class="fw-normal text-muted">(share: <%= number_to_percentage(unassigned_proportion * 100, precision: 0) %>)</span>
         <% end %>
       </strong>
       <% unassigned_total = unassigned_subtotal + (check.total_fees - check.total_discounts) * unassigned_proportion %>
@@ -18,7 +18,7 @@
     </div>
 
     <% unassigned_items.each do |item| %>
-      <div class="d-flex justify-content-between small text-muted">
+      <div class="d-flex justify-content-between text-muted">
         <span><%= item.description %></span>
         <span>$<%= number_with_precision(item.total_with_addons, precision: 2) %></span>
       </div>
@@ -26,7 +26,7 @@
 
     <% if check.subtotal > 0 && check.total_discounts > 0 %>
       <% discounts_share = check.total_discounts * unassigned_proportion %>
-      <div class="d-flex justify-content-between small text-success">
+      <div class="d-flex justify-content-between text-success">
         <span>Share of discounts</span>
         <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
       </div>
@@ -34,7 +34,7 @@
 
     <% if check.subtotal > 0 && check.total_fees > 0 %>
       <% fees_share = check.total_fees * unassigned_proportion %>
-      <div class="d-flex justify-content-between small text-muted">
+      <div class="d-flex justify-content-between text-muted">
         <span>Share of tax, tip, and other fees</span>
         <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
       </div>

@@ -3,7 +3,7 @@
 <li id="new_participant_form" class="list-group-item py-3 px-3">
   <%= form_with model: [check, participant], class: "participant-form" do |f| %>
     <% if participant.errors.any? %>
-      <div class="alert alert-danger small mb-2 py-1">
+      <div class="alert alert-danger  mb-2 py-1">
         <% participant.errors.full_messages.each do |message| %>
           <div><%= message %></div>
         <% end %>
@@ -12,7 +12,7 @@
 
     <div class="row g-2 mb-2">
       <div class="col">
-        <%= f.label :name, class: "form-label small mb-1" %>
+        <%= f.label :name, class: "form-label  mb-1" %>
         <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder") %>
       </div>
     </div>

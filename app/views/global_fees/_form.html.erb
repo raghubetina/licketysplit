@@ -24,7 +24,7 @@
       <% GlobalFee.fee_types.keys.each do |fee_type| %>
         <div class="form-check form-check-inline mb-0">
           <%= f.radio_button :fee_type, fee_type, class: "form-check-input" %>
-          <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label small" %>
+          <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label" %>
         </div>
       <% end %>
     </div>

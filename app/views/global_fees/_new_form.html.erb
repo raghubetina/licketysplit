@@ -3,7 +3,7 @@
 <li id="new_global_fee_form" class="list-group-item py-3 px-3">
   <%= form_with model: [check, global_fee], class: "global-fee-form" do |f| %>
     <% if global_fee.errors.any? %>
-      <div class="alert alert-danger small mb-2 py-1">
+      <div class="alert alert-danger mb-2 py-1">
         <% global_fee.errors.full_messages.each do |message| %>
           <div><%= message %></div>
         <% end %>
@@ -12,11 +12,11 @@
 
     <div class="row g-2 mb-2">
       <div class="col">
-        <%= f.label :description, class: "form-label small mb-1" %>
+        <%= f.label :description, class: "form-label mb-1" %>
         <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Add a fee…" %>
       </div>
       <div class="col-auto">
-        <%= f.label :amount, class: "form-label small mb-1" %>
+        <%= f.label :amount, class: "form-label mb-1" %>
         <div class="input-group input-group-sm">
           <span class="input-group-text">$</span>
           <%= f.number_field :amount, step: 0.01, min: 0, class: "form-control form-control-sm", style: "width: 80px;", placeholder: "0.00" %>
@@ -36,7 +36,7 @@
         <% GlobalFee.fee_types.keys.each do |fee_type| %>
           <div class="form-check form-check-inline mb-0">
             <%= f.radio_button :fee_type, fee_type, class: "form-check-input", checked: fee_type == default_fee_type %>
-            <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label small" %>
+            <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label" %>
           </div>
         <% end %>
       </div>
