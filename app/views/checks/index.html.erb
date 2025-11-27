@@ -44,15 +44,9 @@
           <%= link_to check, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
             <div>
               <div class="fw-semibold"><%= check.restaurant_name || "Untitled Check" %></div>
-              <div class="text-muted">
-                <% if check.billed_on.present? %>
-                  <%= check.billed_on.strftime("%b %d, %Y") %>
-                <% else %>
-                  No date
-                <% end %>
-                &middot;
-                <%= check.line_items.size %> items
-              </div>
+              <% if check.billed_on.present? %>
+                <div class="text-muted"><%= check.billed_on.strftime("%b %d, %Y") %></div>
+              <% end %>
               <% if check.participants.any? %>
                 <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
               <% end %>
@@ -76,15 +70,9 @@
           <%= link_to check, class: "list-group-item list-group-item-action d-flex justify-content-between align-items-center" do %>
             <div>
               <div class="fw-semibold"><%= check.restaurant_name || "Untitled Check" %></div>
-              <div class="text-muted">
-                <% if check.billed_on.present? %>
-                  <%= check.billed_on.strftime("%b %d, %Y") %>
-                <% else %>
-                  No date
-                <% end %>
-                &middot;
-                <%= check.line_items.size %> items
-              </div>
+              <% if check.billed_on.present? %>
+                <div class="text-muted"><%= check.billed_on.strftime("%b %d, %Y") %></div>
+              <% end %>
               <% if check.participants.any? %>
                 <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
               <% end %>
