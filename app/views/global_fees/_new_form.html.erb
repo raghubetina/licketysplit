@@ -20,9 +20,6 @@
           <%= f.number_field :amount, step: 0.01, min: 0, class: "form-control form-control-sm", style: "width: 80px;", placeholder: "0.00" %>
         </div>
       </div>
-      <div class="col-auto">
-        <%= f.submit "Add Fee", class: "btn btn-sm btn-primary" %>
-      </div>
     </div>
 
     <% default_fee_type = if !check.has_tip?
@@ -32,13 +29,16 @@
                           else
                             "other"
                           end %>
-    <div class="d-flex gap-2">
-      <% GlobalFee.fee_types.keys.each do |fee_type| %>
-        <div class="form-check form-check-inline mb-0">
-          <%= f.radio_button :fee_type, fee_type, class: "form-check-input", checked: fee_type == default_fee_type %>
-          <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label small" %>
-        </div>
-      <% end %>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex gap-2">
+        <% GlobalFee.fee_types.keys.each do |fee_type| %>
+          <div class="form-check form-check-inline mb-0">
+            <%= f.radio_button :fee_type, fee_type, class: "form-check-input", checked: fee_type == default_fee_type %>
+            <%= f.label "fee_type_#{fee_type}", fee_type.capitalize, class: "form-check-label small" %>
+          </div>
+        <% end %>
+      </div>
+      <%= f.submit "Add Fee", class: "btn btn-sm btn-primary" %>
     </div>
   <% end %>
 </li>
