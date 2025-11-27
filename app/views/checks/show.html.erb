@@ -70,11 +70,20 @@
           class: "card-img" %>
     <% end %>
     <div class="card-footer">
-      <div class="form-check form-switch m-0">
-        <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
-          <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
-          <label class="form-check-label" for="showZeroItems">Show $0 items</label>
+      <div class="d-flex justify-content-between align-items-center">
+        <%= form_with url: update_currency_check_path(@check), method: :patch, local: true do %>
+          <%= select_tag :currency,
+              options_for_select(currency_options_for_select, @check.currency),
+              class: "form-select form-select-sm",
+              style: "width: auto;",
+              onchange: "this.form.submit()" %>
         <% end %>
+        <div class="form-check form-switch m-0">
+          <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
+            <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
+            <label class="form-check-label" for="showZeroItems">Show <%= @check.currency_symbol %>0 items</label>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

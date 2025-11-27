@@ -21,6 +21,8 @@
 #  fk_rails_...  (check_id => checks.id)
 #
 class Participant < ApplicationRecord
+  auto_strip_attributes :name, squish: true
+
   belongs_to :check, counter_cache: true
   has_many :line_item_participants, dependent: :destroy
   has_many :line_items, through: :line_item_participants
@@ -35,6 +37,19 @@ class Participant < ApplicationRecord
 
   scope :treated, -> { joins(:treat) }
   scope :not_treated, -> { where.missing(:treat) }
+
+  def self.parse_names(input)
+    separator = if input.include?(",")
+      ","
+    elsif input.include?("\n")
+      /\r?\n/
+    elsif input.include?(".")
+      "."
+    else
+      /\s+/
+    end
+    input.split(separator).map { |name| name.squish }.compact_blank
+  end
 
   def amount_owed
     check.amount_owed_by(self)

@@ -1,5 +1,5 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items]
+  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items, :update_currency]
 
   def index
     @check = Check.new
@@ -25,6 +25,17 @@ class ChecksController < ApplicationController
     redirect_to @check
   end
 
+  def update_currency
+    currency_code = params[:currency]
+    currency = Money::Currency.find(currency_code)
+
+    if currency
+      @check.update(currency: currency_code, currency_symbol: currency.symbol)
+    end
+
+    redirect_to @check
+  end
+
   def new
     redirect_to checks_path
   end
@@ -46,7 +57,7 @@ class ChecksController < ApplicationController
     @check.receipt_image.attach(params[:receipt_image])
 
     if params[:participant_names].present?
-      names = params[:participant_names].split(",").map(&:strip).compact_blank
+      names = Participant.parse_names(params[:participant_names])
       names.each { |name| @check.participants.build(name: name) }
     end
 

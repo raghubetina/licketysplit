@@ -89,6 +89,8 @@ gem "groupdate"
 gem "rollbar"
 gem "rqrcode", "~> 3.0"
 gem "cloudinary", "~> 2.0"
+gem "money"
+gem "auto_strip_attributes"
 
 group :test do
   gem "capybara"

@@ -86,13 +86,8 @@ class ReceiptParser
           },
           currency: {
             type: "string",
-            description: "Currency code (ISO 4217)",
+            description: "Currency code (ISO 4217), e.g. 'USD', 'EUR', 'INR', 'MXN', 'CAD'",
             default: "USD"
-          },
-          currency_symbol: {
-            type: "string",
-            description: "Currency symbol. Prefer Unicode symbols over abbreviations (e.g. '₹' not 'Rs.', '₱' not 'PHP'). Common symbols: '$', '€', '£', '¥', '₹', '₩', '₱', '฿', '₫', 'R$', 'A$'",
-            default: "$"
           },
           line_items: {
             type: "array",
@@ -255,7 +250,6 @@ class ReceiptParser
           "restaurant",
           "billed_on",
           "currency",
-          "currency_symbol",
           "line_items",
           "global_discounts",
           "subtotal_before_fees",
@@ -268,14 +262,15 @@ class ReceiptParser
   end
 
   def transform_to_check_attributes(parsed_data)
+    currency_code = parsed_data[:currency] || "USD"
     {
       restaurant_name: parsed_data[:restaurant][:name],
       restaurant_address: parsed_data[:restaurant][:address],
       restaurant_phone_number: parsed_data[:restaurant][:phone],
       billed_on: parse_date(parsed_data[:billed_on]),
       grand_total: parsed_data[:grand_total],
-      currency: parsed_data[:currency],
-      currency_symbol: parsed_data[:currency_symbol],
+      currency: currency_code,
+      currency_symbol: currency_symbol_for(currency_code),
       status: "reviewing",
       line_items_attributes: transform_line_items(parsed_data[:line_items]),
       global_fees_attributes: parsed_data[:global_fees].map { |fee|
@@ -285,6 +280,13 @@ class ReceiptParser
         {description: discount[:description], amount: discount[:amount]}
       }
     }
+  end
+
+  def currency_symbol_for(code)
+    currency = Money::Currency.find(code)
+    return "$" unless currency
+
+    currency.symbol
   end
 
   def transform_line_items(items)

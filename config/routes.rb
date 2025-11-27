@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :checks do
     member do
       post :toggle_zero_items
+      patch :update_currency
     end
     resources :participants, only: [:create, :show, :edit, :update, :destroy]
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]
