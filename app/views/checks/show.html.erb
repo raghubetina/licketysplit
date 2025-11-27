@@ -40,6 +40,12 @@
         </div>
         <%= render partial: "checks/header_stats", locals: { check: @check } %>
       </div>
+      <div class="form-check form-switch mt-3">
+        <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
+          <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
+          <label class="form-check-label small" for="showZeroItems">Show $0 items</label>
+        <% end %>
+      </div>
     </div>
     <% if @check.receipt_image.attached? %>
       <%= image_tag @check.receipt_image, class: "card-img-bottom" %>
@@ -75,7 +81,8 @@
 
       <ul id="line_items_list" class="list-group list-group-flush">
         <% @line_items.each do |item| %>
-          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants } %>
+          <% next if !@show_zero_items && item.total_with_addons == 0 %>
+          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items } %>
         <% end %>
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>
@@ -107,6 +114,7 @@
 
         <ul class="list-group list-group-flush">
           <% @global_fees.in_order_of(:fee_type, %w[tax other tip]).order(amount: :desc).each do |fee| %>
+            <% next if !@show_zero_items && fee.amount == 0 %>
             <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
           <% end %>
 

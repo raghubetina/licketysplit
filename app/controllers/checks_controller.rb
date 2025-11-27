@@ -1,5 +1,5 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy]
+  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items]
 
   def index
     @checks = Check.includes(:line_items, :global_fees, :global_discounts, :participants)
@@ -7,10 +7,20 @@ class ChecksController < ApplicationController
   end
 
   def show
+    @show_zero_items = cookies[:show_zero_items] == "true"
     @line_items = @check.line_items.includes(:addons, :participants).order(:position)
     @global_fees = @check.global_fees
     @global_discounts = @check.global_discounts
     @participants = @check.participants.order(:name)
+  end
+
+  def toggle_zero_items
+    if cookies[:show_zero_items] == "true"
+      cookies.delete(:show_zero_items)
+    else
+      cookies[:show_zero_items] = {value: "true", expires: 1.year.from_now}
+    end
+    redirect_to @check
   end
 
   def new

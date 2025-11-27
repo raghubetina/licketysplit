@@ -1,11 +1,13 @@
-<%# Accepts: line_item (required), check (optional - will be derived from line_item if not provided), participants (optional - will be queried if not provided) %>
+<%# Accepts: line_item (required), check (optional - will be derived from line_item if not provided), participants (optional - will be queried if not provided), show_zero_items (optional - defaults to true) %>
 <% check ||= line_item.check %>
 <% participants ||= check.participants.order(:name) %>
+<% show_zero_items = local_assigns.fetch(:show_zero_items, true) %>
 
 <li id="<%= dom_id(line_item) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3">
   <%= render partial: "line_items/line_item_content", locals: { line_item: line_item, check: check } %>
 
   <% line_item.addons.each do |addon| %>
+    <% next if !show_zero_items && addon.total_price == 0 %>
     <%= render partial: "addons/addon", locals: { addon: addon, line_item: line_item } %>
   <% end %>
 
