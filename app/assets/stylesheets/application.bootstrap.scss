@@ -1,4 +1,7 @@
+// Order matters: overrides, then Bootswatch variables, then Bootstrap, then Bootswatch customizations
 @import 'bootstrap-overrides';
-@import 'bootswatch/dist/brite/bootstrap';
+@import 'bootswatch/dist/brite/variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootswatch/dist/brite/bootswatch';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'custom';
