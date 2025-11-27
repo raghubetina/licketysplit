@@ -7,6 +7,8 @@
 #  billed_on               :datetime
 #  currency                :string           default("USD")
 #  grand_total             :decimal(10, 2)
+#  line_items_count        :integer          default(0), not null
+#  participants_count      :integer          default(0), not null
 #  receipt_image           :string
 #  restaurant_address      :string
 #  restaurant_name         :string

@@ -27,7 +27,7 @@
 class LineItem < ApplicationRecord
   include HasWarnings
 
-  belongs_to :check
+  belongs_to :check, counter_cache: true
   has_many :line_item_participants, dependent: :destroy
   has_many :participants, through: :line_item_participants
   has_many :addons, dependent: :destroy

@@ -37,12 +37,12 @@
                     </div>
                     <div class="d-flex justify-content-between small text-muted">
                       <span>Items:</span>
-                      <span><%= check.line_items.count %></span>
+                      <span><%= check.line_items.size %></span>
                     </div>
                     <% if check.participants.any? %>
                       <div class="d-flex justify-content-between small text-muted">
                         <span>Participants:</span>
-                        <span><%= check.participants.count %></span>
+                        <span><%= check.participants.size %></span>
                       </div>
                     <% end %>
                   </div>
