@@ -1,6 +1,6 @@
 namespace :receipts do
-  desc "Parse all test receipts and store responses as fixtures"
-  task parse_fixtures: :environment do
+  desc "Parse receipt images and save as JSON fixtures"
+  task parse_images: :environment do
     require "json"
     require "fileutils"
 

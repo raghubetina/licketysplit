@@ -1,6 +1,6 @@
 namespace :receipts do
-  desc "Import parsed receipt fixtures into the database"
-  task import: :environment do
+  desc "Load parsed receipt fixtures into the database"
+  task load_fixtures: :environment do
     fixture_dir = Rails.root.join("spec/fixtures/parsed_receipts")
     imported = 0
     failed = 0
