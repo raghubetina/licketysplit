@@ -87,6 +87,7 @@ gem "blazer"
 gem "chartkick"
 gem "groupdate"
 gem "rollbar"
+gem "rqrcode", "~> 3.0"
 
 group :test do
   gem "capybara"

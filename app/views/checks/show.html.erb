@@ -8,6 +8,17 @@
     </div>
   <% end %>
 
+  <div class="text-center mb-3">
+    <%= qr_code_svg(check_url(@check), size: 120) %>
+    <div class="text-muted small mt-2">Scan to share this check</div>
+    <button class="btn btn-sm btn-outline-secondary mt-2"
+            data-controller="clipboard"
+            data-clipboard-text-value="<%= check_url(@check) %>"
+            data-action="clipboard#copy">
+      <i class="bi bi-clipboard"></i> Copy link
+    </button>
+  </div>
+
   <% if @check.receipt_image.attached? %>
     <div class="mb-3">
       <%= image_tag @check.receipt_image, class: "img-fluid rounded" %>

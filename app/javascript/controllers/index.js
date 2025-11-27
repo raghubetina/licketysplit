@@ -12,3 +12,6 @@ application.register("checkbox-toggle", CheckboxToggleController)
 
 import StreamHighlightController from "./stream_highlight_controller"
 application.register("stream-highlight", StreamHighlightController)
+
+import ClipboardController from "./clipboard_controller"
+application.register("clipboard", ClipboardController)
