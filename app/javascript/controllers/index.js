@@ -15,3 +15,6 @@ application.register("stream-highlight", StreamHighlightController)
 
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
+
+import AutogrowController from "./autogrow_controller"
+application.register("autogrow", AutogrowController)
