@@ -13,11 +13,11 @@
       <%= qr_code_svg(check_url(@check), level: :m) %>
     </div>
     <div class="text-muted small mt-2">Scan to share this check</div>
-    <button class="btn btn-sm btn-outline-secondary mt-2"
+    <button class="btn btn-primary w-100 mt-2"
             data-controller="clipboard"
             data-clipboard-text-value="<%= check_url(@check) %>"
             data-action="clipboard#copy">
-      <i class="bi bi-clipboard"></i> Copy link
+      <i class="bi bi-clipboard"></i> Copy link to check
     </button>
   </div>
 
