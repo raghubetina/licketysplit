@@ -11,7 +11,7 @@
         <%= button_to set_tip_check_global_fees_path(check),
               method: :post,
               params: { percentage: pct },
-              class: "btn btn-sm #{is_current ? 'btn-primary' : 'btn-outline-primary'}" do %>
+              class: "btn btn-sm #{is_current ? 'btn-outline-success' : 'btn-outline-secondary'}" do %>
           <%= pct %>%
         <% end %>
       <% end %>
