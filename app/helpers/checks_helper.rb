@@ -23,16 +23,8 @@ module ChecksHelper
     end
   end
 
-  def format_currency(amount, currency = "USD")
-    return "$0.00" if amount.nil?
-
-    case currency
-    when "USD"
-      "$#{number_with_precision(amount, precision: 2)}"
-    when "EUR"
-      "€#{number_with_precision(amount, precision: 2)}"
-    else
-      "#{currency} #{number_with_precision(amount, precision: 2)}"
-    end
+  def format_currency(amount, symbol = "$")
+    padding = symbol.end_with?(".") ? " " : ""
+    "#{symbol}#{padding}#{number_with_precision(amount || 0, precision: 2)}"
   end
 end

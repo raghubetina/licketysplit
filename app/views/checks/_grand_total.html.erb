@@ -2,12 +2,12 @@
 <div id="grand_total" class="card-footer py-3 px-3">
   <div class="d-flex justify-content-between h4 mb-0">
     <strong>Grand total</strong>
-    <strong>$<%= number_with_precision(check.calculated_total, precision: 2) %></strong>
+    <strong><%= format_currency(check.calculated_total, check.currency_symbol) %></strong>
   </div>
   <% if check.grand_total.present? && check.grand_total != check.calculated_total %>
     <div class="d-flex justify-content-between text-muted">
       <span>Receipt showed</span>
-      <span>$<%= number_with_precision(check.grand_total, precision: 2) %></span>
+      <span><%= format_currency(check.grand_total, check.currency_symbol) %></span>
     </div>
   <% end %>
 </div>

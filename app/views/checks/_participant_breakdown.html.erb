@@ -14,7 +14,7 @@
         <span class="fw-normal text-muted">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
       <% end %>
     </strong>
-    <strong>$<%= number_with_precision(check.amount_owed_by(participant), precision: 2) %></strong>
+    <strong><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
   </div>
 
   <% if participant_items.any? %>
@@ -28,7 +28,7 @@
             <span class="text-muted">(shared with <%= other_participants.map(&:name).join(", ") %>)</span>
           <% end %>
         </span>
-        <span>$<%= number_with_precision(share, precision: 2) %></span>
+        <span><%= format_currency(share, check.currency_symbol) %></span>
       </div>
     <% end %>
 
@@ -36,7 +36,7 @@
       <% discounts_share = check.total_discounts * proportion %>
       <div class="d-flex justify-content-between text-success">
         <span>Share of discounts</span>
-        <span>-$<%= number_with_precision(discounts_share, precision: 2) %></span>
+        <span>-<%= format_currency(discounts_share, check.currency_symbol) %></span>
       </div>
     <% end %>
 
@@ -44,7 +44,7 @@
       <% fees_share = check.total_fees * proportion %>
       <div class="d-flex justify-content-between text-muted">
         <span>Share of tax, tip, and other fees</span>
-        <span>$<%= number_with_precision(fees_share, precision: 2) %></span>
+        <span><%= format_currency(fees_share, check.currency_symbol) %></span>
       </div>
     <% end %>
   <% else %>

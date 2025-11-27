@@ -9,20 +9,20 @@
       <%= button_to check_line_item_path(check, line_item), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete item", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this item?" } } do %>
         <i class="bi bi-trash"></i>
       <% end %>
-      <span class="text-muted me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(line_item.unit_price * line_item.quantity, precision: 2) %></span>
+      <span class="text-muted me-2 text-end" style="min-width: 50px;"><%= format_currency(line_item.unit_price * line_item.quantity, check.currency_symbol) %></span>
       <span>
         <strong><%= line_item.description %></strong>
         <% if line_item.quantity > 1 %>
-          <span class="text-muted">(<%= line_item.quantity %>x @ $<%= number_with_precision(line_item.unit_price, precision: 2) %> each)</span>
+          <span class="text-muted">(<%= line_item.quantity %>x @ <%= format_currency(line_item.unit_price, check.currency_symbol) %> each)</span>
         <% end %>
       </span>
     </div>
-    <strong>$<%= number_with_precision(line_item.total_with_addons, precision: 2) %></strong>
+    <strong><%= format_currency(line_item.total_with_addons, check.currency_symbol) %></strong>
   </div>
   <% if line_item.discount && line_item.discount > 0 %>
     <div class="d-flex align-items-baseline">
       <span class="me-2" style="width: 1em;"></span>
-      <span class="text-success me-2 text-end" style="min-width: 50px;">-$<%= number_with_precision(line_item.discount, precision: 2) %></span>
+      <span class="text-success me-2 text-end" style="min-width: 50px;">-<%= format_currency(line_item.discount, check.currency_symbol) %></span>
       <span class="text-success">
         <% if line_item.discount_description.present? %>
           <%= line_item.discount_description %>

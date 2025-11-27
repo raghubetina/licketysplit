@@ -16,7 +16,7 @@
         <% end %>
       </span>
     </div>
-    <span>+$<%= number_with_precision(global_fee.amount, precision: 2) %></span>
+    <span>+<%= format_currency(global_fee.amount, check.currency_symbol) %></span>
   </div>
 
   <% if global_fee.tip? %>

@@ -8,7 +8,7 @@
       </div>
       <div class="col-6 col-sm-3">
         <div class="input-group input-group-sm">
-          <span class="input-group-text">$</span>
+          <span class="input-group-text"><%= line_item.check.currency_symbol %></span>
           <%= f.number_field :unit_price, step: 0.01, class: "form-control form-control-sm", placeholder: "Price" %>
         </div>
       </div>
@@ -20,7 +20,7 @@
     <div class="row g-2">
       <div class="col-6 col-sm-3">
         <div class="input-group input-group-sm">
-          <span class="input-group-text">-$</span>
+          <span class="input-group-text">-<%= line_item.check.currency_symbol %></span>
           <%= f.number_field :discount, step: 0.01, min: 0, class: "form-control form-control-sm", placeholder: "Discount" %>
         </div>
       </div>

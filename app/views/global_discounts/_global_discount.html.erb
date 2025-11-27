@@ -11,6 +11,6 @@
       <% end %>
       <span><%= global_discount.description %></span>
     </div>
-    <span>-$<%= number_with_precision(global_discount.amount, precision: 2) %></span>
+    <span>-<%= format_currency(global_discount.amount, check.currency_symbol) %></span>
   </div>
 </li>
