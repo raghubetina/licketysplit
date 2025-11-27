@@ -58,6 +58,24 @@ class GlobalFeesController < ApplicationController
     head :ok
   end
 
+  def set_tip
+    percentage = params[:percentage].to_f
+    tip_amount = (@check.tippable_amount * percentage / 100.0).round(2)
+
+    existing_tip = @check.tip
+    if existing_tip
+      existing_tip.update!(amount: tip_amount)
+    else
+      @check.global_fees.create!(
+        description: "Tip",
+        amount: tip_amount,
+        fee_type: "tip"
+      )
+    end
+
+    head :ok
+  end
+
   private
 
   def set_check
@@ -69,6 +87,6 @@ class GlobalFeesController < ApplicationController
   end
 
   def global_fee_params
-    params.require(:global_fee).permit(:description, :amount)
+    params.require(:global_fee).permit(:description, :amount, :fee_type)
   end
 end

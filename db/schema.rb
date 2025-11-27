@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_27_004142) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_27_010709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -186,7 +186,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_004142) do
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "fee_type", default: "other", null: false
     t.index ["check_id"], name: "index_global_fees_on_check_id"
+    t.index ["fee_type"], name: "index_global_fees_on_fee_type"
   end
 
   create_table "line_item_participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

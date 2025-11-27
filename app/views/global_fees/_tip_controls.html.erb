@@ -1,0 +1,20 @@
+<%# Accepts: check (required), current_tip (optional - nil if no tip exists) %>
+<% tip_percentages = [10, 15, 20, 25, 30] %>
+<% tippable = check.tippable_amount %>
+
+<div id="tip_controls" class="mt-2">
+  <% if tippable > 0 %>
+    <div class="d-flex gap-1 flex-wrap">
+      <% tip_percentages.each do |pct| %>
+        <% tip_amount = (tippable * pct / 100.0).round(2) %>
+        <% is_current = current_tip && (current_tip.calculated_percentage - pct).abs < 0.5 %>
+        <%= button_to set_tip_check_global_fees_path(check),
+              method: :post,
+              params: { percentage: pct },
+              class: "btn btn-sm #{is_current ? 'btn-primary' : 'btn-outline-primary'}" do %>
+          <%= pct %>%
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

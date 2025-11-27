@@ -79,6 +79,18 @@ class Check < ApplicationRecord
   end
   memo_wise :amount_owed_by
 
+  def tip
+    global_fees.tip.first
+  end
+
+  def has_tip?
+    global_fees.tip.exists?
+  end
+
+  def tippable_amount
+    subtotal
+  end
+
   private
 
   def calculate_base_amount(participant)

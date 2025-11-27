@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     resources :participants, only: [:new, :create, :destroy]
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]
     resources :global_discounts, only: [:create, :show, :edit, :update, :destroy]
-    resources :global_fees, only: [:create, :show, :edit, :update, :destroy]
+    resources :global_fees, only: [:create, :show, :edit, :update, :destroy] do
+      collection do
+        post :set_tip
+      end
+    end
   end
 
   resources :line_items, only: [] do

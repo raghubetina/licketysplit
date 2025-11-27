@@ -70,8 +70,6 @@
         <% end %>
       </div>
 
-      <% subtotal_after_discounts = @check.subtotal - @check.total_discounts %>
-
       <div class="card mb-3">
         <div class="card-header py-3">
           <strong class="small">Tax, tip, and other fees</strong>
@@ -79,8 +77,16 @@
 
         <ul class="list-group list-group-flush">
           <% @global_fees.order(amount: :desc).each do |fee| %>
-            <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check, subtotal_after_discounts: subtotal_after_discounts } %>
+            <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
           <% end %>
+
+          <% unless @check.has_tip? %>
+            <li class="list-group-item py-3 px-3">
+              <div class="small text-muted mb-2">Add a tip:</div>
+              <%= render partial: "global_fees/tip_controls", locals: { check: @check, current_tip: nil } %>
+            </li>
+          <% end %>
+
           <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
         </ul>
 
