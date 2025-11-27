@@ -23,4 +23,30 @@ class GlobalDiscount < ApplicationRecord
 
   validates :amount, presence: true, numericality: {greater_than: 0}
   validates :description, presence: true
+
+  after_commit :broadcast_updates
+
+  private
+
+  def broadcast_updates
+    if destroyed?
+      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    end
+
+    check.participants.each do |participant|
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
+        partial: "checks/participant_breakdown",
+        locals: {participant: participant, check: check}
+      )
+    end
+
+    broadcast_replace_to(
+      check,
+      target: "remaining_breakdown",
+      partial: "checks/remaining_breakdown",
+      locals: {check: check}
+    )
+  end
 end

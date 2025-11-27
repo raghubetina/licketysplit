@@ -66,9 +66,14 @@
 
           <ul class="list-group list-group-flush">
             <% @global_discounts.each do |discount| %>
-              <li class="list-group-item py-3 px-3">
-                <div class="d-flex justify-content-between small text-success">
-                  <span><%= discount.description %></span>
+              <li id="<%= dom_id(discount) %>" class="list-group-item py-3 px-3">
+                <div class="d-flex justify-content-between align-items-center small text-success">
+                  <div class="d-flex align-items-center">
+                    <%= button_to check_global_discount_path(@check, discount), method: :delete, class: "btn btn-link p-0 text-success me-2", title: "Delete discount", form: { data: { turbo_confirm: "Delete this discount?" } } do %>
+                      <i class="bi bi-trash small"></i>
+                    <% end %>
+                    <span><%= discount.description %></span>
+                  </div>
                   <span>-$<%= number_with_precision(discount.amount, precision: 2) %></span>
                 </div>
               </li>
@@ -94,14 +99,19 @@
 
           <ul class="list-group list-group-flush">
             <% @global_fees.order(amount: :desc).each do |fee| %>
-              <li class="list-group-item py-3 px-3">
-                <div class="d-flex justify-content-between small">
-                  <span class="text-muted">
-                    <%= fee.description %>
-                    <% if subtotal_after_discounts > 0 %>
-                      <span class="text-muted">(<%= number_to_percentage((fee.amount / subtotal_after_discounts) * 100, precision: 1) %>)</span>
+              <li id="<%= dom_id(fee) %>" class="list-group-item py-3 px-3">
+                <div class="d-flex justify-content-between align-items-center small">
+                  <div class="d-flex align-items-center text-muted">
+                    <%= button_to check_global_fee_path(@check, fee), method: :delete, class: "btn btn-link p-0 text-muted me-2", title: "Delete fee", form: { data: { turbo_confirm: "Delete this fee?" } } do %>
+                      <i class="bi bi-trash small"></i>
                     <% end %>
-                  </span>
+                    <span>
+                      <%= fee.description %>
+                      <% if subtotal_after_discounts > 0 %>
+                        (<%= number_to_percentage((fee.amount / subtotal_after_discounts) * 100, precision: 1) %>)
+                      <% end %>
+                    </span>
+                  </div>
                   <span>+$<%= number_with_precision(fee.amount, precision: 2) %></span>
                 </div>
               </li>

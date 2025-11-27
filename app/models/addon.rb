@@ -45,15 +45,17 @@ class Addon < ApplicationRecord
   def broadcast_updates
     check = line_item.check
 
-    # Update the addon itself
-    broadcast_replace_to(
-      check,
-      target: ActionView::RecordIdentifier.dom_id(self),
-      partial: "addons/addon",
-      locals: {addon: self, line_item: line_item}
-    )
+    if destroyed?
+      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    else
+      broadcast_replace_to(
+        check,
+        target: ActionView::RecordIdentifier.dom_id(self),
+        partial: "addons/addon",
+        locals: {addon: self, line_item: line_item}
+      )
+    end
 
-    # Update the parent line item (total changes)
     broadcast_replace_to(
       check,
       target: ActionView::RecordIdentifier.dom_id(line_item),
@@ -61,7 +63,6 @@ class Addon < ApplicationRecord
       locals: {line_item: line_item, check: check}
     )
 
-    # Update all participants assigned to the parent line item
     line_item.participants.each do |participant|
       broadcast_replace_to(
         check,
@@ -71,7 +72,6 @@ class Addon < ApplicationRecord
       )
     end
 
-    # Update the remaining section
     broadcast_replace_to(
       check,
       target: "remaining_breakdown",

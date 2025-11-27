@@ -1,8 +1,8 @@
 class LineItemsController < ApplicationController
   include ActionView::RecordIdentifier
 
-  before_action :set_check, only: [:create, :show, :edit, :update]
-  before_action :set_line_item, only: [:show, :edit, :update, :toggle_participant]
+  before_action :set_check, only: [:create, :show, :edit, :update, :destroy]
+  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :toggle_participant]
 
   def create
     @line_item = @check.line_items.build(line_item_params)
@@ -61,6 +61,11 @@ class LineItemsController < ApplicationController
         locals: {line_item: @line_item, check: @check}
       ), status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @line_item.destroy
+    head :ok
   end
 
   def toggle_participant

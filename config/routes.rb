@@ -15,13 +15,15 @@ Rails.application.routes.draw do
 
   resources :checks do
     resources :participants, only: [:new, :create, :destroy]
-    resources :line_items, only: [:create, :show, :edit, :update]
+    resources :line_items, only: [:create, :show, :edit, :update, :destroy]
+    resources :global_discounts, only: [:destroy]
+    resources :global_fees, only: [:destroy]
   end
 
   resources :line_items, only: [] do
     member do
       post :toggle_participant
     end
-    resources :addons, only: [:show, :edit, :update]
+    resources :addons, only: [:show, :edit, :update, :destroy]
   end
 end

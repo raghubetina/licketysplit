@@ -36,6 +36,11 @@ class AddonsController < ApplicationController
     end
   end
 
+  def destroy
+    @addon.destroy
+    head :ok
+  end
+
   private
 
   def set_line_item

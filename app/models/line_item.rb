@@ -63,8 +63,9 @@ class LineItem < ApplicationRecord
   private
 
   def broadcast_updates
-    if previously_new_record?
-      # Insert new line item before the new item form
+    if destroyed?
+      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
+    elsif previously_new_record?
       broadcast_before_to(
         check,
         target: "new_line_item_form",
@@ -72,7 +73,6 @@ class LineItem < ApplicationRecord
         locals: {line_item: self, check: check}
       )
     else
-      # Update the line item itself
       broadcast_replace_to(
         check,
         target: ActionView::RecordIdentifier.dom_id(self),
@@ -81,7 +81,6 @@ class LineItem < ApplicationRecord
       )
     end
 
-    # Update all participants assigned to this item
     participants.each do |participant|
       broadcast_replace_to(
         check,
@@ -91,7 +90,6 @@ class LineItem < ApplicationRecord
       )
     end
 
-    # Update the remaining section
     broadcast_replace_to(
       check,
       target: "remaining_breakdown",

@@ -2,8 +2,11 @@
 
 <div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
   <div class="d-flex align-items-baseline">
-    <%= link_to edit_line_item_addon_path(line_item, addon), class: "text-muted me-2", title: "Edit addon" do %>
+    <%= link_to edit_line_item_addon_path(line_item, addon), class: "text-muted me-1", title: "Edit addon" do %>
       <i class="bi bi-pencil small"></i>
+    <% end %>
+    <%= button_to line_item_addon_path(line_item, addon), method: :delete, class: "btn btn-link p-0 text-muted me-2", title: "Delete addon", form: { data: { turbo_confirm: "Delete this addon?" } } do %>
+      <i class="bi bi-trash small"></i>
     <% end %>
     <span class="text-muted small me-2 text-end" style="min-width: 50px;">$<%= number_with_precision(addon.total_price, precision: 2) %></span>
     <span class="text-muted small">+ <%= addon.description %></span>
