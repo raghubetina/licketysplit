@@ -1,7 +1,9 @@
-<%# Accepts: participant (required), check (required), line_items (optional) %>
+<%# Accepts: participant (required), check (required), line_items (optional), show_zero_items (optional, defaults to true) %>
 <% line_items ||= check.line_items.includes(:participants, :addons).order(:position, :created_at) %>
+<% show_zero_items = true unless local_assigns.key?(:show_zero_items) %>
 
 <% participant_items = line_items.select { |item| item.participant_ids.include?(participant.id) } %>
+<% display_items = show_zero_items ? participant_items : participant_items.reject { |item| item.total_with_addons == 0 } %>
 <% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
 <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
 <div id="<%= dom_id(participant, :breakdown) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3">
@@ -16,7 +18,7 @@
   </div>
 
   <% if participant_items.any? %>
-    <% participant_items.each do |item| %>
+    <% display_items.each do |item| %>
       <% share = item.amount_per_participant %>
       <div class="d-flex justify-content-between text-muted">
         <span>

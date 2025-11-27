@@ -1,7 +1,9 @@
-<%# Accepts: check (required), line_items (optional) %>
+<%# Accepts: check (required), line_items (optional), show_zero_items (optional, defaults to true) %>
 <% line_items ||= check.line_items.includes(:participants, :addons).order(:position, :created_at) %>
+<% show_zero_items = true unless local_assigns.key?(:show_zero_items) %>
 
 <% unassigned_items = line_items.select { |item| item.participants_count == 0 } %>
+<% unassigned_items = unassigned_items.reject { |item| item.total_with_addons == 0 } unless show_zero_items %>
 <% if unassigned_items.any? %>
   <% unassigned_subtotal = unassigned_items.sum { |item| item.total_with_addons } %>
   <% unassigned_proportion = check.subtotal > 0 ? unassigned_subtotal / check.subtotal : 0 %>

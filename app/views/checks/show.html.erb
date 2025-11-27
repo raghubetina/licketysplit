@@ -156,7 +156,7 @@
     </div>
 
     <% if @participants.any? %>
-      <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items } %>
+      <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items, show_zero_items: @show_zero_items } %>
     <% end %>
   <% end %>
 

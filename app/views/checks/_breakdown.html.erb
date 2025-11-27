@@ -1,6 +1,7 @@
-<%# Accepts: check (required), participants (optional), line_items (optional) %>
+<%# Accepts: check (required), participants (optional), line_items (optional), show_zero_items (optional, defaults to true) %>
 <% participants ||= check.participants.order(:name) %>
 <% line_items ||= check.line_items.includes(:participants, :addons).order(:position, :created_at) %>
+<% show_zero_items = true unless local_assigns.key?(:show_zero_items) %>
 
 <div class="card" id="breakdown_card">
   <div class="card-header py-3">
@@ -8,9 +9,9 @@
   </div>
   <div id="participant_breakdowns" class="list-group list-group-flush">
     <% participants.each do |participant| %>
-      <%= render partial: "checks/participant_breakdown", locals: { participant: participant, check: check, line_items: line_items } %>
+      <%= render partial: "checks/participant_breakdown", locals: { participant: participant, check: check, line_items: line_items, show_zero_items: show_zero_items } %>
     <% end %>
   </div>
 
-  <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items } %>
+  <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items, show_zero_items: show_zero_items } %>
 </div>
