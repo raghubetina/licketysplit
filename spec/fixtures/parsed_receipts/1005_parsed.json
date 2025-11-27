@@ -1,8 +1,8 @@
 {
-  "restaurant_name": "SASKA'S",
+  "restaurant_name": "Saska's",
   "restaurant_address": "3768 Mission Blvd, San Diego, CA 92109",
   "restaurant_phone_number": "(858) 488-7311",
-  "billed_on": "2017-08-15T17:51:00-07:00",
+  "billed_on": "2017-08-15T17:51:00+00:00",
   "grand_total": 179.94,
   "currency": "USD",
   "status": "reviewing",
@@ -19,7 +19,7 @@
       "description": "\"Cowboy\" 16oz Ribeye",
       "quantity": 1,
       "unit_price": 45.0,
-      "total_price": 71.0,
+      "total_price": 45.0,
       "addons_attributes": [
         {
           "description": "Make It Blue",
@@ -62,7 +62,7 @@
       "description": "\"Duke\" 16oz Top Sirloin",
       "quantity": 1,
       "unit_price": 34.0,
-      "total_price": 39.0,
+      "total_price": 34.0,
       "addons_attributes": [
         {
           "description": "Make It Blue",
@@ -76,7 +76,8 @@
   "global_fees_attributes": [
     {
       "description": "Tax",
-      "amount": 12.94
+      "amount": 12.94,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

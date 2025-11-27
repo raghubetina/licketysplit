@@ -1,6 +1,6 @@
 {
   "restaurant_name": "El Pollo Loco",
-  "restaurant_address": "7519 S. Atlantic Ave., Cudahy, CA 90201",
+  "restaurant_address": "7519 S. Atlantic Ave, Cudahy, CA 90201",
   "restaurant_phone_number": "323-560-0758",
   "billed_on": "2017-06-28T17:38:00+00:00",
   "grand_total": 13.12,
@@ -33,13 +33,7 @@
           "total_price": 0
         },
         {
-          "description": "SM DRINK",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "Coke",
+          "description": "SM DRINK Coke",
           "quantity": 1,
           "unit_price": 0,
           "total_price": 0
@@ -57,7 +51,8 @@
   "global_fees_attributes": [
     {
       "description": "Tax",
-      "amount": 1.06
+      "amount": 1.06,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

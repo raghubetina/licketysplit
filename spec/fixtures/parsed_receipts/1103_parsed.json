@@ -11,8 +11,16 @@
       "position": 1,
       "description": "Crisfield Special Platter",
       "quantity": 1,
-      "unit_price": 27,
-      "total_price": 27
+      "unit_price": 27.0,
+      "total_price": 27.0,
+      "addons_attributes": [
+        {
+          "description": "Cook medium",
+          "quantity": 1,
+          "unit_price": 0.0,
+          "total_price": 0.0
+        }
+      ]
     },
     {
       "position": 2,
@@ -24,12 +32,14 @@
   ],
   "global_fees_attributes": [
     {
-      "description": "Carry out fee",
-      "amount": 1.93
+      "description": "Carry Out",
+      "amount": 1.93,
+      "fee_type": "other"
     },
     {
-      "description": "Tax",
-      "amount": 2.31
+      "description": "TAX",
+      "amount": 2.31,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

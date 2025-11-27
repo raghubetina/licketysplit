@@ -11,14 +11,14 @@
       "position": 1,
       "description": "Green Salad",
       "quantity": 1,
-      "unit_price": 8.0,
-      "total_price": 8.0,
+      "unit_price": 8,
+      "total_price": 8,
       "addons_attributes": [
         {
           "description": "Ranch",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
@@ -26,32 +26,26 @@
       "position": 2,
       "description": "Wagyu Cheeseburger",
       "quantity": 1,
-      "unit_price": 19.0,
-      "total_price": 21.0,
+      "unit_price": 19,
+      "total_price": 19,
       "addons_attributes": [
         {
           "description": "Medium Well",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         },
         {
           "description": "Garlic Fries",
           "quantity": 1,
-          "unit_price": 2.0,
-          "total_price": 2.0
+          "unit_price": 2,
+          "total_price": 2
         },
         {
-          "description": "Raw Onions",
+          "description": "Raw Onions & Bacon",
           "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
-        },
-        {
-          "description": "Bacon",
-          "quantity": 1,
-          "unit_price": 0.0,
-          "total_price": 0.0
+          "unit_price": 0,
+          "total_price": 0
         }
       ]
     },
@@ -66,18 +60,20 @@
       "position": 4,
       "description": "Tea",
       "quantity": 1,
-      "unit_price": 4.0,
-      "total_price": 4.0
+      "unit_price": 4,
+      "total_price": 4
     }
   ],
   "global_fees_attributes": [
     {
       "description": "HI HNLKO 4.712% GET",
-      "amount": 1.86
+      "amount": 1.86,
+      "fee_type": "tax"
     },
     {
       "description": "Gratuity",
-      "amount": 3.0
+      "amount": 3,
+      "fee_type": "tip"
     }
   ],
   "global_discounts_attributes": [

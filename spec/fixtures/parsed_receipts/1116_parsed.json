@@ -9,7 +9,7 @@
   "line_items_attributes": [
     {
       "position": 1,
-      "description": "P-Villagio Breeze",
+      "description": "P-Villaggio Breeze",
       "quantity": 1,
       "unit_price": 0.01,
       "total_price": 0.01
@@ -46,7 +46,8 @@
   "global_fees_attributes": [
     {
       "description": "Tax",
-      "amount": 3.11
+      "amount": 3.11,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

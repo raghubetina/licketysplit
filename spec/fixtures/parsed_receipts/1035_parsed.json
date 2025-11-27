@@ -1,8 +1,8 @@
 {
-  "restaurant_name": "Argonaut Diner2000",
+  "restaurant_name": "Argonaut Diner 2000",
   "restaurant_address": "1084 Yonkers Avenue, Yonkers, NY 10704",
   "restaurant_phone_number": "(914) 237-5055",
-  "billed_on": null,
+  "billed_on": "2017-08-13T11:01:00+00:00",
   "grand_total": 26.38,
   "currency": "USD",
   "status": "reviewing",
@@ -67,7 +67,8 @@
   "global_fees_attributes": [
     {
       "description": "Tax",
-      "amount": 2.13
+      "amount": 2.13,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

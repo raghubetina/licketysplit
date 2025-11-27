@@ -1,8 +1,8 @@
 {
   "restaurant_name": "IN-N-OUT BURGER SANTA CLARA",
   "restaurant_address": null,
-  "restaurant_phone_number": "176 1 262 1110",
-  "billed_on": "2012-04-27T12:49:00+00:00",
+  "restaurant_phone_number": null,
+  "billed_on": "2012-04-27T12:48:00+00:00",
   "grand_total": 2.17,
   "currency": "USD",
   "status": "reviewing",
@@ -11,52 +11,15 @@
       "position": 1,
       "description": "Hamburger",
       "quantity": 1,
-      "unit_price": 2,
-      "total_price": 2,
-      "addons_attributes": [
-        {
-          "description": "W",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "GR",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "X L",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "X T",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "M",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        },
-        {
-          "description": "Inst pro",
-          "quantity": 1,
-          "unit_price": 0,
-          "total_price": 0
-        }
-      ]
+      "unit_price": 2.0,
+      "total_price": 2.0
     }
   ],
   "global_fees_attributes": [
     {
       "description": "TAX 8.25%",
-      "amount": 0.17
+      "amount": 0.17,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

@@ -32,7 +32,7 @@
       "position": 4,
       "description": "HB Combo",
       "quantity": 1,
-      "unit_price": 8.35,
+      "unit_price": 7.6,
       "total_price": 8.35,
       "addons_attributes": [
         {
@@ -54,7 +54,7 @@
       "position": 6,
       "description": "CB",
       "quantity": 1,
-      "unit_price": 5.0,
+      "unit_price": 4.25,
       "total_price": 5.0,
       "addons_attributes": [
         {
@@ -76,7 +76,8 @@
   "global_fees_attributes": [
     {
       "description": "Sales Tax",
-      "amount": 5.25
+      "amount": 5.25,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": []

@@ -67,7 +67,8 @@
   "global_fees_attributes": [
     {
       "description": "Tax",
-      "amount": 12.51
+      "amount": 12.51,
+      "fee_type": "tax"
     }
   ],
   "global_discounts_attributes": [
