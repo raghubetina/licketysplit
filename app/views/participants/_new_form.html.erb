@@ -13,12 +13,12 @@
     <div class="row g-2 mb-2">
       <div class="col">
         <%= f.label :name, class: "form-label small mb-1" %>
-        <%= f.text_field :name, class: "form-control form-control-sm", placeholder: "Add a participant…" %>
+        <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder") %>
       </div>
     </div>
 
     <div class="d-flex justify-content-end">
-      <%= f.submit "Add Participant", class: "btn btn-sm btn-primary" %>
+      <%= f.submit t("participants.add_button"), class: "btn btn-sm btn-primary" %>
     </div>
   <% end %>
 </li>

@@ -60,7 +60,7 @@
 
   <div class="card mb-3">
     <div class="card-header py-3">
-      <strong class="small">Participants</strong>
+      <strong class="small"><%= t("participants.header") %></strong>
     </div>
 
     <ul class="list-group list-group-flush">
@@ -73,7 +73,7 @@
 
   <% if @participants.empty? %>
     <div class="alert alert-warning">
-      Add participants above to start splitting the check.
+      <%= t("participants.add_prompt") %>
     </div>
   <% elsif @line_items.empty? %>
     <div class="alert alert-warning">
