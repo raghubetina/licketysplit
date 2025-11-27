@@ -39,7 +39,7 @@
           Total: $<%= number_with_precision(line_item.total_price, precision: 2) %>
         </div>
         <div class="d-flex gap-2">
-          <%= button_to "Cancel", check_line_item_path(check, line_item), method: :get, class: "btn btn-sm btn-secondary", data: { turbo_stream: true } %>
+          <%= button_to "Cancel", check_line_item_path(check, line_item), method: :get, class: "btn btn-sm btn-secondary", form: { data: { turbo_stream: true } } %>
           <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
         </div>
       </div>

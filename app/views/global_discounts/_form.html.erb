@@ -14,7 +14,7 @@
       </div>
       <div class="col-auto">
         <div class="d-flex gap-1">
-          <%= button_to "Cancel", check_global_discount_path(check, global_discount), method: :get, class: "btn btn-sm btn-secondary", data: { turbo_stream: true } %>
+          <%= button_to "Cancel", check_global_discount_path(check, global_discount), method: :get, class: "btn btn-sm btn-secondary", form: { data: { turbo_stream: true } } %>
           <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
         </div>
       </div>

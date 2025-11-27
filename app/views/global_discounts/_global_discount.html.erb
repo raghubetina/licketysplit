@@ -3,7 +3,7 @@
 <li id="<%= dom_id(global_discount) %>" class="list-group-item py-3 px-3">
   <div class="d-flex justify-content-between align-items-center small text-success">
     <div class="d-flex align-items-baseline">
-      <%= button_to edit_check_global_discount_path(check, global_discount), method: :get, class: "btn btn-sm btn-outline-secondary me-1", title: "Edit discount", data: { turbo_stream: true } do %>
+      <%= button_to edit_check_global_discount_path(check, global_discount), method: :get, class: "btn btn-sm btn-outline-secondary me-1", title: "Edit discount", form: { data: { turbo_stream: true } } do %>
         <i class="bi bi-pencil small"></i>
       <% end %>
       <%= button_to check_global_discount_path(check, global_discount), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete discount", form: { data: { turbo_confirm: "Delete this discount?" } } do %>
