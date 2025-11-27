@@ -91,7 +91,7 @@ class ReceiptParser
           },
           currency_symbol: {
             type: "string",
-            description: "Currency symbol as displayed on the receipt (e.g. '$', '€', '£', '¥')",
+            description: "Currency symbol. Prefer Unicode symbols over abbreviations (e.g. '₹' not 'Rs.', '₱' not 'PHP'). Common symbols: '$', '€', '£', '¥', '₹', '₩', '₱', '฿', '₫', 'R$', 'A$'",
             default: "$"
           },
           line_items: {
