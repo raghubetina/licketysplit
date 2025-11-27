@@ -24,6 +24,18 @@
   </head>
 
   <body data-controller="stream-highlight">
+    <nav class="navbar navbar-light bg-light border-bottom mb-3">
+      <div class="container">
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <i class="bi bi-house-door-fill"></i> Lickety Split
+        <% end %>
+      </div>
+    </nav>
+
     <%= yield %>
+
+    <footer class="text-center text-muted py-4 mt-5">
+      <small>Feedback? Please email <%= mail_to "contact@licketysplit.app" %></small>
+    </footer>
   </body>
 </html>

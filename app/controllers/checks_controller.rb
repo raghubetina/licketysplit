@@ -2,11 +2,12 @@ class ChecksController < ApplicationController
   before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items]
 
   def index
-    @checks = Check.includes(:line_items, :global_fees, :global_discounts, :participants)
-      .order(created_at: :desc)
+    @check = Check.new
+    @recent_checks = load_recent_checks
   end
 
   def show
+    track_visited_check(@check.id)
     @show_zero_items = cookies[:show_zero_items] == "true"
     @line_items = @check.line_items.includes(:addons, :participants).order(:position)
     @global_fees = @check.global_fees
@@ -24,14 +25,15 @@ class ChecksController < ApplicationController
   end
 
   def new
-    @check = Check.new
+    redirect_to checks_path
   end
 
   def create
     if params[:receipt_image].blank?
       @check = Check.new
       @check.errors.add(:receipt_image, "is required")
-      return render :new, status: :unprocessable_entity
+      @recent_checks = load_recent_checks
+      return render :index, status: :unprocessable_entity
     end
 
     parser = ReceiptParser.new(params[:receipt_image].tempfile.path)
@@ -50,12 +52,14 @@ class ChecksController < ApplicationController
     if @check.save
       redirect_to @check, notice: "Check created! Now assign items to participants."
     else
-      render :new, status: :unprocessable_entity
+      @recent_checks = load_recent_checks
+      render :index, status: :unprocessable_entity
     end
   rescue => e
     @check = Check.new
     @check.errors.add(:base, "Failed to parse receipt: #{e.message}")
-    render :new, status: :unprocessable_entity
+    @recent_checks = load_recent_checks
+    render :index, status: :unprocessable_entity
   end
 
   def edit
@@ -78,6 +82,22 @@ class ChecksController < ApplicationController
 
   def set_check
     @check = Check.find(params[:id])
+  end
+
+  def track_visited_check(check_id)
+    visited_ids = JSON.parse(cookies[:visited_checks] || "[]")
+    visited_ids.delete(check_id.to_s)
+    visited_ids.unshift(check_id.to_s)
+    visited_ids = visited_ids.first(20)
+    cookies[:visited_checks] = {value: visited_ids.to_json, expires: 1.year.from_now}
+  end
+
+  def load_recent_checks
+    visited_ids = JSON.parse(cookies[:visited_checks] || "[]")
+    return [] if visited_ids.empty?
+
+    checks_by_id = Check.where(id: visited_ids).index_by { |c| c.id.to_s }
+    visited_ids.filter_map { |id| checks_by_id[id] }
   end
 
   def check_params
