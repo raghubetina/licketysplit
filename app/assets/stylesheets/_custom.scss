@@ -1,11 +1,5 @@
 // Custom application styles
 
-// Disable Bootstrap's smooth scroll (SASS variable alone doesn't work with Bootswatch)
-// https://github.com/twbs/bootstrap/issues/38094
-:root {
-  scroll-behavior: auto !important;
-}
-
 // Highlight animation for Turbo Stream updates
 @keyframes turbo-highlight {
   from { background-color: rgba(var(--bs-warning-rgb), 0.3); }
