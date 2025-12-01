@@ -1,14 +1,8 @@
 <%# Accepts: line_item (required), check (required) %>
 
-<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3">
+<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-1">
   <div class="d-flex justify-content-between align-items-start">
     <div class="d-flex align-items-baseline">
-      <%= link_to edit_check_line_item_path(check, line_item), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit item", data: { turbo_stream: true } do %>
-        <i class="bi bi-pencil"></i>
-      <% end %>
-      <%= button_to check_line_item_path(check, line_item), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete item", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this item?" } } do %>
-        <i class="bi bi-trash"></i>
-      <% end %>
       <span class="text-muted me-2 text-end" style="min-width: 50px;"><%= format_currency(line_item.unit_price * line_item.quantity, check.currency_symbol) %></span>
       <span>
         <strong><%= line_item.description %></strong>
@@ -21,7 +15,6 @@
   </div>
   <% if line_item.discount && line_item.discount > 0 %>
     <div class="d-flex align-items-baseline">
-      <span class="me-2" style="width: 1em;"></span>
       <span class="text-success me-2 text-end" style="min-width: 50px;">-<%= format_currency(line_item.discount, check.currency_symbol) %></span>
       <span class="text-success">
         <% if line_item.discount_description.present? %>
@@ -32,4 +25,8 @@
       </span>
     </div>
   <% end %>
+  <div class="d-flex gap-2 small" style="margin-left: calc(50px + 0.5rem);">
+    <%= link_to "Edit", edit_check_line_item_path(check, line_item), class: "text-muted", data: { turbo_stream: true } %>
+    <%= link_to "Delete", check_line_item_path(check, line_item), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: "Delete this item?" } %>
+  </div>
 </div>

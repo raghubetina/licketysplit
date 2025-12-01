@@ -1,18 +1,12 @@
 <%# Accepts: addon (required), line_item (required) %>
 
-<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-3">
+<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-1">
   <div class="d-flex align-items-baseline">
-    <%= link_to edit_line_item_addon_path(line_item, addon), class: "btn btn-sm btn-outline-secondary me-1", title: "Edit addon", data: { turbo_stream: true } do %>
-      <i class="bi bi-pencil"></i>
-    <% end %>
-    <%= button_to line_item_addon_path(line_item, addon), method: :delete, class: "btn btn-sm btn-outline-secondary me-2", title: "Delete addon", form: { class: "d-inline-flex align-items-center", data: { turbo_confirm: "Delete this addon?" } } do %>
-      <i class="bi bi-trash"></i>
-    <% end %>
     <span class="text-muted me-2 text-end" style="min-width: 50px;"><%= format_currency(addon.total_price, line_item.check.currency_symbol) %></span>
     <span class="text-muted">+ <%= addon.description %></span>
   </div>
   <% if addon.discount && addon.discount > 0 %>
-    <div class="d-flex align-items-baseline ms-4">
+    <div class="d-flex align-items-baseline">
       <span class="text-success me-2 text-end" style="min-width: 50px;">-<%= format_currency(addon.discount, line_item.check.currency_symbol) %></span>
       <span class="text-success">
         <% if addon.discount_description.present? %>
@@ -23,4 +17,8 @@
       </span>
     </div>
   <% end %>
+  <div class="d-flex gap-2 small" style="margin-left: calc(50px + 0.5rem);">
+    <%= link_to "Edit", edit_line_item_addon_path(line_item, addon), class: "text-muted", data: { turbo_stream: true } %>
+    <%= link_to "Delete", line_item_addon_path(line_item, addon), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: "Delete this addon?" } %>
+  </div>
 </div>
