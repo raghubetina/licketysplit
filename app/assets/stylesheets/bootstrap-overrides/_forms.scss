@@ -20,7 +20,7 @@
 // $input-padding-y:                       $input-btn-padding-y;
 // $input-padding-x:                       $input-btn-padding-x;
 // $input-font-family:                     $input-btn-font-family;
-// $input-font-size:                       $input-btn-font-size;
+$input-font-size:                       16px; // Prevent iOS zoom on focus
 // $input-font-weight:                     $font-weight-base;
 // $input-line-height:                     $input-btn-line-height;
 
@@ -135,7 +135,7 @@
 // $form-select-padding-y:             $input-padding-y;
 // $form-select-padding-x:             $input-padding-x;
 // $form-select-font-family:           $input-font-family;
-// $form-select-font-size:             $input-font-size;
+$form-select-font-size:             16px; // Prevent iOS zoom on focus
 // $form-select-indicator-padding:     $form-select-padding-x * 3; // Extra padding for background-image
 // $form-select-font-weight:           $input-font-weight;
 // $form-select-line-height:           $input-line-height;
