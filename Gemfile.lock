@@ -255,8 +255,9 @@ GEM
       logger
     mini_mime (1.1.5)
     minitest (5.26.1)
-    money (6.19.0)
-      i18n (>= 0.6.4, <= 2)
+    money (7.0.0)
+      bigdecimal
+      i18n (~> 1.9)
     msgpack (1.8.0)
     multipart-post (2.4.1)
     net-http (0.8.0)
