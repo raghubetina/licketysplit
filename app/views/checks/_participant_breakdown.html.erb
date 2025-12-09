@@ -25,7 +25,8 @@
           <%= item.description %>
           <% other_participants = item.participants.reject { |p| p.id == participant.id } %>
           <% if other_participants.any? %>
-            <span class="text-muted">(shared with <%= other_participants.map(&:name).join(", ") %>)</span>
+            <% shared_text = item.participants.size == check.participants.size ? "all" : other_participants.map(&:name).to_sentence %>
+            <span class="text-muted">(shared with <%= shared_text %>)</span>
           <% end %>
         </span>
         <span><%= format_currency(share, check.currency_symbol) %></span>

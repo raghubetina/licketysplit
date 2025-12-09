@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :line_items, only: [] do
     member do
       post :toggle_participant
+      post :toggle_all_participants
     end
     resources :addons, only: [:show, :edit, :update, :destroy]
   end
