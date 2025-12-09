@@ -1,7 +1,7 @@
 <%= turbo_stream_from @check %>
 <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
 
-<div class="container py-3">
+<div class="py-3">
   <% if flash[:notice] %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <%= flash[:notice] %>
