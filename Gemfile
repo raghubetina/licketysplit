@@ -63,7 +63,7 @@ group :development, :test do
   gem "binding_of_caller"
   gem "amazing_print"
   gem "dotenv"
-  gem "rspec-rails", "~> 7.1"
+  gem "rspec-rails", "~> 8.0"
   gem "factory_bot_rails"
   gem "shoulda-matchers", "~> 6.0"
   gem "standard", require: false
