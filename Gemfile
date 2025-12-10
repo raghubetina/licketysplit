@@ -65,7 +65,7 @@ group :development, :test do
   gem "dotenv"
   gem "rspec-rails", "~> 7.1"
   gem "factory_bot_rails"
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
   gem "standard", require: false
   gem "standard-rails", require: false
   gem "herb", require: false
