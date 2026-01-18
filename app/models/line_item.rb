@@ -41,7 +41,8 @@ class LineItem < ApplicationRecord
 
   before_validation :set_defaults
   before_save :calculate_total
-  after_commit :broadcast_updates
+
+  broadcasts_refreshes_to :check
 
   def base_total
     (unit_price * quantity) - discount
@@ -61,78 +62,6 @@ class LineItem < ApplicationRecord
   end
 
   private
-
-  def broadcast_updates
-    return if check.parsing?
-
-    check.reload
-
-    if destroyed?
-      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
-    elsif previously_new_record?
-      broadcast_before_to(
-        check,
-        target: "new_line_item_form",
-        partial: "line_items/line_item",
-        locals: {line_item: self, check: check}
-      )
-    else
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(self),
-        partial: "line_items/line_item",
-        locals: {line_item: self, check: check}
-      )
-    end
-
-    participants.each do |participant|
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
-        partial: "checks/participant_breakdown",
-        locals: {participant: participant, check: check}
-      )
-    end
-
-    broadcast_replace_to(
-      check,
-      target: "remaining_breakdown",
-      partial: "checks/remaining_breakdown",
-      locals: {check: check}
-    )
-
-    broadcast_totals
-  end
-
-  def broadcast_totals
-    broadcast_replace_to(
-      check,
-      target: "item_total",
-      partial: "checks/item_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "after_discounts_total",
-      partial: "checks/after_discounts_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "grand_total",
-      partial: "checks/grand_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "header_stats",
-      partial: "checks/header_stats",
-      locals: {check: check}
-    )
-  end
 
   def set_defaults
     self.quantity ||= 1

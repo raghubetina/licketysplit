@@ -29,7 +29,8 @@ class GlobalFee < ApplicationRecord
   validates :description, presence: true
 
   before_save :replace_existing_tip, if: :tip?
-  after_commit :broadcast_updates
+
+  broadcasts_refreshes_to :check
 
   def percentage_base
     if tip?
@@ -49,66 +50,5 @@ class GlobalFee < ApplicationRecord
 
   def replace_existing_tip
     check.global_fees.tip.where.not(id: id).destroy_all
-  end
-
-  def broadcast_updates
-    return if check.parsing?
-
-    check.reload
-
-    if destroyed?
-      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
-    elsif previously_new_record?
-      broadcast_before_to(
-        check,
-        target: "new_global_fee_form",
-        partial: "global_fees/global_fee",
-        locals: {global_fee: self, check: check}
-      )
-    else
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(self),
-        partial: "global_fees/global_fee",
-        locals: {global_fee: self, check: check}
-      )
-    end
-
-    check.participants.each do |participant|
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
-        partial: "checks/participant_breakdown",
-        locals: {participant: participant, check: check}
-      )
-    end
-
-    broadcast_replace_to(
-      check,
-      target: "remaining_breakdown",
-      partial: "checks/remaining_breakdown",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "grand_total",
-      partial: "checks/grand_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "tip_suggestion",
-      partial: "global_fees/tip_suggestion",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "header_stats",
-      partial: "checks/header_stats",
-      locals: {check: check}
-    )
   end
 end

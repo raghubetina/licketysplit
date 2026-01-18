@@ -7,27 +7,13 @@ class LineItemsController < ApplicationController
   def create
     @line_item = @check.line_items.build(line_item_params)
     if @line_item.save
-      respond_to do |format|
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.replace(
-            "new_line_item_form",
-            partial: "line_items/new_form",
-            locals: {line_item: LineItem.new, check: @check}
-          )
-        }
-        format.html { redirect_to @check }
-      end
+      redirect_to @check, status: :see_other
     else
-      respond_to do |format|
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.replace(
-            "new_line_item_form",
-            partial: "line_items/new_form",
-            locals: {line_item: @line_item, check: @check}
-          ), status: :unprocessable_entity
-        }
-        format.html { redirect_to @check, alert: @line_item.errors.full_messages.join(", ") }
-      end
+      render turbo_stream: turbo_stream.replace(
+        "new_line_item_form",
+        partial: "line_items/new_form",
+        locals: {line_item: @line_item, check: @check}
+      ), status: :unprocessable_entity
     end
   end
 
@@ -49,11 +35,7 @@ class LineItemsController < ApplicationController
 
   def update
     if @line_item.update(line_item_params)
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@line_item, :content),
-        partial: "line_items/line_item_content",
-        locals: {line_item: @line_item, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         dom_id(@line_item, :content),
@@ -65,7 +47,7 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item.destroy
-    head :ok
+    redirect_to @check, status: :see_other
   end
 
   def toggle_participant
@@ -79,7 +61,7 @@ class LineItemsController < ApplicationController
       @line_item.line_item_participants.create!(participant: participant)
     end
 
-    head :ok
+    redirect_to @line_item.check, status: :see_other
   end
 
   def toggle_all_participants
@@ -87,7 +69,6 @@ class LineItemsController < ApplicationController
     all_participant_ids = check.participant_ids
     current_participant_ids = @line_item.participant_ids
 
-    # Use bulk operations to skip individual callbacks
     if current_participant_ids.sort == all_participant_ids.sort
       @line_item.line_item_participants.delete_all
     else
@@ -96,13 +77,11 @@ class LineItemsController < ApplicationController
       LineItemParticipant.insert_all(records) if records.any?
     end
 
-    # Reset counter cache since bulk operations skip callbacks
     LineItem.reset_counters(@line_item.id, :line_item_participants)
+    @line_item.touch
+    Turbo::StreamsChannel.broadcast_refresh_later_to(check)
 
-    # Manually broadcast the update once
-    broadcast_line_item_update(@line_item, check)
-
-    head :ok
+    redirect_to check, status: :see_other
   end
 
   private
@@ -117,32 +96,5 @@ class LineItemsController < ApplicationController
 
   def line_item_params
     params.require(:line_item).permit(:description, :unit_price, :quantity, :discount, :discount_description)
-  end
-
-  def broadcast_line_item_update(line_item, check)
-    line_item.reload
-
-    Turbo::StreamsChannel.broadcast_replace_to(
-      check,
-      target: dom_id(line_item, :participant_toggles),
-      partial: "line_items/participant_toggles",
-      locals: {line_item: line_item, check: check}
-    )
-
-    check.participants.each do |participant|
-      Turbo::StreamsChannel.broadcast_replace_to(
-        check,
-        target: dom_id(participant, :breakdown),
-        partial: "checks/participant_breakdown",
-        locals: {participant: participant, check: check}
-      )
-    end
-
-    Turbo::StreamsChannel.broadcast_replace_to(
-      check,
-      target: "remaining_breakdown",
-      partial: "checks/remaining_breakdown",
-      locals: {check: check}
-    )
   end
 end

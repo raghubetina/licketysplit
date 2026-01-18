@@ -26,6 +26,7 @@
     "fix:prettier": "prettier --write 'app/**/*.{js,css,scss,json}'"
   },
   "dependencies": {
+    "turbo-refresh-animations": "file:../turbo-refresh-animations",
     "@frsource/autoresize-textarea": "^2.0.179",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.20",

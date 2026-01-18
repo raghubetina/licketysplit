@@ -34,75 +34,14 @@ class Addon < ApplicationRecord
 
   before_validation :set_defaults
   before_save :calculate_total
-  after_commit :broadcast_updates
+
+  broadcasts_refreshes_to ->(addon) { addon.line_item.check }
 
   def base_total
     (unit_price * quantity) - discount
   end
 
   private
-
-  def broadcast_updates
-    check = line_item.check
-    return if check.parsing?
-
-    check.reload if destroyed?
-
-    if destroyed?
-      broadcast_remove_to(check, target: ActionView::RecordIdentifier.dom_id(self))
-    else
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(self),
-        partial: "addons/addon",
-        locals: {addon: self, line_item: line_item}
-      )
-    end
-
-    broadcast_replace_to(
-      check,
-      target: ActionView::RecordIdentifier.dom_id(line_item),
-      partial: "line_items/line_item",
-      locals: {line_item: line_item, check: check}
-    )
-
-    line_item.participants.each do |participant|
-      broadcast_replace_to(
-        check,
-        target: ActionView::RecordIdentifier.dom_id(participant, :breakdown),
-        partial: "checks/participant_breakdown",
-        locals: {participant: participant, check: check}
-      )
-    end
-
-    broadcast_replace_to(
-      check,
-      target: "remaining_breakdown",
-      partial: "checks/remaining_breakdown",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "item_total",
-      partial: "checks/item_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "after_discounts_total",
-      partial: "checks/after_discounts_total",
-      locals: {check: check}
-    )
-
-    broadcast_replace_to(
-      check,
-      target: "grand_total",
-      partial: "checks/grand_total",
-      locals: {check: check}
-    )
-  end
 
   def set_defaults
     self.quantity ||= 1

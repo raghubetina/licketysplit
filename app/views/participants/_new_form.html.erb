@@ -1,6 +1,6 @@
 <%# Accepts: participant (required), check (required) %>
 
-<li id="new_participant_form" class="list-group-item py-3 px-3">
+<li id="new_participant_form" class="list-group-item py-3 px-3" data-turbo-stream-refresh-permanent>
   <%= form_with model: [check, participant], class: "participant-form" do |f| %>
     <% if participant.errors.any? %>
       <div class="alert alert-danger  mb-2 py-1">

@@ -1,6 +1,6 @@
 <%# Accepts: participant (required), check (required) %>
 
-<li id="<%= dom_id(participant) %>" class="list-group-item py-3 px-3">
+<li id="<%= dom_id(participant) %>" class="list-group-item py-3 px-3" data-turbo-refresh-animate>
   <div class="d-flex flex-column gap-1">
     <span><%= participant.name %></span>
     <div class="d-flex gap-2 small">

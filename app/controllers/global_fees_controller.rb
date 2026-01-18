@@ -7,11 +7,7 @@ class GlobalFeesController < ApplicationController
   def create
     @global_fee = @check.global_fees.build(global_fee_params)
     if @global_fee.save
-      render turbo_stream: turbo_stream.replace(
-        "new_global_fee_form",
-        partial: "global_fees/new_form",
-        locals: {global_fee: GlobalFee.new, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         "new_global_fee_form",
@@ -39,11 +35,7 @@ class GlobalFeesController < ApplicationController
 
   def update
     if @global_fee.update(global_fee_params)
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@global_fee),
-        partial: "global_fees/global_fee",
-        locals: {global_fee: @global_fee, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         dom_id(@global_fee),
@@ -55,7 +47,7 @@ class GlobalFeesController < ApplicationController
 
   def destroy
     @global_fee.destroy
-    head :ok
+    redirect_to @check, status: :see_other
   end
 
   def set_tip
@@ -73,7 +65,7 @@ class GlobalFeesController < ApplicationController
       )
     end
 
-    head :ok
+    redirect_to @check, status: :see_other
   end
 
   private

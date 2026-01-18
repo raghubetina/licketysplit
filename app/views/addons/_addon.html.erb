@@ -1,6 +1,6 @@
 <%# Accepts: addon (required), line_item (required) %>
 
-<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-1">
+<div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-1" data-turbo-refresh-animate>
   <div class="d-flex align-items-baseline">
     <span class="text-muted me-2 text-end" style="min-width: 50px;"><%= format_currency(addon.total_price, line_item.check.currency_symbol) %></span>
     <span class="text-muted">+ <%= addon.description %></span>
