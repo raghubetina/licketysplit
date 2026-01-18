@@ -66,20 +66,13 @@ class LineItemsController < ApplicationController
 
   def toggle_all_participants
     check = @line_item.check
-    all_participant_ids = check.participant_ids
-    current_participant_ids = @line_item.participant_ids
 
-    if current_participant_ids.sort == all_participant_ids.sort
-      @line_item.line_item_participants.delete_all
+    if @line_item.participant_ids.sort == check.participant_ids.sort
+      @line_item.line_item_participants.destroy_all
     else
-      missing_ids = all_participant_ids - current_participant_ids
-      records = missing_ids.map { |pid| {line_item_id: @line_item.id, participant_id: pid} }
-      LineItemParticipant.insert_all(records) if records.any?
+      missing_ids = check.participant_ids - @line_item.participant_ids
+      missing_ids.each { |pid| @line_item.line_item_participants.create!(participant_id: pid) }
     end
-
-    LineItem.reset_counters(@line_item.id, :line_item_participants)
-    @line_item.touch
-    Turbo::StreamsChannel.broadcast_refresh_later_to(check)
 
     redirect_to check, status: :see_other
   end
