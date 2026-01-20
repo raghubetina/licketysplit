@@ -5255,6 +5255,11 @@ tsutils@^3.21.0:
   dependencies:
     tslib "^1.8.1"
 
+turbo-refresh-animations@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/turbo-refresh-animations/-/turbo-refresh-animations-0.0.1.tgz#36d70404398916a2ed3d58cb818825a2a20d916c"
+  integrity sha512-MyfLqu+YXsk68Ka6zCEFCpxnwcaV50MilQ0vsoVBcHdNXkIe0r8WMIskWqxVY4x5E5CNnHPzmVppsrK5DVV7tg==
+
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"

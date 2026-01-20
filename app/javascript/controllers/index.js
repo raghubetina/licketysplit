@@ -15,6 +15,3 @@ application.register("clipboard", ClipboardController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
-
-import StreamHighlightController from "./stream_highlight_controller"
-application.register("stream-highlight", StreamHighlightController)

@@ -1,6 +1,6 @@
 <%# Accepts: line_item (required), check (required) %>
 
-<li id="new_line_item_form" class="list-group-item py-3 px-3">
+<li id="new_line_item_form" class="list-group-item py-3 px-3" data-turbo-refresh-stream-permanent>
   <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
     <% if line_item.errors.any? %>
       <div class="alert alert-danger mb-3">

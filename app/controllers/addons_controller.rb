@@ -22,23 +22,19 @@ class AddonsController < ApplicationController
 
   def update
     if @addon.update(addon_params)
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@addon),
-        partial: "addons/addon",
-        locals: {addon: @addon, line_item: @line_item}
-      )
+      redirect_to @line_item.check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         dom_id(@addon),
         partial: "addons/form",
         locals: {addon: @addon, line_item: @line_item}
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
   def destroy
     @addon.destroy
-    head :ok
+    redirect_to @line_item.check, status: :see_other
   end
 
   private

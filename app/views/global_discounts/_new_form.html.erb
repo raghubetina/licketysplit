@@ -1,6 +1,6 @@
 <%# Accepts: global_discount (required), check (required) %>
 
-<li id="new_global_discount_form" class="list-group-item py-3 px-3">
+<li id="new_global_discount_form" class="list-group-item py-3 px-3" data-turbo-refresh-stream-permanent>
   <%= form_with model: [check, global_discount], class: "global-discount-form" do |f| %>
     <% if global_discount.errors.any? %>
       <div class="alert alert-danger mb-2 py-1">

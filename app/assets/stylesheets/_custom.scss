@@ -1,14 +1,43 @@
 // Custom application styles
 
-// Highlight animation for Turbo Stream updates
-@keyframes turbo-highlight {
-  from { background-color: rgba(var(--bs-warning-rgb), 0.3); }
-  to { background-color: transparent; }
+// Turbo Refresh Animations
+// Enter - fade in
+.turbo-refresh-enter {
+  animation: turbo-refresh-enter 300ms ease-out;
 }
 
-// Applied by stream_highlight_controller when elements are updated via Turbo Streams
-.turbo-stream-updated {
-  animation: turbo-highlight 1.5s ease-out;
+@keyframes turbo-refresh-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Exit - fade out
+.turbo-refresh-exit {
+  animation: turbo-refresh-exit 300ms ease-out forwards;
+}
+
+@keyframes turbo-refresh-exit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+// Change - yellow background flash (using Bootstrap warning color)
+.turbo-refresh-change {
+  animation: turbo-refresh-change 1.2s ease-out;
+}
+
+@keyframes turbo-refresh-change {
+  from { background-color: rgba(var(--bs-warning-rgb), 0.3); }
+  to { background-color: inherit; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turbo-refresh-enter,
+  .turbo-refresh-change,
+  .turbo-refresh-exit {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
 }
 
 // Participant checkbox tap targets

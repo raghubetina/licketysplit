@@ -7,17 +7,13 @@ class GlobalDiscountsController < ApplicationController
   def create
     @global_discount = @check.global_discounts.build(global_discount_params)
     if @global_discount.save
-      render turbo_stream: turbo_stream.replace(
-        "new_global_discount_form",
-        partial: "global_discounts/new_form",
-        locals: {global_discount: GlobalDiscount.new, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         "new_global_discount_form",
         partial: "global_discounts/new_form",
         locals: {global_discount: @global_discount, check: @check}
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -39,23 +35,19 @@ class GlobalDiscountsController < ApplicationController
 
   def update
     if @global_discount.update(global_discount_params)
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@global_discount),
-        partial: "global_discounts/global_discount",
-        locals: {global_discount: @global_discount, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         dom_id(@global_discount),
         partial: "global_discounts/form",
         locals: {global_discount: @global_discount, check: @check}
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
   def destroy
     @global_discount.destroy
-    head :ok
+    redirect_to @check, status: :see_other
   end
 
   private

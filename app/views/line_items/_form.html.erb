@@ -1,6 +1,6 @@
 <%# Accepts: line_item (required), check (required) %>
 
-<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3">
+<div id="<%= dom_id(line_item, :content) %>" class="d-flex flex-column gap-3" data-turbo-refresh-stream-permanent data-turbo-refresh-animate data-turbo-refresh-version="<%= line_item.cache_key_with_version %>">
   <%= form_with model: [check, line_item], class: "line-item-form" do |f| %>
       <div class="row g-2 mb-3">
         <div class="col-12 col-sm-6">

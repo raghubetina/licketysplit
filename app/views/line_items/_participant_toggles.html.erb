@@ -2,7 +2,7 @@
 <% check ||= line_item.check %>
 <% participants ||= check.participants.order(:name) %>
 
-<div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>">
+<div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
   <% if participants.any? %>
     <%= link_to "All", toggle_all_participants_line_item_path(line_item), data: { turbo_method: :post }, class: "text-muted small align-self-center" %>
   <% end %>

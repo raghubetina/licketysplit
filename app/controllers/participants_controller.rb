@@ -7,17 +7,13 @@ class ParticipantsController < ApplicationController
   def create
     @participant = @check.participants.build(participant_params)
     if @participant.save
-      render turbo_stream: turbo_stream.replace(
-        "new_participant_form",
-        partial: "participants/new_form",
-        locals: {participant: Participant.new, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         "new_participant_form",
         partial: "participants/new_form",
         locals: {participant: @participant, check: @check}
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
@@ -39,23 +35,19 @@ class ParticipantsController < ApplicationController
 
   def update
     if @participant.update(participant_params)
-      render turbo_stream: turbo_stream.replace(
-        dom_id(@participant),
-        partial: "participants/participant",
-        locals: {participant: @participant, check: @check}
-      )
+      redirect_to @check, status: :see_other
     else
       render turbo_stream: turbo_stream.replace(
         dom_id(@participant),
         partial: "participants/form",
         locals: {participant: @participant, check: @check}
-      ), status: :unprocessable_entity
+      ), status: :unprocessable_content
     end
   end
 
   def destroy
     @participant.destroy
-    head :ok
+    redirect_to @check, status: :see_other
   end
 
   private
