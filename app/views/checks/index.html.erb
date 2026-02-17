@@ -16,9 +16,9 @@
 
       <%= form_with url: checks_path, method: :post, local: true, multipart: true do |f| %>
         <div class="mb-3">
-          <%= f.label :receipt_image, "Receipt Photo", class: "form-label" %>
-          <%= f.file_field :receipt_image, class: "form-control", accept: "image/*" %>
-          <div class="form-text">Take a photo or upload an image of your receipt</div>
+          <%= f.label :receipt_images, "Receipt Photos", class: "form-label" %>
+          <%= f.file_field :receipt_images, multiple: true, class: "form-control", accept: "image/*" %>
+          <div class="form-text">Upload one or more images of your receipt</div>
         </div>
 
         <div class="mb-3">

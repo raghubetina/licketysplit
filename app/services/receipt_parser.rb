@@ -1,56 +1,82 @@
-require "ai-chat"
-
 class ReceiptParser
-  attr_reader :image_path, :chat
+  attr_reader :image_urls
 
-  def initialize(image_path)
-    @image_path = image_path.to_s
-    @chat = AI::Chat.new
+  SYSTEM_INSTRUCTIONS = <<~INSTRUCTIONS
+    You are a receipt parser. Read the receipt images using your built-in \
+    vision — do NOT use code interpreter on your first attempt. Just look \
+    at the images and extract the data. Only use code interpreter if your \
+    first read has text that is too blurry or small to make out, and you \
+    need to crop or zoom in for clarity. Never use code interpreter for OCR. \
+    Extract structured data following the provided JSON schema exactly. \
+    Be precise with numbers and maintain data integrity. When in doubt about \
+    ambiguous text, make reasonable assumptions based on typical restaurant \
+    receipt patterns. \
+    You may receive multiple images of the same receipt (e.g. a long receipt \
+    photographed in sections). Combine all images into a single coherent result. \
+    The images may not be in order — use context clues like item numbering, \
+    subtotals, and totals to determine the correct sequence. \
+    Do not duplicate items that appear in overlapping regions of multiple photos.
+  INSTRUCTIONS
+
+  USER_PROMPT = <<~PROMPT
+    Your job is to extract structured data from images of restaurant receipts.
+
+    - You may receive one or more images. If there are multiple images, they are all part of the same receipt — combine them into a single unified result.
+    - Descriptions should be clean item names without quantity or price info (e.g. 'CB - Combo' not 'CB x 2 - Combo ($7.85 each)') - extract quantity and unit_price to their own fields.
+    - Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.
+    - Addon descriptions should also be clean (e.g. 'Grilled Onion' not 'Grilled Onion ($0.75)') - extract the price to unit_price and total_price fields.
+    - Taxes (e.g. sales tax, VAT, GST) should be included as global fees with fee_type "tax".
+    - Surcharges (e.g. health insurance surcharge, service fee, delivery fee) should be included as global fees with fee_type "other".
+    - Tip/gratuity should be included as a global fee with fee_type "tip".
+    - Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.
+    - Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.
+    - The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.
+    - Default quantity to 1 if unclear.
+  PROMPT
+
+  def initialize(image_urls)
+    @image_urls = Array(image_urls).map(&:to_s)
   end
 
-  def parse
-    configure_chat
-
-    chat.system(
-      "You are a receipt parser. Extract structured data from receipt images " \
-      "following the provided JSON schema exactly. Be precise with numbers and " \
-      "maintain data integrity. When in doubt about ambiguous text, make reasonable " \
-      "assumptions based on typical restaurant receipt patterns."
+  def parse(&on_event)
+    stream = client.responses.stream(
+      model: "gpt-5.2",
+      instructions: SYSTEM_INSTRUCTIONS,
+      input: build_input,
+      tools: [{type: :code_interpreter, container: {type: :auto}}],
+      text: {format: {type: :json_schema, **receipt_schema}},
+      reasoning: {effort: :low, summary: :detailed}
     )
 
-    chat.user(
-      <<~PROMPT,
-        Your job is to extract structured data from images of restaurant receipts.
+    stream.each do |event|
+      next unless on_event
 
-        - Descriptions should be clean item names without quantity or price info (e.g. 'CB - Combo' not 'CB x 2 - Combo ($7.85 each)') - extract quantity and unit_price to their own fields.
-        - Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.
-        - Addon descriptions should also be clean (e.g. 'Grilled Onion' not 'Grilled Onion ($0.75)') - extract the price to unit_price and total_price fields.
-        - Taxes (e.g. sales tax, VAT, GST) should be included as global fees with fee_type "tax".
-        - Surcharges (e.g. health insurance surcharge, service fee, delivery fee) should be included as global fees with fee_type "other".
-        - Tip/gratuity should be included as a global fee with fee_type "tip".
-        - Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.
-        - Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.
-        - The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.
-        - Default quantity to 1 if unclear.
-      PROMPT
-      image: image_path
-    )
+      case event
+      when OpenAI::Models::Responses::ResponseReasoningSummaryTextDeltaEvent
+        on_event.call(:reasoning, event.delta)
+      when OpenAI::Models::Responses::ResponseReasoningSummaryPartDoneEvent
+        on_event.call(:reasoning, "\n\n")
+      end
+    end
 
-    response = chat.generate![:content]
-    transform_to_check_attributes(response)
-  rescue => e
-    Rails.logger.error "Receipt parsing failed: #{e.message}"
-    Rails.logger.error e.backtrace.join("\n")
-    raise
+    response_json = JSON.parse(stream.get_output_text, symbolize_names: true)
+    transform_to_check_attributes(response_json)
   end
 
   private
 
-  def configure_chat
-    chat.model = "gpt-5.1"
-    chat.reasoning_effort = "low"
-    chat.code_interpreter = true
-    chat.schema = receipt_schema
+  def client
+    @client ||= OpenAI::Client.new(api_key: ENV.fetch("OPENAI_API_KEY"))
+  end
+
+  def build_input
+    content = [{type: :input_text, text: USER_PROMPT}]
+
+    image_urls.each do |url|
+      content << {type: :input_image, image_url: url, detail: :high}
+    end
+
+    [{role: :user, content: content}]
   end
 
   def receipt_schema

@@ -10,10 +10,22 @@ class ParseReceiptJob < ApplicationJob
   end
 
   def perform(check)
-    parser = ReceiptParser.new(check.receipt_image_url)
-    parsed_data = parser.parse
+    reasoning_text = +""
+
+    parser = ReceiptParser.new(check.receipt_image_urls)
+    parsed_data = parser.parse do |event_type, data|
+      if event_type == :reasoning
+        reasoning_text << data
+        Turbo::StreamsChannel.broadcast_update_to(
+          check,
+          target: "reasoning_text",
+          html: Kramdown::Document.new(reasoning_text).to_html
+        )
+      end
+    end
 
     check.update!(
+      reasoning: reasoning_text,
       restaurant_name: parsed_data[:restaurant_name],
       restaurant_address: parsed_data[:restaurant_address],
       restaurant_phone_number: parsed_data[:restaurant_phone_number],

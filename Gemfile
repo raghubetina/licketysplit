@@ -40,7 +40,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 # AI integration for receipt parsing
-gem "ai-chat"
+gem "openai", "~> 0.49"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -91,6 +91,7 @@ gem "rqrcode", "~> 3.0"
 gem "cloudinary", "~> 2.0"
 gem "money"
 gem "auto_strip_attributes"
+gem "kramdown"
 
 group :test do
   gem "capybara"

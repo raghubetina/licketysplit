@@ -46,15 +46,15 @@ class ChecksController < ApplicationController
   end
 
   def create
-    if params[:receipt_image].blank?
+    if params[:receipt_images].blank?
       @check = Check.new
-      @check.errors.add(:receipt_image, "is required")
+      @check.errors.add(:receipt_images, "are required")
       @recent_checks = load_recent_checks
       return render :index, status: :unprocessable_entity
     end
 
     @check = Check.new(status: "parsing")
-    @check.receipt_image.attach(params[:receipt_image])
+    @check.receipt_images.attach(params[:receipt_images])
 
     if params[:participant_names].present?
       names = Participant.parse_names(params[:participant_names])
@@ -111,7 +111,7 @@ class ChecksController < ApplicationController
   def check_params
     params.require(:check).permit(
       :restaurant_name, :restaurant_address, :restaurant_phone_number,
-      :billed_on, :grand_total, :currency, :status, :receipt_image,
+      :billed_on, :grand_total, :currency, :status,
       line_items_attributes: [:id, :description, :quantity, :unit_price,
         :total_price, :discount, :discount_description, :_destroy, participant_ids: []],
       global_fees_attributes: [:id, :description, :amount, :_destroy],

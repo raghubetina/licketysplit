@@ -22,23 +22,30 @@
   </div>
 
   <% if @check.parsing? %>
-    <div class="text-center py-5">
-      <div class="spinner-border text-primary mb-3" role="status">
-        <span class="visually-hidden">Loading...</span>
+    <div class="row">
+      <% if @check.receipt_images.attached? %>
+        <div class="col-md-6">
+          <% @check.receipt_images.each do |image| %>
+            <div class="card mb-2">
+              <%= cl_image_tag image.key,
+                  width: 800,
+                  quality: :auto,
+                  fetch_format: :auto,
+                  class: "card-img" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="col-md-6">
+        <div class="text-center py-4">
+          <div class="spinner-border text-primary mb-3" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h2 class="h5">Parsing your receipt...</h2>
+        </div>
+        <div id="reasoning_text" class="fst-italic"></div>
       </div>
-      <h2 class="h5">Parsing your receipt...</h2>
-      <p class="text-muted">This usually takes a few seconds</p>
     </div>
-
-    <% if @check.receipt_image.attached? %>
-      <div class="card">
-        <%= cl_image_tag @check.receipt_image.key,
-            width: 800,
-            quality: :auto,
-            fetch_format: :auto,
-            class: "card-img" %>
-      </div>
-    <% end %>
   <% else %>
 
   <div class="card mb-3">
@@ -61,12 +68,14 @@
         <%= render partial: "checks/header_stats", locals: { check: @check } %>
       </div>
     </div>
-    <% if @check.receipt_image.attached? %>
-      <%= cl_image_tag @check.receipt_image.key,
-          width: 800,
-          quality: :auto,
-          fetch_format: :auto,
-          class: "card-img" %>
+    <% if @check.receipt_images.attached? %>
+      <% @check.receipt_images.each do |image| %>
+        <%= cl_image_tag image.key,
+            width: 800,
+            quality: :auto,
+            fetch_format: :auto,
+            class: "card-img" %>
+      <% end %>
     <% end %>
     <div class="card-footer">
       <div class="d-flex justify-content-between align-items-center">
@@ -169,5 +178,11 @@
   <% end %>
 
   <% end %>
-</div>
 
+  <% if @check.reasoning.present? %>
+    <details class="mt-3">
+      <summary><i class="bi bi-robot"></i> AI reasoning</summary>
+      <div class="fst-italic mt-2 px-2"><%= Kramdown::Document.new(@check.reasoning).to_html.html_safe %></div>
+    </details>
+  <% end %>
+</div>

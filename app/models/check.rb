@@ -10,6 +10,7 @@
 #  grand_total             :decimal(10, 2)
 #  line_items_count        :integer          default(0), not null
 #  participants_count      :integer          default(0), not null
+#  reasoning               :text
 #  receipt_image           :string
 #  restaurant_address      :string
 #  restaurant_name         :string
@@ -25,10 +26,10 @@
 class Check < ApplicationRecord
   prepend MemoWise
 
-  has_one_attached :receipt_image
+  has_many_attached :receipt_images
 
-  def receipt_image_url
-    receipt_image.url
+  def receipt_image_urls
+    receipt_images.map(&:url)
   end
 
   has_many :participants, dependent: :destroy
