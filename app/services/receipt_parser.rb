@@ -2,20 +2,24 @@ class ReceiptParser
   attr_reader :image_urls
 
   SYSTEM_INSTRUCTIONS = <<~INSTRUCTIONS
-    You are a receipt parser. Read the receipt images using your built-in \
-    vision — do NOT use code interpreter on your first attempt. Just look \
-    at the images and extract the data. Only use code interpreter if your \
-    first read has text that is too blurry or small to make out, and you \
-    need to crop or zoom in for clarity. Never use code interpreter for OCR. \
-    Extract structured data following the provided JSON schema exactly. \
-    Be precise with numbers and maintain data integrity. When in doubt about \
-    ambiguous text, make reasonable assumptions based on typical restaurant \
-    receipt patterns. \
-    You may receive multiple images of the same receipt (e.g. a long receipt \
-    photographed in sections). Combine all images into a single coherent result. \
-    The images may not be in order — use context clues like item numbering, \
-    subtotals, and totals to determine the correct sequence. \
-    Do not duplicate items that appear in overlapping regions of multiple photos.
+    You are a receipt parser. Read the receipt images using your built-in
+    vision — do NOT use code interpreter on your first attempt. Just look
+    at the images and extract the data. Only use code interpreter if your
+    first read has text that is too blurry or small to make out, and you
+    need to crop or zoom in for clarity. Never use code interpreter for OCR.
+
+    Extract structured data following the provided JSON schema exactly.
+    Be precise with numbers and maintain data integrity. When in doubt about
+    ambiguous text, make reasonable assumptions based on typical restaurant
+    receipt patterns.
+
+    You may receive multiple images. They could be sections of the same
+    receipt (e.g. a long receipt photographed in parts) — in which case
+    the images may not be in order, so use context clues like item
+    numbering, subtotals, and totals to determine the correct sequence,
+    and do not duplicate items that appear in overlapping regions.
+    Or they could be entirely different receipts. Either way, combine
+    all items into a single unified result.
   INSTRUCTIONS
 
   USER_PROMPT = <<~PROMPT
