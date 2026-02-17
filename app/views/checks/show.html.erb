@@ -68,15 +68,6 @@
         <%= render partial: "checks/header_stats", locals: { check: @check } %>
       </div>
     </div>
-    <% if @check.receipt_images.attached? %>
-      <% @check.receipt_images.each do |image| %>
-        <%= cl_image_tag image.key,
-            width: 800,
-            quality: :auto,
-            fetch_format: :auto,
-            class: "card-img" %>
-      <% end %>
-    <% end %>
     <div class="card-footer">
       <div class="d-flex justify-content-between align-items-center">
         <%= form_with url: update_currency_check_path(@check), method: :patch, local: true do %>
@@ -184,5 +175,17 @@
       <summary><i class="bi bi-robot"></i> AI reasoning</summary>
       <div class="fst-italic mt-2 px-2"><%= Kramdown::Document.new(@check.reasoning).to_html.html_safe %></div>
     </details>
+  <% end %>
+
+  <% if @check.receipt_images.attached? && !@check.parsing? %>
+    <% @check.receipt_images.each do |image| %>
+      <div class="card mt-3">
+        <%= cl_image_tag image.key,
+            width: 800,
+            quality: :auto,
+            fetch_format: :auto,
+            class: "card-img" %>
+      </div>
+    <% end %>
   <% end %>
 </div>
