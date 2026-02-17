@@ -42,3 +42,4 @@
 .env*
 !.env.example
 .playwright-mcp/
+.mcp.json
