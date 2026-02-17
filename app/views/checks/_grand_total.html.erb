@@ -5,9 +5,8 @@
     <strong><%= format_currency(check.calculated_total, check.currency_symbol) %></strong>
   </div>
   <% if check.grand_total.present? && check.grand_total != check.calculated_total %>
-    <div class="d-flex justify-content-between text-muted">
-      <span>Receipt showed</span>
-      <span><%= format_currency(check.grand_total, check.currency_symbol) %></span>
+    <div class="text-warning-emphasis mt-2">
+      <i class="bi bi-exclamation-triangle"></i> Discrepancy: receipt showed <%= format_currency(check.grand_total, check.currency_symbol) %>. Consider double-checking everything.
     </div>
   <% end %>
 </div>
