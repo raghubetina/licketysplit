@@ -1,6 +1,13 @@
 <%= turbo_stream_from @check %>
 
 <div class="py-3">
+  <% if flash[:alert] %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= flash[:alert] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
+
   <% if flash[:notice] %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
       <%= flash[:notice] %>

@@ -4,6 +4,7 @@
 # Database name: primary
 #
 #  id             :uuid             not null, primary key
+#  being_treated  :boolean          default(FALSE), not null
 #  name           :string           not null
 #  payment_status :string           default("unpaid")
 #  created_at     :datetime         not null
@@ -26,7 +27,6 @@ class Participant < ApplicationRecord
   belongs_to :check, counter_cache: true
   has_many :line_item_participants, dependent: :destroy
   has_many :line_items, through: :line_item_participants
-  has_one :treat, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: {scope: :check_id, message: "already exists for this check"}
@@ -35,8 +35,8 @@ class Participant < ApplicationRecord
 
   broadcasts_refreshes_to :check
 
-  scope :treated, -> { joins(:treat) }
-  scope :not_treated, -> { where.missing(:treat) }
+  scope :treated, -> { where(being_treated: true) }
+  scope :not_treated, -> { where(being_treated: false) }
 
   def self.parse_names(input)
     separator = if input.include?(",")
@@ -56,7 +56,7 @@ class Participant < ApplicationRecord
   end
 
   def is_being_treated?
-    treat.present?
+    being_treated?
   end
 
   def mark_as_paid!

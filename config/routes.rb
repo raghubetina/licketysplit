@@ -20,7 +20,11 @@ Rails.application.routes.draw do
       post :toggle_zero_items
       patch :update_currency
     end
-    resources :participants, only: [:create, :show, :edit, :update, :destroy]
+    resources :participants, only: [:create, :show, :edit, :update, :destroy] do
+      member do
+        post :toggle_treated
+      end
+    end
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]
     resources :global_discounts, only: [:create, :show, :edit, :update, :destroy]
     resources :global_fees, only: [:create, :show, :edit, :update, :destroy] do

@@ -3,7 +3,25 @@
 <li id="<%= dom_id(participant) %>" class="list-group-item py-3 px-3" data-turbo-refresh-animate data-turbo-refresh-version="<%= participant.cache_key_with_version %>">
   <div class="d-flex flex-column gap-1">
     <span><%= participant.name %></span>
-    <div class="d-flex gap-2 small">
+    <div class="d-flex flex-wrap align-items-center gap-3 small">
+      <%= form_with url: toggle_treated_check_participant_path(check, participant), method: :post, local: true, class: "m-0" do %>
+        <div class="form-check form-switch m-0">
+          <%= check_box_tag(
+            "participant_#{participant.id}_being_treated",
+            "1",
+            participant.is_being_treated?,
+            id: "participant_#{participant.id}_being_treated",
+            class: "form-check-input",
+            role: "switch",
+            onchange: "this.form.requestSubmit()"
+          ) %>
+          <%= label_tag(
+            "participant_#{participant.id}_being_treated",
+            "Being treated",
+            class: "form-check-label #{'text-success' if participant.is_being_treated?}"
+          ) %>
+        </div>
+      <% end %>
       <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: { turbo_stream: true } %>
       <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: t("participants.delete_confirm") } %>
     </div>

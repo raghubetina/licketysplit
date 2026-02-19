@@ -6,10 +6,26 @@
 <% display_items = show_zero_items ? participant_items : participant_items.reject { |item| item.total_with_addons == 0 } %>
 <% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
 <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
+<% treated_coverage_amount = check.treated_coverage_amount_for(participant) %>
+<% treated_participants = check.treated_participants %>
+<% non_treated_count = check.participants.count - treated_participants.count %>
+<% treating_lines = if participant.is_being_treated? || non_treated_count <= 0
+  []
+else
+  treated_participants.filter_map do |treated_participant|
+    treated_participant_coverage_amount = check.treated_coverage_amount_for(treated_participant)
+    next if treated_participant_coverage_amount <= 0
+
+    [treated_participant, treated_participant_coverage_amount / non_treated_count]
+  end
+end %>
 <div id="<%= dom_id(participant, :breakdown) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3" data-turbo-refresh-animate>
   <div class="d-flex justify-content-between align-items-center">
     <strong>
       <%= participant.name %>
+      <% if participant.is_being_treated? %>
+        <span class="badge text-bg-success ms-1">Being treated</span>
+      <% end %>
       <% if participant_items.any? && check.subtotal > 0 %>
         <span class="fw-normal text-muted">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
       <% end %>
@@ -50,5 +66,19 @@
     <% end %>
   <% else %>
     <div class="text-muted fst-italic">No items assigned</div>
+  <% end %>
+
+  <% if participant.is_being_treated? && treated_coverage_amount > 0 %>
+    <div class="d-flex justify-content-between text-success">
+      <span>Being treated</span>
+      <span>-<%= format_currency(treated_coverage_amount, check.currency_symbol) %></span>
+    </div>
+  <% else %>
+    <% treating_lines.each do |treated_participant, amount| %>
+      <div class="d-flex justify-content-between text-muted">
+        <span>Treating <%= treated_participant.name %></span>
+        <span><%= format_currency(amount, check.currency_symbol) %></span>
+      </div>
+    <% end %>
   <% end %>
 </div>

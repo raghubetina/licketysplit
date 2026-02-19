@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_17_220054) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_19_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -224,6 +224,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_17_220054) do
     t.string "payment_status", default: "unpaid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "being_treated", default: false, null: false
     t.index ["check_id", "name"], name: "index_participants_on_check_id_and_name", unique: true
     t.index ["check_id"], name: "index_participants_on_check_id"
     t.index ["payment_status"], name: "index_participants_on_payment_status"
@@ -371,16 +372,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_17_220054) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
-  create_table "treats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "check_id", null: false
-    t.uuid "participant_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["check_id", "participant_id"], name: "index_treats_on_check_id_and_participant_id", unique: true
-    t.index ["check_id"], name: "index_treats_on_check_id"
-    t.index ["participant_id"], name: "index_treats_on_participant_id"
-  end
-
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addons", "line_items"
@@ -396,6 +387,4 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_17_220054) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
-  add_foreign_key "treats", "checks"
-  add_foreign_key "treats", "participants"
 end

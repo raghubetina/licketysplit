@@ -36,8 +36,6 @@ class Check < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :global_fees, dependent: :destroy
   has_many :global_discounts, dependent: :destroy
-  has_many :treats, dependent: :destroy
-  has_many :treated_participants, through: :treats, source: :participant
 
   validates :currency, presence: true
 
@@ -69,19 +67,40 @@ class Check < ApplicationRecord
   memo_wise :calculated_total
 
   def amount_owed_by(participant)
-    return 0.0 if treated_participants.include?(participant)
-
-    base_amount = calculate_base_amount(participant)
-
-    if treats.any?
-      treated_total = treated_participants.sum { |tp| calculate_base_amount(tp) }
-      non_treated_count = participants.count - treated_participants.count
-      base_amount += (treated_total / non_treated_count) if non_treated_count > 0
+    if participant.is_being_treated?
+      0.0
+    else
+      (calculate_base_amount(participant) + treatment_redistribution_amount_for(participant)).round(2)
     end
-
-    base_amount.round(2)
   end
   memo_wise :amount_owed_by
+
+  def treated_participants
+    participants.treated.to_a
+  end
+  memo_wise :treated_participants
+
+  def treatment_redistribution_amount_for(participant)
+    return 0.0 if treated_participants.empty? || participant.is_being_treated?
+
+    non_treated_count = participants.count - treated_participants.count
+    return 0.0 if non_treated_count <= 0
+
+    treated_total / non_treated_count
+  end
+  memo_wise :treatment_redistribution_amount_for
+
+  def treated_coverage_amount_for(participant)
+    return 0.0 unless treated_participants.include?(participant)
+
+    calculate_base_amount(participant)
+  end
+  memo_wise :treated_coverage_amount_for
+
+  def treated_total
+    treated_participants.sum { |treated_participant| calculate_base_amount(treated_participant) }
+  end
+  memo_wise :treated_total
 
   def tip
     global_fees.tip.first

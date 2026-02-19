@@ -2,7 +2,7 @@ class ParticipantsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :set_check
-  before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, :toggle_treated]
 
   def create
     @participant = @check.participants.build(participant_params)
@@ -50,6 +50,14 @@ class ParticipantsController < ApplicationController
     redirect_to @check, status: :see_other
   end
 
+  def toggle_treated
+    if @participant.update(being_treated: !@participant.being_treated?)
+      redirect_to @check, status: :see_other
+    else
+      redirect_to @check, alert: @participant.errors.full_messages.to_sentence, status: :see_other
+    end
+  end
+
   private
 
   def set_check
@@ -61,6 +69,6 @@ class ParticipantsController < ApplicationController
   end
 
   def participant_params
-    params.require(:participant).permit(:name)
+    params.require(:participant).permit(:name, :being_treated)
   end
 end
