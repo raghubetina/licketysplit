@@ -14,8 +14,7 @@ polymorphism: false
 sort: true
 warn: false
 title: false
-exclude: ActiveRecord::InternalMetadata,ActiveRecord::SchemaMigration,ActiveStorage::Attachment,ActiveStorage::Blob,AdminUser,ActiveAdmin::Comment,primary::SchemaMigration
-only: null
+exclude: ActiveRecord::InternalMetadata,ActiveRecord::SchemaMigration,ActiveStorage::Attachment,ActiveStorage::Blob,ActiveStorage::VariantRecord,ActionMailbox::InboundEmail,ActionText::EncryptedRichText,ActionText::RichText,AdminUser,ActiveAdmin::Comment,Ahoy::Event,Ahoy::Visit,Blazer::Audit,Blazer::Check,Blazer::Dashboard,Blazer::DashboardQuery,Blazer::Query,Blazer::Upload,SolidCable::Message,SolidCache::Entry,SolidQueue::BlockedExecution,SolidQueue::ClaimedExecution,SolidQueue::FailedExecution,SolidQueue::Job,SolidQueue::Pause,SolidQueue::Process,SolidQueue::ReadyExecution,SolidQueue::RecurringExecution,SolidQueue::RecurringTask,SolidQueue::ScheduledExecution,SolidQueue::Semaphore,primary::SchemaMigration
 only_recursion_depth: null
 prepend_primary: false
 cluster: false
