@@ -1,10 +1,25 @@
 <%# Accepts: line_item (required), check (optional), participants (optional) %>
 <% check ||= line_item.check %>
 <% participants ||= check.participants.order(:name) %>
+<% participant_ids = participants.map(&:id).sort %>
+<% all_selected = participant_ids.any? && line_item.participant_ids.sort == participant_ids %>
 
 <div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
   <% if participants.any? %>
-    <%= link_to "All", toggle_all_participants_line_item_path(line_item), data: { turbo_method: :post }, class: "text-muted small align-self-center" %>
+    <%= form_with url: toggle_all_participants_line_item_path(line_item), method: :post, local: true, class: "m-0" do %>
+      <div class="form-check form-switch m-0">
+        <%= check_box_tag(
+          "item_#{line_item.id}_select_all",
+          "1",
+          all_selected,
+          id: "item_#{line_item.id}_select_all",
+          class: "form-check-input",
+          role: "switch",
+          onchange: "this.form.requestSubmit()"
+        ) %>
+        <%= label_tag "item_#{line_item.id}_select_all", "Select all", class: "form-check-label" %>
+      </div>
+    <% end %>
   <% end %>
   <% participants.each do |participant| %>
     <div class="form-check form-switch m-0">
