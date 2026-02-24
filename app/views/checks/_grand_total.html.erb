@@ -9,5 +9,9 @@
     <div class="text-warning-emphasis mt-2">
       <i class="bi bi-exclamation-triangle"></i> Discrepancy: receipt showed <%= format_currency(check.grand_total, check.currency_symbol) %>. Consider double-checking everything.
     </div>
+  <% elsif check.grand_total.present? %>
+    <div class="text-success-emphasis mt-2">
+      <i class="bi bi-check-circle"></i> Matches receipt<%= " and additional tip" if check.grand_total != check.calculated_total %>
+    </div>
   <% end %>
 </div>
