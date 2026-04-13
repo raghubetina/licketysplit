@@ -17,10 +17,11 @@
           ) %>
           <%= label_tag(
             "participant_#{participant.id}_being_treated",
-            "Being treated",
+            "Covered by everyone else",
             class: "form-check-label #{'text-success' if participant.is_being_treated?}"
           ) %>
         </div>
+        <div class="text-muted mt-1" style="font-size: 0.75rem;">Their share is split among everyone else</div>
       <% end %>
       <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: { turbo_stream: true } %>
       <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: t("participants.delete_confirm") } %>

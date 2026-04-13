@@ -24,7 +24,7 @@ end %>
     <strong>
       <%= participant.name %>
       <% if participant.is_being_treated? %>
-        <span class="badge text-bg-success ms-1">Being treated</span>
+        <span class="badge text-bg-success ms-1">Covered by everyone else</span>
       <% end %>
       <% if participant_items.any? && check.subtotal > 0 %>
         <span class="fw-normal text-muted">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
@@ -70,13 +70,13 @@ end %>
 
   <% if participant.is_being_treated? && treated_coverage_amount > 0 %>
     <div class="d-flex justify-content-between text-success">
-      <span>Being treated</span>
+      <span>Covered by everyone else</span>
       <span>-<%= format_currency(treated_coverage_amount, check.currency_symbol) %></span>
     </div>
   <% else %>
     <% treating_lines.each do |treated_participant, amount| %>
       <div class="d-flex justify-content-between text-muted">
-        <span>Treating <%= treated_participant.name %></span>
+        <span>Covering <%= treated_participant.name %>'s share</span>
         <span><%= format_currency(amount, check.currency_symbol) %></span>
       </div>
     <% end %>
