@@ -2,7 +2,11 @@
 
 <li id="<%= dom_id(participant) %>" class="list-group-item py-3 px-3" data-turbo-refresh-animate data-turbo-refresh-version="<%= participant.cache_key_with_version %>">
   <div class="d-flex flex-column gap-1">
-    <span><%= participant.name %></span>
+    <div class="d-flex flex-wrap align-items-center gap-3 small">
+      <span class="fw-normal" style="font-size: 1rem;"><%= participant.name %></span>
+      <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: { turbo_stream: true } %>
+      <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: t("participants.delete_confirm") } %>
+    </div>
     <div class="d-flex flex-wrap align-items-center gap-3 small">
       <%= form_with url: toggle_treated_check_participant_path(check, participant), method: :post, local: true, class: "m-0" do %>
         <div class="form-check form-switch m-0">
@@ -22,11 +26,9 @@
           ) %>
         </div>
       <% end %>
-      <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: { turbo_stream: true } %>
-      <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: t("participants.delete_confirm") } %>
     </div>
     <% if participant.is_being_treated? %>
-      <div class="text-muted small" style="font-size: 0.75rem;">Their share is split among everyone else</div>
+      <div class="text-muted small" style="font-size: 0.75rem;">Their share is being split among everyone else</div>
     <% end %>
   </div>
 </li>
