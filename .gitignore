@@ -43,3 +43,4 @@
 !.env.example
 .playwright-mcp/
 .mcp.json
+.learning-moments/
