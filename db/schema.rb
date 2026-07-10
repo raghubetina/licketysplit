@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_10_215452) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_10_220152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -170,6 +170,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_10_215452) do
     t.integer "participants_count", default: 0, null: false
     t.string "currency_symbol", default: "$"
     t.text "reasoning"
+    t.string "split_mode", default: "itemized", null: false
     t.index ["status"], name: "index_checks_on_status"
   end
 

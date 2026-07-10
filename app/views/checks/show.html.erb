@@ -118,6 +118,21 @@
       No items found on this receipt.
     </div>
   <% else %>
+    <div class="ls-mode-toggle mb-3" role="group" aria-label="Split mode">
+      <%= button_to update_split_mode_check_path(@check, split_mode: "itemized"), method: :patch, class: "ls-mode-tab #{"active" if @check.split_itemized?}", "aria-pressed": @check.split_itemized? do %>
+        <span class="ls-mode-title">Itemized</span>
+        <span class="ls-mode-sub">Pay for what you had</span>
+      <% end %>
+      <%= button_to update_split_mode_check_path(@check, split_mode: "even"), method: :patch, class: "ls-mode-tab #{"active" if @check.split_even?}", "aria-pressed": @check.split_even? do %>
+        <span class="ls-mode-title">Even split</span>
+        <span class="ls-mode-sub">Divide it equally</span>
+      <% end %>
+    </div>
+
+    <% if @check.split_even? %>
+      <%= render partial: "checks/even_split_pane", locals: { check: @check } %>
+    <% end %>
+
     <div class="card mb-3">
       <div class="card-header py-3">
         <strong class="ls-display fs-5">Items</strong>
@@ -126,7 +141,7 @@
       <ul id="line_items_list" class="list-group list-group-flush">
         <% @line_items.each do |item| %>
           <% next if !@show_zero_items && item.total_with_addons == 0 %>
-          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items } %>
+          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items, show_assignment: @check.split_itemized? } %>
         <% end %>
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>

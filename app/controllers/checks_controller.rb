@@ -1,5 +1,5 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items, :update_currency]
+  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items, :update_currency, :update_split_mode]
 
   def index
     @check = Check.new
@@ -34,6 +34,12 @@ class ChecksController < ApplicationController
     end
 
     redirect_to @check
+  end
+
+  def update_split_mode
+    @check.update!(split_mode: params[:split_mode])
+    @check.broadcast_refresh
+    redirect_to @check, status: :see_other
   end
 
   def new

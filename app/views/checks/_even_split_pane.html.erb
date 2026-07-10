@@ -1,0 +1,22 @@
+<%# Accepts: check (required) %>
+
+<div class="card mb-3">
+  <div class="ls-even-pane">
+    <% if check.non_treated_count.zero? %>
+      <div class="ls-even-caption">Add party members above to see the per-person amount.</div>
+    <% else %>
+      <div class="ls-even-amount ls-num"><%= format_currency(check.even_split_amount, check.currency_symbol) %></div>
+      <div class="ls-even-caption">
+        per person · <strong><%= check.non_treated_count %></strong> <%= "person".pluralize(check.non_treated_count) %>
+        splitting <span class="ls-num"><%= format_currency(check.calculated_total, check.currency_symbol) %></span>
+      </div>
+      <% if check.treated_participants.any? %>
+        <div class="ls-even-treated">
+          <i class="bi bi-gift"></i>
+          <%= check.treated_participants.map(&:name).to_sentence %>
+          <%= (check.treated_participants.size == 1) ? "is" : "are" %> being treated — everyone else covers them.
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -15,6 +15,7 @@
 #  restaurant_address      :string
 #  restaurant_name         :string
 #  restaurant_phone_number :string
+#  split_mode              :string           default("itemized"), not null
 #  status                  :string           default("draft")
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -45,6 +46,7 @@ class Check < ApplicationRecord
   accepts_nested_attributes_for :participants, allow_destroy: true
 
   enum :status, {parsing: "parsing", draft: "draft", reviewing: "reviewing", finalized: "finalized"}
+  enum :split_mode, {itemized: "itemized", even: "even"}, prefix: :split
 
   def subtotal
     line_items.sum { |item| item.total_with_addons }
@@ -69,11 +71,26 @@ class Check < ApplicationRecord
   def amount_owed_by(participant)
     if participant.is_being_treated?
       0.0
+    elsif split_even?
+      even_split_amount.round(2)
     else
       (calculate_base_amount(participant) + treatment_redistribution_amount_for(participant)).round(2)
     end
   end
   memo_wise :amount_owed_by
+
+  def non_treated_count
+    participants.count - treated_participants.count
+  end
+  memo_wise :non_treated_count
+
+  # In even mode treated participants pay nothing, so the redistribution is
+  # simply dividing the whole check among everyone else.
+  def even_split_amount
+    return 0.0 if non_treated_count.zero?
+    calculated_total / non_treated_count
+  end
+  memo_wise :even_split_amount
 
   def treated_participants
     participants.treated.to_a

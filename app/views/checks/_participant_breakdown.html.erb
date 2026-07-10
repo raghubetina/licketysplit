@@ -28,7 +28,7 @@ end %>
         <% if participant.is_being_treated? %>
           <span class="badge text-bg-success ms-1">Covered by everyone else</span>
         <% end %>
-        <% if participant_items.any? && check.subtotal > 0 %>
+        <% if check.split_itemized? && participant_items.any? && check.subtotal > 0 %>
           <span class="fw-normal text-muted" style="font-size: 0.85rem;">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
         <% end %>
       </strong>
@@ -36,7 +36,16 @@ end %>
     <strong class="ls-num" style="font-size: 1.2rem;"><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
   </div>
 
-  <% if participant_items.any? %>
+  <% if check.split_even? %>
+    <% if participant.is_being_treated? %>
+      <div class="text-muted fst-italic">Covered by everyone else</div>
+    <% else %>
+      <div class="d-flex justify-content-between text-muted">
+        <span>Even split (1 of <%= check.non_treated_count %>)</span>
+        <span class="ls-num"><%= format_currency(check.even_split_amount, check.currency_symbol) %></span>
+      </div>
+    <% end %>
+  <% elsif participant_items.any? %>
     <% display_items.each do |item| %>
       <% share = item.amount_for(participant) %>
       <div class="d-flex justify-content-between text-muted">
@@ -75,17 +84,19 @@ end %>
     <div class="text-muted fst-italic">No items assigned</div>
   <% end %>
 
-  <% if participant.is_being_treated? && treated_coverage_amount > 0 %>
-    <div class="d-flex justify-content-between text-success">
-      <span>Covered by everyone else</span>
-      <span>-<%= format_currency(treated_coverage_amount, check.currency_symbol) %></span>
-    </div>
-  <% else %>
-    <% treating_lines.each do |treated_participant, amount| %>
-      <div class="d-flex justify-content-between text-muted">
-        <span>Covering <%= treated_participant.name %>'s share</span>
-        <span><%= format_currency(amount, check.currency_symbol) %></span>
+  <% if check.split_itemized? %>
+    <% if participant.is_being_treated? && treated_coverage_amount > 0 %>
+      <div class="d-flex justify-content-between text-success">
+        <span>Covered by everyone else</span>
+        <span>-<%= format_currency(treated_coverage_amount, check.currency_symbol) %></span>
       </div>
+    <% else %>
+      <% treating_lines.each do |treated_participant, amount| %>
+        <div class="d-flex justify-content-between text-muted">
+          <span>Covering <%= treated_participant.name %>'s share</span>
+          <span><%= format_currency(amount, check.currency_symbol) %></span>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

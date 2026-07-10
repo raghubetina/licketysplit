@@ -102,5 +102,41 @@ RSpec.describe Check, type: :model do
       expect(check.amount_owed_by(maya)).to eq(24.0)
       expect(check.amount_owed_by(raghu)).to eq(24.0)
     end
+
+    it "divides the whole check evenly in even-split mode, ignoring item assignments" do
+      check = Check.create!(split_mode: "even")
+      maya = check.participants.create!(name: "Maya")
+      raghu = check.participants.create!(name: "Raghu")
+
+      steak = check.line_items.create!(description: "Steak", unit_price: 60, quantity: 1)
+      steak.line_item_participants.create!(participant: maya)
+      check.line_items.create!(description: "Salad", unit_price: 30, quantity: 1)
+
+      check.global_fees.create!(description: "Tax", amount: 10)
+
+      expect(check.amount_owed_by(maya)).to eq(50.0)
+      expect(check.amount_owed_by(raghu)).to eq(50.0)
+    end
+
+    it "excludes treated participants from the even split and charges them nothing" do
+      check = Check.create!(split_mode: "even")
+      maya = check.participants.create!(name: "Maya")
+      raghu = check.participants.create!(name: "Raghu")
+      alice = check.participants.create!(name: "Alice")
+      alice.update!(being_treated: true)
+
+      check.line_items.create!(description: "Feast", unit_price: 90, quantity: 1)
+
+      expect(check.amount_owed_by(alice)).to eq(0.0)
+      expect(check.amount_owed_by(maya)).to eq(45.0)
+      expect(check.amount_owed_by(raghu)).to eq(45.0)
+    end
+
+    it "returns zero from even_split_amount when there is nobody to charge" do
+      check = Check.create!(split_mode: "even")
+      check.line_items.create!(description: "Feast", unit_price: 90, quantity: 1)
+
+      expect(check.even_split_amount).to eq(0.0)
+    end
   end
 end

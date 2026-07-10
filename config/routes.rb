@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     member do
       post :toggle_zero_items
       patch :update_currency
+      patch :update_split_mode
     end
     resources :participants, only: [:create, :show, :edit, :update, :destroy] do
       member do

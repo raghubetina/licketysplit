@@ -317,6 +317,91 @@
 }
 
 // ============================================================
+// Split-mode toggle — itemized vs even
+// ============================================================
+.ls-mode-toggle {
+  display: flex;
+  gap: 10px;
+
+  form {
+    display: contents;
+  }
+
+  .ls-mode-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 12px 16px;
+    background: var(--ls-surface-2);
+    border: 1.5px solid var(--ls-border);
+    border-radius: var(--ls-r-md);
+    color: var(--ls-muted);
+    text-align: start;
+    cursor: pointer;
+    width: 100%;
+
+    .ls-mode-title {
+      font-family: var(--ls-font-display);
+      font-variation-settings: 'opsz' 60, 'SOFT' 80, 'wght' 500;
+      font-size: 1.1rem;
+      color: var(--ls-fg);
+    }
+
+    .ls-mode-sub {
+      font-size: 0.8rem;
+    }
+
+    &:hover {
+      background: var(--ls-surface);
+    }
+
+    &.active {
+      background: var(--ls-surface);
+      border-color: var(--ls-border-strong);
+      box-shadow: var(--ls-shadow-sticker);
+
+      .ls-mode-title {
+        color: var(--ls-accent-strong);
+      }
+    }
+  }
+}
+
+// ============================================================
+// Even-split pane — big per-person figure
+// ============================================================
+.ls-even-pane {
+  padding: 28px 20px;
+  text-align: center;
+
+  .ls-even-amount {
+    font-family: var(--ls-font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 90, 'wght' 600;
+    font-size: clamp(2.6rem, 9vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .ls-even-caption {
+    margin-top: 8px;
+    color: var(--ls-muted);
+    font-size: 0.9rem;
+  }
+
+  .ls-even-treated {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: oklch(40% 0.18 145);
+    background: var(--ls-good-soft);
+    border-radius: var(--ls-r-md);
+    padding: 8px 12px;
+    display: inline-block;
+  }
+}
+
+// ============================================================
 // Uneven shares pane — "who had how many" stepper rows
 // ============================================================
 .ls-shares-pane {

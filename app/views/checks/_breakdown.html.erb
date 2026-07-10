@@ -13,5 +13,7 @@
     <% end %>
   </div>
 
-  <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items, show_zero_items: show_zero_items } %>
+  <% unless check.split_even? %>
+    <%= render partial: "checks/remaining_breakdown", locals: { check: check, line_items: line_items, show_zero_items: show_zero_items } %>
+  <% end %>
 </div>
