@@ -51,7 +51,15 @@ class ParticipantsController < ApplicationController
   end
 
   def toggle_treated
-    if @participant.update(being_treated: !@participant.being_treated?)
+    turning_on = !@participant.being_treated?
+
+    # Someone has to pay: refuse to treat the last remaining payer, which would
+    # otherwise zero out everyone's share and make the whole check vanish.
+    if turning_on && @check.non_treated_count <= 1
+      return redirect_to @check, alert: "At least one person has to be paying.", status: :see_other
+    end
+
+    if @participant.update(being_treated: turning_on)
       redirect_to @check, status: :see_other
     else
       redirect_to @check, alert: @participant.errors.full_messages.to_sentence, status: :see_other
