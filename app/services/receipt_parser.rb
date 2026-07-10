@@ -44,12 +44,12 @@ class ReceiptParser
 
   def parse(&on_event)
     stream = client.responses.stream(
-      model: "gpt-5.2",
+      model: "gpt-5.6-terra",
       instructions: SYSTEM_INSTRUCTIONS,
       input: build_input,
       tools: [{type: :code_interpreter, container: {type: :auto}}],
       text: {format: {type: :json_schema, **receipt_schema}},
-      reasoning: {effort: :low, summary: :detailed}
+      reasoning: {effort: :low, summary: :auto}
     )
 
     stream.each do |event|
