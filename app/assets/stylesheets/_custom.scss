@@ -21,14 +21,14 @@
   to { opacity: 0; }
 }
 
-// Change - yellow background flash (using Bootstrap warning color)
+// Change - accent-tinted flash on broadcast updates
 .turbo-refresh-change {
   animation: turbo-refresh-change 1.2s ease-out;
 }
 
 @keyframes turbo-refresh-change {
-  from { background-color: rgba(var(--bs-warning-rgb), 0.3); }
-  to { background-color: inherit; }
+  from { background-color: var(--ls-accent-soft); }
+  to { background-color: transparent; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -42,7 +42,7 @@
 
 // Participant checkbox tap targets
 .participant-checkbox {
-  background-color: var(--bs-light);
+  background-color: var(--ls-surface-2);
   padding: 0.25rem 0.5rem 0.25rem 1.75rem;
-  border-radius: var(--bs-border-radius-sm);
+  border-radius: var(--ls-r-sm);
 }

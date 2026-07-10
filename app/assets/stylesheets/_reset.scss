@@ -1,0 +1,85 @@
+// Minimal modern reset. Replaces Bootstrap's Reboot.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ls-font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ls-fg);
+  background-color: var(--ls-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.5rem;
+  font-family: var(--ls-font-display);
+  font-variation-settings: 'opsz' 60, 'SOFT' 60, 'wght' 500;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: inherit;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--ls-accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--ls-fg);
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--ls-border);
+  margin: 1rem 0;
+}
+
+details > summary { cursor: pointer; }
+
+[hidden] { display: none !important; }

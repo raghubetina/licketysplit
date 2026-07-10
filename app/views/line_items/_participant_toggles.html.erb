@@ -4,7 +4,7 @@
 <% participant_ids = participants.map(&:id).sort %>
 <% all_selected = participant_ids.any? && line_item.participant_ids.sort == participant_ids %>
 
-<div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
+<div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-2 align-items-center" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
   <% if participants.any? %>
     <%= form_with url: toggle_all_participants_line_item_path(line_item), method: :post, local: true, class: "m-0" do %>
       <div class="form-check form-switch m-0">
@@ -22,17 +22,14 @@
     <% end %>
   <% end %>
   <% participants.each do |participant| %>
-    <div class="form-check form-switch m-0">
+    <label for="item_<%= line_item.id %>_participant_<%= participant.id %>" class="ls-chip-toggle <%= participant_color_class(participant) %>">
       <%= check_box_tag "participant_#{participant.id}",
           participant.id,
           line_item.participant_ids.include?(participant.id),
           id: "item_#{line_item.id}_participant_#{participant.id}",
-          class: "form-check-input",
-          role: "switch",
           data: { action: "change->checkbox-toggle#toggle" } %>
-      <%= label_tag "item_#{line_item.id}_participant_#{participant.id}",
-          participant.name,
-          class: "form-check-label" %>
-    </div>
+      <span class="ls-chip-avatar" style="background: var(--p-color);"><%= participant_initial(participant) %></span>
+      <span><%= participant.name %></span>
+    </label>
   <% end %>
 </div>

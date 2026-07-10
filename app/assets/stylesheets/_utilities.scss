@@ -1,0 +1,191 @@
+// Bootstrap-compatible utility classes — only what the views actually use.
+// Class names match Bootstrap so we don't have to touch every partial.
+
+// ---------------- spacer scale ----------------
+$ls-spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+);
+
+// ---------------- display ----------------
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+.d-none { display: none; }
+
+// ---------------- flex ----------------
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-grow-1 { flex-grow: 1; }
+
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-center { align-items: center; }
+.align-items-baseline { align-items: baseline; }
+
+// ---------------- gap + margin + padding ----------------
+@each $key, $val in $ls-spacers {
+  .gap-#{$key} { gap: $val; }
+
+  .m-#{$key}  { margin: $val; }
+  .mt-#{$key} { margin-top: $val; }
+  .mb-#{$key} { margin-bottom: $val; }
+  .ms-#{$key} { margin-inline-start: $val; }
+  .me-#{$key} { margin-inline-end: $val; }
+  .mx-#{$key} { margin-inline: $val; }
+  .my-#{$key} { margin-block: $val; }
+
+  .p-#{$key}  { padding: $val; }
+  .pt-#{$key} { padding-top: $val; }
+  .pb-#{$key} { padding-bottom: $val; }
+  .ps-#{$key} { padding-inline-start: $val; }
+  .pe-#{$key} { padding-inline-end: $val; }
+  .px-#{$key} { padding-inline: $val; }
+  .py-#{$key} { padding-block: $val; }
+}
+.mx-auto { margin-inline: auto; }
+.ms-auto { margin-inline-start: auto; }
+.me-auto { margin-inline-end: auto; }
+
+// ---------------- typography ----------------
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+.text-center { text-align: center; }
+
+.fw-normal { font-weight: 400; }
+.fw-medium { font-weight: 500; }
+.fw-semibold { font-weight: 600; }
+.fw-bold { font-weight: 700; }
+
+.fst-italic { font-style: italic; }
+.fs-1 { font-size: 2.25rem; }
+.fs-2 { font-size: 1.875rem; }
+.fs-3 { font-size: 1.5rem; }
+.fs-4 { font-size: 1.25rem; }
+.fs-5 { font-size: 1.1rem; }
+.fs-6 { font-size: 1rem; }
+.small { font-size: 0.875em; }
+
+// semantic text colors
+.text-muted { color: var(--ls-muted) !important; }
+.text-success { color: oklch(40% 0.18 145) !important; }
+.text-success-emphasis { color: oklch(35% 0.18 145) !important; }
+.text-warning-emphasis { color: oklch(40% 0.21 25) !important; }
+.text-primary { color: var(--ls-accent-strong) !important; }
+.text-danger { color: var(--ls-warn) !important; }
+
+// ---------------- headings as utility classes ----------------
+.h4, .h5, .h6 {
+  font-family: var(--ls-font-display);
+  font-variation-settings: 'opsz' 60, 'SOFT' 60, 'wght' 500;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.h4 { font-size: 1.5rem; }
+.h5 { font-size: 1.25rem; }
+.h6 { font-size: 1rem; }
+
+// ---------------- width / sizing ----------------
+.w-100 { width: 100%; }
+.w-auto { width: auto; }
+.mw-100 { max-width: 100%; }
+.h-100 { height: 100%; }
+
+// accessible-hidden
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// borders + bg helpers used by views
+.border-bottom { border-bottom: 1px solid var(--ls-border); }
+.bg-light { background-color: var(--ls-surface-2); }
+
+// ---------------- 12-column grid + gutters ----------------
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 1100px;
+}
+.container-fluid {
+  width: 100%;
+  padding-inline: 1rem;
+}
+
+.row {
+  --ls-gutter-x: 1rem;
+  --ls-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: calc(-0.5 * var(--ls-gutter-x));
+  margin-top: calc(-1 * var(--ls-gutter-y));
+}
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-inline: calc(var(--ls-gutter-x) * 0.5);
+  margin-top: var(--ls-gutter-y);
+}
+
+// row gutters
+.g-0 { --ls-gutter-x: 0; --ls-gutter-y: 0; }
+.g-1 { --ls-gutter-x: 0.25rem; --ls-gutter-y: 0.25rem; }
+.g-2 { --ls-gutter-x: 0.5rem;  --ls-gutter-y: 0.5rem; }
+.g-3 { --ls-gutter-x: 1rem;    --ls-gutter-y: 1rem; }
+
+// col helpers
+.col {
+  flex: 1 0 0%;
+}
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
+}
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex: 0 0 auto;
+    width: percentage(calc($i / 12));
+  }
+}
+
+// breakpoints
+@media (min-width: 576px) {
+  @for $i from 1 through 12 {
+    .col-sm-#{$i} { flex: 0 0 auto; width: percentage(calc($i / 12)); }
+  }
+  .col-sm-auto { flex: 0 0 auto; width: auto; }
+}
+@media (min-width: 768px) {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} { flex: 0 0 auto; width: percentage(calc($i / 12)); }
+  }
+  .col-md-auto { flex: 0 0 auto; width: auto; }
+}
+@media (min-width: 992px) {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} { flex: 0 0 auto; width: percentage(calc($i / 12)); }
+  }
+  .col-lg-auto { flex: 0 0 auto; width: auto; }
+}

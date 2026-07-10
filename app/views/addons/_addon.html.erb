@@ -2,12 +2,12 @@
 
 <div id="<%= dom_id(addon) %>" class="d-flex flex-column gap-1" data-turbo-refresh-animate data-turbo-refresh-version="<%= addon.cache_key_with_version %>">
   <div class="d-flex align-items-baseline">
-    <span class="text-muted me-2 text-end" style="min-width: 50px;"><%= format_currency(addon.total_price, line_item.check.currency_symbol) %></span>
+    <span class="text-muted ls-num me-2 text-end" style="min-width: 50px;"><%= format_currency(addon.total_price, line_item.check.currency_symbol) %></span>
     <span class="text-muted">+ <%= addon.description %></span>
   </div>
   <% if addon.discount && addon.discount > 0 %>
     <div class="d-flex align-items-baseline">
-      <span class="text-success me-2 text-end" style="min-width: 50px;">-<%= format_currency(addon.discount, line_item.check.currency_symbol) %></span>
+      <span class="text-success ls-num me-2 text-end" style="min-width: 50px;">-<%= format_currency(addon.discount, line_item.check.currency_symbol) %></span>
       <span class="text-success">
         <% if addon.discount_description.present? %>
           <%= addon.discount_description %>

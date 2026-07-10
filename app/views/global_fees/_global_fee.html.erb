@@ -9,7 +9,7 @@
           (<%= number_to_percentage(global_fee.calculated_percentage, precision: 1) %>)
         <% end %>
       </span>
-      <span>+<%= format_currency(global_fee.amount, check.currency_symbol) %></span>
+      <span class="ls-num">+<%= format_currency(global_fee.amount, check.currency_symbol) %></span>
     </div>
     <div class="d-flex gap-2 small">
       <%= link_to "Edit", edit_check_global_fee_path(check, global_fee), class: "text-muted", data: { turbo_stream: true } %>

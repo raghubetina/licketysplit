@@ -1,31 +1,36 @@
 <div class="container py-3">
-  <h1 class="h6 mb-3">Split a Check</h1>
+  <div class="card">
+    <div class="card-header py-3">
+      <strong class="ls-display fs-5">Split a Check</strong>
+    </div>
+    <div class="card-body">
+      <% if @check.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% @check.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <% if @check.errors.any? %>
-    <div class="alert alert-danger">
-      <ul class="mb-0">
-        <% @check.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+      <%= form_with url: checks_path, method: :post, local: true, multipart: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :receipt_images, "Receipt Photos", class: "form-label" %>
+          <%= f.file_field :receipt_images, multiple: true, class: "form-control", accept: "image/*", capture: "environment" %>
+          <div class="form-text">Upload one or more images of your receipt</div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :participant_names, "Who's splitting?", class: "form-label" %>
+          <%= f.text_area :participant_names, class: "form-control", rows: 1, placeholder: "Alice Bob Carol", data: { controller: "autogrow" } %>
+          <div class="form-text">Enter names separated by newlines, spaces, periods, or commas</div>
+        </div>
+
+        <%= f.button class: "sticker primary w-100 justify-content-center" do %>
+          <i class="bi bi-stars"></i> Parse Receipt
         <% end %>
-      </ul>
+      <% end %>
     </div>
-  <% end %>
-
-  <%= form_with url: checks_path, method: :post, local: true, multipart: true do |f| %>
-    <div class="mb-3">
-      <%= f.label :receipt_images, "Receipt Photos", class: "form-label" %>
-      <%= f.file_field :receipt_images, multiple: true, class: "form-control", accept: "image/*", capture: "environment" %>
-      <div class="form-text">Upload one or more images of your receipt</div>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :participant_names, "Who's splitting?", class: "form-label" %>
-      <%= f.text_area :participant_names, class: "form-control", rows: 1, placeholder: "Alice Bob Carol", data: { controller: "autogrow" } %>
-      <div class="form-text">Enter names separated by newlines, spaces, periods, or commas</div>
-    </div>
-
-    <div class="d-grid">
-      <%= f.submit "Parse Receipt", class: "btn btn-primary btn-lg" %>
-    </div>
-  <% end %>
+  </div>
 </div>

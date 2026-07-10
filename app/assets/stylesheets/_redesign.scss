@@ -1,0 +1,403 @@
+// Licketysplit redesign components.
+// Sits alongside Bootstrap — does NOT replace .card / .container / .grid.
+// Renamed conflicting class names to .ls-* where the mockup overlapped Bootstrap.
+
+// ============================================================
+// Brand wordmark (used in navbar)
+// ============================================================
+.ls-brand {
+  font-family: var(--ls-font-display);
+  font-size: 1.6rem;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  font-variation-settings:
+    'opsz' 144,
+    'SOFT' 100,
+    'wght' 600;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--ls-fg);
+
+  .ls-brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--ls-accent);
+    display: inline-block;
+    transform: translateY(-4px);
+  }
+
+  .ls-brand-star {
+    font-size: 0.85em;
+    transform: translateY(-6px) rotate(8deg);
+    display: inline-block;
+    animation: ls-wiggle 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes ls-wiggle {
+  0%,
+  100% {
+    transform: translateY(-6px) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-12deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-brand .ls-brand-star {
+    animation: none;
+  }
+}
+
+// ============================================================
+// Sticker button — chunky offset shadow style
+// Use on primary CTAs. Coexists with .btn.
+// ============================================================
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-weight: 500;
+  box-shadow: var(--ls-shadow-sticker);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+  color: var(--ls-fg);
+  font-size: 0.95rem;
+  text-decoration: none;
+  line-height: 1.2;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: var(--ls-shadow-sticker-hover);
+    color: var(--ls-fg);
+    text-decoration: none;
+  }
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 0 var(--ls-border-strong);
+  }
+
+  &.primary {
+    background: var(--ls-accent);
+    color: white;
+    border-color: var(--ls-accent-strong);
+    box-shadow: 0 3px 0 0 var(--ls-accent-strong);
+    &:hover {
+      box-shadow: 0 1px 0 0 var(--ls-accent-strong);
+      color: white;
+    }
+    &:active {
+      box-shadow: 0 0 0 0 var(--ls-accent-strong);
+    }
+  }
+
+  &.ghost {
+    background: transparent;
+    box-shadow: none;
+    border-color: var(--ls-border);
+    color: var(--ls-muted);
+    &:hover {
+      transform: none;
+      background: var(--ls-surface-2);
+      color: var(--ls-fg);
+    }
+  }
+
+  &.compact {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  &.danger {
+    color: var(--ls-warn);
+    border-color: var(--ls-warn);
+    box-shadow: 0 3px 0 0 var(--ls-warn);
+    &:hover {
+      box-shadow: 0 1px 0 0 var(--ls-warn);
+      color: var(--ls-warn);
+    }
+    &:active {
+      box-shadow: 0 0 0 0 var(--ls-warn);
+    }
+  }
+}
+
+// ============================================================
+// Per-participant color hook
+// Apply .ls-p-{n} to set --p-color / --p-tint scoped to a subtree.
+// ============================================================
+@for $i from 1 through 8 {
+  .ls-p-#{$i} {
+    --p-color: var(--ls-p#{$i});
+    --p-tint: var(--ls-p#{$i}-tint);
+  }
+}
+
+// Avatar dot — colored bubble with initial
+.ls-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--p-color, var(--ls-surface-2));
+  color: var(--ls-fg);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  border: 2px solid var(--ls-fg);
+  box-shadow: 2px 2px 0 var(--ls-fg);
+  font-family: var(--ls-font-body);
+  flex-shrink: 0;
+
+  &.sm {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+    box-shadow: 1.5px 1.5px 0 var(--ls-fg);
+    border-width: 1.5px;
+  }
+  &.lg {
+    width: 52px;
+    height: 52px;
+    font-size: 1.25rem;
+  }
+}
+
+// ============================================================
+// Participant tile / row treatment
+// ============================================================
+.ls-participant-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  .ls-participant-name {
+    font-family: var(--ls-font-display);
+    font-variation-settings:
+      'opsz' 40,
+      'SOFT' 80,
+      'wght' 500;
+    font-size: 1.15rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ls-fg);
+  }
+
+  .ls-participant-meta {
+    font-size: 0.85rem;
+    color: var(--ls-muted);
+    margin-top: 2px;
+  }
+}
+
+// ============================================================
+// Line item tinting — when a single participant owns an item
+// Add .ls-item-tinted and set the .ls-p-{n} on the same element.
+// ============================================================
+.ls-item-tinted {
+  background: var(--p-tint, transparent) !important;
+  border-color: var(--p-color, var(--ls-border)) !important;
+}
+
+.ls-item-unassigned {
+  background: var(--ls-warn-soft) !important;
+  border-color: oklch(64% 0.21 25 / 0.4) !important;
+}
+
+// ============================================================
+// Chip — pill-shaped participant toggle (replaces Bootstrap switch
+// styling when used on the line item participant toggles).
+// Used as a visual upgrade for form-switch rows.
+// ============================================================
+.ls-chip-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--ls-muted);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  line-height: 1.1;
+  margin: 0;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--ls-border-strong);
+  }
+
+  // "on" state — driven by the underlying checkbox via :has()
+  &:has(input:checked) {
+    background: var(--p-color, var(--ls-accent));
+    color: var(--ls-fg);
+    border-color: var(--ls-fg);
+    box-shadow: 0 2px 0 var(--ls-fg);
+  }
+  &:has(input:checked):hover {
+    box-shadow: 0 1px 0 var(--ls-fg);
+  }
+
+  // hide the underlying checkbox but keep it operational
+  input[type='checkbox'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .ls-chip-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--ls-surface-2);
+    border: 1.5px solid var(--ls-border);
+    line-height: 1;
+  }
+}
+
+// ============================================================
+// Tip pill — small percentage suggestion buttons on the fees card
+// ============================================================
+.ls-tip-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ls-muted);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  line-height: 1.2;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--ls-border-strong);
+    color: var(--ls-fg);
+  }
+
+  &.active {
+    background: var(--ls-good-soft);
+    border-color: var(--ls-good);
+    color: oklch(35% 0.18 145);
+    box-shadow: 0 2px 0 var(--ls-good);
+  }
+}
+
+// ============================================================
+// Totals card — dark surface used for the grand total
+// ============================================================
+.ls-totals-card {
+  background: var(--ls-fg);
+  color: var(--ls-surface);
+  border-radius: var(--ls-r-lg);
+  padding: 22px;
+  margin-top: 16px;
+
+  .ls-totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 0.9rem;
+    color: oklch(85% 0.04 290);
+  }
+  .ls-totals-grand {
+    border-top: 1px solid oklch(40% 0.05 290);
+    padding-top: 12px;
+    margin-top: 8px;
+    font-family: var(--ls-font-display);
+    font-variation-settings:
+      'opsz' 144,
+      'SOFT' 90,
+      'wght' 600;
+    font-size: 2.2rem;
+    color: var(--ls-surface);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// ============================================================
+// "All clear" banner — shown when nothing is unassigned
+// ============================================================
+.ls-all-clear {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--ls-good-soft);
+  color: oklch(40% 0.18 145);
+  border-radius: var(--ls-r-md);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+// ============================================================
+// Typography helpers (display serif)
+// ============================================================
+.ls-display {
+  font-family: var(--ls-font-display);
+  font-variation-settings:
+    'opsz' 60,
+    'SOFT' 80,
+    'wght' 500;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+.ls-num {
+  font-family: var(--ls-font-display);
+  font-variation-settings:
+    'opsz' 60,
+    'wght' 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.015em;
+}
+
+// ============================================================
+// Body bg dot grid
+// ============================================================
+body {
+  background-color: var(--ls-bg);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--ls-bg-dot) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 28px 28px;
+}

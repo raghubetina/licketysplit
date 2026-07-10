@@ -1,0 +1,469 @@
+// Component classes — Bootstrap-compatible names so the views don't change.
+// All styling is our own and reads from tokens in _tokens.scss.
+
+// ============================================================
+// Card
+// ============================================================
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border);
+  border-radius: var(--ls-r-lg);
+  overflow: hidden;
+  box-shadow: var(--ls-shadow-card);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-header {
+  padding: 1rem 1.25rem;
+  background: var(--ls-surface-2);
+  border-bottom: 1.5px dashed var(--ls-border);
+  font-family: var(--ls-font-display);
+  font-variation-settings: 'opsz' 60, 'SOFT' 60, 'wght' 500;
+  font-size: 1.1rem;
+}
+
+.card-footer {
+  padding: 1rem 1.25rem;
+  background: var(--ls-surface-2);
+  border-top: 1.5px dashed var(--ls-border);
+}
+
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  width: 100%;
+  display: block;
+}
+
+// ============================================================
+// List group
+// ============================================================
+.list-group {
+  display: flex;
+  flex-direction: column;
+  background: var(--ls-surface);
+}
+
+.list-group-flush {
+  border-radius: 0;
+}
+
+.list-group-item {
+  position: relative;
+  padding: 0.875rem 1rem;
+  background: var(--ls-surface);
+  border-bottom: 1px solid var(--ls-border);
+  color: var(--ls-fg);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+// Clickable list rows (e.g. check links on the index page)
+.list-group-item-action {
+  display: block;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.1s ease;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background: var(--ls-surface-2);
+    color: inherit;
+  }
+}
+
+// ============================================================
+// Button — base. The sticker class supersedes this for primary CTAs.
+// ============================================================
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ls-fg);
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--ls-shadow-sticker);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: var(--ls-shadow-sticker-hover);
+    color: var(--ls-fg);
+    text-decoration: none;
+  }
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 0 var(--ls-border-strong);
+  }
+  &:focus-visible {
+    outline: 3px solid var(--ls-accent-soft);
+    outline-offset: 2px;
+  }
+  &:disabled,
+  &.disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+.btn-primary {
+  background: var(--ls-accent);
+  color: white;
+  border-color: var(--ls-accent-strong);
+  box-shadow: 0 3px 0 0 var(--ls-accent-strong);
+
+  &:hover { color: white; box-shadow: 0 1px 0 0 var(--ls-accent-strong); }
+  &:active { box-shadow: 0 0 0 0 var(--ls-accent-strong); }
+}
+
+.btn-secondary {
+  background: var(--ls-surface);
+  color: var(--ls-muted);
+  border-color: var(--ls-border);
+  box-shadow: none;
+  &:hover { transform: none; background: var(--ls-surface-2); color: var(--ls-fg); }
+}
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+// Bootstrap's dismiss-button glyph — used for flash alerts.
+.btn-close {
+  width: 1.2em;
+  height: 1.2em;
+  padding: 0.4em;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+
+  &::before {
+    content: "×";
+    display: block;
+    line-height: 0.4;
+    font-size: 1.6em;
+    color: var(--ls-fg);
+  }
+  &:hover { opacity: 1; }
+}
+
+// ============================================================
+// Alert
+// ============================================================
+.alert {
+  position: relative;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  border: 1.5px solid transparent;
+  border-radius: var(--ls-r-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.alert-success {
+  color: oklch(35% 0.18 145);
+  background: var(--ls-good-soft);
+  border-color: oklch(65% 0.18 145 / 0.35);
+}
+
+.alert-warning {
+  color: oklch(40% 0.18 70);
+  background: oklch(85% 0.13 90 / 0.32);
+  border-color: oklch(85% 0.13 90 / 0.55);
+}
+
+.alert-danger {
+  color: oklch(38% 0.21 25);
+  background: var(--ls-warn-soft);
+  border-color: oklch(64% 0.21 25 / 0.4);
+}
+
+.alert-dismissible {
+  padding-inline-end: 3rem;
+  .btn-close {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: 0.5rem;
+    transform: translateY(-50%);
+  }
+}
+
+// fade/show — used for dismissible flashes (no JS toggling, just initial visibility)
+.alert.fade { transition: opacity 0.15s linear; }
+.alert.fade:not(.show) { opacity: 0; }
+
+// ============================================================
+// Badge
+// ============================================================
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.55em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--ls-r-pill);
+  background: var(--ls-surface-2);
+  color: var(--ls-fg);
+  letter-spacing: 0.02em;
+}
+
+.text-bg-success {
+  background: var(--ls-good) !important;
+  color: white !important;
+}
+.text-bg-warning {
+  background: oklch(85% 0.13 90);
+  color: var(--ls-fg);
+}
+.text-bg-danger {
+  background: var(--ls-warn);
+  color: white;
+}
+
+// ============================================================
+// Spinner
+// ============================================================
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: -0.125em;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: ls-spin 0.75s linear infinite;
+}
+
+@keyframes ls-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ============================================================
+// Navbar
+// ============================================================
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  background: var(--ls-surface);
+  border-bottom: 1.5px solid var(--ls-border);
+
+  > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.navbar-light { background: var(--ls-surface); }
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ls-fg);
+  padding-inline-end: 1rem;
+  &:hover { color: var(--ls-fg); text-decoration: none; }
+}
+
+// ============================================================
+// Form controls
+// ============================================================
+.form-control,
+.form-select {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  font-family: var(--ls-font-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ls-fg);
+  background: var(--ls-surface);
+  background-clip: padding-box;
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-md);
+  appearance: none;
+  transition: border-color 0.1s ease, box-shadow 0.1s ease;
+
+  &:focus {
+    outline: 0;
+    border-color: var(--ls-accent);
+    box-shadow: 0 0 0 3px var(--ls-accent-soft);
+  }
+  &::placeholder { color: var(--ls-muted); opacity: 0.8; }
+  &:disabled { background: var(--ls-surface-2); opacity: 0.7; }
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23555' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-inline-end: 2.25rem;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--ls-warn);
+
+  &:focus {
+    border-color: var(--ls-warn);
+    box-shadow: 0 0 0 3px var(--ls-warn-soft);
+  }
+}
+
+.form-control-sm,
+.form-select-sm {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  border-radius: var(--ls-r-sm);
+}
+
+.form-label {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--ls-muted);
+}
+
+.form-text {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--ls-muted);
+}
+
+// ---------------- form-check + form-switch (toggle) ----------------
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.5rem;
+}
+.form-check-inline {
+  display: inline-flex;
+  margin-inline-end: 1rem;
+}
+
+.form-check-input {
+  appearance: none;
+  flex-shrink: 0;
+  width: 1.2em;
+  height: 1.2em;
+  margin: 0;
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+  vertical-align: middle;
+
+  &[type="checkbox"] { border-radius: 0.25em; }
+  &[type="radio"] { border-radius: 50%; }
+
+  &:checked {
+    background: var(--ls-accent);
+    border-color: var(--ls-accent-strong);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80% 80%;
+  }
+  &:focus-visible {
+    outline: 3px solid var(--ls-accent-soft);
+    outline-offset: 2px;
+  }
+}
+
+.form-check-label {
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--ls-fg);
+}
+
+// switch — pill-shaped toggle
+.form-switch {
+  padding-inline-start: 0;
+
+  .form-check-input {
+    width: 2.4em;
+    height: 1.35em;
+    margin-inline-end: 0.5rem;
+    background-color: var(--ls-surface-2);
+    border-radius: var(--ls-r-pill);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23555'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+    transition: background-position 0.15s ease, background-color 0.15s ease;
+  }
+  .form-check-input:checked {
+    background-color: var(--ls-accent);
+    border-color: var(--ls-accent-strong);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E");
+    background-position: right center;
+  }
+}
+
+// ============================================================
+// Input group
+// ============================================================
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+
+  > .form-control,
+  > .form-select {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+  }
+  > * { border-radius: 0; }
+  > *:first-child { border-start-start-radius: var(--ls-r-md); border-end-start-radius: var(--ls-r-md); }
+  > *:last-child { border-start-end-radius: var(--ls-r-md); border-end-end-radius: var(--ls-r-md); }
+  > * + * { border-inline-start-width: 0; }
+}
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.85rem;
+  background: var(--ls-surface-2);
+  border: 1.5px solid var(--ls-border-strong);
+  color: var(--ls-muted);
+  font-size: 0.95rem;
+}
+
+.input-group-sm {
+  > .form-control,
+  > .form-select,
+  > .input-group-text {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+  > *:first-child { border-start-start-radius: var(--ls-r-sm); border-end-start-radius: var(--ls-r-sm); }
+  > *:last-child { border-start-end-radius: var(--ls-r-sm); border-end-end-radius: var(--ls-r-sm); }
+}

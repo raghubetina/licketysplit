@@ -2,16 +2,16 @@
 
 <div class="py-3">
   <% if flash[:alert] %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" data-controller="dismiss">
       <%= flash[:alert] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <button type="button" class="btn-close" data-action="dismiss#close"></button>
     </div>
   <% end %>
 
   <% if flash[:notice] %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" data-controller="dismiss">
       <%= flash[:notice] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <button type="button" class="btn-close" data-action="dismiss#close"></button>
     </div>
   <% end %>
 
@@ -20,7 +20,7 @@
       <%= qr_code_svg(check_url(@check), level: :m) %>
     </div>
     <div class="mt-2"><i class="bi bi-qr-code-scan"></i> Scan to join</div>
-    <button class="btn btn-primary w-100 mt-2"
+    <button class="sticker primary w-100 mt-2 justify-content-center"
             data-controller="clipboard"
             data-clipboard-text-value="<%= check_url(@check) %>"
             data-action="clipboard#copy">
@@ -96,7 +96,7 @@
 
   <div class="card mb-3">
     <div class="card-header py-3">
-      <strong><%= t("participants.header") %></strong>
+      <strong class="ls-display fs-5"><%= t("participants.header") %></strong>
     </div>
 
     <ul class="list-group list-group-flush">
@@ -120,7 +120,7 @@
   <% else %>
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Items</strong>
+        <strong class="ls-display fs-5">Items</strong>
       </div>
 
       <ul id="line_items_list" class="list-group list-group-flush">
@@ -136,7 +136,7 @@
 
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Discounts</strong>
+        <strong class="ls-display fs-5">Discounts</strong>
       </div>
 
       <ul class="list-group list-group-flush">
@@ -153,7 +153,7 @@
 
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Tax, tip, and other fees</strong>
+        <strong class="ls-display fs-5">Tax, tip, and other fees</strong>
       </div>
 
       <ul class="list-group list-group-flush">

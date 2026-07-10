@@ -13,5 +13,8 @@ application.register("checkbox-toggle", CheckboxToggleController)
 import ClipboardController from "./clipboard_controller"
 application.register("clipboard", ClipboardController)
 
+import DismissController from "./dismiss_controller"
+application.register("dismiss", DismissController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)

@@ -2,7 +2,6 @@
 import "@hotwired/turbo-rails"
 import "turbo-refresh-animations"
 import "./controllers"
-import * as bootstrap from "bootstrap"
 
 // Ahoy analytics tracking
 import ahoy from "ahoy.js"
