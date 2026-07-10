@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
-import { attach } from "@frsource/autoresize-textarea"
+import { Controller } from '@hotwired/stimulus'
+import { attach } from '@frsource/autoresize-textarea'
 
 export default class extends Controller {
   connect() {

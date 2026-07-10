@@ -19,15 +19,27 @@
     <div class="ls-share-row <%= participant_color_class(participant) %> <%= "has-share" if shares > 0 %>">
       <span class="ls-avatar sm"><%= participant_initial(participant) %></span>
       <span class="ls-share-name"><%= participant.name %></span>
-      <div class="ls-stepper">
-        <%= button_to "−", decrement_share_line_item_path(line_item, participant_id: participant.id),
+      <div class="ls-stepper" data-controller="share-stepper">
+        <%= button_tag "−",
+              type: "button",
               id: "#{dom_id(line_item)}_share_minus_#{participant.id}",
               disabled: shares == 0,
-              "aria-label": "Remove one from #{participant.name}" %>
-        <span class="ls-stepper-count ls-num"><%= shares %></span>
-        <%= button_to "+", increment_share_line_item_path(line_item, participant_id: participant.id),
+              "aria-label": "Remove one from #{participant.name}",
+              data: {
+                action: "share-stepper#adjust",
+                share_stepper_url_param: decrement_share_line_item_path(line_item, participant_id: participant.id),
+                share_stepper_delta_param: -1
+              } %>
+        <span class="ls-stepper-count ls-num" data-share-stepper-target="count"><%= shares %></span>
+        <%= button_tag "+",
+              type: "button",
               id: "#{dom_id(line_item)}_share_plus_#{participant.id}",
-              "aria-label": "Add one to #{participant.name}" %>
+              "aria-label": "Add one to #{participant.name}",
+              data: {
+                action: "share-stepper#adjust",
+                share_stepper_url_param: increment_share_line_item_path(line_item, participant_id: participant.id),
+                share_stepper_delta_param: 1
+              } %>
       </div>
       <span class="ls-share-amount ls-num"><%= (shares > 0) ? format_currency(shares * line_item.unit_price, check.currency_symbol) : "—" %></span>
     </div>
