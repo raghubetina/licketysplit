@@ -152,6 +152,9 @@ $ls-spacers: (
 .fst-italic {
   font-style: italic;
 }
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
 // Snapped to the type scale in _tokens.scss; adjacent duplicates are
 // intentional — the scale has fewer steps than Bootstrap's ladder.
 .fs-1 {

@@ -33,7 +33,14 @@ end %>
         <% end %>
       </strong>
     </div>
-    <strong class="ls-num fs-5"><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
+    <div class="d-flex flex-column align-items-end gap-1">
+      <strong class="ls-num fs-5 <%= "text-decoration-line-through text-muted" if participant.paid? %>"><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
+      <% if check.amount_owed_by(participant) > 0 %>
+        <%= button_to toggle_paid_check_participant_path(check, participant), class: "sticker compact#{" done" if participant.paid?}", aria: { pressed: participant.paid? } do %>
+          <i class="bi <%= participant.paid? ? "bi-check-circle-fill" : "bi-circle" %>"></i> <%= participant.paid? ? "Paid" : "Mark paid" %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
   <% if check.split_even? %>

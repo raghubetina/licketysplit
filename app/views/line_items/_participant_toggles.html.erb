@@ -13,18 +13,17 @@
   <div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-2 align-items-center" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
     <% if participants.any? %>
       <%= form_with url: toggle_all_participants_line_item_path(line_item), method: :post, local: true, class: "m-0" do %>
-        <div class="form-check form-switch m-0">
+        <label for="item_<%= line_item.id %>_select_all" class="ls-chip-toggle">
           <%= check_box_tag(
             "item_#{line_item.id}_select_all",
             "1",
             all_selected,
             id: "item_#{line_item.id}_select_all",
-            class: "form-check-input",
-            role: "switch",
             onchange: "this.form.requestSubmit()"
           ) %>
-          <%= label_tag "item_#{line_item.id}_select_all", "Select all", class: "form-check-label" %>
-        </div>
+          <span class="ls-chip-avatar"><i class="bi bi-people-fill"></i></span>
+          <span>Everyone</span>
+        </label>
       <% end %>
     <% end %>
     <% participants.each do |participant| %>

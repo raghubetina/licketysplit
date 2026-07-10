@@ -15,18 +15,7 @@
     </div>
   <% end %>
 
-  <div class="text-center mb-3">
-    <div class="mx-auto" style="max-width: 300px;">
-      <%= qr_code_svg(check_url(@check), level: :m) %>
-    </div>
-    <div class="mt-2"><i class="bi bi-qr-code-scan"></i> Scan to join</div>
-    <button class="sticker primary w-100 mt-2 justify-content-center"
-            data-controller="clipboard"
-            data-clipboard-text-value="<%= check_url(@check) %>"
-            data-action="clipboard#copy">
-      <i class="bi bi-clipboard"></i> Copy link
-    </button>
-  </div>
+  <%= render partial: "checks/share", locals: { check: @check, open: @check.parsing? } %>
 
   <% if @check.parsing? %>
     <div class="row">
@@ -209,5 +198,9 @@
             class: "card-img" %>
       </div>
     <% end %>
+  <% end %>
+
+  <% if !@check.parsing? && @line_items.any? %>
+    <%= render partial: "checks/sticky_summary", locals: { check: @check, line_items: @line_items, show_zero_items: @show_zero_items } %>
   <% end %>
 </div>

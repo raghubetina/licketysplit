@@ -1,0 +1,22 @@
+<%# Accepts: check (required), line_items (required), show_zero_items (optional, defaults to true) %>
+<% show_zero_items = true unless local_assigns.key?(:show_zero_items) %>
+
+<a id="sticky_summary" class="ls-sticky-summary" href="#grand_total">
+  <span>
+    <span class="text-muted small">Total</span>
+    <strong class="ls-num fs-5"><%= format_currency(check.calculated_total, check.currency_symbol) %></strong>
+  </span>
+  <% if check.split_even? %>
+    <span class="ls-sticky-status">
+      <strong class="ls-num"><%= format_currency(check.even_split_amount, check.currency_symbol) %></strong>
+      <span class="text-muted small fw-normal">per person</span>
+    </span>
+  <% else %>
+    <% unassigned_count = line_items.count { |item| item.unallocated_total > 0 && (show_zero_items || item.total_with_addons != 0) } %>
+    <% if unassigned_count > 0 %>
+      <span class="ls-sticky-status attention"><%= unassigned_count %> unassigned</span>
+    <% else %>
+      <span class="ls-sticky-status ok"><i class="bi bi-check-circle"></i> All assigned</span>
+    <% end %>
+  <% end %>
+</a>

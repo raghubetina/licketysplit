@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :participants, only: [:create, :show, :edit, :update, :destroy] do
       member do
         post :toggle_treated
+        post :toggle_paid
       end
     end
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]

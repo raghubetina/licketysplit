@@ -11,7 +11,8 @@
         <%= button_to set_tip_check_global_fees_path(check),
               method: :post,
               params: { percentage: pct },
-              class: "ls-tip-pill#{" active" if is_current}" do %>
+              class: "ls-tip-pill#{" active" if is_current}",
+              aria: { pressed: !!is_current } do %>
           <%= pct %>% (<span class="ls-num"><%= format_currency(tip_amount, check.currency_symbol) %></span>)
         <% end %>
       <% end %>

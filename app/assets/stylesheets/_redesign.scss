@@ -120,6 +120,16 @@
       box-shadow: 0 0 0 0 var(--ls-warn);
     }
   }
+
+  // Completed-state toggle (e.g. "Paid") — pressed, in the good green.
+  &.done,
+  &.done:hover {
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+    background: var(--ls-good-soft);
+    border-color: var(--ls-good);
+    color: oklch(35% 0.18 145);
+  }
 }
 
 // ============================================================
@@ -200,9 +210,12 @@
   border-color: var(--p-color, var(--ls-border)) !important;
 }
 
+// Unassigned is the normal starting state, not an error — a quiet
+// accent bar marks the to-do without alarm. Red stays reserved for
+// real problems (over-assignment, receipt discrepancy).
 .ls-item-unassigned {
-  background: var(--ls-warn-soft) !important;
-  border-color: oklch(64% 0.21 25 / 0.4) !important;
+  background: var(--ls-surface-2) !important;
+  box-shadow: inset 3px 0 0 var(--ls-accent);
 }
 
 // ============================================================
@@ -273,6 +286,82 @@
     background: var(--ls-surface-2);
     border: 1.5px solid var(--ls-border);
     line-height: 1;
+  }
+}
+
+// ============================================================
+// Sticky summary bar — keeps the state of play visible on small
+// screens while people tap chips mid-page. Links to the grand total.
+// ============================================================
+.ls-sticky-summary {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  display: none;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ls-sp-3);
+  padding: var(--ls-sp-3) var(--ls-sp-4)
+    calc(var(--ls-sp-3) + env(safe-area-inset-bottom));
+  background: var(--ls-surface);
+  border-top: 1.5px solid var(--ls-border-strong);
+  box-shadow: 0 -4px 16px -8px oklch(40% 0.06 280 / 0.3);
+  text-decoration: none;
+  color: var(--ls-fg);
+
+  &:hover {
+    color: var(--ls-fg);
+  }
+
+  .ls-sticky-status {
+    font-size: var(--ls-fs-sm);
+    font-weight: 600;
+
+    &.attention {
+      color: var(--ls-accent-strong);
+    }
+    &.ok {
+      color: oklch(40% 0.18 145);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ls-sticky-summary {
+    display: flex;
+  }
+
+  body:has(.ls-sticky-summary) {
+    padding-bottom: 80px;
+  }
+}
+
+// ============================================================
+// Share disclosure — compact pill that expands to the QR code.
+// The summary follows the toggle metaphor: raised closed, pressed open.
+// ============================================================
+.ls-share {
+  text-align: center;
+
+  summary {
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] > summary {
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+    background: var(--ls-accent-soft);
+  }
+
+  .ls-share-body {
+    max-width: 320px;
+    margin-inline: auto;
+    padding-top: var(--ls-sp-3);
   }
 }
 
