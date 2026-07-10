@@ -19,10 +19,12 @@ Rails.application.routes.draw do
     member do
       post :toggle_zero_items
       patch :update_currency
+      patch :update_split_mode
     end
     resources :participants, only: [:create, :show, :edit, :update, :destroy] do
       member do
         post :toggle_treated
+        post :toggle_paid
       end
     end
     resources :line_items, only: [:create, :show, :edit, :update, :destroy]
@@ -38,6 +40,10 @@ Rails.application.routes.draw do
     member do
       post :toggle_participant
       post :toggle_all_participants
+      post :make_uneven
+      post :revert_to_even
+      post :increment_share
+      post :decrement_share
     end
     resources :addons, only: [:show, :edit, :update, :destroy]
   end

@@ -4,6 +4,7 @@
 # Database name: primary
 #
 #  id             :uuid             not null, primary key
+#  shares         :integer          default(1), not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  line_item_id   :uuid             not null
@@ -28,6 +29,7 @@ class LineItemParticipant < ApplicationRecord
     scope: :line_item_id,
     message: "is already associated with this line item"
   }
+  validates :shares, numericality: {only_integer: true, greater_than_or_equal_to: 1}
   validate :participant_belongs_to_same_check
 
   broadcasts_refreshes_to ->(lip) { lip.line_item.check }

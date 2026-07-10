@@ -39,8 +39,8 @@
           Total: <%= format_currency(line_item.total_price, check.currency_symbol) %>
         </div>
         <div class="d-flex gap-2">
-          <%= link_to "Cancel", check_line_item_path(check, line_item), class: "btn btn-sm btn-secondary", data: { turbo_stream: true } %>
-          <%= f.submit "Save", class: "btn btn-sm btn-primary" %>
+          <%= link_to "Cancel", check_line_item_path(check, line_item), class: "sticker ghost compact", data: { turbo_stream: true } %>
+          <%= f.submit "Save", class: "sticker primary compact" %>
         </div>
       </div>
   <% end %>

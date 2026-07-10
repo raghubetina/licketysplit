@@ -1,0 +1,686 @@
+// Licketysplit redesign components.
+// Sits alongside Bootstrap — does NOT replace .card / .container / .grid.
+// Renamed conflicting class names to .ls-* where the mockup overlapped Bootstrap.
+
+// ============================================================
+// Brand wordmark (used in navbar)
+// ============================================================
+.ls-brand {
+  font-family: var(--ls-font-display);
+  font-size: var(--ls-fs-xl);
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  font-variation-settings:
+    'opsz' 144,
+    'SOFT' 100,
+    'wght' 600;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--ls-fg);
+
+  .ls-brand-star {
+    font-size: 0.85em;
+    transform: translateY(-6px) rotate(8deg);
+    display: inline-block;
+    animation: ls-wiggle 4.5s ease-in-out infinite;
+  }
+}
+
+@keyframes ls-wiggle {
+  0%,
+  100% {
+    transform: translateY(-6px) rotate(8deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-12deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-brand .ls-brand-star {
+    animation: none;
+  }
+}
+
+// ============================================================
+// Sticker button — chunky offset shadow style
+// Use on primary CTAs. Coexists with .btn.
+// ============================================================
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-sp-2);
+  padding: var(--ls-sp-3) var(--ls-sp-4);
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-weight: 500;
+  box-shadow: var(--ls-shadow-sticker);
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+  color: var(--ls-fg);
+  font-size: var(--ls-fs-base);
+  text-decoration: none;
+  line-height: 1.2;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: var(--ls-shadow-sticker-hover);
+    color: var(--ls-fg);
+    text-decoration: none;
+  }
+  &:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 0 var(--ls-border-strong);
+  }
+
+  &.primary {
+    background: var(--ls-accent);
+    color: white;
+    border-color: var(--ls-accent-strong);
+    box-shadow: 0 3px 0 0 var(--ls-accent-strong);
+    &:hover {
+      box-shadow: 0 1px 0 0 var(--ls-accent-strong);
+      color: white;
+    }
+    &:active {
+      box-shadow: 0 0 0 0 var(--ls-accent-strong);
+    }
+  }
+
+  &.ghost {
+    background: transparent;
+    box-shadow: none;
+    border-color: var(--ls-border);
+    color: var(--ls-muted);
+    &:hover {
+      transform: none;
+      background: var(--ls-surface-2);
+      color: var(--ls-fg);
+    }
+  }
+
+  &.compact {
+    padding: var(--ls-sp-2) var(--ls-sp-3);
+    font-size: var(--ls-fs-sm);
+  }
+
+  &.danger {
+    color: var(--ls-warn);
+    border-color: var(--ls-warn);
+    box-shadow: 0 3px 0 0 var(--ls-warn);
+    &:hover {
+      box-shadow: 0 1px 0 0 var(--ls-warn);
+      color: var(--ls-warn);
+    }
+    &:active {
+      box-shadow: 0 0 0 0 var(--ls-warn);
+    }
+  }
+
+  // Completed-state toggle (e.g. "Paid") — pressed, in the good green.
+  &.done,
+  &.done:hover {
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+    background: var(--ls-good-soft);
+    border-color: var(--ls-good);
+    color: oklch(35% 0.18 145);
+  }
+}
+
+// ============================================================
+// Per-participant color hook
+// Apply .ls-p-{n} to set --p-color / --p-tint scoped to a subtree.
+// ============================================================
+@for $i from 1 through 8 {
+  .ls-p-#{$i} {
+    --p-color: var(--ls-p#{$i});
+    --p-tint: var(--ls-p#{$i}-tint);
+  }
+}
+
+// Avatar dot — colored bubble with initial
+.ls-avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--p-color, var(--ls-surface-2));
+  color: var(--ls-fg);
+  font-weight: 600;
+  font-size: var(--ls-fs-base);
+  line-height: 1;
+  border: 2px solid var(--ls-fg);
+  box-shadow: 2px 2px 0 var(--ls-fg);
+  font-family: var(--ls-font-body);
+  flex-shrink: 0;
+
+  &.sm {
+    width: 26px;
+    height: 26px;
+    font-size: var(--ls-fs-xs);
+    box-shadow: 1.5px 1.5px 0 var(--ls-fg);
+    border-width: 1.5px;
+  }
+  &.lg {
+    width: 52px;
+    height: 52px;
+    font-size: var(--ls-fs-lg);
+  }
+}
+
+// ============================================================
+// Participant tile / row treatment
+// ============================================================
+.ls-participant-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ls-sp-3);
+
+  .ls-participant-name {
+    font-family: var(--ls-font-display);
+    font-variation-settings:
+      'opsz' 40,
+      'SOFT' 80,
+      'wght' 500;
+    font-size: var(--ls-fs-lg);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ls-fg);
+  }
+
+  .ls-participant-meta {
+    font-size: var(--ls-fs-sm);
+    color: var(--ls-muted);
+    margin-top: var(--ls-sp-1);
+  }
+}
+
+// ============================================================
+// Line item tinting — when a single participant owns an item
+// Add .ls-item-tinted and set the .ls-p-{n} on the same element.
+// ============================================================
+.ls-item-tinted {
+  background: var(--p-tint, transparent) !important;
+  border-color: var(--p-color, var(--ls-border)) !important;
+}
+
+// Unassigned is the normal starting state, not an error — a quiet
+// accent bar marks the to-do without alarm. Red stays reserved for
+// real problems (over-assignment, receipt discrepancy).
+.ls-item-unassigned {
+  background: var(--ls-surface-2) !important;
+  box-shadow: inset 3px 0 0 var(--ls-accent);
+}
+
+// ============================================================
+// Chip — pill-shaped participant toggle (replaces Bootstrap switch
+// styling when used on the line item participant toggles).
+// Used as a visual upgrade for form-switch rows.
+// ============================================================
+.ls-chip-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-sp-2);
+  padding: var(--ls-sp-1) var(--ls-sp-3) var(--ls-sp-1) var(--ls-sp-1);
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-size: var(--ls-fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--ls-muted);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  line-height: 1.1;
+  margin: 0;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--ls-border-strong);
+  }
+
+  // "on" state — driven by the underlying checkbox via :has().
+  // Pressed-in look: sits low, no drop shadow, inner shadow instead —
+  // the inverse of the raised unchecked sticker.
+  &:has(input:checked) {
+    background: var(--p-color, var(--ls-accent));
+    color: var(--ls-fg);
+    border-color: var(--ls-fg);
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+  }
+  &:has(input:checked):hover {
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+  }
+
+  // hide the underlying checkbox but keep it operational
+  input[type='checkbox'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .ls-chip-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: var(--ls-fs-xs);
+    font-weight: 600;
+    background: var(--ls-surface-2);
+    border: 1.5px solid var(--ls-border);
+    line-height: 1;
+  }
+}
+
+// ============================================================
+// Sticky summary bar — keeps the state of play visible on small
+// screens while people tap chips mid-page. Links to the grand total.
+// ============================================================
+.ls-sticky-summary {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 50;
+  display: none;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--ls-sp-3);
+  padding: var(--ls-sp-3) var(--ls-sp-4)
+    calc(var(--ls-sp-3) + env(safe-area-inset-bottom));
+  background: var(--ls-surface);
+  border-top: 1.5px solid var(--ls-border-strong);
+  box-shadow: 0 -4px 16px -8px oklch(40% 0.06 280 / 0.3);
+  text-decoration: none;
+  color: var(--ls-fg);
+
+  &:hover {
+    color: var(--ls-fg);
+  }
+
+  .ls-sticky-status {
+    font-size: var(--ls-fs-sm);
+    font-weight: 600;
+
+    &.attention {
+      color: var(--ls-accent-strong);
+    }
+    &.ok {
+      color: oklch(40% 0.18 145);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ls-sticky-summary {
+    display: flex;
+  }
+
+  body:has(.ls-sticky-summary) {
+    padding-bottom: 80px;
+  }
+}
+
+// ============================================================
+// Share disclosure — compact pill that expands to the QR code.
+// The summary follows the toggle metaphor: raised closed, pressed open.
+// ============================================================
+.ls-share {
+  text-align: center;
+
+  summary {
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] > summary {
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+    background: var(--ls-accent-soft);
+  }
+
+  .ls-share-body {
+    max-width: 320px;
+    margin-inline: auto;
+    padding-top: var(--ls-sp-3);
+  }
+}
+
+// ============================================================
+// Tip pill — small percentage suggestion buttons on the fees card
+// ============================================================
+.ls-tip-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ls-sp-1);
+  padding: var(--ls-sp-1) var(--ls-sp-3);
+  background: var(--ls-surface);
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  font-size: var(--ls-fs-sm);
+  font-weight: 500;
+  color: var(--ls-muted);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+  line-height: 1.2;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--ls-border-strong);
+    color: var(--ls-fg);
+  }
+
+  &.active,
+  &.active:hover {
+    background: var(--ls-good-soft);
+    border-color: var(--ls-good);
+    color: oklch(35% 0.18 145);
+    transform: translateY(2px);
+    box-shadow: var(--ls-shadow-pressed);
+  }
+}
+
+// ============================================================
+// Split-mode toggle — itemized vs even
+// ============================================================
+.ls-mode-toggle {
+  display: flex;
+  gap: var(--ls-sp-3);
+
+  form {
+    display: contents;
+  }
+
+  .ls-mode-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ls-sp-1);
+    padding: var(--ls-sp-3) var(--ls-sp-4);
+    background: var(--ls-surface);
+    border: 1.5px solid var(--ls-border-strong);
+    border-radius: var(--ls-r-md);
+    color: var(--ls-muted);
+    text-align: start;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 0 var(--ls-border-strong);
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+
+    .ls-mode-title {
+      font-family: var(--ls-font-display);
+      font-variation-settings:
+        'opsz' 60,
+        'SOFT' 80,
+        'wght' 500;
+      font-size: var(--ls-fs-lg);
+      color: var(--ls-fg);
+    }
+
+    .ls-mode-sub {
+      font-size: var(--ls-fs-sm);
+    }
+
+    &:hover {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 var(--ls-border-strong);
+    }
+
+    &.active,
+    &.active:hover {
+      background: var(--ls-accent-soft);
+      transform: translateY(2px);
+      box-shadow: var(--ls-shadow-pressed);
+
+      .ls-mode-title {
+        color: var(--ls-accent-strong);
+      }
+    }
+  }
+}
+
+// ============================================================
+// Even-split pane — big per-person figure
+// ============================================================
+.ls-even-pane {
+  padding: var(--ls-sp-6) var(--ls-sp-4);
+  text-align: center;
+
+  .ls-even-amount {
+    font-family: var(--ls-font-display);
+    font-variation-settings:
+      'opsz' 144,
+      'SOFT' 90,
+      'wght' 600;
+    font-size: var(--ls-fs-display);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .ls-even-caption {
+    margin-top: var(--ls-sp-2);
+    color: var(--ls-muted);
+    font-size: var(--ls-fs-sm);
+  }
+
+  .ls-even-treated {
+    margin-top: var(--ls-sp-3);
+    font-size: var(--ls-fs-sm);
+    color: oklch(40% 0.18 145);
+    background: var(--ls-good-soft);
+    border-radius: var(--ls-r-md);
+    padding: var(--ls-sp-2) var(--ls-sp-3);
+    display: inline-block;
+  }
+}
+
+// ============================================================
+// Uneven shares pane — "who had how many" stepper rows
+// ============================================================
+.ls-shares-pane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ls-sp-2);
+  width: 100%;
+
+  .ls-shares-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--ls-sp-3);
+    padding-bottom: var(--ls-sp-2);
+    border-bottom: 1px dashed var(--ls-border);
+    font-size: var(--ls-fs-base);
+  }
+
+  .ls-shares-status {
+    font-size: var(--ls-fs-xs);
+    color: var(--ls-muted);
+
+    &.warn {
+      color: var(--ls-accent-strong);
+      font-weight: 600;
+    }
+    &.ok {
+      color: oklch(40% 0.18 145);
+      font-weight: 600;
+    }
+  }
+
+  .ls-share-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: var(--ls-sp-3);
+    align-items: center;
+
+    .ls-share-name {
+      font-size: var(--ls-fs-base);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .ls-share-amount {
+      min-width: 64px;
+      text-align: end;
+      color: var(--ls-muted);
+    }
+
+    &.has-share .ls-share-amount {
+      color: var(--ls-fg);
+    }
+  }
+
+  .ls-shares-foot {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: var(--ls-sp-1);
+  }
+}
+
+.ls-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  background: var(--ls-surface);
+  overflow: hidden;
+
+  form {
+    display: contents;
+  }
+
+  button {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    font-size: var(--ls-fs-lg);
+    line-height: 1;
+    color: var(--ls-fg);
+
+    &:hover {
+      background: var(--ls-surface-2);
+    }
+    &:disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+
+  .ls-stepper-count {
+    min-width: 28px;
+    text-align: center;
+    font-size: var(--ls-fs-base);
+  }
+}
+
+// ============================================================
+// Totals card — dark surface used for the grand total
+// ============================================================
+.ls-totals-card {
+  background: var(--ls-fg);
+  color: var(--ls-surface);
+  border-radius: var(--ls-r-lg);
+  padding: var(--ls-sp-5);
+  margin-top: var(--ls-sp-4);
+
+  .ls-totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--ls-sp-1) 0;
+    font-size: var(--ls-fs-sm);
+    color: oklch(85% 0.04 290);
+  }
+  .ls-totals-grand {
+    border-top: 1px solid oklch(40% 0.05 290);
+    padding-top: var(--ls-sp-3);
+    margin-top: var(--ls-sp-2);
+    font-family: var(--ls-font-display);
+    font-variation-settings:
+      'opsz' 144,
+      'SOFT' 90,
+      'wght' 600;
+    font-size: var(--ls-fs-display);
+    color: var(--ls-surface);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// ============================================================
+// "All clear" banner — shown when nothing is unassigned
+// ============================================================
+.ls-all-clear {
+  margin-top: var(--ls-sp-4);
+  padding: var(--ls-sp-3) var(--ls-sp-4);
+  background: var(--ls-good-soft);
+  color: oklch(40% 0.18 145);
+  border-radius: var(--ls-r-md);
+  font-size: var(--ls-fs-base);
+  font-weight: 500;
+  text-align: center;
+}
+
+// ============================================================
+// Typography helpers (display serif)
+// ============================================================
+.ls-display {
+  font-family: var(--ls-font-display);
+  font-variation-settings:
+    'opsz' 60,
+    'SOFT' 80,
+    'wght' 500;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+}
+
+// Amounts stay in the body sans for legibility; only the big display
+// moments (grand total, even-split figure) use the serif via their own
+// more-specific rules.
+.ls-num {
+  font-family: var(--ls-font-body);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+// ============================================================
+// Body bg dot grid
+// ============================================================
+body {
+  background-color: var(--ls-bg);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--ls-bg-dot) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 28px 28px;
+}

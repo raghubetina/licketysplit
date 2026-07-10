@@ -1,8 +1,8 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static values = {
-    url: String
+    url: String,
   }
 
   toggle(event) {
@@ -10,15 +10,21 @@ export default class extends Controller {
     const participantId = checkbox.value
 
     fetch(this.urlValue, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')
+          .content,
       },
-      body: JSON.stringify({ participant_id: participantId })
-    }).catch(error => {
-      console.error("Toggle failed:", error)
-      checkbox.checked = !checkbox.checked
+      body: JSON.stringify({ participant_id: participantId }),
     })
+      .then((response) => {
+        // fetch only rejects on network failures; HTTP errors resolve
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      })
+      .catch((error) => {
+        console.error('Toggle failed:', error)
+        checkbox.checked = !checkbox.checked
+      })
   }
 }

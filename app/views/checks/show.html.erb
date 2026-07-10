@@ -2,31 +2,20 @@
 
 <div class="py-3">
   <% if flash[:alert] %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" data-controller="dismiss">
       <%= flash[:alert] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <button type="button" class="btn-close" data-action="dismiss#close"></button>
     </div>
   <% end %>
 
   <% if flash[:notice] %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" data-controller="dismiss">
       <%= flash[:notice] %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      <button type="button" class="btn-close" data-action="dismiss#close"></button>
     </div>
   <% end %>
 
-  <div class="text-center mb-3">
-    <div class="mx-auto" style="max-width: 300px;">
-      <%= qr_code_svg(check_url(@check), level: :m) %>
-    </div>
-    <div class="mt-2"><i class="bi bi-qr-code-scan"></i> Scan to join</div>
-    <button class="btn btn-primary w-100 mt-2"
-            data-controller="clipboard"
-            data-clipboard-text-value="<%= check_url(@check) %>"
-            data-action="clipboard#copy">
-      <i class="bi bi-clipboard"></i> Copy link
-    </button>
-  </div>
+  <%= render partial: "checks/share", locals: { check: @check, open: @check.parsing? } %>
 
   <% if @check.parsing? %>
     <div class="row">
@@ -96,7 +85,7 @@
 
   <div class="card mb-3">
     <div class="card-header py-3">
-      <strong><%= t("participants.header") %></strong>
+      <strong class="ls-display fs-5"><%= t("participants.header") %></strong>
     </div>
 
     <ul class="list-group list-group-flush">
@@ -118,15 +107,30 @@
       No items found on this receipt.
     </div>
   <% else %>
+    <div class="ls-mode-toggle mb-3" role="group" aria-label="Split mode">
+      <%= button_to update_split_mode_check_path(@check, split_mode: "itemized"), method: :patch, class: "ls-mode-tab #{"active" if @check.split_itemized?}", "aria-pressed": @check.split_itemized? do %>
+        <span class="ls-mode-title">Itemized</span>
+        <span class="ls-mode-sub">Pay for what you had</span>
+      <% end %>
+      <%= button_to update_split_mode_check_path(@check, split_mode: "even"), method: :patch, class: "ls-mode-tab #{"active" if @check.split_even?}", "aria-pressed": @check.split_even? do %>
+        <span class="ls-mode-title">Even split</span>
+        <span class="ls-mode-sub">Divide it equally</span>
+      <% end %>
+    </div>
+
+    <% if @check.split_even? %>
+      <%= render partial: "checks/even_split_pane", locals: { check: @check } %>
+    <% end %>
+
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Items</strong>
+        <strong class="ls-display fs-5">Items</strong>
       </div>
 
       <ul id="line_items_list" class="list-group list-group-flush">
         <% @line_items.each do |item| %>
           <% next if !@show_zero_items && item.total_with_addons == 0 %>
-          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items } %>
+          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items, show_assignment: @check.split_itemized? } %>
         <% end %>
         <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
       </ul>
@@ -136,7 +140,7 @@
 
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Discounts</strong>
+        <strong class="ls-display fs-5">Discounts</strong>
       </div>
 
       <ul class="list-group list-group-flush">
@@ -153,7 +157,7 @@
 
     <div class="card mb-3">
       <div class="card-header py-3">
-        <strong>Tax, tip, and other fees</strong>
+        <strong class="ls-display fs-5">Tax, tip, and other fees</strong>
       </div>
 
       <ul class="list-group list-group-flush">
@@ -180,7 +184,7 @@
   <% if @check.reasoning.present? %>
     <details class="mt-3">
       <summary><i class="bi bi-robot"></i> AI reasoning</summary>
-      <div class="fst-italic mt-2 px-2"><%= Kramdown::Document.new(@check.reasoning).to_html.html_safe %></div>
+      <div class="fst-italic mt-2 px-2"><%= sanitize(Kramdown::Document.new(@check.reasoning).to_html) %></div>
     </details>
   <% end %>
 
@@ -194,5 +198,9 @@
             class: "card-img" %>
       </div>
     <% end %>
+  <% end %>
+
+  <% if !@check.parsing? && @line_items.any? %>
+    <%= render partial: "checks/sticky_summary", locals: { check: @check, line_items: @line_items, show_zero_items: @show_zero_items } %>
   <% end %>
 </div>

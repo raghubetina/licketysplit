@@ -1,7 +1,9 @@
-// Order matters: overrides, then Bootswatch variables, then Bootstrap, then Bootswatch customizations
-@import 'bootstrap-overrides';
-@import 'bootswatch/dist/brite/variables';
-@import 'bootstrap/scss/bootstrap';
-@import 'bootswatch/dist/brite/bootswatch';
+// Hand-rolled stylesheet. Order matters.
+// Filename kept (.bootstrap.scss) so package.json build script doesn't need to change.
+@import 'tokens';
+@import 'reset';
+@import 'utilities';
+@import 'components';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'custom';
+@import 'redesign';

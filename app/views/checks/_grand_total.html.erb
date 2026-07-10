@@ -1,8 +1,26 @@
 <%# Accepts: check (required) %>
 <div id="grand_total" class="card-footer py-3 px-3">
-  <div class="d-flex justify-content-between h4 mb-0">
-    <strong>Grand total</strong>
-    <strong><%= format_currency(check.calculated_total, check.currency_symbol) %></strong>
+  <div class="ls-totals-card">
+    <div class="ls-totals-row">
+      <span>Subtotal</span>
+      <span class="ls-num"><%= format_currency(check.subtotal, check.currency_symbol) %></span>
+    </div>
+    <% if check.total_discounts > 0 %>
+      <div class="ls-totals-row">
+        <span>Discounts</span>
+        <span class="ls-num">-<%= format_currency(check.total_discounts, check.currency_symbol) %></span>
+      </div>
+    <% end %>
+    <% if check.total_fees > 0 %>
+      <div class="ls-totals-row">
+        <span>Tax, tip &amp; other fees</span>
+        <span class="ls-num"><%= format_currency(check.total_fees, check.currency_symbol) %></span>
+      </div>
+    <% end %>
+    <div class="ls-totals-grand">
+      <span class="ls-display">Grand total</span>
+      <span><%= format_currency(check.calculated_total, check.currency_symbol) %></span>
+    </div>
   </div>
   <% tip_amount = check.has_tip? ? check.tip.amount : 0 %>
   <% if check.grand_total.present? && check.grand_total != check.calculated_total && check.grand_total != check.calculated_total - tip_amount %>
@@ -10,7 +28,7 @@
       <i class="bi bi-exclamation-triangle"></i> Discrepancy: receipt showed <%= format_currency(check.grand_total, check.currency_symbol) %>. Consider double-checking everything.
     </div>
   <% elsif check.grand_total.present? %>
-    <div class="text-success-emphasis mt-2">
+    <div class="ls-all-clear mt-2">
       <i class="bi bi-check-circle"></i> Matches receipt<%= " and additional tip" if check.grand_total != check.calculated_total %>
     </div>
   <% end %>

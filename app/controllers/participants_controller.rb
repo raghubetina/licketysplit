@@ -2,7 +2,7 @@ class ParticipantsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :set_check
-  before_action :set_participant, only: [:show, :edit, :update, :destroy, :toggle_treated]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, :toggle_treated, :toggle_paid]
 
   def create
     @participant = @check.participants.build(participant_params)
@@ -56,6 +56,15 @@ class ParticipantsController < ApplicationController
     else
       redirect_to @check, alert: @participant.errors.full_messages.to_sentence, status: :see_other
     end
+  end
+
+  def toggle_paid
+    if @participant.paid?
+      @participant.mark_as_unpaid!
+    else
+      @participant.mark_as_paid!
+    end
+    redirect_to @check, status: :see_other
   end
 
   private

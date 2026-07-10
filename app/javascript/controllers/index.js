@@ -2,16 +2,22 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from './application'
 
-import AutogrowController from "./autogrow_controller"
-application.register("autogrow", AutogrowController)
+import AutogrowController from './autogrow_controller'
+application.register('autogrow', AutogrowController)
 
-import CheckboxToggleController from "./checkbox_toggle_controller"
-application.register("checkbox-toggle", CheckboxToggleController)
+import CheckboxToggleController from './checkbox_toggle_controller'
+application.register('checkbox-toggle', CheckboxToggleController)
 
-import ClipboardController from "./clipboard_controller"
-application.register("clipboard", ClipboardController)
+import ClipboardController from './clipboard_controller'
+application.register('clipboard', ClipboardController)
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
+import DismissController from './dismiss_controller'
+application.register('dismiss', DismissController)
+
+import HelloController from './hello_controller'
+application.register('hello', HelloController)
+
+import ShareStepperController from './share_stepper_controller'
+application.register('share-stepper', ShareStepperController)

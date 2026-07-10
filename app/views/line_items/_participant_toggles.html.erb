@@ -1,38 +1,46 @@
 <%# Accepts: line_item (required), check (optional), participants (optional) %>
 <% check ||= line_item.check %>
 <% participants ||= check.participants.order(:name) %>
-<% participant_ids = participants.map(&:id).sort %>
-<% all_selected = participant_ids.any? && line_item.participant_ids.sort == participant_ids %>
 
-<div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-3" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
-  <% if participants.any? %>
-    <%= form_with url: toggle_all_participants_line_item_path(line_item), method: :post, local: true, class: "m-0" do %>
-      <div class="form-check form-switch m-0">
-        <%= check_box_tag(
-          "item_#{line_item.id}_select_all",
-          "1",
-          all_selected,
-          id: "item_#{line_item.id}_select_all",
-          class: "form-check-input",
-          role: "switch",
-          onchange: "this.form.requestSubmit()"
-        ) %>
-        <%= label_tag "item_#{line_item.id}_select_all", "Select all", class: "form-check-label" %>
-      </div>
+<% if line_item.uneven_split? %>
+  <div id="<%= dom_id(line_item, :participant_toggles) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.line_item_participants.sort_by(&:participant_id).map { |lip| "#{lip.participant_id}:#{lip.shares}" }.join(",") %>">
+    <%= render partial: "line_items/shares_pane", locals: { line_item: line_item, check: check, participants: participants } %>
+  </div>
+<% else %>
+  <% participant_ids = participants.map(&:id).sort %>
+  <% all_selected = participant_ids.any? && line_item.participant_ids.sort == participant_ids %>
+
+  <div id="<%= dom_id(line_item, :participant_toggles) %>" class="d-flex flex-wrap gap-2 align-items-center" data-controller="checkbox-toggle" data-checkbox-toggle-url-value="<%= toggle_participant_line_item_path(line_item) %>" data-turbo-refresh-animate="change" data-turbo-refresh-version="<%= line_item.participant_ids.sort.join(',') %>">
+    <% if participants.any? %>
+      <%= form_with url: toggle_all_participants_line_item_path(line_item), method: :post, local: true, class: "m-0" do %>
+        <label for="item_<%= line_item.id %>_select_all" class="ls-chip-toggle">
+          <%= check_box_tag(
+            "item_#{line_item.id}_select_all",
+            "1",
+            all_selected,
+            id: "item_#{line_item.id}_select_all",
+            onchange: "this.form.requestSubmit()"
+          ) %>
+          <span class="ls-chip-avatar"><i class="bi bi-people-fill"></i></span>
+          <span>Everyone</span>
+        </label>
+      <% end %>
     <% end %>
-  <% end %>
-  <% participants.each do |participant| %>
-    <div class="form-check form-switch m-0">
-      <%= check_box_tag "participant_#{participant.id}",
-          participant.id,
-          line_item.participant_ids.include?(participant.id),
-          id: "item_#{line_item.id}_participant_#{participant.id}",
-          class: "form-check-input",
-          role: "switch",
-          data: { action: "change->checkbox-toggle#toggle" } %>
-      <%= label_tag "item_#{line_item.id}_participant_#{participant.id}",
-          participant.name,
-          class: "form-check-label" %>
-    </div>
-  <% end %>
-</div>
+    <% participants.each do |participant| %>
+      <label for="item_<%= line_item.id %>_participant_<%= participant.id %>" class="ls-chip-toggle <%= participant_color_class(participant) %>">
+        <%= check_box_tag "participant_#{participant.id}",
+            participant.id,
+            line_item.participant_ids.include?(participant.id),
+            id: "item_#{line_item.id}_participant_#{participant.id}",
+            data: { action: "change->checkbox-toggle#toggle" } %>
+        <span class="ls-chip-avatar" style="background: var(--p-color);"><%= participant_initial(participant) %></span>
+        <span><%= participant.name %></span>
+      </label>
+    <% end %>
+    <% if line_item.quantity > 1 && participants.any? %>
+      <%= button_to make_uneven_line_item_path(line_item), class: "sticker ghost compact", title: "Give people different quantities" do %>
+        <i class="bi bi-sliders"></i> Uneven
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

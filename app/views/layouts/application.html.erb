@@ -27,7 +27,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=Fraunces:opsz,wght,SOFT@9..144,400..700,30..100&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -37,8 +37,10 @@
   <body>
     <nav class="navbar navbar-light bg-light border-bottom mb-3">
       <div class="container">
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <i class="bi bi-check2-square"></i> Lickety Split
+        <%= link_to root_path, class: "navbar-brand p-0" do %>
+          <span class="ls-brand">
+            licketysplit<span class="ls-brand-star">&#10024;</span>
+          </span>
         <% end %>
       </div>
     </nav>
