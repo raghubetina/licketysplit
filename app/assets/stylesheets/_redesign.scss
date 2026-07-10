@@ -234,15 +234,19 @@
     box-shadow: 0 1px 0 var(--ls-border-strong);
   }
 
-  // "on" state — driven by the underlying checkbox via :has()
+  // "on" state — driven by the underlying checkbox via :has().
+  // Pressed-in look: sits low, no drop shadow, inner shadow instead —
+  // the inverse of the raised unchecked sticker.
   &:has(input:checked) {
     background: var(--p-color, var(--ls-accent));
     color: var(--ls-fg);
     border-color: var(--ls-fg);
-    box-shadow: 0 2px 0 var(--ls-fg);
+    transform: translateY(2px);
+    box-shadow: inset 0 2px 3px oklch(24% 0.05 295 / 0.35);
   }
   &:has(input:checked):hover {
-    box-shadow: 0 1px 0 var(--ls-fg);
+    transform: translateY(2px);
+    box-shadow: inset 0 2px 3px oklch(24% 0.05 295 / 0.35);
   }
 
   // hide the underlying checkbox but keep it operational
