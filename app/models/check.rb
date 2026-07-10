@@ -117,10 +117,7 @@ class Check < ApplicationRecord
   private
 
   def calculate_base_amount(participant)
-    base_amount = line_items
-      .joins(:line_item_participants)
-      .where(line_item_participants: {participant_id: participant.id})
-      .sum { |item| item.amount_per_participant }
+    base_amount = line_items.sum { |item| item.amount_for(participant) }
 
     net_adjustment = total_fees - total_discounts
     if subtotal > 0 && net_adjustment != 0

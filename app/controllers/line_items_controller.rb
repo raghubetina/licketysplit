@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include ActionView::RecordIdentifier
 
   before_action :set_check, only: [:create, :show, :edit, :update, :destroy]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :toggle_participant, :toggle_all_participants]
+  before_action :set_line_item, only: [:show, :edit, :update, :destroy, :toggle_participant, :toggle_all_participants, :make_uneven, :revert_to_even, :increment_share, :decrement_share]
 
   def create
     @line_item = @check.line_items.build(line_item_params)
@@ -78,6 +78,44 @@ class LineItemsController < ApplicationController
     end
 
     redirect_to check, status: :see_other
+  end
+
+  def make_uneven
+    @line_item.enable_uneven_split!
+    redirect_to @line_item.check, status: :see_other
+  end
+
+  def revert_to_even
+    @line_item.revert_to_even_split!
+    redirect_to @line_item.check, status: :see_other
+  end
+
+  def increment_share
+    participant = Participant.find(params[:participant_id])
+    line_item_participant = @line_item.line_item_participants.find_by(participant: participant)
+
+    if line_item_participant
+      line_item_participant.update!(shares: line_item_participant.shares + 1)
+    else
+      @line_item.line_item_participants.create!(participant: participant, shares: 1)
+    end
+
+    redirect_to @line_item.check, status: :see_other
+  end
+
+  def decrement_share
+    participant = Participant.find(params[:participant_id])
+    line_item_participant = @line_item.line_item_participants.find_by(participant: participant)
+
+    if line_item_participant
+      if line_item_participant.shares <= 1
+        line_item_participant.destroy
+      else
+        line_item_participant.update!(shares: line_item_participant.shares - 1)
+      end
+    end
+
+    redirect_to @line_item.check, status: :see_other
   end
 
   private

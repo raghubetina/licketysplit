@@ -4,7 +4,7 @@
 
 <% participant_items = line_items.select { |item| item.participant_ids.include?(participant.id) } %>
 <% display_items = show_zero_items ? participant_items : participant_items.reject { |item| item.total_with_addons == 0 } %>
-<% items_subtotal = participant_items.sum { |item| item.amount_per_participant } %>
+<% items_subtotal = participant_items.sum { |item| item.amount_for(participant) } %>
 <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
 <% treated_coverage_amount = check.treated_coverage_amount_for(participant) %>
 <% treated_participants = check.treated_participants %>
@@ -38,14 +38,18 @@ end %>
 
   <% if participant_items.any? %>
     <% display_items.each do |item| %>
-      <% share = item.amount_per_participant %>
+      <% share = item.amount_for(participant) %>
       <div class="d-flex justify-content-between text-muted">
         <span>
           <%= item.description %>
-          <% other_participants = item.participants.reject { |p| p.id == participant.id } %>
-          <% if other_participants.any? %>
-            <% shared_text = item.participants.size == check.participants.size ? "all" : other_participants.map(&:name).to_sentence %>
-            <span class="text-muted">(shared with <%= shared_text %>)</span>
+          <% if item.uneven_split? %>
+            <span class="text-muted">(<%= item.shares_for(participant) %> of <%= item.quantity %> @ <%= format_currency(item.unit_price, check.currency_symbol) %> each)</span>
+          <% else %>
+            <% other_participants = item.participants.reject { |p| p.id == participant.id } %>
+            <% if other_participants.any? %>
+              <% shared_text = item.participants.size == check.participants.size ? "all" : other_participants.map(&:name).to_sentence %>
+              <span class="text-muted">(shared with <%= shared_text %>)</span>
+            <% end %>
           <% end %>
         </span>
         <span><%= format_currency(share, check.currency_symbol) %></span>

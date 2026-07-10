@@ -1,0 +1,41 @@
+<%# Accepts: line_item (required), check (required), participants (required) %>
+<% assigned = line_item.total_assigned_shares %>
+<% remaining = line_item.quantity - assigned %>
+
+<div class="ls-shares-pane">
+  <div class="ls-shares-head">
+    <span class="ls-display">Who had how many?</span>
+    <% if remaining > 0 %>
+      <span class="ls-shares-status warn"><strong><%= remaining %></strong> of <%= line_item.quantity %> unassigned</span>
+    <% elsif remaining < 0 %>
+      <span class="ls-shares-status warn">over by <strong><%= remaining.abs %></strong></span>
+    <% else %>
+      <span class="ls-shares-status ok">all <%= line_item.quantity %> accounted for</span>
+    <% end %>
+  </div>
+
+  <% participants.each do |participant| %>
+    <% shares = line_item.shares_for(participant) %>
+    <div class="ls-share-row <%= participant_color_class(participant) %> <%= "has-share" if shares > 0 %>">
+      <span class="ls-avatar sm"><%= participant_initial(participant) %></span>
+      <span class="ls-share-name"><%= participant.name %></span>
+      <div class="ls-stepper">
+        <%= button_to "−", decrement_share_line_item_path(line_item, participant_id: participant.id),
+              id: "#{dom_id(line_item)}_share_minus_#{participant.id}",
+              disabled: shares == 0,
+              "aria-label": "Remove one from #{participant.name}" %>
+        <span class="ls-stepper-count ls-num"><%= shares %></span>
+        <%= button_to "+", increment_share_line_item_path(line_item, participant_id: participant.id),
+              id: "#{dom_id(line_item)}_share_plus_#{participant.id}",
+              "aria-label": "Add one to #{participant.name}" %>
+      </div>
+      <span class="ls-share-amount ls-num"><%= (shares > 0) ? format_currency(shares * line_item.unit_price, check.currency_symbol) : "—" %></span>
+    </div>
+  <% end %>
+
+  <div class="ls-shares-foot">
+    <%= button_to revert_to_even_line_item_path(line_item), class: "sticker ghost compact" do %>
+      <i class="bi bi-arrow-counterclockwise"></i> Even split
+    <% end %>
+  </div>
+</div>

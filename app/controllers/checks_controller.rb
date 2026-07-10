@@ -10,7 +10,7 @@ class ChecksController < ApplicationController
   def show
     track_visited_check(@check.id)
     @show_zero_items = cookies[:show_zero_items] == "true"
-    @line_items = @check.line_items.includes(:addons, :participants).order(:position)
+    @line_items = @check.line_items.includes(:addons, :participants, :line_item_participants).order(:position)
     @global_fees = @check.global_fees
     @global_discounts = @check.global_discounts
     @participants = @check.participants.order(:name)

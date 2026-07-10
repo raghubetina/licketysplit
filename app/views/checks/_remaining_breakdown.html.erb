@@ -2,10 +2,10 @@
 <% line_items ||= check.line_items.includes(:participants, :addons).order(:position, :created_at) %>
 <% show_zero_items = true unless local_assigns.key?(:show_zero_items) %>
 
-<% unassigned_items = line_items.select { |item| item.participants_count == 0 } %>
+<% unassigned_items = line_items.select { |item| item.unallocated_total > 0 } %>
 <% unassigned_items = unassigned_items.reject { |item| item.total_with_addons == 0 } unless show_zero_items %>
 <% if unassigned_items.any? %>
-  <% unassigned_subtotal = unassigned_items.sum { |item| item.total_with_addons } %>
+  <% unassigned_subtotal = unassigned_items.sum { |item| item.unallocated_total } %>
   <% unassigned_proportion = check.subtotal > 0 ? unassigned_subtotal / check.subtotal : 0 %>
   <div id="remaining_breakdown" class="card-footer py-3 px-3 d-flex flex-column gap-3">
     <div class="d-flex justify-content-between align-items-center">
@@ -21,8 +21,13 @@
 
     <% unassigned_items.each do |item| %>
       <div class="d-flex justify-content-between text-muted">
-        <span><%= item.description %></span>
-        <span class="ls-num"><%= format_currency(item.total_with_addons, check.currency_symbol) %></span>
+        <span>
+          <%= item.description %>
+          <% if item.uneven_split? && item.total_assigned_shares > 0 %>
+            <span class="text-muted">(<%= item.quantity - item.total_assigned_shares %> of <%= item.quantity %> unclaimed)</span>
+          <% end %>
+        </span>
+        <span class="ls-num"><%= format_currency(item.unallocated_total, check.currency_symbol) %></span>
       </div>
     <% end %>
 

@@ -317,6 +317,106 @@
 }
 
 // ============================================================
+// Uneven shares pane — "who had how many" stepper rows
+// ============================================================
+.ls-shares-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  .ls-shares-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--ls-border);
+    font-size: 1rem;
+  }
+
+  .ls-shares-status {
+    font-size: 0.8rem;
+    color: var(--ls-muted);
+
+    &.warn {
+      color: var(--ls-accent-strong);
+      font-weight: 600;
+    }
+    &.ok {
+      color: oklch(40% 0.18 145);
+      font-weight: 600;
+    }
+  }
+
+  .ls-share-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+
+    .ls-share-name {
+      font-size: 0.95rem;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .ls-share-amount {
+      min-width: 64px;
+      text-align: end;
+      color: var(--ls-muted);
+    }
+
+    &.has-share .ls-share-amount {
+      color: var(--ls-fg);
+    }
+  }
+
+  .ls-shares-foot {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+  }
+}
+
+.ls-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--ls-border-strong);
+  border-radius: var(--ls-r-pill);
+  background: var(--ls-surface);
+  overflow: hidden;
+
+  form {
+    display: contents;
+  }
+
+  button {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: var(--ls-fg);
+
+    &:hover {
+      background: var(--ls-surface-2);
+    }
+    &:disabled {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+  }
+
+  .ls-stepper-count {
+    min-width: 28px;
+    text-align: center;
+    font-size: 1rem;
+  }
+}
+
+// ============================================================
 // Totals card — dark surface used for the grand total
 // ============================================================
 .ls-totals-card {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_19_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_10_215452) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -198,6 +198,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_120000) do
     t.uuid "participant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "shares", default: 1, null: false
     t.index ["line_item_id", "participant_id"], name: "index_line_item_participants_unique", unique: true
     t.index ["line_item_id"], name: "index_line_item_participants_on_line_item_id"
     t.index ["participant_id"], name: "index_line_item_participants_on_participant_id"
@@ -215,6 +216,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_120000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position", default: 0
+    t.boolean "uneven_split", default: false, null: false
     t.index ["check_id"], name: "index_line_items_on_check_id"
   end
 

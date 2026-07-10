@@ -38,6 +38,10 @@ Rails.application.routes.draw do
     member do
       post :toggle_participant
       post :toggle_all_participants
+      post :make_uneven
+      post :revert_to_even
+      post :increment_share
+      post :decrement_share
     end
     resources :addons, only: [:show, :edit, :update, :destroy]
   end
