@@ -4,7 +4,6 @@ class ChecksController < ApplicationController
   def index
     @check = Check.new
     @recent_checks = load_recent_checks
-    @all_checks = Check.order(created_at: :desc) if session[:show_all_checks]
   end
 
   def show
@@ -44,11 +43,6 @@ class ChecksController < ApplicationController
 
   def new
     redirect_to checks_path
-  end
-
-  def backdoor
-    session[:show_all_checks] = true
-    redirect_to root_path
   end
 
   def create
@@ -117,7 +111,7 @@ class ChecksController < ApplicationController
   def check_params
     params.require(:check).permit(
       :restaurant_name, :restaurant_address, :restaurant_phone_number,
-      :billed_on, :grand_total, :currency, :status,
+      :billed_on, :grand_total, :currency,
       line_items_attributes: [:id, :description, :quantity, :unit_price,
         :total_price, :discount, :discount_description, :_destroy, participant_ids: []],
       global_fees_attributes: [:id, :description, :amount, :_destroy],

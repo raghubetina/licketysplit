@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "checks#index"
 
-  get "backdoor" => "checks#backdoor"
-
   resources :checks do
     member do
       post :toggle_zero_items

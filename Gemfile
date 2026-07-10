@@ -90,6 +90,7 @@ gem "rollbar"
 gem "rqrcode", "~> 3.0"
 gem "cloudinary", "~> 2.0"
 gem "money"
+gem "rack-attack"
 gem "auto_strip_attributes"
 gem "kramdown"
 
