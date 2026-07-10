@@ -49,6 +49,23 @@
     'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
     sans-serif;
 
+  // Type scale — the ONLY font sizes used anywhere. Hierarchy beyond this
+  // comes from weight and color, not new sizes.
+  --ls-fs-xs: 0.75rem; // badges, status meta, chip initials
+  --ls-fs-sm: 0.875rem; // secondary text, labels, captions, compact buttons
+  --ls-fs-base: 1rem; // body, inputs, buttons, list content
+  --ls-fs-lg: 1.25rem; // card headers, participant names, key amounts
+  --ls-fs-xl: 1.75rem; // brand wordmark, page-title moments
+  --ls-fs-display: 2.5rem; // grand total, even-split figure
+
+  // Spacing scale — every custom gap/margin/padding snaps to one of these.
+  --ls-sp-1: 4px;
+  --ls-sp-2: 8px;
+  --ls-sp-3: 12px;
+  --ls-sp-4: 16px;
+  --ls-sp-5: 24px;
+  --ls-sp-6: 32px;
+
   // Radii
   --ls-r-sm: 10px;
   --ls-r-md: 16px;

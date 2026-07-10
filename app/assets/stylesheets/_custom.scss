@@ -7,8 +7,12 @@
 }
 
 @keyframes turbo-refresh-enter {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 // Exit - fade out
@@ -17,8 +21,12 @@
 }
 
 @keyframes turbo-refresh-exit {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 // Change - accent-tinted flash on broadcast updates
@@ -27,8 +35,12 @@
 }
 
 @keyframes turbo-refresh-change {
-  from { background-color: var(--ls-accent-soft); }
-  to { background-color: transparent; }
+  from {
+    background-color: var(--ls-accent-soft);
+  }
+  to {
+    background-color: transparent;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

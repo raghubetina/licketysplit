@@ -23,17 +23,17 @@ end %>
   <div class="d-flex justify-content-between align-items-center gap-2">
     <div class="ls-participant-row">
       <span class="ls-avatar sm"><%= participant_initial(participant) %></span>
-      <strong class="ls-participant-name" style="font-size: 1.05rem;">
+      <strong class="ls-participant-name">
         <%= participant.name %>
         <% if participant.is_being_treated? %>
           <span class="badge text-bg-success ms-1">Covered by everyone else</span>
         <% end %>
         <% if check.split_itemized? && participant_items.any? && check.subtotal > 0 %>
-          <span class="fw-normal text-muted" style="font-size: 0.85rem;">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
+          <span class="fw-normal text-muted small">(share: <%= number_to_percentage(proportion * 100, precision: 0) %>)</span>
         <% end %>
       </strong>
     </div>
-    <strong class="ls-num" style="font-size: 1.2rem;"><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
+    <strong class="ls-num fs-5"><%= format_currency(check.amount_owed_by(participant), check.currency_symbol) %></strong>
   </div>
 
   <% if check.split_even? %>
