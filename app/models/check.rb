@@ -85,15 +85,36 @@ class Check < ApplicationRecord
   memo_wise :calculated_total
 
   def amount_owed_by(participant)
-    if participant.is_being_treated?
-      0.0
-    elsif split_even?
-      even_split_amount.round(2)
-    else
-      (calculate_base_amount(participant) + treatment_redistribution_amount_for(participant)).round(2)
-    end
+    return 0.0 if participant.is_being_treated?
+    reconciled_amounts[participant.id] || 0.0
   end
   memo_wise :amount_owed_by
+
+  # Rounding each participant's share independently lets the rounded shares
+  # drift from the total (e.g. $10.00 three ways is 3 * $3.33 = $9.99). Round
+  # once here and hand the leftover pennies to the largest fractional
+  # remainders so the displayed shares always sum to the exact payer total.
+  def reconciled_amounts
+    payers = participants.reject(&:is_being_treated?)
+    return {} if payers.empty?
+
+    exact = payers.map { |participant| [participant.id, exact_amount_owed_by(participant)] }
+    floored = {}
+    fractions = []
+    exact.each do |id, amount|
+      cents = amount * 100
+      whole = cents.floor
+      floored[id] = whole
+      fractions << [id, cents - whole]
+    end
+
+    leftover = exact.sum { |_, amount| amount * 100 }.round - floored.values.sum
+    ordered = fractions.each_with_index.sort_by { |(_, fraction), index| [-fraction, index] }
+    leftover.to_i.times { |i| floored[ordered[i % ordered.size].first.first] += 1 }
+
+    floored.transform_values { |cents| BigDecimal(cents) / 100 }
+  end
+  memo_wise :reconciled_amounts
 
   def non_treated_count
     participants.count - treated_participants.count
@@ -148,6 +169,14 @@ class Check < ApplicationRecord
   end
 
   private
+
+  def exact_amount_owed_by(participant)
+    if split_even?
+      even_split_amount
+    else
+      calculate_base_amount(participant) + treatment_redistribution_amount_for(participant)
+    end
+  end
 
   def receipt_images_within_limits
     return unless receipt_images.attached?

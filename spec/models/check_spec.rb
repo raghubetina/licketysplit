@@ -139,4 +139,28 @@ RSpec.describe Check, type: :model do
       expect(check.even_split_amount).to eq(0.0)
     end
   end
+
+  describe "penny reconciliation" do
+    it "makes an even three-way split sum exactly to the total" do
+      check = Check.create!(split_mode: "even")
+      people = ["Amy", "Ben", "Cy"].map { |name| check.participants.create!(name: name) }
+      check.line_items.create!(description: "Pizza", unit_price: 10, quantity: 1)
+
+      owed = people.map { |person| check.amount_owed_by(person) }
+      expect(owed.sum).to eq(10.0)
+      expect(owed.map { |amount| amount.round(2) }.sort).to eq([3.33, 3.33, 3.34])
+    end
+
+    it "makes an itemized split with a fractional fee sum exactly to the payer total" do
+      check = Check.create!
+      people = ["Amy", "Ben", "Cy"].map { |name| check.participants.create!(name: name) }
+      item = check.line_items.create!(description: "Platter", unit_price: 10, quantity: 1)
+      people.each { |person| item.line_item_participants.create!(participant: person) }
+      check.global_fees.create!(description: "Tax", amount: 1)
+
+      owed = people.map { |person| check.amount_owed_by(person) }
+      expect(owed.sum).to eq(check.calculated_total)
+      expect(check.calculated_total).to eq(11.0)
+    end
+  end
 end
