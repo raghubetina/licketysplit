@@ -2,7 +2,7 @@
 
 <div id="header_stats" class="text-end">
   <div class="h4 ls-num mb-0"><%= format_currency(check.calculated_total, check.currency_symbol) %></div>
-  <div class="text-muted"><%= t("participants.count", count: check.participants.count) %></div>
+  <div class="text-muted"><%= t("participants.count", count: check.participants_count) %></div>
   <% if check.participants.any? %>
     <div class="text-muted"><%= check.participants.order(:name).pluck(:name).to_sentence %></div>
   <% end %>

@@ -68,12 +68,14 @@ class LineItemsController < ApplicationController
     check = @line_item.check
     all_assigned = @line_item.participant_ids.sort == check.participant_ids.sort
 
-    if all_assigned
-      @line_item.line_item_participants.destroy_all
-    else
-      missing_participants = check.participants.where.not(id: @line_item.participant_ids)
-      missing_participants.each do |participant|
-        @line_item.line_item_participants.create!(participant: participant)
+    @line_item.transaction do
+      if all_assigned
+        @line_item.line_item_participants.destroy_all
+      else
+        missing_participants = check.participants.where.not(id: @line_item.participant_ids)
+        missing_participants.each do |participant|
+          @line_item.line_item_participants.create!(participant: participant)
+        end
       end
     end
 

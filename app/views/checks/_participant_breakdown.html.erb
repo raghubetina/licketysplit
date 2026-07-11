@@ -8,7 +8,7 @@
 <% proportion = check.subtotal > 0 ? items_subtotal / check.subtotal : 0 %>
 <% treated_coverage_amount = check.treated_coverage_amount_for(participant) %>
 <% treated_participants = check.treated_participants %>
-<% non_treated_count = check.participants.count - treated_participants.count %>
+<% non_treated_count = check.non_treated_count %>
 <% treating_lines = if participant.is_being_treated? || non_treated_count <= 0
   []
 else

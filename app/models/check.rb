@@ -117,7 +117,7 @@ class Check < ApplicationRecord
   memo_wise :reconciled_amounts
 
   def non_treated_count
-    participants.count - treated_participants.count
+    participants_count - treated_participants.size
   end
   memo_wise :non_treated_count
 
@@ -136,8 +136,6 @@ class Check < ApplicationRecord
 
   def treatment_redistribution_amount_for(participant)
     return 0.0 if treated_participants.empty? || participant.is_being_treated?
-
-    non_treated_count = participants.count - treated_participants.count
     return 0.0 if non_treated_count <= 0
 
     treated_total / non_treated_count
