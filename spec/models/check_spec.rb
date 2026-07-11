@@ -140,6 +140,36 @@ RSpec.describe Check, type: :model do
     end
   end
 
+  describe "receipt image validations" do
+    def attach(check, filename:, content_type:)
+      check.receipt_images.attach(io: StringIO.new("x"), filename: filename, content_type: content_type)
+    end
+
+    it "accepts a valid jpeg" do
+      check = Check.new(currency: "USD")
+      attach(check, filename: "receipt.jpg", content_type: "image/jpeg")
+      expect(check).to be_valid
+    end
+
+    it "rejects a disallowed content type" do
+      check = Check.new(currency: "USD")
+      attach(check, filename: "notes.txt", content_type: "text/plain")
+      expect(check).to be_invalid
+      expect(check.errors[:receipt_images].join).to match(/JPEG|PNG|WebP/)
+    end
+
+    it "rejects more than the maximum number of images" do
+      check = Check.new(currency: "USD")
+      (Check::MAX_RECEIPT_IMAGES + 1).times { |i| attach(check, filename: "r#{i}.jpg", content_type: "image/jpeg") }
+      expect(check).to be_invalid
+      expect(check.errors[:receipt_images].join).to match(/exceed/)
+    end
+
+    it "is valid with no images attached (validation is scoped to uploads)" do
+      expect(Check.new(currency: "USD")).to be_valid
+    end
+  end
+
   describe "penny reconciliation" do
     it "makes an even three-way split sum exactly to the total" do
       check = Check.create!(split_mode: "even")

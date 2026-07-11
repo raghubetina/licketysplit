@@ -20,9 +20,11 @@ class ParseReceiptJob < ApplicationJob
   def self.mark_failed(check, error)
     return unless check
 
+    # Set the recovery status first so a failure in reporting or broadcasting
+    # can't leave the check stranded in "parsing".
+    check.update!(status: "failed")
     Rails.logger.error("Receipt parsing failed for check #{check.id}: #{error.message}")
     Rollbar.error(error, check_id: check.id) if defined?(Rollbar)
-    check.update!(status: "failed")
     check.broadcast_refresh
   rescue => e
     # Never let failure-handling itself strand the check or crash the worker.
