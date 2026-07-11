@@ -31,4 +31,14 @@ RSpec.describe LineItemParticipant, type: :model do
     lip.destroy
     expect(item.reload.participants_count).to eq(0)
   end
+
+  it "destroys a check with assigned participants without raising in the broadcast callback" do
+    check = Check.create!
+    maya = check.participants.create!(name: "Maya")
+    item = check.line_items.create!(description: "Salad", unit_price: 10)
+    item.line_item_participants.create!(participant: maya)
+
+    expect { check.destroy }.not_to raise_error
+    expect(Check.exists?(check.id)).to be false
+  end
 end
