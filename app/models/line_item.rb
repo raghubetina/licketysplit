@@ -50,7 +50,9 @@ class LineItem < ApplicationRecord
   end
 
   def addons_total
-    addons.sum(:total_price)
+    # Block form sums the loaded/eager-loaded records (batched by goldiloader)
+    # instead of firing a COUNT(*)-style aggregate query per line item.
+    addons.sum(&:total_price)
   end
 
   def total_with_addons
