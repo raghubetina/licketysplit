@@ -22,7 +22,7 @@ class ParseReceiptJob < ApplicationJob
 
     Rails.logger.error("Receipt parsing failed for check #{check.id}: #{error.message}")
     Rollbar.error(error, check_id: check.id) if defined?(Rollbar)
-    check.update!(status: "draft")
+    check.update!(status: "failed")
     check.broadcast_refresh
   rescue => e
     # Never let failure-handling itself strand the check or crash the worker.

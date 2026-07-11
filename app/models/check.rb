@@ -61,7 +61,7 @@ class Check < ApplicationRecord
   accepts_nested_attributes_for :global_discounts, allow_destroy: true
   accepts_nested_attributes_for :participants, allow_destroy: true
 
-  enum :status, {parsing: "parsing", draft: "draft", reviewing: "reviewing", finalized: "finalized"}
+  enum :status, {parsing: "parsing", draft: "draft", reviewing: "reviewing", finalized: "finalized", failed: "failed"}
   enum :split_mode, {itemized: "itemized", even: "even"}, prefix: :split
 
   def subtotal

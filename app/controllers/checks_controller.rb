@@ -1,5 +1,5 @@
 class ChecksController < ApplicationController
-  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items, :update_currency, :update_split_mode]
+  before_action :set_check, only: [:show, :edit, :update, :destroy, :toggle_zero_items, :update_currency, :update_split_mode, :retry_parse]
 
   def index
     @check = Check.new
@@ -39,6 +39,14 @@ class ChecksController < ApplicationController
     @check.update!(split_mode: params[:split_mode])
     @check.broadcast_refresh
     redirect_to @check, status: :see_other
+  end
+
+  def retry_parse
+    if @check.failed? || @check.draft?
+      @check.update!(status: "parsing")
+      ParseReceiptJob.perform_later(@check)
+    end
+    redirect_to @check
   end
 
   def new

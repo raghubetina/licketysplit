@@ -42,6 +42,21 @@
         <div id="reasoning_text" class="fst-italic"></div>
       </div>
     </div>
+  <% elsif @check.failed? %>
+    <div class="alert alert-warning">
+      <h2 class="h5"><i class="bi bi-exclamation-triangle"></i> We couldn't read this receipt</h2>
+      <p class="mb-3">Parsing didn't finish — this can happen with blurry or unusual photos. You can try again, and it will re-read the same images.</p>
+      <%= button_to "Try again", retry_parse_check_path(@check), method: :post, class: "btn btn-primary" %>
+    </div>
+    <% if @check.receipt_images.attached? %>
+      <div class="row">
+        <% @check.receipt_images.each do |image| %>
+          <div class="col-md-6">
+            <%= cl_image_tag image.key, width: 800, quality: :auto, fetch_format: :auto, class: "card-img mb-2" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% else %>
 
   <div class="card mb-3">
@@ -71,11 +86,11 @@
               options_for_select(currency_options_for_select, @check.currency),
               class: "form-select form-select-sm",
               style: "width: auto;",
-              onchange: "this.form.submit()" %>
+              data: {controller: "autosubmit", action: "change->autosubmit#submit"} %>
         <% end %>
         <div class="form-check form-switch m-0">
           <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
-            <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> onchange="this.form.submit()">
+            <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> data-controller="autosubmit" data-action="change->autosubmit#submit">
             <label class="form-check-label" for="showZeroItems">Show <%= @check.currency_symbol %>0 items</label>
           <% end %>
         </div>

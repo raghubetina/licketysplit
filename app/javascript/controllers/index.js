@@ -7,6 +7,9 @@ import { application } from './application'
 import AutogrowController from './autogrow_controller'
 application.register('autogrow', AutogrowController)
 
+import AutosubmitController from './autosubmit_controller'
+application.register('autosubmit', AutosubmitController)
+
 import CheckboxToggleController from './checkbox_toggle_controller'
 application.register('checkbox-toggle', CheckboxToggleController)
 
