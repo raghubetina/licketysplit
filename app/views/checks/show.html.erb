@@ -90,7 +90,9 @@
         <% end %>
         <div class="form-check form-switch m-0">
           <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
-            <input class="form-check-input" type="checkbox" role="switch" id="showZeroItems" <%= "checked" if @show_zero_items %> data-controller="autosubmit" data-action="change->autosubmit#submit">
+            <%= check_box_tag "show_zero_items", "1", @show_zero_items,
+                  id: "showZeroItems", class: "form-check-input", role: "switch",
+                  data: {controller: "autosubmit", action: "change->autosubmit#submit"} %>
             <label class="form-check-label" for="showZeroItems">Show <%= @check.currency_symbol %>0 items</label>
           <% end %>
         </div>
