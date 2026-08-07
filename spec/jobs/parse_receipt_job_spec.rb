@@ -36,12 +36,21 @@ RSpec.describe ParseReceiptJob, type: :job do
     expect(check.global_fees.count).to eq(1)
   end
 
-  it "marks the check failed on a non-transient error instead of raising or stranding it" do
+  it "marks the check failed on a non-transient error, then re-raises so the queue records a failure" do
     check = Check.create!(status: "parsing", currency: "USD")
     allow_any_instance_of(ReceiptParser).to receive(:parse).and_raise(JSON::ParserError.new("bad json"))
-    allow(Rollbar).to receive(:error) if defined?(Rollbar)
+    allow(Rollbar).to receive(:error)
 
-    expect { described_class.new.perform(check) }.not_to raise_error
+    expect { described_class.new.perform(check) }.to raise_error(JSON::ParserError)
     expect(check.reload.status).to eq("failed")
+  end
+
+  it "reports the failure to the error tracker with the check for context" do
+    check = Check.create!(status: "parsing", currency: "USD")
+    allow_any_instance_of(ReceiptParser).to receive(:parse).and_raise(JSON::ParserError.new("bad json"))
+    allow(Rollbar).to receive(:error)
+
+    expect { described_class.new.perform(check) }.to raise_error(JSON::ParserError)
+    expect(Rollbar).to have_received(:error).with(instance_of(JSON::ParserError), check_id: check.id)
   end
 end

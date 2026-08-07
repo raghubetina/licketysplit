@@ -44,8 +44,8 @@
     </div>
   <% elsif @check.failed? %>
     <div class="alert alert-warning">
-      <h2 class="h5"><i class="bi bi-exclamation-triangle"></i> We couldn't read this receipt</h2>
-      <p class="mb-3">Parsing didn't finish — this can happen with blurry or unusual photos. You can try again, and it will re-read the same images.</p>
+      <h2 class="h5"><i class="bi bi-exclamation-triangle"></i> We couldn't finish reading this receipt</h2>
+      <p class="mb-3">Something went wrong on our end — your photos are fine. You can try again, and it will re-read the same images.</p>
       <%= button_to "Try again", retry_parse_check_path(@check), method: :post, class: "btn btn-primary" %>
     </div>
     <% if @check.receipt_images.attached? %>

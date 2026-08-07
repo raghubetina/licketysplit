@@ -9,7 +9,8 @@ class ParseReceiptJob < ApplicationJob
 
   # Only transient network/availability failures are worth a retry; each attempt
   # is a full paid vision call, so deterministic failures (bad JSON, invalid
-  # records, unsupported images) fail fast via the rescue in #perform instead.
+  # records, unsupported images) are recorded and re-raised by #perform without
+  # burning further attempts.
   retry_on(*TRANSIENT_ERRORS, wait: :polynomially_longer, attempts: 3) do |job, error|
     mark_failed(job.arguments.first, error)
   end
@@ -70,7 +71,13 @@ class ParseReceiptJob < ApplicationJob
   rescue *TRANSIENT_ERRORS
     raise # hand off to retry_on
   rescue => error
+    # A receipt the model genuinely can't read comes back as a successful parse
+    # with empty fields, not an exception, so anything landing here is a bug or
+    # an outage. Record it so the check isn't stranded in "parsing", then let
+    # the job fail loudly: swallowing it reports the run as a success to Solid
+    # Queue, which is how a 100% failure rate went unnoticed for weeks.
     self.class.mark_failed(check, error)
+    raise
   end
 
   private
