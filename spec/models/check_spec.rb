@@ -1,5 +1,8 @@
 require "rails_helper"
 
+# Only loaded when a Cloudinary service is configured, which the test env is not.
+require "active_storage/service/cloudinary_service"
+
 RSpec.describe Check, type: :model do
   describe "#amount_owed_by" do
     it "sets treated participants to zero and redistributes their consumption evenly" do
@@ -167,6 +170,27 @@ RSpec.describe Check, type: :model do
 
     it "is valid with no images attached (validation is scoped to uploads)" do
       expect(Check.new(currency: "USD")).to be_valid
+    end
+  end
+
+  describe "#receipt_image_urls" do
+    let(:check) { Check.create! }
+
+    before do
+      check.receipt_images.attach(io: StringIO.new("x"), filename: "receipt.heic", content_type: "image/heic")
+
+      # Swap the service in only after attaching, so the upload still goes to
+      # the local test service rather than over the network to Cloudinary.
+      service = ActiveStorage::Service::CloudinaryService.new(folder: "licketysplit/test")
+      allow_any_instance_of(ActiveStorage::Blob).to receive(:service).and_return(service)
+    end
+
+    it "qualifies the url with the folder the storage service is configured with" do
+      expect(check.receipt_image_urls.first).to include("licketysplit/test/#{check.receipt_images.first.key}")
+    end
+
+    it "delivers a width-capped jpg so OpenAI refetches cost a fraction of the original" do
+      expect(check.receipt_image_urls.first).to include("c_limit", "f_jpg", "q_auto:good", "w_1600")
     end
   end
 

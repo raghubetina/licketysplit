@@ -42,10 +42,11 @@ class Check < ApplicationRecord
 
   has_many_attached :receipt_images
 
+  # Must go through Active Storage rather than Cloudinary::Utils.cloudinary_url,
+  # which takes a public id verbatim and so omits the folder the service is
+  # configured with, yielding a 404 for every image.
   def receipt_image_urls
-    receipt_images.map do |image|
-      Cloudinary::Utils.cloudinary_url(image.key, **RECEIPT_DELIVERY_TRANSFORMATION)
-    end
+    receipt_images.map { |image| image.url(**RECEIPT_DELIVERY_TRANSFORMATION) }
   end
 
   has_many :participants, dependent: :destroy
