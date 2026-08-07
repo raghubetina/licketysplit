@@ -4,6 +4,19 @@ Rollbar.configure do |config|
 
   config.access_token = ENV["ROLLBAR_ACCESS_TOKEN"]
 
+  # Vulnerability scanners sweep this host for /wp-content/*.php and similar
+  # around the clock, and every miss raises RoutingError. Reporting each one
+  # exhausted the account quota, so Rollbar answered 429 to *every* report --
+  # real exceptions included -- which is how a total receipt-parsing outage
+  # produced no alert for weeks. None of these are actionable; drop them.
+  config.exception_level_filters.merge!(
+    "ActionController::RoutingError" => "ignore",
+    "ActionController::UnknownFormat" => "ignore",
+    "ActionController::UnknownHttpMethod" => "ignore",
+    "ActionController::BadRequest" => "ignore",
+    "ActionDispatch::Http::Parameters::ParseError" => "ignore"
+  )
+
   # Here we'll disable in 'test' and 'development':
   if Rails.env.local?
     config.enabled = false

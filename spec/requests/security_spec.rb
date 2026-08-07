@@ -20,6 +20,18 @@ RSpec.describe "Security hardening", type: :request do
     end
   end
 
+  describe "scanner probe blocklist" do
+    it "blocks php and wordpress sweeps before they reach the router" do
+      get "/wp-content/plugins/hellopress/wp_filemanager.php"
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it "leaves ordinary paths alone" do
+      get root_path
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe "retry_parse" do
     it "re-enqueues parsing and returns a failed check to parsing" do
       check = Check.create!(status: "failed", currency: "USD")
