@@ -27,7 +27,8 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue"
+# 1.3+ required for `mode: :async` (see render.yaml worker start command)
+gem "solid_queue", "~> 1.3"
 gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb

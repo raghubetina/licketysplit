@@ -1,37 +1,62 @@
+# NOTE: these resources were created through the dashboard and are not yet
+# managed by this Blueprint. Adopting them requires every current setting to be
+# represented here -- Render applies defaults for anything omitted -- so keep
+# this file in sync with the dashboard before connecting it.
+#
+# All environment variables live in the "licketysplit" environment group, which
+# is linked to both services. Referencing the group rather than restating the
+# keys keeps secrets out of the repo and avoids dropping any on a sync. The
+# group currently holds: BLAZER_PASSWORD, BLAZER_USERNAME, CLOUDINARY_URL,
+# DATABASE_URL, OPENAI_API_KEY, RAILS_MASTER_KEY, ROLLBAR_ACCESS_TOKEN,
+# SKYLIGHT_AUTHENTICATION, WEB_CONCURRENCY.
+
 databases:
   - name: licketysplit-db
-    databaseName: licketysplit_production
-    user: licketysplit
-    plan: free
+    databaseName: licketysplit_db
+    user: licketysplit_db_user
+    plan: basic_256mb
+    region: ohio
 
 services:
   - type: web
-    name: licketysplit-web
-    runtime: ruby
-    plan: free
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
-    healthCheckPath: /up
+    name: licketysplit
+    runtime: docker
+    plan: standard
+    region: ohio
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeployTrigger: commit
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: licketysplit-db
-          property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: WEB_CONCURRENCY
-        value: 2
+      - fromGroup: licketysplit
 
-- type: worker
-  name: licketysplit-worker
-  runtime: ruby
-  plan: free
-  buildCommand: "bundle install"
-  startCommand: "bundle exec rake solid_queue:start"
-  envVars:
-    - key: DATABASE_URL
-      fromDatabase:
-        name: licketysplit-db
-        property: connectionString
-    - key: RAILS_MASTER_KEY
-      sync: false
+  # Started with `--mode async` rather than the default fork mode. Fork mode
+  # runs four processes -- supervisor, dispatcher, worker, scheduler -- each a
+  # copy of an eager-loaded Rails app. That does not fit in starter's 512 MiB:
+  # Render's own event log recorded "Ran out of memory (used over 512MB)" two
+  # to three times a day, and each kill stranded whatever receipt was mid-parse.
+  # Async mode runs the dispatcher and worker as threads in the supervisor, so
+  # this is a single Rails process and fits with room to spare.
+  #
+  # Requires solid_queue >= 1.3 for the --mode flag; the Gemfile pins ~> 1.3.
+  #
+  # Note that this deliberately does NOT use Puma's `plugin :solid_queue` with
+  # `solid_queue_mode :async` to fold the queue into the web service. On Puma 8
+  # that plugin gets registered twice and starts two independent supervisor
+  # trees in one process (firstdraft/foundation-rails-core#53). Starting the
+  # supervisor directly avoids the plugin entirely.
+  #
+  # maxShutdownDelaySeconds must stay above SolidQueue's shutdown_timeout (see
+  # config/environments/production.rb) so a parse in flight during a deploy is
+  # allowed to finish instead of being SIGKILLed and stranded the same way.
+  - type: worker
+    name: licketysplit-background
+    runtime: docker
+    plan: starter
+    region: ohio
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    dockerCommand: bundle exec bin/jobs start --mode async
+    maxShutdownDelaySeconds: 90
+    autoDeployTrigger: commit
+    envVars:
+      - fromGroup: licketysplit
