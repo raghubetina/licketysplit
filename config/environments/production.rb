@@ -53,6 +53,12 @@ Rails.application.configure do
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = {database: {writing: :queue}}
 
+  # A receipt parse takes 7-25s, so the 5s default meant every deploy SIGKILLed
+  # whatever parse was in flight. SolidQueue then records that job as failed with
+  # no retry, stranding its check in "parsing" forever. Must stay below
+  # maxShutdownDelaySeconds in render.yaml, or Render kills the process first.
+  config.solid_queue.shutdown_timeout = 75.seconds
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
