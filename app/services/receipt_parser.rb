@@ -38,11 +38,18 @@ class ReceiptParser
     - Default quantity to 1 if unclear.
   PROMPT
 
+  MissingImagesError = Class.new(StandardError)
+
   def initialize(image_urls)
-    @image_urls = Array(image_urls).map(&:to_s)
+    @image_urls = Array(image_urls).map(&:to_s).compact_blank
   end
 
   def parse(&on_event)
+    # Without images the model still returns a schema-valid receipt -- zero line
+    # items, zero total -- and the parse reports success. Fail instead of
+    # spending a vision call to produce an empty check.
+    raise MissingImagesError, "No receipt images to parse" if image_urls.empty?
+
     stream = client.responses.stream(
       model: "gpt-5.6-terra",
       instructions: SYSTEM_INSTRUCTIONS,

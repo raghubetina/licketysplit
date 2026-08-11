@@ -42,7 +42,7 @@ class ChecksController < ApplicationController
   end
 
   def retry_parse
-    if @check.failed? || @check.draft?
+    if @check.parse_retryable?
       @check.update!(status: "parsing")
       ParseReceiptJob.perform_later(@check)
     end
@@ -54,7 +54,13 @@ class ChecksController < ApplicationController
   end
 
   def create
-    if params[:receipt_images].blank?
+    # file_field with multiple: true renders a hidden empty-valued input, so an
+    # empty submission arrives as [""], which is not blank?. Active Storage then
+    # compact_blank's it away and attaches nothing, and the parse "succeeds"
+    # against zero images with a schema-valid but empty receipt.
+    images = params[:receipt_images].then { |value| Array(value).compact_blank }
+
+    if images.empty?
       @check = Check.new
       @check.errors.add(:receipt_images, "are required")
       @recent_checks = load_recent_checks
@@ -62,7 +68,7 @@ class ChecksController < ApplicationController
     end
 
     @check = Check.new(status: "parsing")
-    @check.receipt_images.attach(params[:receipt_images])
+    @check.receipt_images.attach(images)
 
     if params[:participant_names].present?
       names = Participant.parse_names(params[:participant_names])
