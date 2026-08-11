@@ -32,12 +32,20 @@
           <% end %>
         </div>
       <% end %>
-      <div class="col-md-6">
-        <div class="text-center py-4">
+      <div class="col-md-6"
+           data-controller="parse-timeout"
+           data-parse-timeout-after-value="<%= Check::PARSE_SLOW_AFTER.in_milliseconds %>"
+           data-parse-timeout-elapsed-value="<%= @check.parsing_for.to_i %>">
+        <div class="text-center py-4" data-parse-timeout-target="waiting">
           <div class="spinner-border text-primary mb-3" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
           <h2 class="h5">Parsing your receipt...</h2>
+        </div>
+        <div class="alert alert-warning" data-parse-timeout-target="stalled" hidden>
+          <h2 class="h5"><i class="bi bi-exclamation-triangle"></i> This is taking longer than it should</h2>
+          <p class="mb-3">Your photos are fine — the reader seems to have stalled. Starting over will re-read the same images.</p>
+          <%= button_to "Try again", retry_parse_check_path(@check), method: :post, class: "btn btn-primary" %>
         </div>
         <div id="reasoning_text" class="fst-italic"></div>
       </div>

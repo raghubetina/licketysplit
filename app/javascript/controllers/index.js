@@ -22,5 +22,8 @@ application.register('dismiss', DismissController)
 import HelloController from './hello_controller'
 application.register('hello', HelloController)
 
+import ParseTimeoutController from './parse_timeout_controller'
+application.register('parse-timeout', ParseTimeoutController)
+
 import ShareStepperController from './share_stepper_controller'
 application.register('share-stepper', ShareStepperController)

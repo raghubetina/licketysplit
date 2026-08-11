@@ -31,6 +31,21 @@ class Check < ApplicationRecord
   MAX_RECEIPT_IMAGE_SIZE = 15.megabytes
   ALLOWED_RECEIPT_IMAGE_TYPES = %w[image/jpeg image/png image/webp image/heic image/heif image/gif].freeze
 
+  # Real parses run 7-25s (slowest observed in production: 25.2s). Past a minute
+  # the parse is far enough outside that range to tell the user something is
+  # wrong and offer a retry, without claiming certainty.
+  #
+  # Note that absence of streamed reasoning is NOT a usable liveness signal:
+  # `summary: :auto` leaves it to the model, and 30 of 62 successful parses in
+  # production streamed no reasoning at all.
+  PARSE_SLOW_AFTER = 60.seconds
+
+  # A worker that dies mid-parse (OOM, deploy, host restart) leaves its check in
+  # "parsing" with no recovery path: SolidQueue fails the claimed job outside of
+  # #perform, so ParseReceiptJob's own rescue never runs. This threshold is the
+  # point at which we stop waiting and record the parse as failed.
+  STRANDED_PARSE_AFTER = 15.minutes
+
   # Images are handed to OpenAI (and re-fetched on any retry) at high detail.
   # Delivering a width-capped, quality-optimized JPG instead of the full-size
   # original cuts Cloudinary egress by an order of magnitude and normalizes
@@ -64,6 +79,19 @@ class Check < ApplicationRecord
 
   enum :status, {parsing: "parsing", draft: "draft", reviewing: "reviewing", finalized: "finalized", failed: "failed"}
   enum :split_mode, {itemized: "itemized", even: "even"}, prefix: :split
+
+  scope :stranded_in_parsing, -> { parsing.where(updated_at: ..STRANDED_PARSE_AFTER.ago) }
+
+  def parsing_for
+    Time.current - updated_at
+  end
+
+  # Retrying a parse that is still plausibly running would race a second job
+  # against it for the same line items, so only offer it once the parse is well
+  # outside its normal range.
+  def parse_retryable?
+    failed? || draft? || (parsing? && parsing_for >= PARSE_SLOW_AFTER)
+  end
 
   def subtotal
     line_items.sum { |item| item.total_with_addons }
