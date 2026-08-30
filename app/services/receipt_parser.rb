@@ -36,6 +36,8 @@ class ReceiptParser
     - Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.
     - The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.
     - Default quantity to 1 if unclear.
+    - Some receipts print line item prices that ALREADY reflect a check-wide promotion, often shown next to a struck-through original price or with a promo badge. When the prices you extract are already discounted, do NOT also record that promotion in global_discounts — it would come off the bill twice. Only record a global discount that is not already baked into the line item prices you report.
+    - Before finishing, verify your arithmetic: the sum of line item totals (including addons), minus global_discounts, plus global_fees, must equal grand_total. If it does not, you have most likely double-counted a discount or missed a fee. Fix it.
   PROMPT
 
   MissingImagesError = Class.new(StandardError)
