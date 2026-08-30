@@ -38,6 +38,7 @@ class ReceiptParser
     - Default quantity to 1 if unclear.
     - Some receipts print line item prices that ALREADY reflect a check-wide promotion, often shown next to a struck-through original price or with a promo badge. When the prices you extract are already discounted, do NOT also record that promotion in global_discounts — it would come off the bill twice. Only record a global discount that is not already baked into the line item prices you report.
     - Before finishing, verify your arithmetic: the sum of line item totals (including addons), minus global_discounts, plus global_fees, must equal grand_total. If it does not, you have most likely double-counted a discount or missed a fee. Fix it.
+    - Receipts are frequently amended by hand after printing: a tip written on the tip line, and a new total written below the printed one. Handwritten amounts are authoritative. Record a handwritten tip as a global fee with fee_type "tip", and use the handwritten total as grand_total. Look for this even when the printed total already adds up on its own — a self-consistent printed total does not mean there is no handwritten tip.
   PROMPT
 
   MissingImagesError = Class.new(StandardError)
