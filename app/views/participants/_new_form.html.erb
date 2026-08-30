@@ -1,24 +1,37 @@
 <%# Accepts: participant (required), check (required) %>
 
-<li id="new_participant_form" class="list-group-item py-3 px-3" data-turbo-refresh-preserve>
-  <%= form_with model: [check, participant], class: "participant-form" do |f| %>
-    <% if participant.errors.any? %>
-      <div class="alert alert-danger  mb-2 py-1">
-        <% participant.errors.full_messages.each do |message| %>
-          <div><%= message %></div>
-        <% end %>
+<% expanded = participant.errors.any? %>
+
+<li id="new_participant_form" class="list-group-item py-3 px-3" data-turbo-refresh-preserve
+    data-controller="disclosure" data-action="keydown->disclosure#closeOnEscape">
+  <%= tag.button type: "button", class: "sticker ghost compact", hidden: expanded,
+        aria: { controls: "new_participant_fields", expanded: expanded },
+        data: { disclosure_target: "trigger", action: "disclosure#open" } do %>
+    <i class="bi bi-plus-lg"></i>
+    <%= check.participants_count.positive? ? t("participants.add_another_trigger") : t("participants.add_trigger") %>
+  <% end %>
+
+  <%= tag.div id: "new_participant_fields", hidden: !expanded, data: { disclosure_target: "panel" } do %>
+    <%= form_with model: [check, participant], class: "participant-form" do |f| %>
+      <% if participant.errors.any? %>
+        <div class="alert alert-danger  mb-2 py-1">
+          <% participant.errors.full_messages.each do |message| %>
+            <div><%= message %></div>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="row g-2 mb-2">
+        <div class="col">
+          <%= f.label :name, class: "form-label  mb-1" %>
+          <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder"), data: { disclosure_target: "field" } %>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button type="button" class="sticker ghost compact" data-action="disclosure#close">Cancel</button>
+        <%= f.submit t("participants.add_button"), class: "sticker primary compact" %>
       </div>
     <% end %>
-
-    <div class="row g-2 mb-2">
-      <div class="col">
-        <%= f.label :name, class: "form-label  mb-1" %>
-        <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder") %>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-end">
-      <%= f.submit t("participants.add_button"), class: "sticker primary compact" %>
-    </div>
   <% end %>
 </li>

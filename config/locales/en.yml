@@ -10,6 +10,8 @@ en:
     add_prompt: Add party members above to start splitting the check.
     add_placeholder: Add a party member…
     add_button: Add Party Member
+    add_trigger: Add a party member
+    add_another_trigger: Add another party member
     edit_title: Edit party member
     delete_title: Delete party member
     delete_confirm: Delete this party member?

@@ -16,6 +16,9 @@ application.register('checkbox-toggle', CheckboxToggleController)
 import ClipboardController from './clipboard_controller'
 application.register('clipboard', ClipboardController)
 
+import DisclosureController from './disclosure_controller'
+application.register('disclosure', DisclosureController)
+
 import DismissController from './dismiss_controller'
 application.register('dismiss', DismissController)
 
