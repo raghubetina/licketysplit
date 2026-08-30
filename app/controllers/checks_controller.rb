@@ -57,10 +57,10 @@ class ChecksController < ApplicationController
     # file_field with multiple: true renders a hidden empty-valued input, so an
     # empty submission arrives as [""], which is not blank?. Active Storage then
     # compact_blank's it away and attaches nothing, and the parse "succeeds"
-    # against zero images with a schema-valid but empty receipt.
-    images = params[:receipt_images].then { |value| Array(value).compact_blank }
+    # against zero files with a schema-valid but empty receipt.
+    uploads = params[:receipt_images].then { |value| Array(value).compact_blank }
 
-    if images.empty?
+    if uploads.empty?
       @check = Check.new
       @check.errors.add(:receipt_images, "are required")
       @recent_checks = load_recent_checks
@@ -68,7 +68,7 @@ class ChecksController < ApplicationController
     end
 
     @check = Check.new(status: "parsing")
-    @check.receipt_images.attach(images)
+    @check.receipt_images.attach(uploads)
 
     if params[:participant_names].present?
       names = Participant.parse_names(params[:participant_names])

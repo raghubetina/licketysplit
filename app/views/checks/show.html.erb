@@ -23,11 +23,7 @@
         <div class="col-md-6">
           <% @check.receipt_images.each do |image| %>
             <div class="card mb-2">
-              <%= cl_image_tag image.key,
-                  width: 800,
-                  quality: :auto,
-                  fetch_format: :auto,
-                  class: "card-img" %>
+              <%= render "checks/receipt_attachment", attachment: image, css_class: "card-img" %>
             </div>
           <% end %>
         </div>
@@ -60,7 +56,7 @@
       <div class="row">
         <% @check.receipt_images.each do |image| %>
           <div class="col-md-6">
-            <%= cl_image_tag image.key, width: 800, quality: :auto, fetch_format: :auto, class: "card-img mb-2" %>
+            <%= render "checks/receipt_attachment", attachment: image, css_class: "card-img mb-2" %>
           </div>
         <% end %>
       </div>
@@ -216,11 +212,7 @@
   <% if @check.receipt_images.attached? && !@check.parsing? %>
     <% @check.receipt_images.each do |image| %>
       <div class="card mt-3">
-        <%= cl_image_tag image.key,
-            width: 800,
-            quality: :auto,
-            fetch_format: :auto,
-            class: "card-img" %>
+        <%= render "checks/receipt_attachment", attachment: image, css_class: "card-img" %>
       </div>
     <% end %>
   <% end %>

@@ -38,7 +38,7 @@ class ParseReceiptJob < ApplicationJob
     return if check.reviewing? || check.finalized?
 
     reasoning_text = +""
-    parser = ReceiptParser.new(check.receipt_image_urls)
+    parser = ReceiptParser.new(check.receipt_parser_inputs)
     parsed_data = parser.parse do |event_type, data|
       if event_type == :reasoning
         reasoning_text << data

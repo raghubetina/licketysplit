@@ -1,5 +1,5 @@
 class ReceiptParser
-  attr_reader :image_urls
+  attr_reader :sources
 
   SYSTEM_INSTRUCTIONS = <<~INSTRUCTIONS
     You are a receipt parser. Read the receipt images using your built-in
@@ -40,15 +40,17 @@ class ReceiptParser
 
   MissingImagesError = Class.new(StandardError)
 
-  def initialize(image_urls)
-    @image_urls = Array(image_urls).map(&:to_s).compact_blank
+  PDF_CONTENT_TYPE = "application/pdf"
+
+  def initialize(sources)
+    @sources = Array(sources).filter_map { |source| normalize_source(source) }
   end
 
   def parse(&on_event)
-    # Without images the model still returns a schema-valid receipt -- zero line
+    # Without a receipt the model still returns a schema-valid result -- zero line
     # items, zero total -- and the parse reports success. Fail instead of
     # spending a vision call to produce an empty check.
-    raise MissingImagesError, "No receipt images to parse" if image_urls.empty?
+    raise MissingImagesError, "No receipt images to parse" if sources.empty?
 
     stream = client.responses.stream(
       model: "gpt-5.6-terra",
@@ -80,14 +82,30 @@ class ReceiptParser
     @client ||= OpenAI::Client.new(api_key: ENV.fetch("OPENAI_API_KEY"))
   end
 
+  # A PDF is handed over whole rather than as page images: OpenAI renders every
+  # page and also passes the embedded text layer, which reads a dense multi-page
+  # invoice more accurately than a rasterized page does.
   def build_input
     content = [{type: :input_text, text: USER_PROMPT}]
 
-    image_urls.each do |url|
-      content << {type: :input_image, image_url: url, detail: :high}
+    sources.each do |source|
+      content << if source[:content_type] == PDF_CONTENT_TYPE
+        {type: :input_file, file_url: source[:url]}
+      else
+        {type: :input_image, image_url: source[:url], detail: :high}
+      end
     end
 
     [{role: :user, content: content}]
+  end
+
+  # Checks pass {url:, content_type:} so a PDF can be told from a photo; the
+  # receipt-parsing rake task passes bare image URLs.
+  def normalize_source(source)
+    url, content_type = source.is_a?(Hash) ? source.values_at(:url, :content_type) : [source, nil]
+    return if url.blank?
+
+    {url: url.to_s, content_type: content_type}
   end
 
   def receipt_schema

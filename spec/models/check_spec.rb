@@ -154,6 +154,12 @@ RSpec.describe Check, type: :model do
       expect(check).to be_valid
     end
 
+    it "accepts a pdf" do
+      check = Check.new(currency: "USD")
+      attach(check, filename: "invoice.pdf", content_type: "application/pdf")
+      expect(check).to be_valid
+    end
+
     it "rejects a disallowed content type" do
       check = Check.new(currency: "USD")
       attach(check, filename: "notes.txt", content_type: "text/plain")
@@ -173,24 +179,48 @@ RSpec.describe Check, type: :model do
     end
   end
 
-  describe "#receipt_image_urls" do
+  describe "#receipt_parser_inputs" do
     let(:check) { Check.create! }
 
-    before do
-      check.receipt_images.attach(io: StringIO.new("x"), filename: "receipt.heic", content_type: "image/heic")
-
-      # Swap the service in only after attaching, so the upload still goes to
-      # the local test service rather than over the network to Cloudinary.
+    # Swap the service in only after attaching, so the upload still goes to the
+    # local test service rather than over the network to Cloudinary.
+    def deliver_via_cloudinary
       service = ActiveStorage::Service::CloudinaryService.new(folder: "licketysplit/test")
       allow_any_instance_of(ActiveStorage::Blob).to receive(:service).and_return(service)
     end
 
-    it "qualifies the url with the folder the storage service is configured with" do
-      expect(check.receipt_image_urls.first).to include("licketysplit/test/#{check.receipt_images.first.key}")
+    context "with an image" do
+      before do
+        check.receipt_images.attach(io: StringIO.new("x"), filename: "receipt.heic", content_type: "image/heic")
+        deliver_via_cloudinary
+      end
+
+      it "qualifies the url with the folder the storage service is configured with" do
+        expect(check.receipt_parser_inputs.first[:url]).to include("licketysplit/test/#{check.receipt_images.first.key}")
+      end
+
+      it "delivers a width-capped jpg so OpenAI refetches cost a fraction of the original" do
+        expect(check.receipt_parser_inputs.first[:url]).to include("c_limit", "f_jpg", "q_auto:good", "w_1600")
+      end
     end
 
-    it "delivers a width-capped jpg so OpenAI refetches cost a fraction of the original" do
-      expect(check.receipt_image_urls.first).to include("c_limit", "f_jpg", "q_auto:good", "w_1600")
+    context "with a pdf" do
+      before do
+        check.receipt_images.attach(io: StringIO.new("%PDF-1.4"), filename: "invoice.pdf", content_type: "application/pdf")
+        deliver_via_cloudinary
+      end
+
+      # The delivery transformation renders page 1 and drops the rest without
+      # erroring, which loses most of a multi-page invoice.
+      it "delivers the pdf untransformed" do
+        url = check.receipt_parser_inputs.first[:url]
+        expect(url).to include(".pdf")
+        expect(url).not_to include("w_1600", "f_jpg")
+      end
+
+      it "reports the content type so the parser can send it as a file" do
+        expect(check.receipt_parser_inputs.first[:content_type]).to eq("application/pdf")
+      end
     end
   end
 

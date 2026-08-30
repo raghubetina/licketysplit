@@ -30,6 +30,7 @@ class Check < ApplicationRecord
   MAX_RECEIPT_IMAGES = 8
   MAX_RECEIPT_IMAGE_SIZE = 15.megabytes
   ALLOWED_RECEIPT_IMAGE_TYPES = %w[image/jpeg image/png image/webp image/heic image/heif image/gif].freeze
+  ALLOWED_RECEIPT_TYPES = (ALLOWED_RECEIPT_IMAGE_TYPES + [ReceiptParser::PDF_CONTENT_TYPE]).freeze
 
   # Real parses run 7-25s (slowest observed in production: 25.2s). Past a minute
   # the parse is far enough outside that range to tell the user something is
@@ -60,8 +61,20 @@ class Check < ApplicationRecord
   # Must go through Active Storage rather than Cloudinary::Utils.cloudinary_url,
   # which takes a public id verbatim and so omits the folder the service is
   # configured with, yielding a 404 for every image.
-  def receipt_image_urls
-    receipt_images.map { |image| image.url(**RECEIPT_DELIVERY_TRANSFORMATION) }
+  #
+  # PDFs deliberately skip the transformation: Cloudinary renders page 1 of a PDF
+  # and silently discards the rest, so a multi-page invoice would lose every page
+  # after the first. The parser sends those through to OpenAI whole instead.
+  def receipt_parser_inputs
+    receipt_images.map do |attachment|
+      url = if attachment.content_type == ReceiptParser::PDF_CONTENT_TYPE
+        attachment.url
+      else
+        attachment.url(**RECEIPT_DELIVERY_TRANSFORMATION)
+      end
+
+      {url: url, content_type: attachment.content_type}
+    end
   end
 
   has_many :participants, dependent: :destroy
@@ -209,12 +222,12 @@ class Check < ApplicationRecord
     return unless receipt_images.attached?
 
     if receipt_images.size > MAX_RECEIPT_IMAGES
-      errors.add(:receipt_images, "cannot exceed #{MAX_RECEIPT_IMAGES} images")
+      errors.add(:receipt_images, "cannot exceed #{MAX_RECEIPT_IMAGES} files")
     end
 
     receipt_images.each do |image|
-      unless ALLOWED_RECEIPT_IMAGE_TYPES.include?(image.content_type)
-        errors.add(:receipt_images, "must be JPEG, PNG, WebP, HEIC, or GIF")
+      unless ALLOWED_RECEIPT_TYPES.include?(image.content_type)
+        errors.add(:receipt_images, "must be a PDF, or a JPEG, PNG, WebP, HEIC, or GIF image")
       end
 
       if image.blob.byte_size > MAX_RECEIPT_IMAGE_SIZE
