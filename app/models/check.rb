@@ -32,6 +32,15 @@ class Check < ApplicationRecord
   ALLOWED_RECEIPT_IMAGE_TYPES = %w[image/jpeg image/png image/webp image/heic image/heif image/gif].freeze
   ALLOWED_RECEIPT_TYPES = (ALLOWED_RECEIPT_IMAGE_TYPES + [ReceiptParser::PDF_CONTENT_TYPE]).freeze
 
+  # OpenAI caps a single request at 50MB across every file input. Images barely
+  # count against that: they are delivered re-encoded and width-capped (see
+  # RECEIPT_DELIVERY_TRANSFORMATION), so what leaves Cloudinary is a fraction of
+  # what was uploaded. PDFs are handed over byte for byte, so the per-file cap
+  # alone would let eight of them through at 120MB total, and the parse would
+  # fail only after the upload had succeeded and the user had waited.
+  # Held below 50MB to leave room for the prompt and encoding overhead.
+  MAX_RECEIPT_PDF_TOTAL_SIZE = 40.megabytes
+
   # Real parses run 7-25s (slowest observed in production: 25.2s). Past a minute
   # the parse is far enough outside that range to tell the user something is
   # wrong and offer a retry, without claiming certainty.
@@ -233,6 +242,14 @@ class Check < ApplicationRecord
       if image.blob.byte_size > MAX_RECEIPT_IMAGE_SIZE
         errors.add(:receipt_images, "must each be smaller than #{MAX_RECEIPT_IMAGE_SIZE / 1.megabyte}MB")
       end
+    end
+
+    pdf_bytes = receipt_images.sum do |image|
+      (image.content_type == ReceiptParser::PDF_CONTENT_TYPE) ? image.blob.byte_size : 0
+    end
+
+    if pdf_bytes > MAX_RECEIPT_PDF_TOTAL_SIZE
+      errors.add(:receipt_images, "PDFs must total less than #{MAX_RECEIPT_PDF_TOTAL_SIZE / 1.megabyte}MB")
     end
   end
 

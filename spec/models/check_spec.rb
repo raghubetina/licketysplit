@@ -144,8 +144,8 @@ RSpec.describe Check, type: :model do
   end
 
   describe "receipt image validations" do
-    def attach(check, filename:, content_type:)
-      check.receipt_images.attach(io: StringIO.new("x"), filename: filename, content_type: content_type)
+    def attach(check, filename:, content_type:, body: "x")
+      check.receipt_images.attach(io: StringIO.new(body), filename: filename, content_type: content_type)
     end
 
     it "accepts a valid jpeg" do
@@ -165,6 +165,24 @@ RSpec.describe Check, type: :model do
       attach(check, filename: "notes.txt", content_type: "text/plain")
       expect(check).to be_invalid
       expect(check.errors[:receipt_images].join).to match(/JPEG|PNG|WebP/)
+    end
+
+    it "rejects a set of PDFs that would blow OpenAI's per-request ceiling" do
+      # PDFs reach OpenAI byte for byte, so the per-file cap alone is not enough:
+      # eight at the per-file limit would exceed what a single request accepts.
+      stub_const("Check::MAX_RECEIPT_PDF_TOTAL_SIZE", 100)
+      check = Check.new(currency: "USD")
+      2.times { |i| attach(check, filename: "invoice#{i}.pdf", content_type: "application/pdf", body: "x" * 60) }
+      expect(check).to be_invalid
+      expect(check.errors[:receipt_images].join).to match(/PDFs must total/)
+    end
+
+    it "does not count images toward the PDF total" do
+      stub_const("Check::MAX_RECEIPT_PDF_TOTAL_SIZE", 100)
+      check = Check.new(currency: "USD")
+      3.times { |i| attach(check, filename: "r#{i}.jpg", content_type: "image/jpeg", body: "x" * 60) }
+      attach(check, filename: "invoice.pdf", content_type: "application/pdf", body: "x" * 60)
+      expect(check).to be_valid
     end
 
     it "rejects more than the maximum number of images" do
