@@ -19,7 +19,7 @@
             "1",
             all_selected,
             id: "item_#{line_item.id}_select_all",
-            onchange: "this.form.requestSubmit()"
+            data: {controller: "autosubmit", action: "change->autosubmit#submit"}
           ) %>
           <span class="ls-chip-avatar"><i class="bi bi-people-fill"></i></span>
           <span>Everyone</span>

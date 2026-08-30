@@ -20,7 +20,7 @@
             id: "participant_#{participant.id}_being_treated",
             class: "form-check-input",
             role: "switch",
-            onchange: "this.form.requestSubmit()"
+            data: {controller: "autosubmit", action: "change->autosubmit#submit"}
           ) %>
           <%= label_tag(
             "participant_#{participant.id}_being_treated",
