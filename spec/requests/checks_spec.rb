@@ -9,7 +9,7 @@ RSpec.describe "Checks", type: :request do
         post checks_path, params: {receipt_images: [""]}
       }.not_to change(Check, :count)
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
