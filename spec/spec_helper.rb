@@ -16,6 +16,11 @@
 RSpec.configure do |config|
   config.example_status_persistence_file_path = "tmp/rspec_examples.txt"
   config.order = :random
+
+  # Specs tagged :vision send real receipts to OpenAI and cost money per
+  # example, so they never run as part of a normal suite. Run them
+  # deliberately: bundle exec rspec --tag vision
+  config.filter_run_excluding vision: true
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
