@@ -1,7 +1,9 @@
 <%# Cloudinary rasterizes a PDF for display, but only ever its first page, so
     link out to the original for anything past that. %>
-<%= cl_image_tag attachment.key, width: 800, quality: :auto, fetch_format: :auto, class: css_class %>
-<% if attachment.content_type == ReceiptParser::PDF_CONTENT_TYPE %>
+<% pdf = attachment.content_type == ReceiptParser::PDF_CONTENT_TYPE %>
+<%= cl_image_tag attachment.key, width: 800, quality: :auto, fetch_format: :auto, class: css_class,
+      alt: pdf ? "First page of #{attachment.filename}" : "Photo of the receipt" %>
+<% if pdf %>
   <div class="p-2 small">
     <%= link_to attachment.url, target: "_blank", rel: "noopener" do %>
       <i class="bi bi-file-earmark-pdf"></i> Open full PDF

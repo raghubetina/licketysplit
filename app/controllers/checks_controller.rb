@@ -25,11 +25,14 @@ class ChecksController < ApplicationController
   end
 
   def update_currency
-    currency_code = params[:currency]
-    currency = Money::Currency.find(currency_code)
+    currency = Money::Currency.find(params[:currency])
 
     if currency
-      @check.update(currency: currency_code, currency_symbol: currency.symbol)
+      # iso_code rather than the raw param so a lowercase code still matches the
+      # select's options on the way back out.
+      @check.update!(currency: currency.iso_code, currency_symbol: currency.symbol)
+    else
+      flash[:alert] = "#{params[:currency]} isn't a currency we recognise."
     end
 
     redirect_to @check

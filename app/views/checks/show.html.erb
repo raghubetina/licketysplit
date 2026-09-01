@@ -52,15 +52,8 @@
       <p class="mb-3">Something went wrong on our end — your photos are fine. You can try again, and it will re-read the same images.</p>
       <%= button_to "Try again", retry_parse_check_path(@check), method: :post, class: "btn btn-primary" %>
     </div>
-    <% if @check.receipt_images.attached? %>
-      <div class="row">
-        <% @check.receipt_images.each do |image| %>
-          <div class="col-md-6">
-            <%= render "checks/receipt_attachment", attachment: image, css_class: "card-img mb-2" %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%# Attachments are rendered once, by the block near the end of this template,
+        which already covers every non-parsing state including this one. %>
   <% else %>
 
   <div class="card mb-3">
