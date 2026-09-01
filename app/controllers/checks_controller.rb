@@ -63,7 +63,7 @@ class ChecksController < ApplicationController
       @check = Check.new
       @check.errors.add(:receipt_images, "are required")
       @recent_checks = load_recent_checks
-      return render :index, status: :unprocessable_entity
+      return render :index, status: :unprocessable_content
     end
 
     @check = Check.new(status: "parsing")
@@ -79,7 +79,7 @@ class ChecksController < ApplicationController
       redirect_to @check
     else
       @recent_checks = load_recent_checks
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 
@@ -90,7 +90,7 @@ class ChecksController < ApplicationController
     if @check.update(check_params)
       redirect_to @check, notice: "Check was successfully updated."
     else
-      render :show, status: :unprocessable_entity
+      render :show, status: :unprocessable_content
     end
   end
 

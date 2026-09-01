@@ -64,9 +64,9 @@ group :development, :test do
   gem "binding_of_caller"
   gem "amazing_print"
   gem "dotenv"
-  gem "rspec-rails", "~> 7.1"
+  gem "rspec-rails", "~> 8.0"
   gem "factory_bot_rails"
-  gem "shoulda-matchers", "~> 6.0"
+  gem "shoulda-matchers", "~> 7.0"
   gem "standard", require: false
   gem "standard-rails", require: false
   gem "herb", require: false
@@ -98,5 +98,5 @@ gem "kramdown"
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem "action_dispatch-testing-integration-capybara", github: "thoughtbot/action_dispatch-testing-integration-capybara", tag: "v0.1.1", require: "action_dispatch/testing/integration/capybara/rspec"
+  gem "action_dispatch-testing-integration-capybara", github: "thoughtbot/action_dispatch-testing-integration-capybara", tag: "v0.2.0", require: "action_dispatch/testing/integration/capybara/rspec"
 end
