@@ -52,10 +52,6 @@ class ChecksController < ApplicationController
     redirect_to @check
   end
 
-  def new
-    redirect_to checks_path
-  end
-
   def create
     # file_field with multiple: true renders a hidden empty-valued input, so an
     # empty submission arrives as [""], which is not blank?. Active Storage then

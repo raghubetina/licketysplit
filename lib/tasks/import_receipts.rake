@@ -33,7 +33,7 @@ namespace :receipts do
 
         image_path = Rails.root.join("spec/fixtures/files/receipts/#{receipt_number}-receipt.jpg")
         if File.exist?(image_path)
-          check.receipt_image.attach(
+          check.receipt_images.attach(
             io: File.open(image_path),
             filename: "#{receipt_number}-receipt.jpg",
             content_type: "image/jpeg"

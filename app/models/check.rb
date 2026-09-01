@@ -11,7 +11,6 @@
 #  line_items_count        :integer          default(0), not null
 #  participants_count      :integer          default(0), not null
 #  reasoning               :text
-#  receipt_image           :string
 #  restaurant_address      :string
 #  restaurant_name         :string
 #  restaurant_phone_number :string

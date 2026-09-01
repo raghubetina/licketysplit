@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "checks#index"
 
-  resources :checks do
+  # The form lives on the index page; there is no separate #new.
+  resources :checks, except: [:new] do
     member do
       post :toggle_zero_items
       patch :update_currency
