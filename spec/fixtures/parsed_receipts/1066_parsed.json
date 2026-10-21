@@ -1,0 +1,63 @@
+{
+  "restaurant_name": "Ristorante",
+  "restaurant_address": "Bellagio (CO)",
+  "restaurant_phone_number": "031/951888",
+  "billed_on": "2019-07-14T16:23:00+00:00",
+  "grand_total": 82.0,
+  "currency": "EUR",
+  "currency_symbol": "€",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "COPERTO",
+      "quantity": 4,
+      "unit_price": 3.0,
+      "total_price": 12.0
+    },
+    {
+      "position": 2,
+      "description": "ACQUA NAT",
+      "quantity": 2,
+      "unit_price": 4.0,
+      "total_price": 8.0
+    },
+    {
+      "position": 3,
+      "description": "SALMERINO PIASTRA",
+      "quantity": 1,
+      "unit_price": 18.0,
+      "total_price": 18.0
+    },
+    {
+      "position": 4,
+      "description": "TRENETTE AL PESTO",
+      "quantity": 1,
+      "unit_price": 13.0,
+      "total_price": 13.0
+    },
+    {
+      "position": 5,
+      "description": "SPAGHETTI POM. BASILICO",
+      "quantity": 1,
+      "unit_price": 10.0,
+      "total_price": 10.0
+    },
+    {
+      "position": 6,
+      "description": "FETTUCCINE RAGU'",
+      "quantity": 1,
+      "unit_price": 15.0,
+      "total_price": 15.0
+    },
+    {
+      "position": 7,
+      "description": "PATATINE FRITTE",
+      "quantity": 1,
+      "unit_price": 6.0,
+      "total_price": 6.0
+    }
+  ],
+  "global_fees_attributes": [],
+  "global_discounts_attributes": []
+}

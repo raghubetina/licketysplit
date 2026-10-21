@@ -1,0 +1,124 @@
+{
+  "restaurant_name": "Dominican Restaurant",
+  "restaurant_address": "1019 Front St.",
+  "restaurant_phone_number": "516-292-5700",
+  "billed_on": "2018-11-10T18:38:00+00:00",
+  "grand_total": 53.23,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Bistec Palomilla Enc",
+      "quantity": 1,
+      "unit_price": 15.95,
+      "total_price": 15.95,
+      "addons_attributes": [
+        {
+          "description": "W/Moro Gandules",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Hab Rojas . Red Bean",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Dine in",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "description": "Spaghetti Con Pollo",
+      "quantity": 1,
+      "unit_price": 14.95,
+      "total_price": 14.95,
+      "addons_attributes": [
+        {
+          "description": "W/Moro Gandules",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Hab Rojas . Red Bean",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Dine in",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "description": "Copa Vino",
+      "quantity": 1,
+      "unit_price": 5.5,
+      "total_price": 5.5,
+      "addons_attributes": [
+        {
+          "description": "White Glass Pinot Gr",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "description": "Lemonada",
+      "quantity": 1,
+      "unit_price": 3.5,
+      "total_price": 3.5,
+      "addons_attributes": [
+        {
+          "description": "Dine in",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "description": "Jugo de Chinola",
+      "quantity": 1,
+      "unit_price": 4,
+      "total_price": 4,
+      "addons_attributes": [
+        {
+          "description": "Dine in 16oz",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Gratuity.",
+      "amount": 6.59,
+      "fee_type": "tip"
+    },
+    {
+      "description": "Sales Tax",
+      "amount": 2.74,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

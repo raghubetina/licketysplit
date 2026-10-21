@@ -1,0 +1,83 @@
+{
+  "restaurant_name": "Fresh Fields Market",
+  "restaurant_address": "1420 Elm St, Springfield IL",
+  "restaurant_phone_number": "(217) 555-0143",
+  "billed_on": "2026-10-12T18:42:00+00:00",
+  "grand_total": 68.65,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Bananas (2.31 lb @ $0.69/lb)",
+      "quantity": 1,
+      "unit_price": 1.59,
+      "total_price": 1.59
+    },
+    {
+      "position": 2,
+      "description": "Sparkling Water 12pk",
+      "quantity": 2,
+      "unit_price": 5.49,
+      "total_price": 10.98
+    },
+    {
+      "position": 3,
+      "description": "Chicken Thighs (2.15 lb @ $4.29/lb)",
+      "quantity": 1,
+      "unit_price": 9.22,
+      "total_price": 9.22
+    },
+    {
+      "position": 4,
+      "description": "Sourdough Loaf",
+      "quantity": 1,
+      "unit_price": 4.99,
+      "total_price": 4.99
+    },
+    {
+      "position": 5,
+      "description": "Salmon Fillet (1.08 lb @ $12.99/lb)",
+      "quantity": 1,
+      "unit_price": 14.03,
+      "total_price": 14.03
+    },
+    {
+      "position": 6,
+      "description": "Avocados",
+      "quantity": 4,
+      "unit_price": 1.25,
+      "total_price": 5.0
+    },
+    {
+      "position": 7,
+      "description": "Roma Tomatoes (1.42 lb @ $1.89/lb)",
+      "quantity": 1,
+      "unit_price": 2.68,
+      "total_price": 2.68
+    },
+    {
+      "position": 8,
+      "description": "Greek Yogurt 32oz",
+      "quantity": 1,
+      "unit_price": 6.49,
+      "total_price": 6.49
+    },
+    {
+      "position": 9,
+      "description": "Olive Oil 1l",
+      "quantity": 1,
+      "unit_price": 12.99,
+      "total_price": 12.99
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax 1.00%",
+      "amount": 0.68,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

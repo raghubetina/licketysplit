@@ -1,0 +1,71 @@
+{
+  "restaurant_name": "HAMMOCKS TRADING COMPANY",
+  "restaurant_address": "7285 Roswell Road, Sandy Springs, Georgia 30328",
+  "restaurant_phone_number": "770-395-9592",
+  "billed_on": "2017-03-10T18:23:00+00:00",
+  "grand_total": 50.29,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Coke",
+      "quantity": 1,
+      "unit_price": 2.5,
+      "total_price": 2.5
+    },
+    {
+      "position": 2,
+      "description": "Shrimp Entree",
+      "quantity": 1,
+      "unit_price": 21.0,
+      "total_price": 21.0,
+      "addons_attributes": [
+        {
+          "description": "Mac n Cheese",
+          "quantity": 1,
+          "unit_price": 0.0,
+          "total_price": 0.0
+        },
+        {
+          "description": "French Fries",
+          "quantity": 1,
+          "unit_price": 0.0,
+          "total_price": 0.0
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "description": "BBQ & Blue Chz chips",
+      "quantity": 1,
+      "unit_price": 6.0,
+      "total_price": 0.0,
+      "discount": 6.0,
+      "discount_description": "Discount: BBQ & Blue Chz"
+    },
+    {
+      "position": 4,
+      "description": "Sprite",
+      "quantity": 1,
+      "unit_price": 2.5,
+      "total_price": 2.5
+    },
+    {
+      "position": 5,
+      "description": "Lobster Roll",
+      "quantity": 1,
+      "unit_price": 21.0,
+      "total_price": 21.0
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "State Tax",
+      "amount": 3.29,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

@@ -1,0 +1,68 @@
+{
+  "restaurant_name": "Mezcal Mexican Restaurant & Bar",
+  "restaurant_address": "25 West San Fernando St., San Jose, CA 95113",
+  "restaurant_phone_number": "(408) 283-9595",
+  "billed_on": "2017-12-29T13:17:00+00:00",
+  "grand_total": 64.52,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Coffee",
+      "quantity": 1,
+      "unit_price": 3.25,
+      "total_price": 3.25
+    },
+    {
+      "position": 2,
+      "description": "Enmoladas with Meat",
+      "quantity": 1,
+      "unit_price": 14.95,
+      "total_price": 14.95,
+      "addons_attributes": [
+        {
+          "description": "pollo",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "description": "Chicken Tenders",
+      "quantity": 1,
+      "unit_price": 5.95,
+      "total_price": 5.95
+    },
+    {
+      "position": 4,
+      "description": "Flautas Chicken",
+      "quantity": 1,
+      "unit_price": 9.95,
+      "total_price": 9.95
+    },
+    {
+      "position": 5,
+      "description": "Coloradito",
+      "quantity": 1,
+      "unit_price": 15.95,
+      "total_price": 15.95
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 5.46,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Gratuity 18.00%",
+      "amount": 9.01,
+      "fee_type": "tip"
+    }
+  ],
+  "global_discounts_attributes": []
+}

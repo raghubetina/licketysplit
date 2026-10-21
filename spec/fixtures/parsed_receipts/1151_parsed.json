@@ -1,0 +1,32 @@
+{
+  "restaurant_name": "Collector's Choice Restaurant",
+  "restaurant_address": "215 Cypress Ave, Snohomish, WA 98290",
+  "restaurant_phone_number": "360-568-1277",
+  "billed_on": "2019-04-10T12:00:00+00:00",
+  "grand_total": 13.53,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Twisted Rueben",
+      "quantity": 1,
+      "unit_price": 11.69,
+      "total_price": 11.69
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Service Fee",
+      "amount": 0.7,
+      "fee_type": "other"
+    },
+    {
+      "description": "Sales Tax (9.2%)",
+      "amount": 1.14,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

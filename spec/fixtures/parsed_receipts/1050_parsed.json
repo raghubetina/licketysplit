@@ -1,0 +1,65 @@
+{
+  "restaurant_name": "HOLLYWOOD CAFE & SPORTS BAR",
+  "restaurant_address": null,
+  "restaurant_phone_number": null,
+  "billed_on": "2017-09-08T12:45:41+00:00",
+  "grand_total": 26.96,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "SODA",
+      "quantity": 1,
+      "unit_price": 2.49,
+      "total_price": 2.49
+    },
+    {
+      "position": 2,
+      "description": "CHEESE STEAK",
+      "quantity": 1,
+      "unit_price": 10.49,
+      "total_price": 10.49,
+      "addons_attributes": [
+        {
+          "description": "AMERICAN CHS",
+          "quantity": 1,
+          "unit_price": 1.0,
+          "total_price": 1.0
+        },
+        {
+          "description": "FRD ONION",
+          "quantity": 1,
+          "unit_price": 0.75,
+          "total_price": 0.75
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "description": "Chix Cheesesteak",
+      "quantity": 1,
+      "unit_price": 10.49,
+      "total_price": 10.49
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Food Tax",
+      "amount": 1.74,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Liquor Tax",
+      "amount": 0.0,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Other Taxes",
+      "amount": 0.0,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

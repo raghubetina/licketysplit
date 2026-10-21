@@ -16,13 +16,13 @@
       "total_price": 11.38,
       "addons_attributes": [
         {
-          "description": "American cheese",
+          "description": "No American cheese",
           "quantity": 1,
           "unit_price": 0.0,
           "total_price": 0.0
         },
         {
-          "description": "Green chile",
+          "description": "Extra green chile",
           "quantity": 1,
           "unit_price": 0.7,
           "total_price": 0.7
