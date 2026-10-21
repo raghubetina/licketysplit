@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_01_000140) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_21_050000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -162,6 +162,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_01_000140) do
     t.string "currency_symbol", default: "$"
     t.decimal "grand_total", precision: 10, scale: 2
     t.integer "line_items_count", default: 0, null: false
+    t.string "parse_model"
+    t.string "parse_reasoning_effort"
+    t.float "parse_seconds"
+    t.jsonb "parsed_receipt"
     t.integer "participants_count", default: 0, null: false
     t.text "reasoning"
     t.string "restaurant_address"
