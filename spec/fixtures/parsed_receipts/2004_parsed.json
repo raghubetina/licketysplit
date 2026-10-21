@@ -1,0 +1,95 @@
+{
+  "restaurant_name": "Vine & Barrel Wine Shop",
+  "restaurant_address": null,
+  "restaurant_phone_number": null,
+  "billed_on": "2026-10-03T00:00:00+00:00",
+  "grand_total": 254.33,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Cabernet Sauvignon, Paso Robles 750ml",
+      "quantity": 2,
+      "unit_price": 21.24,
+      "total_price": 42.48
+    },
+    {
+      "position": 2,
+      "description": "Pinot Noir, Willamette 750ml",
+      "quantity": 1,
+      "unit_price": 16.99,
+      "total_price": 16.99
+    },
+    {
+      "position": 3,
+      "description": "Prosecco DOC 750ml",
+      "quantity": 3,
+      "unit_price": 12.74,
+      "total_price": 38.22
+    },
+    {
+      "position": 4,
+      "description": "Hazy IPA 6-pack",
+      "quantity": 2,
+      "unit_price": 11.99,
+      "total_price": 23.98
+    },
+    {
+      "position": 5,
+      "description": "Riesling, Finger Lakes 750ml",
+      "quantity": 1,
+      "unit_price": 15.29,
+      "total_price": 15.29
+    },
+    {
+      "position": 6,
+      "description": "Malbec, Mendoza 750ml",
+      "quantity": 2,
+      "unit_price": 13.59,
+      "total_price": 27.18
+    },
+    {
+      "position": 7,
+      "description": "Sparkling Water 1L",
+      "quantity": 4,
+      "unit_price": 2.49,
+      "total_price": 9.96
+    },
+    {
+      "position": 8,
+      "description": "Rosé, Provence 750ml",
+      "quantity": 1,
+      "unit_price": 18.69,
+      "total_price": 18.69
+    },
+    {
+      "position": 9,
+      "description": "Chardonnay, Sonoma 750ml",
+      "quantity": 2,
+      "unit_price": 16.14,
+      "total_price": 32.28
+    },
+    {
+      "position": 10,
+      "description": "Gift Bag",
+      "quantity": 1,
+      "unit_price": 2.5,
+      "total_price": 2.5
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Delivery",
+      "amount": 7.99,
+      "fee_type": "other"
+    },
+    {
+      "description": "Sales tax (8.25%)",
+      "amount": 18.77,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

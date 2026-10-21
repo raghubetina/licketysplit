@@ -1,0 +1,65 @@
+{
+  "restaurant_name": "Lalo's Mexican at Navy Pier",
+  "restaurant_address": "600 E Grand Ave",
+  "restaurant_phone_number": null,
+  "billed_on": "2017-08-24T17:29:00+00:00",
+  "grand_total": 16.56,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Bottled Water",
+      "quantity": 1,
+      "unit_price": 2.45,
+      "total_price": 2.45
+    },
+    {
+      "position": 2,
+      "description": "Add Pollo Taco",
+      "quantity": 1,
+      "unit_price": 4.95,
+      "total_price": 4.95
+    },
+    {
+      "position": 3,
+      "description": "Add Carnitas Taco",
+      "quantity": 1,
+      "unit_price": 4.95,
+      "total_price": 4.95
+    },
+    {
+      "position": 4,
+      "description": "Sour Cream",
+      "quantity": 1,
+      "unit_price": 1.25,
+      "total_price": 1.25
+    },
+    {
+      "position": 5,
+      "description": "Chihuahua Cheese",
+      "quantity": 1,
+      "unit_price": 1.25,
+      "total_price": 1.25
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "IL Sales",
+      "amount": 1.52,
+      "fee_type": "tax"
+    },
+    {
+      "description": "MPEA Tax",
+      "amount": 0.15,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Restaurant",
+      "amount": 0.04,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

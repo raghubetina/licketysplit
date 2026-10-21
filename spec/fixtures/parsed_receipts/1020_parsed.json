@@ -1,0 +1,65 @@
+{
+  "restaurant_name": "Deccan Spice",
+  "restaurant_address": "771 Newark Avenue, Jersey City Local, NJ 07306",
+  "restaurant_phone_number": "(201) 604-1772",
+  "billed_on": "2019-07-26T22:56:49+00:00",
+  "grand_total": 47.02,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Dal Fry",
+      "quantity": 1,
+      "unit_price": 10.99,
+      "total_price": 10.99
+    },
+    {
+      "position": 2,
+      "description": "Paneer Butter Masala",
+      "quantity": 1,
+      "unit_price": 12.99,
+      "total_price": 12.99
+    },
+    {
+      "position": 3,
+      "description": "rice",
+      "quantity": 2,
+      "unit_price": 1.99,
+      "total_price": 3.98
+    },
+    {
+      "position": 4,
+      "description": "Deccan Special Biryani",
+      "quantity": 1,
+      "unit_price": 14.99,
+      "total_price": 14.99
+    },
+    {
+      "position": 5,
+      "description": "rice",
+      "quantity": 1,
+      "unit_price": 1.99,
+      "total_price": 1.99
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax 1",
+      "amount": 2.98,
+      "fee_type": "tax"
+    },
+    {
+      "description": "18% TIPS",
+      "amount": 8.09,
+      "fee_type": "tip"
+    }
+  ],
+  "global_discounts_attributes": [
+    {
+      "description": "Online Offer",
+      "amount": 8.99
+    }
+  ]
+}

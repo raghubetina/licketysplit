@@ -1,0 +1,70 @@
+{
+  "restaurant_name": "OM Indian Food",
+  "restaurant_address": "204 Spring St, New York, NY 10012",
+  "restaurant_phone_number": "(646) 756-4000",
+  "billed_on": "2016-04-15T12:03:14+00:00",
+  "grand_total": 58.98,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Vegetable Biryani",
+      "quantity": 1,
+      "unit_price": 12.95,
+      "total_price": 12.95
+    },
+    {
+      "position": 2,
+      "description": "Malai Kofta",
+      "quantity": 1,
+      "unit_price": 12.95,
+      "total_price": 12.95
+    },
+    {
+      "position": 3,
+      "description": "Onion Naan",
+      "quantity": 1,
+      "unit_price": 3.95,
+      "total_price": 3.95
+    },
+    {
+      "position": 4,
+      "description": "Crisfield Special Platter",
+      "quantity": 1,
+      "unit_price": 27.0,
+      "total_price": 27.0
+    },
+    {
+      "position": 5,
+      "description": "Pint Bisque",
+      "quantity": 1,
+      "unit_price": 11.5,
+      "total_price": 11.5
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 1.32,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Carry Out",
+      "amount": 1.93,
+      "fee_type": "other"
+    },
+    {
+      "description": "TAX",
+      "amount": 2.31,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": [
+    {
+      "description": "Lunch discount 50% off",
+      "amount": 14.93
+    }
+  ]
+}

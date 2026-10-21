@@ -63,15 +63,6 @@
       "quantity": 1,
       "unit_price": 6.0,
       "total_price": 6.0
-    },
-    {
-      "position": 9,
-      "description": "Comp Item",
-      "quantity": 1,
-      "unit_price": 12.0,
-      "total_price": 0.0,
-      "discount": 12.0,
-      "discount_description": "Comped item"
     }
   ],
   "global_fees_attributes": [
@@ -81,5 +72,10 @@
       "fee_type": "tax"
     }
   ],
-  "global_discounts_attributes": []
+  "global_discounts_attributes": [
+    {
+      "description": "Comp Item",
+      "amount": 12.0
+    }
+  ]
 }

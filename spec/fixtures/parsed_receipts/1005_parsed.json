@@ -41,15 +41,14 @@
       "description": "CK Manhattan",
       "quantity": 2,
       "unit_price": 5.0,
-      "total_price": 10.0
-    },
-    {
-      "position": 4,
-      "description": "Whistle Pig Rye 10yr",
-      "quantity": 2,
-      "unit_price": 20.0,
-      "total_price": 40.0,
+      "total_price": 10.0,
       "addons_attributes": [
+        {
+          "description": "Whistle Pig Rye 10yr",
+          "quantity": 2,
+          "unit_price": 20.0,
+          "total_price": 40.0
+        },
         {
           "description": "BMOD Up",
           "quantity": 2,
@@ -59,7 +58,7 @@
       ]
     },
     {
-      "position": 5,
+      "position": 4,
       "description": "\"Duke\" 16oz Top Sirloin",
       "quantity": 1,
       "unit_price": 34.0,

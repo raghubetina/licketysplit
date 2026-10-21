@@ -1,0 +1,126 @@
+{
+  "restaurant_name": "Via Mar Restaurant",
+  "restaurant_address": "4105 Maine Ave, Baldwin Park, CA 91706",
+  "restaurant_phone_number": "(626) 939-9019",
+  "billed_on": "2018-09-06T00:00:00+00:00",
+  "grand_total": 73.24,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "TAP BEER 10-HH",
+      "quantity": 6,
+      "unit_price": 1.59,
+      "total_price": 9.54,
+      "addons_attributes": [
+        {
+          "description": "Modelo Tap.",
+          "quantity": 6,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "description": "Manzanita Sol",
+      "quantity": 2,
+      "unit_price": 2.75,
+      "total_price": 5.5
+    },
+    {
+      "position": 3,
+      "description": "Tamarindo",
+      "quantity": 1,
+      "unit_price": 2.75,
+      "total_price": 2.75
+    },
+    {
+      "position": 4,
+      "description": "Sprite",
+      "quantity": 1,
+      "unit_price": 2.75,
+      "total_price": 2.75
+    },
+    {
+      "position": 5,
+      "description": "Thur. 2 Cock Shrimp",
+      "quantity": 1,
+      "unit_price": 11.95,
+      "total_price": 11.95
+    },
+    {
+      "position": 6,
+      "description": "Whole Fish",
+      "quantity": 2,
+      "unit_price": 10.95,
+      "total_price": 21.9,
+      "addons_attributes": [
+        {
+          "description": "Tilapia Whl",
+          "quantity": 2,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Fried",
+          "quantity": 2,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 7,
+      "description": "2 tcs Governador",
+      "quantity": 1,
+      "unit_price": 7.75,
+      "total_price": 7.75,
+      "addons_attributes": [
+        {
+          "description": "plan ,fries",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 8,
+      "description": "French Fries",
+      "quantity": 1,
+      "unit_price": 2.5,
+      "total_price": 2.5
+    },
+    {
+      "position": 9,
+      "description": "Taco DE Asada",
+      "quantity": 1,
+      "unit_price": 2.25,
+      "total_price": 2.25,
+      "addons_attributes": [
+        {
+          "description": "plain,papas",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax 1",
+      "amount": 6.35,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Tax 2",
+      "amount": 0,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

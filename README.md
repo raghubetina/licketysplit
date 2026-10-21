@@ -60,6 +60,14 @@ Run the test suite:
 bundle exec rspec
 ```
 
+Receipt parsing is scored against verified labels in
+`spec/fixtures/parsed_receipts`. Every parse is a paid OpenAI call, so these
+run only on request:
+```bash
+bundle exec rspec --tag vision   # one parse of every labeled receipt
+bin/rails receipts:eval RUNS=3   # repeated runs; MODEL= and EFFORT= compare candidates
+```
+
 ## Code Quality
 
 Ruby linting:

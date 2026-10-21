@@ -1,0 +1,46 @@
+{
+  "restaurant_name": "Stanford's",
+  "restaurant_address": "17380 Southcenter Parkway, Tukwila, WA 98188",
+  "restaurant_phone_number": "206.575.7454",
+  "billed_on": "2017-09-30T19:38:00+00:00",
+  "grand_total": 37.29,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "CHIC TEND AP",
+      "quantity": 1,
+      "unit_price": 9.95,
+      "total_price": 9.95
+    },
+    {
+      "position": 2,
+      "description": "RIBS 1/2 ST",
+      "quantity": 1,
+      "unit_price": 18.95,
+      "total_price": 18.95
+    },
+    {
+      "position": 3,
+      "description": "BRG DELUXE",
+      "quantity": 1,
+      "unit_price": 14.95,
+      "total_price": 14.95
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "TAX",
+      "amount": 3.39,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": [
+    {
+      "description": "K TIMING",
+      "amount": 9.95
+    }
+  ]
+}

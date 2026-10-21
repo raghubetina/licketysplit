@@ -1,0 +1,91 @@
+{
+  "restaurant_name": "Bombay Grill House",
+  "restaurant_address": "764 9th Ave, New York, NY 10019",
+  "restaurant_phone_number": "2129771010",
+  "billed_on": "2018-06-30T22:36:38+00:00",
+  "grand_total": 154,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Onion Bhajia",
+      "quantity": 1,
+      "unit_price": 5.95,
+      "total_price": 5.95
+    },
+    {
+      "position": 2,
+      "description": "Lamb Vindaloo",
+      "quantity": 1,
+      "unit_price": 14.95,
+      "total_price": 14.95,
+      "addons_attributes": [
+        {
+          "description": "Medium",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "description": "Konkan Fish Curry",
+      "quantity": 1,
+      "unit_price": 16.95,
+      "total_price": 16.95,
+      "addons_attributes": [
+        {
+          "description": "Medium",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "description": "Shrimp Briyani",
+      "quantity": 1,
+      "unit_price": 16.95,
+      "total_price": 16.95,
+      "addons_attributes": [
+        {
+          "description": "Medium",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "description": "Garlic Naan",
+      "quantity": 1,
+      "unit_price": 4,
+      "total_price": 4
+    },
+    {
+      "position": 6,
+      "description": "Hess Cabernet",
+      "quantity": 1,
+      "unit_price": 50,
+      "total_price": 50
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 9.66,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Handwritten tip",
+      "amount": 35.54,
+      "fee_type": "tip"
+    }
+  ],
+  "global_discounts_attributes": []
+}

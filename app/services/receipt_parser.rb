@@ -46,8 +46,20 @@ class ReceiptParser
 
   PDF_CONTENT_TYPE = "application/pdf"
 
-  def initialize(sources)
+  MODEL = "gpt-5.6-terra"
+  REASONING_EFFORT = :low
+  SERVICE_TIER = :auto
+
+  attr_reader :model, :reasoning_effort, :service_tier, :response
+
+  # The keywords exist so the receipt eval can compare candidates
+  # (bin/rails receipts:eval); production always parses with the defaults
+  # above.
+  def initialize(sources, model: MODEL, reasoning_effort: REASONING_EFFORT, service_tier: SERVICE_TIER)
     @sources = Array(sources).filter_map { |source| normalize_source(source) }
+    @model = model
+    @reasoning_effort = reasoning_effort
+    @service_tier = service_tier
   end
 
   def parse(&on_event)
@@ -57,12 +69,13 @@ class ReceiptParser
     raise MissingImagesError, "No receipt images to parse" if sources.empty?
 
     stream = client.responses.stream(
-      model: "gpt-5.6-terra",
+      model: model,
       instructions: SYSTEM_INSTRUCTIONS,
       input: build_input,
       tools: [{type: :code_interpreter, container: {type: :auto}}],
       text: {format: {type: :json_schema, **receipt_schema}},
-      reasoning: {effort: :low, summary: :auto}
+      reasoning: {effort: reasoning_effort, summary: :auto},
+      service_tier: service_tier
     )
 
     stream.each do |event|
@@ -76,6 +89,7 @@ class ReceiptParser
       end
     end
 
+    @response = stream.get_final_response
     response_json = JSON.parse(stream.get_output_text, symbolize_names: true)
     transform_to_check_attributes(response_json)
   end

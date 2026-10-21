@@ -31,12 +31,11 @@ namespace :receipts do
           global_discounts_attributes: parsed_data[:global_discounts_attributes]
         )
 
-        image_path = Rails.root.join("spec/fixtures/files/receipts/#{receipt_number}-receipt.jpg")
-        if File.exist?(image_path)
+        ReceiptEval::Fixture.new(receipt_number).source_paths.each do |path|
           check.receipt_images.attach(
-            io: File.open(image_path),
-            filename: "#{receipt_number}-receipt.jpg",
-            content_type: "image/jpeg"
+            io: File.open(path),
+            filename: File.basename(path),
+            content_type: ReceiptEval::Fixture::CONTENT_TYPES.fetch(File.extname(path).downcase)
           )
         end
 

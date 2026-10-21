@@ -1,0 +1,45 @@
+{
+  "restaurant_name": "Finnegan's Way",
+  "restaurant_address": "1344 Ocean Drive, Miami Beach, Florida 33139",
+  "restaurant_phone_number": "305-672-7747",
+  "billed_on": "2017-08-21T20:38:00+00:00",
+  "grand_total": 50.8,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "SOBE MOJITO'S",
+      "quantity": 4,
+      "unit_price": 10.0,
+      "total_price": 40.0,
+      "addons_attributes": [
+        {
+          "description": "BACARDI LIGHT",
+          "quantity": 4,
+          "unit_price": 0.0,
+          "total_price": 0.0
+        }
+      ]
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Sales Tax 7%",
+      "amount": 2.8,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Resort Tax 2%",
+      "amount": 0.8,
+      "fee_type": "tax"
+    },
+    {
+      "description": "Voluntary 18% Tip",
+      "amount": 7.2,
+      "fee_type": "tip"
+    }
+  ],
+  "global_discounts_attributes": []
+}

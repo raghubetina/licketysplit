@@ -1,0 +1,63 @@
+{
+  "restaurant_name": "CASA CHAN RESTAURANT",
+  "restaurant_address": "445 Palm Ave, Hialeah, FL 33010",
+  "restaurant_phone_number": "(305) 640-8828",
+  "billed_on": "2014-12-21T17:23:42+00:00",
+  "grand_total": 25.94,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "#12 Wonton or Egg Drop or Mixed Dinner",
+      "quantity": 1,
+      "unit_price": 3.75,
+      "total_price": 3.75,
+      "addons_attributes": [
+        {
+          "description": "Wonton Soup",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "description": "#01 Egg Roll",
+      "quantity": 2,
+      "unit_price": 1.5,
+      "total_price": 3
+    },
+    {
+      "position": 3,
+      "description": "#23 Juice Chinesse Chop Suey Honduran Style Dinner",
+      "quantity": 1,
+      "unit_price": 8.99,
+      "total_price": 8.99
+    },
+    {
+      "position": 4,
+      "description": "Tropical",
+      "quantity": 2,
+      "unit_price": 2.5,
+      "total_price": 5
+    },
+    {
+      "position": 5,
+      "description": "Tamal De Pollo",
+      "quantity": 1,
+      "unit_price": 3.5,
+      "total_price": 3.5
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 1.7,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": []
+}

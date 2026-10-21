@@ -1,0 +1,114 @@
+{
+  "restaurant_name": null,
+  "restaurant_address": "Fairview, NJ 07022",
+  "restaurant_phone_number": "(201) 840-8428",
+  "billed_on": "2019-02-11T19:46:00+00:00",
+  "grand_total": 55.39,
+  "currency": "USD",
+  "currency_symbol": "$",
+  "status": "reviewing",
+  "line_items_attributes": [
+    {
+      "position": 1,
+      "description": "Guaca Chicharron",
+      "quantity": 1,
+      "unit_price": 13.95,
+      "total_price": 13.95
+    },
+    {
+      "position": 2,
+      "description": "Empanada",
+      "quantity": 2,
+      "unit_price": 1.5,
+      "total_price": 3.0
+    },
+    {
+      "position": 3,
+      "description": "Pargo Frito",
+      "quantity": 1,
+      "unit_price": 19.95,
+      "total_price": 19.95,
+      "addons_attributes": [
+        {
+          "description": "Ensalada",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Aguacate",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "No Cebolla",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "No Cebolla Roja",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "description": "Mar y Chicken",
+      "quantity": 1,
+      "unit_price": 17.0,
+      "total_price": 17.0,
+      "addons_attributes": [
+        {
+          "description": "Tostones",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Tostones",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    },
+    {
+      "position": 5,
+      "description": "Salmon a la Plancha",
+      "quantity": 1,
+      "unit_price": 16.0,
+      "total_price": 16.0,
+      "addons_attributes": [
+        {
+          "description": "Ensalada",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        },
+        {
+          "description": "Ensalada",
+          "quantity": 1,
+          "unit_price": 0,
+          "total_price": 0
+        }
+      ]
+    }
+  ],
+  "global_fees_attributes": [
+    {
+      "description": "Tax",
+      "amount": 3.44,
+      "fee_type": "tax"
+    }
+  ],
+  "global_discounts_attributes": [
+    {
+      "description": "Void",
+      "amount": 17.95
+    }
+  ]
+}
