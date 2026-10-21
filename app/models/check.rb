@@ -9,6 +9,10 @@
 #  currency_symbol         :string           default("$")
 #  grand_total             :decimal(10, 2)
 #  line_items_count        :integer          default(0), not null
+#  parse_model             :string
+#  parse_reasoning_effort  :string
+#  parse_seconds           :float
+#  parsed_receipt          :jsonb
 #  participants_count      :integer          default(0), not null
 #  reasoning               :text
 #  restaurant_address      :string
