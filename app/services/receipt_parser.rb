@@ -83,9 +83,9 @@ class ReceiptParser
 
   PDF_CONTENT_TYPE = "application/pdf"
 
-  MODEL = "gpt-5.6-terra"
+  MODEL = "gpt-6.1-sol"
   REASONING_EFFORT = :low
-  SERVICE_TIER = :auto
+  SERVICE_TIER = :ultrafast
 
   attr_reader :model, :reasoning_effort, :service_tier, :response
 
