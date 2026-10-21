@@ -39,12 +39,14 @@ class ParseReceiptJob < ApplicationJob
 
     reasoning_text = +""
     parser = ReceiptParser.new(check.receipt_parser_inputs)
+    started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
     parsed_data = parser.parse do |event_type, data|
       if event_type == :reasoning
         reasoning_text << data
         broadcast_reasoning(check, reasoning_text)
       end
     end
+    parse_seconds = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started
 
     check.transaction do
       check.line_items.destroy_all
@@ -53,6 +55,10 @@ class ParseReceiptJob < ApplicationJob
 
       check.update!(
         reasoning: reasoning_text,
+        parsed_receipt: parsed_data,
+        parse_model: parser.model,
+        parse_reasoning_effort: parser.reasoning_effort,
+        parse_seconds: parse_seconds.round(1),
         restaurant_name: parsed_data[:restaurant_name],
         restaurant_address: parsed_data[:restaurant_address],
         restaurant_phone_number: parsed_data[:restaurant_phone_number],
