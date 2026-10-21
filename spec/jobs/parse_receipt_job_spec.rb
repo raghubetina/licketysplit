@@ -25,6 +25,20 @@ RSpec.describe ParseReceiptJob, type: :job do
     expect(check.global_fees.count).to eq(1)
   end
 
+  # Kept as returned, so later edits can be compared with what was parsed.
+  it "records the parse and the model that produced it" do
+    check = Check.create!(status: "parsing", currency: "USD")
+    allow_any_instance_of(ReceiptParser).to receive(:parse).and_return(parsed)
+
+    described_class.new.perform(check)
+
+    check.reload
+    expect(check.parsed_receipt).to eq(parsed.deep_stringify_keys)
+    expect(check.parse_model).to eq(ReceiptParser::MODEL)
+    expect(check.parse_reasoning_effort).to eq(ReceiptParser::REASONING_EFFORT.to_s)
+    expect(check.parse_seconds).to be >= 0
+  end
+
   it "is idempotent: a retry or redelivery does not duplicate line items" do
     check = Check.create!(status: "parsing", currency: "USD")
     allow_any_instance_of(ReceiptParser).to receive(:parse).and_return(parsed)
