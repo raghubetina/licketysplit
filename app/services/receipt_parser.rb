@@ -346,13 +346,27 @@ class ReceiptParser
       currency_symbol: currency_symbol_for(currency_code),
       status: "reviewing",
       line_items_attributes: transform_line_items(parsed_data[:line_items]),
-      global_fees_attributes: parsed_data[:global_fees].map { |fee|
+      global_fees_attributes: combine_tips(parsed_data[:global_fees]).map { |fee|
         {description: fee[:description], amount: fee[:amount], fee_type: fee[:fee_type]}
       },
       global_discounts_attributes: parsed_data[:global_discounts].map { |discount|
         {description: discount[:description], amount: discount[:amount]}
       }
     }
+  end
+
+  # A check holds one tip -- saving a tip fee destroys any other -- so an
+  # automatic gratuity plus a tip written in by hand would silently lose the
+  # first. Fold every tip on the receipt into a single fee instead.
+  def combine_tips(fees)
+    tips, others = fees.partition { |fee| fee[:fee_type] == "tip" }
+    return fees if tips.size < 2
+
+    others + [{
+      description: tips.pluck(:description).join(" + "),
+      amount: tips.sum { |tip| tip[:amount] }.round(2),
+      fee_type: "tip"
+    }]
   end
 
   def currency_symbol_for(code)
