@@ -2,45 +2,82 @@ class ReceiptParser
   attr_reader :sources
 
   SYSTEM_INSTRUCTIONS = <<~INSTRUCTIONS
-    You are a receipt parser. Read the receipt images using your built-in
-    vision — do NOT use code interpreter on your first attempt. Just look
-    at the images and extract the data. Only use code interpreter if your
-    first read has text that is too blurry or small to make out, and you
-    need to crop or zoom in for clarity. Never use code interpreter for OCR.
+    You turn receipts -- photos or PDFs -- into the data a bill-splitting app
+    works from. Each person claims the line items they had, and the app splits
+    fees and check-wide discounts in proportion. So every amount must land on
+    the item it belongs to, and the total the app computes must be what was
+    actually paid.
 
-    Extract structured data following the provided JSON schema exactly.
-    Be precise with numbers and maintain data integrity. When in doubt about
-    ambiguous text, make reasonable assumptions based on typical restaurant
-    receipt patterns.
+    Before answering, check that the line items (unit_price × quantity, minus
+    their discount, plus their addons), minus global_discounts, plus
+    global_fees, equal grand_total, and that grand_total is what the customer
+    actually owes. If they don't, look for a discount counted twice, a fee
+    left out, or a price paired with the wrong line.
 
-    You may receive multiple images. They could be sections of the same
-    receipt (e.g. a long receipt photographed in parts) — in which case
-    the images may not be in order, so use context clues like item
-    numbering, subtotals, and totals to determine the correct sequence,
-    and do not duplicate items that appear in overlapping regions.
-    Or they could be entirely different receipts. Either way, combine
-    all items into a single unified result.
+    Reading the receipt
+    - Read the images directly. Use code interpreter only to crop or zoom
+      into text too small or blurry to read.
+    - Prices are often printed a line above or below their item, or in a
+      column that drifts. Pair each price with its item using the arithmetic
+      -- quantities, subtotals -- rather than the row it happens to sit on.
+    - Several files may be parts of one long receipt, out of order and
+      overlapping: order them by item sequence and totals, and record each
+      item once. Or they may be different receipts from the same outing:
+      include every item from all of them, with grand_total the sum of their
+      totals.
+    - Ignore suggested-tip tables, cash tendered, change, and payment lines.
+
+    Line items and addons
+    - A line printed as its own item -- at item-level indentation, usually
+      with its own quantity -- is a line item, even if its name starts with
+      "Add". Keep receipt order, and keep $0 items.
+    - A line printed as a modification of the item above it (indented
+      beneath it, or marked with +, -, >, * or similar) is an addon of that
+      item. If the layout doesn't make clear which item it modifies, make it
+      a line item instead: people can assign a line item themselves, but an
+      addon under the wrong item bills the wrong person.
+    - description is the clean item name, without quantity or price text.
+      quantity counts whole units and unit_price is the price of one, so
+      "2 @ 7.50 15.00" is quantity 2 at 7.50. Identical items printed on
+      separate lines stay separate line items.
+    - A modifier price printed inside its item's price ("Burger 8.35 /
+      Grilled Onion (0.75)") is split out: the item at 7.60, the addon 0.75.
+    - An item sold by weight or measure ("2.15 lb @ 4.29/lb 9.22") is
+      quantity 1 at the amount actually charged (9.22), with the weight and
+      rate kept in the description. Items sold in whole units keep their real
+      quantity.
+
+    Discounts
+    - Report discounts as positive numbers, however the receipt prints them.
+    - A discount or comp the receipt ties to one item -- printed beneath it
+      as its modifier, naming it, or stated as a share of its price -- is
+      that item's discount. Any other -- a coupon, promotion, check-wide
+      percentage, or a comp or void printed as its own line -- is a global
+      discount, even when its amount happens to equal some item's price.
+    - Prices that already include a promotion (a struck-through original
+      beside the charged price, or savings marked as already applied) are
+      recorded as charged, with no global discount for that promotion:
+      recording both takes it off twice.
+
+    Fees, tips and the total
+    - Each tax line is a fee of type "tax". When prices already include tax
+      (VAT included, items marked tax-included), record only tax charged on
+      top.
+    - Every tip or gratuity -- automatic, voluntary, printed or handwritten
+      -- is a fee of type "tip", even when the receipt prints an automatic
+      gratuity as if it were an item.
+    - Service charges, surcharges, and delivery, processing or take-out fees
+      are fees of type "other". A per-person cover charge printed as an item
+      stays a line item.
+    - Receipts are often amended by hand after printing: a tip written on
+      the tip line, a new total below the printed one. Handwritten amounts
+      are authoritative -- record the written tip as a "tip" fee and use the
+      written total as grand_total; if only a new total is written, the
+      difference from the printed total is the tip. Look for this even when
+      the printed total already adds up. A blank tip line means no tip.
   INSTRUCTIONS
 
-  USER_PROMPT = <<~PROMPT
-    Your job is to extract structured data from images of restaurant receipts.
-
-    - You may receive one or more images. If there are multiple images, they are all part of the same receipt — combine them into a single unified result.
-    - Descriptions should be clean item names without quantity or price info (e.g. 'CB - Combo' not 'CB x 2 - Combo ($7.85 each)') - extract quantity and unit_price to their own fields.
-    - Addons (modifications like 'Extra cheese', 'Add bacon') belong in the parent item's addons array, not as separate line items.
-    - Addon descriptions should also be clean (e.g. 'Grilled Onion' not 'Grilled Onion ($0.75)') - extract the price to unit_price and total_price fields.
-    - Taxes (e.g. sales tax, VAT, GST) should be included as global fees with fee_type "tax".
-    - Surcharges (e.g. health insurance surcharge, service fee, delivery fee) should be included as global fees with fee_type "other".
-    - Tip/gratuity should be included as a global fee with fee_type "tip".
-    - Check-wide discounts (e.g. '10% off Tuesdays') should be included as global discounts.
-    - Item-specific discounts (e.g. if an item was comped) should be included within the corresponding line item, and a description/reason for the discount should be included if available.
-    - The value for discounts should be reported as positive numbers, even if they are printed on the receipt as negative numbers.
-    - Default quantity to 1 if unclear.
-    - Some receipts print line item prices that ALREADY reflect a check-wide promotion, often shown next to a struck-through original price or with a promo badge. When the prices you extract are already discounted, do NOT also record that promotion in global_discounts — it would come off the bill twice. Only record a global discount that is not already baked into the line item prices you report.
-    - Before finishing, verify your arithmetic: the sum of line item totals (including addons), minus global_discounts, plus global_fees, must equal grand_total. If it does not, you have most likely double-counted a discount or missed a fee. Fix it.
-    - Some items are priced by weight or measure rather than per unit (e.g. "2.15 lb @ $4.29/lb", "0.78 kg", "12.4 oz @ $0.50/oz"). The quantity field accepts whole units only, so for these set quantity to 1 and unit_price to the extended amount actually charged for that line, and keep the weight and rate in the description, e.g. "Chicken Thighs (2.15 lb @ $4.29/lb)". Do NOT do this for items sold in whole units: something bought four times stays quantity 4 at its per-unit price.
-    - Receipts are frequently amended by hand after printing: a tip written on the tip line, and a new total written below the printed one. Handwritten amounts are authoritative. Record a handwritten tip as a global fee with fee_type "tip", and use the handwritten total as grand_total. Look for this even when the printed total already adds up on its own — a self-consistent printed total does not mean there is no handwritten tip.
-  PROMPT
+  USER_PROMPT = "Extract the data from this receipt."
 
   MissingImagesError = Class.new(StandardError)
 
@@ -176,7 +213,7 @@ class ReceiptParser
                 },
                 description: {
                   type: "string",
-                  description: "Full description of the item"
+                  description: "Item name, without quantity or price"
                 },
                 quantity: {
                   type: "integer",
@@ -283,11 +320,6 @@ class ReceiptParser
               additionalProperties: false
             }
           },
-          subtotal_before_fees: {
-            type: "number",
-            minimum: 0,
-            description: "Subtotal amount before fees and discounts"
-          },
           global_fees: {
             type: "array",
             description: "List of global fees (taxes, surcharges, tips)",
@@ -325,7 +357,6 @@ class ReceiptParser
           "currency",
           "line_items",
           "global_discounts",
-          "subtotal_before_fees",
           "global_fees",
           "grand_total"
         ],
