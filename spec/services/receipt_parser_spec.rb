@@ -41,4 +41,34 @@ RSpec.describe ReceiptParser do
       expect(content.pluck(:type)).to eq([:input_image, :input_file])
     end
   end
+
+  describe "the fees it returns" do
+    def fees_for(global_fees)
+      parsed = {
+        restaurant: {name: nil, address: nil, phone: nil}, billed_on: nil, currency: "USD",
+        line_items: [], global_discounts: [], global_fees: global_fees, grand_total: 0
+      }
+      described_class.new([]).send(:transform_to_check_attributes, parsed)[:global_fees_attributes]
+    end
+
+    # A check keeps only one tip fee, so two would lose one on save.
+    it "folds an automatic gratuity and a written-in tip into one tip" do
+      fees = fees_for([
+        {description: "Gratuity 18%", amount: 3.6, fee_type: "tip"},
+        {description: "Tax", amount: 1.8, fee_type: "tax"},
+        {description: "Additional tip", amount: 2.0, fee_type: "tip"}
+      ])
+
+      expect(fees).to contain_exactly(
+        {description: "Tax", amount: 1.8, fee_type: "tax"},
+        {description: "Gratuity 18% + Additional tip", amount: 5.6, fee_type: "tip"}
+      )
+    end
+
+    it "leaves a single tip alone" do
+      fees = fees_for([{description: "Tip", amount: 10.0, fee_type: "tip"}])
+
+      expect(fees).to eq([{description: "Tip", amount: 10.0, fee_type: "tip"}])
+    end
+  end
 end
