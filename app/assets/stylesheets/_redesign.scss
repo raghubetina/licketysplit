@@ -6,24 +6,24 @@
 // Brand wordmark (used in navbar)
 // ============================================================
 .ls-brand {
+  align-items: baseline;
+  color: var(--ls-fg);
+  display: inline-flex;
   font-family: var(--ls-font-display);
   font-size: var(--ls-fs-xl);
-  letter-spacing: -0.025em;
-  font-weight: 600;
   font-variation-settings:
     'opsz' 144,
     'SOFT' 100,
     'wght' 600;
-  display: inline-flex;
-  align-items: baseline;
+  font-weight: 600;
   gap: 6px;
-  color: var(--ls-fg);
+  letter-spacing: -0.025em;
 
   .ls-brand-star {
+    animation: ls-wiggle 4.5s ease-in-out infinite;
+    display: inline-block;
     font-size: 0.85em;
     transform: translateY(-6px) rotate(8deg);
-    display: inline-block;
-    animation: ls-wiggle 4.5s ease-in-out infinite;
   }
 }
 
@@ -32,6 +32,7 @@
   100% {
     transform: translateY(-6px) rotate(8deg);
   }
+
   50% {
     transform: translateY(-6px) rotate(-12deg);
   }
@@ -48,44 +49,47 @@
 // Use on primary CTAs. Coexists with .btn.
 // ============================================================
 .sticker {
-  display: inline-flex;
   align-items: center;
-  gap: var(--ls-sp-2);
-  padding: var(--ls-sp-3) var(--ls-sp-4);
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-pill);
-  font-weight: 500;
   box-shadow: var(--ls-shadow-sticker);
+  color: var(--ls-fg);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--ls-fs-base);
+  font-weight: 500;
+  gap: var(--ls-sp-2);
+  line-height: 1.2;
+  padding: var(--ls-sp-3) var(--ls-sp-4);
+  text-decoration: none;
   transition:
     transform 0.08s ease,
     box-shadow 0.08s ease;
-  color: var(--ls-fg);
-  font-size: var(--ls-fs-base);
-  text-decoration: none;
-  line-height: 1.2;
-  cursor: pointer;
 
   &:hover {
-    transform: translateY(1px);
     box-shadow: var(--ls-shadow-sticker-hover);
     color: var(--ls-fg);
     text-decoration: none;
+    transform: translateY(1px);
   }
+
   &:active {
-    transform: translateY(3px);
     box-shadow: 0 0 0 0 var(--ls-border-strong);
+    transform: translateY(3px);
   }
 
   &.primary {
     background: var(--ls-accent);
-    color: white;
     border-color: var(--ls-accent-strong);
     box-shadow: 0 3px 0 0 var(--ls-accent-strong);
+    color: #ffffff;
+
     &:hover {
       box-shadow: 0 1px 0 0 var(--ls-accent-strong);
-      color: white;
+      color: #ffffff;
     }
+
     &:active {
       box-shadow: 0 0 0 0 var(--ls-accent-strong);
     }
@@ -93,29 +97,32 @@
 
   &.ghost {
     background: transparent;
-    box-shadow: none;
     border-color: var(--ls-border);
+    box-shadow: none;
     color: var(--ls-muted);
+
     &:hover {
-      transform: none;
       background: var(--ls-surface-2);
       color: var(--ls-fg);
+      transform: none;
     }
   }
 
   &.compact {
-    padding: var(--ls-sp-2) var(--ls-sp-3);
     font-size: var(--ls-fs-sm);
+    padding: var(--ls-sp-2) var(--ls-sp-3);
   }
 
   &.danger {
-    color: var(--ls-warn);
     border-color: var(--ls-warn);
     box-shadow: 0 3px 0 0 var(--ls-warn);
+    color: var(--ls-warn);
+
     &:hover {
       box-shadow: 0 1px 0 0 var(--ls-warn);
       color: var(--ls-warn);
     }
+
     &:active {
       box-shadow: 0 0 0 0 var(--ls-warn);
     }
@@ -124,11 +131,11 @@
   // Completed-state toggle (e.g. "Paid") — pressed, in the good green.
   &.done,
   &.done:hover {
-    transform: translateY(2px);
-    box-shadow: var(--ls-shadow-pressed);
     background: var(--ls-good-soft);
     border-color: var(--ls-good);
-    color: oklch(35% 0.18 145);
+    box-shadow: var(--ls-shadow-pressed);
+    color: oklch(35% 0.18 145deg);
+    transform: translateY(2px);
   }
 }
 
@@ -145,32 +152,33 @@
 
 // Avatar dot — colored bubble with initial
 .ls-avatar {
+  background: var(--p-color, var(--ls-surface-2));
+  border: 2px solid var(--ls-fg);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--ls-fg);
+  color: var(--ls-fg);
   display: inline-grid;
+  flex-shrink: 0;
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-fs-base);
+  font-weight: 600;
+  height: 36px;
+  line-height: 1;
   place-items: center;
   width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  background: var(--p-color, var(--ls-surface-2));
-  color: var(--ls-fg);
-  font-weight: 600;
-  font-size: var(--ls-fs-base);
-  line-height: 1;
-  border: 2px solid var(--ls-fg);
-  box-shadow: 2px 2px 0 var(--ls-fg);
-  font-family: var(--ls-font-body);
-  flex-shrink: 0;
 
   &.sm {
-    width: 26px;
-    height: 26px;
-    font-size: var(--ls-fs-xs);
-    box-shadow: 1.5px 1.5px 0 var(--ls-fg);
     border-width: 1.5px;
+    box-shadow: 1.5px 1.5px 0 var(--ls-fg);
+    font-size: var(--ls-fs-xs);
+    height: 26px;
+    width: 26px;
   }
+
   &.lg {
-    width: 52px;
-    height: 52px;
     font-size: var(--ls-fs-lg);
+    height: 52px;
+    width: 52px;
   }
 }
 
@@ -178,25 +186,25 @@
 // Participant tile / row treatment
 // ============================================================
 .ls-participant-row {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--ls-sp-3);
 
   .ls-participant-name {
+    color: var(--ls-fg);
     font-family: var(--ls-font-display);
+    font-size: var(--ls-fs-lg);
     font-variation-settings:
       'opsz' 40,
       'SOFT' 80,
       'wght' 500;
-    font-size: var(--ls-fs-lg);
-    line-height: 1.15;
     letter-spacing: -0.01em;
-    color: var(--ls-fg);
+    line-height: 1.15;
   }
 
   .ls-participant-meta {
-    font-size: var(--ls-fs-sm);
     color: var(--ls-muted);
+    font-size: var(--ls-fs-sm);
     margin-top: var(--ls-sp-1);
   }
 }
@@ -224,27 +232,27 @@
 // Used as a visual upgrade for form-switch rows.
 // ============================================================
 .ls-chip-toggle {
-  display: inline-flex;
   align-items: center;
-  gap: var(--ls-sp-2);
-  padding: var(--ls-sp-1) var(--ls-sp-3) var(--ls-sp-1) var(--ls-sp-1);
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-pill);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  color: var(--ls-muted);
+  cursor: pointer;
+  display: inline-flex;
   font-size: var(--ls-fs-sm);
   font-weight: 500;
-  cursor: pointer;
-  color: var(--ls-muted);
-  box-shadow: 0 2px 0 var(--ls-border-strong);
+  gap: var(--ls-sp-2);
+  line-height: 1.1;
+  margin: 0;
+  padding: var(--ls-sp-1) var(--ls-sp-3) var(--ls-sp-1) var(--ls-sp-1);
   transition:
     transform 0.1s ease,
     box-shadow 0.1s ease;
-  line-height: 1.1;
-  margin: 0;
 
   &:hover {
-    transform: translateY(1px);
     box-shadow: 0 1px 0 var(--ls-border-strong);
+    transform: translateY(1px);
   }
 
   // "on" state — driven by the underlying checkbox via :has().
@@ -252,40 +260,42 @@
   // the inverse of the raised unchecked sticker.
   &:has(input:checked) {
     background: var(--p-color, var(--ls-accent));
-    color: var(--ls-fg);
     border-color: var(--ls-fg);
-    transform: translateY(2px);
     box-shadow: var(--ls-shadow-pressed);
+    color: var(--ls-fg);
+    transform: translateY(2px);
   }
+
   &:has(input:checked):hover {
-    transform: translateY(2px);
     box-shadow: var(--ls-shadow-pressed);
+    transform: translateY(2px);
   }
 
   // hide the underlying checkbox but keep it operational
+  // stylelint-disable-next-line selector-no-qualifying-type -- dropping input would lower specificity
   input[type='checkbox'] {
-    position: absolute;
-    width: 1px;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
     height: 1px;
-    padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    padding: 0;
+    position: absolute;
     white-space: nowrap;
-    border: 0;
+    width: 1px;
   }
 
   .ls-chip-avatar {
-    width: 24px;
-    height: 24px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    font-size: var(--ls-fs-xs);
-    font-weight: 600;
     background: var(--ls-surface-2);
     border: 1.5px solid var(--ls-border);
+    border-radius: 999px;
+    display: grid;
+    font-size: var(--ls-fs-xs);
+    font-weight: 600;
+    height: 24px;
     line-height: 1;
+    place-items: center;
+    width: 24px;
   }
 }
 
@@ -294,21 +304,21 @@
 // screens while people tap chips mid-page. Links to the grand total.
 // ============================================================
 .ls-sticky-summary {
-  position: fixed;
-  inset-inline: 0;
-  bottom: 0;
-  z-index: 50;
-  display: none;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--ls-sp-3);
-  padding: var(--ls-sp-3) var(--ls-sp-4)
-    calc(var(--ls-sp-3) + env(safe-area-inset-bottom));
   background: var(--ls-surface);
   border-top: 1.5px solid var(--ls-border-strong);
-  box-shadow: 0 -4px 16px -8px oklch(40% 0.06 280 / 0.3);
-  text-decoration: none;
   color: var(--ls-fg);
+  inset-inline: 0;
+  bottom: 0;
+  box-shadow: 0 -4px 16px -8px oklch(40% 0.06 280deg / 30%);
+  display: none;
+  gap: var(--ls-sp-3);
+  justify-content: space-between;
+  padding: var(--ls-sp-3) var(--ls-sp-4)
+    calc(var(--ls-sp-3) + env(safe-area-inset-bottom));
+  position: fixed;
+  text-decoration: none;
+  z-index: 50;
 
   &:hover {
     color: var(--ls-fg);
@@ -321,8 +331,9 @@
     &.attention {
       color: var(--ls-accent-strong);
     }
+
     &.ok {
-      color: oklch(40% 0.18 145);
+      color: oklch(40% 0.18 145deg);
     }
   }
 }
@@ -353,14 +364,14 @@
   }
 
   &[open] > summary {
-    transform: translateY(2px);
-    box-shadow: var(--ls-shadow-pressed);
     background: var(--ls-accent-soft);
+    box-shadow: var(--ls-shadow-pressed);
+    transform: translateY(2px);
   }
 
   .ls-share-body {
-    max-width: 320px;
     margin-inline: auto;
+    max-width: 320px;
     padding-top: var(--ls-sp-3);
   }
 }
@@ -369,36 +380,36 @@
 // Tip pill — small percentage suggestion buttons on the fees card
 // ============================================================
 .ls-tip-pill {
-  display: inline-flex;
   align-items: center;
-  gap: var(--ls-sp-1);
-  padding: var(--ls-sp-1) var(--ls-sp-3);
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-pill);
+  box-shadow: 0 2px 0 var(--ls-border-strong);
+  color: var(--ls-muted);
+  cursor: pointer;
+  display: inline-flex;
   font-size: var(--ls-fs-sm);
   font-weight: 500;
-  color: var(--ls-muted);
-  box-shadow: 0 2px 0 var(--ls-border-strong);
+  gap: var(--ls-sp-1);
+  line-height: 1.2;
+  padding: var(--ls-sp-1) var(--ls-sp-3);
   transition:
     transform 0.1s ease,
     box-shadow 0.1s ease;
-  line-height: 1.2;
-  cursor: pointer;
 
   &:hover {
-    transform: translateY(1px);
     box-shadow: 0 1px 0 var(--ls-border-strong);
     color: var(--ls-fg);
+    transform: translateY(1px);
   }
 
   &.active,
   &.active:hover {
     background: var(--ls-good-soft);
     border-color: var(--ls-good);
-    color: oklch(35% 0.18 145);
-    transform: translateY(2px);
     box-shadow: var(--ls-shadow-pressed);
+    color: oklch(35% 0.18 145deg);
+    transform: translateY(2px);
   }
 }
 
@@ -414,32 +425,32 @@
   }
 
   .ls-mode-tab {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    gap: var(--ls-sp-1);
-    padding: var(--ls-sp-3) var(--ls-sp-4);
     background: var(--ls-surface);
     border: 1.5px solid var(--ls-border-strong);
     border-radius: var(--ls-r-md);
-    color: var(--ls-muted);
-    text-align: start;
-    cursor: pointer;
-    width: 100%;
     box-shadow: 0 2px 0 var(--ls-border-strong);
+    color: var(--ls-muted);
+    cursor: pointer;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--ls-sp-1);
+    padding: var(--ls-sp-3) var(--ls-sp-4);
+    text-align: start;
     transition:
       transform 0.1s ease,
       box-shadow 0.1s ease;
+    width: 100%;
 
     .ls-mode-title {
+      color: var(--ls-fg);
       font-family: var(--ls-font-display);
+      font-size: var(--ls-fs-lg);
       font-variation-settings:
         'opsz' 60,
         'SOFT' 80,
         'wght' 500;
-      font-size: var(--ls-fs-lg);
-      color: var(--ls-fg);
     }
 
     .ls-mode-sub {
@@ -447,15 +458,15 @@
     }
 
     &:hover {
-      transform: translateY(1px);
       box-shadow: 0 1px 0 var(--ls-border-strong);
+      transform: translateY(1px);
     }
 
     &.active,
     &.active:hover {
       background: var(--ls-accent-soft);
-      transform: translateY(2px);
       box-shadow: var(--ls-shadow-pressed);
+      transform: translateY(2px);
 
       .ls-mode-title {
         color: var(--ls-accent-strong);
@@ -473,29 +484,29 @@
 
   .ls-even-amount {
     font-family: var(--ls-font-display);
+    font-size: var(--ls-fs-display);
     font-variation-settings:
       'opsz' 144,
       'SOFT' 90,
       'wght' 600;
-    font-size: var(--ls-fs-display);
-    line-height: 1;
     letter-spacing: -0.03em;
+    line-height: 1;
   }
 
   .ls-even-caption {
-    margin-top: var(--ls-sp-2);
     color: var(--ls-muted);
     font-size: var(--ls-fs-sm);
+    margin-top: var(--ls-sp-2);
   }
 
   .ls-even-treated {
-    margin-top: var(--ls-sp-3);
-    font-size: var(--ls-fs-sm);
-    color: oklch(40% 0.18 145);
     background: var(--ls-good-soft);
     border-radius: var(--ls-r-md);
-    padding: var(--ls-sp-2) var(--ls-sp-3);
+    color: oklch(40% 0.18 145deg);
     display: inline-block;
+    font-size: var(--ls-fs-sm);
+    margin-top: var(--ls-sp-3);
+    padding: var(--ls-sp-2) var(--ls-sp-3);
   }
 }
 
@@ -509,34 +520,35 @@
   width: 100%;
 
   .ls-shares-head {
-    display: flex;
-    justify-content: space-between;
     align-items: baseline;
-    gap: var(--ls-sp-3);
-    padding-bottom: var(--ls-sp-2);
     border-bottom: 1px dashed var(--ls-border);
+    display: flex;
     font-size: var(--ls-fs-base);
+    gap: var(--ls-sp-3);
+    justify-content: space-between;
+    padding-bottom: var(--ls-sp-2);
   }
 
   .ls-shares-status {
-    font-size: var(--ls-fs-xs);
     color: var(--ls-muted);
+    font-size: var(--ls-fs-xs);
 
     &.warn {
       color: var(--ls-accent-strong);
       font-weight: 600;
     }
+
     &.ok {
-      color: oklch(40% 0.18 145);
+      color: oklch(40% 0.18 145deg);
       font-weight: 600;
     }
   }
 
   .ls-share-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-    gap: var(--ls-sp-3);
     align-items: center;
+    display: grid;
+    gap: var(--ls-sp-3);
+    grid-template-columns: auto 1fr auto auto;
 
     .ls-share-name {
       font-size: var(--ls-fs-base);
@@ -545,9 +557,9 @@
     }
 
     .ls-share-amount {
+      color: var(--ls-muted);
       min-width: 64px;
       text-align: end;
-      color: var(--ls-muted);
     }
 
     &.has-share .ls-share-amount {
@@ -563,11 +575,11 @@
 }
 
 .ls-stepper {
-  display: inline-flex;
   align-items: center;
+  background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-pill);
-  background: var(--ls-surface);
+  display: inline-flex;
   overflow: hidden;
 
   form {
@@ -575,17 +587,18 @@
   }
 
   button {
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    font-size: var(--ls-fs-lg);
-    line-height: 1;
     color: var(--ls-fg);
+    display: grid;
+    font-size: var(--ls-fs-lg);
+    height: 42px;
+    line-height: 1;
+    place-items: center;
+    width: 42px;
 
     &:hover {
       background: var(--ls-surface-2);
     }
+
     &:disabled {
       opacity: 0.35;
       pointer-events: none;
@@ -593,9 +606,9 @@
   }
 
   .ls-stepper-count {
+    font-size: var(--ls-fs-base);
     min-width: 28px;
     text-align: center;
-    font-size: var(--ls-fs-base);
   }
 }
 
@@ -604,35 +617,36 @@
 // ============================================================
 .ls-totals-card {
   background: var(--ls-fg);
-  color: var(--ls-surface);
   border-radius: var(--ls-r-lg);
-  padding: var(--ls-sp-5);
+  color: var(--ls-surface);
   margin-top: var(--ls-sp-4);
+  padding: var(--ls-sp-5);
 
   .ls-totals-row {
+    color: oklch(85% 0.04 290deg);
     display: flex;
+    font-size: var(--ls-fs-sm);
     justify-content: space-between;
     padding: var(--ls-sp-1) 0;
-    font-size: var(--ls-fs-sm);
-    color: oklch(85% 0.04 290);
   }
+
   .ls-totals-grand {
-    border-top: 1px solid oklch(40% 0.05 290);
-    padding-top: var(--ls-sp-3);
-    margin-top: var(--ls-sp-2);
+    align-items: baseline;
+    border-top: 1px solid oklch(40% 0.05 290deg);
+    color: var(--ls-surface);
+    display: flex;
     font-family: var(--ls-font-display);
+    font-size: var(--ls-fs-display);
+    font-variant-numeric: tabular-nums;
     font-variation-settings:
       'opsz' 144,
       'SOFT' 90,
       'wght' 600;
-    font-size: var(--ls-fs-display);
-    color: var(--ls-surface);
+    justify-content: space-between;
     letter-spacing: -0.025em;
     line-height: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-variant-numeric: tabular-nums;
+    margin-top: var(--ls-sp-2);
+    padding-top: var(--ls-sp-3);
   }
 }
 
@@ -640,13 +654,13 @@
 // "All clear" banner — shown when nothing is unassigned
 // ============================================================
 .ls-all-clear {
-  margin-top: var(--ls-sp-4);
-  padding: var(--ls-sp-3) var(--ls-sp-4);
   background: var(--ls-good-soft);
-  color: oklch(40% 0.18 145);
   border-radius: var(--ls-r-md);
+  color: oklch(40% 0.18 145deg);
   font-size: var(--ls-fs-base);
   font-weight: 500;
+  margin-top: var(--ls-sp-4);
+  padding: var(--ls-sp-3) var(--ls-sp-4);
   text-align: center;
 }
 
@@ -668,8 +682,8 @@
 // more-specific rules.
 .ls-num {
   font-family: var(--ls-font-body);
-  font-weight: 600;
   font-variant-numeric: tabular-nums;
+  font-weight: 600;
 }
 
 // ============================================================

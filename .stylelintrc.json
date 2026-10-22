@@ -1,3 +1,9 @@
 {
-  "extends": "@thoughtbot/stylelint-config"
+  "extends": "@thoughtbot/stylelint-config",
+  "rules": {
+    "declaration-no-important": null,
+    "media-feature-range-notation": "prefix",
+    "no-descending-specificity": null,
+    "value-keyword-case": ["lower", { "ignoreProperties": ["/^--ls-font-/"] }]
+  }
 }

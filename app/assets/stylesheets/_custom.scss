@@ -10,6 +10,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -24,6 +25,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -38,6 +40,7 @@
   from {
     background-color: var(--ls-accent-soft);
   }
+
   to {
     background-color: transparent;
   }
@@ -55,6 +58,6 @@
 // Participant checkbox tap targets
 .participant-checkbox {
   background-color: var(--ls-surface-2);
-  padding: 0.25rem 0.5rem 0.25rem 1.75rem;
   border-radius: var(--ls-r-sm);
+  padding: 0.25rem 0.5rem 0.25rem 1.75rem;
 }

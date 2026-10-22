@@ -5,13 +5,13 @@
 // Card
 // ============================================================
 .card {
-  display: flex;
-  flex-direction: column;
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border);
   border-radius: var(--ls-r-lg);
-  overflow: hidden;
   box-shadow: var(--ls-shadow-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .card-body {
@@ -19,37 +19,37 @@
 }
 
 .card-header {
-  padding: var(--ls-sp-4);
   background: var(--ls-surface-2);
   border-bottom: 1.5px dashed var(--ls-border);
   font-family: var(--ls-font-display);
+  font-size: var(--ls-fs-lg);
   font-variation-settings:
     'opsz' 60,
     'SOFT' 60,
     'wght' 500;
-  font-size: var(--ls-fs-lg);
+  padding: var(--ls-sp-4);
 }
 
 .card-footer {
-  padding: var(--ls-sp-4);
   background: var(--ls-surface-2);
   border-top: 1.5px dashed var(--ls-border);
+  padding: var(--ls-sp-4);
 }
 
 .card-img,
 .card-img-top,
 .card-img-bottom {
-  width: 100%;
   display: block;
+  width: 100%;
 }
 
 // ============================================================
 // List group
 // ============================================================
 .list-group {
+  background: var(--ls-surface);
   display: flex;
   flex-direction: column;
-  background: var(--ls-surface);
 }
 
 .list-group-flush {
@@ -57,11 +57,11 @@
 }
 
 .list-group-item {
-  position: relative;
-  padding: var(--ls-sp-3) var(--ls-sp-4);
   background: var(--ls-surface);
   border-bottom: 1px solid var(--ls-border);
   color: var(--ls-fg);
+  padding: var(--ls-sp-3) var(--ls-sp-4);
+  position: relative;
 
   &:last-child {
     border-bottom: 0;
@@ -70,12 +70,12 @@
 
 // Clickable list rows (e.g. check links on the index page)
 .list-group-item-action {
-  display: block;
-  width: 100%;
   color: inherit;
-  text-decoration: none;
   cursor: pointer;
+  display: block;
+  text-decoration: none;
   transition: background 0.1s ease;
+  width: 100%;
 
   &:hover,
   &:focus-visible,
@@ -89,39 +89,42 @@
 // Button — base. The sticker class supersedes this for primary CTAs.
 // ============================================================
 .btn {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--ls-sp-2);
-  padding: var(--ls-sp-2) var(--ls-sp-4);
-  font-size: var(--ls-fs-base);
-  font-weight: 500;
-  line-height: 1.2;
-  color: var(--ls-fg);
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-pill);
-  text-decoration: none;
-  cursor: pointer;
   box-shadow: var(--ls-shadow-sticker);
+  color: var(--ls-fg);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: var(--ls-fs-base);
+  font-weight: 500;
+  gap: var(--ls-sp-2);
+  justify-content: center;
+  line-height: 1.2;
+  padding: var(--ls-sp-2) var(--ls-sp-4);
+  text-decoration: none;
   transition:
     transform 0.08s ease,
     box-shadow 0.08s ease;
 
   &:hover {
-    transform: translateY(1px);
     box-shadow: var(--ls-shadow-sticker-hover);
     color: var(--ls-fg);
     text-decoration: none;
+    transform: translateY(1px);
   }
+
   &:active {
-    transform: translateY(3px);
     box-shadow: 0 0 0 0 var(--ls-border-strong);
+    transform: translateY(3px);
   }
+
   &:focus-visible {
     outline: 3px solid var(--ls-accent-soft);
     outline-offset: 2px;
   }
+
   &:disabled,
   &.disabled {
     opacity: 0.55;
@@ -131,14 +134,15 @@
 
 .btn-primary {
   background: var(--ls-accent);
-  color: white;
   border-color: var(--ls-accent-strong);
   box-shadow: 0 3px 0 0 var(--ls-accent-strong);
+  color: #ffffff;
 
   &:hover {
-    color: white;
     box-shadow: 0 1px 0 0 var(--ls-accent-strong);
+    color: #ffffff;
   }
+
   &:active {
     box-shadow: 0 0 0 0 var(--ls-accent-strong);
   }
@@ -146,39 +150,41 @@
 
 .btn-secondary {
   background: var(--ls-surface);
-  color: var(--ls-muted);
   border-color: var(--ls-border);
   box-shadow: none;
+  color: var(--ls-muted);
+
   &:hover {
-    transform: none;
     background: var(--ls-surface-2);
     color: var(--ls-fg);
+    transform: none;
   }
 }
 
 .btn-sm {
-  padding: var(--ls-sp-1) var(--ls-sp-3);
   font-size: var(--ls-fs-sm);
+  padding: var(--ls-sp-1) var(--ls-sp-3);
 }
 
 // Bootstrap's dismiss-button glyph — used for flash alerts.
 .btn-close {
-  width: 1.2em;
-  height: 1.2em;
-  padding: 0.4em;
   background: transparent;
   border: 0;
   border-radius: 50%;
-  opacity: 0.5;
   cursor: pointer;
+  height: 1.2em;
+  opacity: 0.5;
+  padding: 0.4em;
+  width: 1.2em;
 
   &::before {
+    color: var(--ls-fg);
     content: '×';
     display: block;
-    line-height: 0.4;
     font-size: 1.6em;
-    color: var(--ls-fg);
+    line-height: 0.4;
   }
+
   &:hover {
     opacity: 1;
   }
@@ -188,41 +194,42 @@
 // Alert
 // ============================================================
 .alert {
-  position: relative;
-  padding: var(--ls-sp-3) var(--ls-sp-4);
-  margin-bottom: var(--ls-sp-4);
+  align-items: center;
   border: 1.5px solid transparent;
   border-radius: var(--ls-r-md);
   display: flex;
-  align-items: center;
-  gap: var(--ls-sp-3);
   font-size: var(--ls-fs-base);
+  gap: var(--ls-sp-3);
+  margin-bottom: var(--ls-sp-4);
+  padding: var(--ls-sp-3) var(--ls-sp-4);
+  position: relative;
 }
 
 .alert-success {
-  color: oklch(35% 0.18 145);
   background: var(--ls-good-soft);
-  border-color: oklch(65% 0.18 145 / 0.35);
+  border-color: oklch(65% 0.18 145deg / 35%);
+  color: oklch(35% 0.18 145deg);
 }
 
 .alert-warning {
-  color: oklch(40% 0.18 70);
-  background: oklch(85% 0.13 90 / 0.32);
-  border-color: oklch(85% 0.13 90 / 0.55);
+  background: oklch(85% 0.13 90deg / 32%);
+  border-color: oklch(85% 0.13 90deg / 55%);
+  color: oklch(40% 0.18 70deg);
 }
 
 .alert-danger {
-  color: oklch(38% 0.21 25);
   background: var(--ls-warn-soft);
-  border-color: oklch(64% 0.21 25 / 0.4);
+  border-color: oklch(64% 0.21 25deg / 40%);
+  color: oklch(38% 0.21 25deg);
 }
 
 .alert-dismissible {
   padding-inline-end: 3rem;
+
   .btn-close {
+    inset-inline-end: 0.5rem;
     position: absolute;
     top: 50%;
-    inset-inline-end: 0.5rem;
     transform: translateY(-50%);
   }
 }
@@ -231,6 +238,7 @@
 .alert.fade {
   transition: opacity 0.15s linear;
 }
+
 .alert.fade:not(.show) {
   opacity: 0;
 }
@@ -239,42 +247,44 @@
 // Badge
 // ============================================================
 .badge {
+  background: var(--ls-surface-2);
+  border-radius: var(--ls-r-pill);
+  color: var(--ls-fg);
   display: inline-block;
-  padding: var(--ls-sp-1) var(--ls-sp-2);
   font-size: var(--ls-fs-xs);
   font-weight: 600;
-  line-height: 1;
-  border-radius: var(--ls-r-pill);
-  background: var(--ls-surface-2);
-  color: var(--ls-fg);
   letter-spacing: 0.02em;
+  line-height: 1;
+  padding: var(--ls-sp-1) var(--ls-sp-2);
 }
 
 .text-bg-success {
   background: var(--ls-good) !important;
-  color: white !important;
+  color: #ffffff !important;
 }
+
 .text-bg-warning {
-  background: oklch(85% 0.13 90);
+  background: oklch(85% 0.13 90deg);
   color: var(--ls-fg);
 }
+
 .text-bg-danger {
   background: var(--ls-warn);
-  color: white;
+  color: #ffffff;
 }
 
 // ============================================================
 // Spinner
 // ============================================================
 .spinner-border {
+  animation: ls-spin 0.75s linear infinite;
+  border: 0.25em solid currentcolor;
+  border-radius: 50%;
+  border-right-color: transparent;
   display: inline-block;
-  width: 2rem;
   height: 2rem;
   vertical-align: -0.125em;
-  border: 0.25em solid currentColor;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: ls-spin 0.75s linear infinite;
+  width: 2rem;
 }
 
 @keyframes ls-spin {
@@ -287,15 +297,15 @@
 // Navbar
 // ============================================================
 .navbar {
-  display: flex;
   align-items: center;
-  padding: var(--ls-sp-3) var(--ls-sp-4);
   background: var(--ls-surface);
   border-bottom: 1.5px solid var(--ls-border);
+  display: flex;
+  padding: var(--ls-sp-3) var(--ls-sp-4);
 
   > .container {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: space-between;
   }
 }
@@ -305,11 +315,12 @@
 }
 
 .navbar-brand {
-  display: inline-flex;
   align-items: center;
-  text-decoration: none;
   color: var(--ls-fg);
+  display: inline-flex;
   padding-inline-end: var(--ls-sp-4);
+  text-decoration: none;
+
   &:hover {
     color: var(--ls-fg);
     text-decoration: none;
@@ -321,31 +332,33 @@
 // ============================================================
 .form-control,
 .form-select {
-  display: block;
-  width: 100%;
-  padding: var(--ls-sp-2) var(--ls-sp-3);
-  font-family: var(--ls-font-body);
-  font-size: var(--ls-fs-base);
-  line-height: 1.4;
-  color: var(--ls-fg);
+  appearance: none;
   background: var(--ls-surface);
   background-clip: padding-box;
   border: 1.5px solid var(--ls-border-strong);
   border-radius: var(--ls-r-md);
-  appearance: none;
+  color: var(--ls-fg);
+  display: block;
+  font-family: var(--ls-font-body);
+  font-size: var(--ls-fs-base);
+  line-height: 1.4;
+  padding: var(--ls-sp-2) var(--ls-sp-3);
   transition:
     border-color 0.1s ease,
     box-shadow 0.1s ease;
+  width: 100%;
 
   &:focus {
-    outline: 0;
     border-color: var(--ls-accent);
     box-shadow: 0 0 0 3px var(--ls-accent-soft);
+    outline: 0;
   }
+
   &::placeholder {
     color: var(--ls-muted);
     opacity: 0.8;
   }
+
   &:disabled {
     background: var(--ls-surface-2);
     opacity: 0.7;
@@ -354,8 +367,8 @@
 
 .form-select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23555' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
   background-position: right 0.75rem center;
+  background-repeat: no-repeat;
   background-size: 16px 12px;
   padding-inline-end: 2.25rem;
 }
@@ -372,31 +385,32 @@
 
 .form-control-sm,
 .form-select-sm {
-  padding: var(--ls-sp-1) var(--ls-sp-2);
-  font-size: var(--ls-fs-sm);
   border-radius: var(--ls-r-sm);
+  font-size: var(--ls-fs-sm);
+  padding: var(--ls-sp-1) var(--ls-sp-2);
 }
 
 .form-label {
-  display: inline-block;
-  margin-bottom: var(--ls-sp-1);
-  font-size: var(--ls-fs-sm);
   color: var(--ls-muted);
+  display: inline-block;
+  font-size: var(--ls-fs-sm);
+  margin-bottom: var(--ls-sp-1);
 }
 
 .form-text {
-  margin-top: var(--ls-sp-1);
-  font-size: var(--ls-fs-sm);
   color: var(--ls-muted);
+  font-size: var(--ls-fs-sm);
+  margin-top: var(--ls-sp-1);
 }
 
 // ---------------- form-check + form-switch (toggle) ----------------
 .form-check {
-  display: flex;
   align-items: center;
+  display: flex;
   gap: var(--ls-sp-2);
   min-height: 1.5rem;
 }
+
 .form-check-inline {
   display: inline-flex;
   margin-inline-end: var(--ls-sp-4);
@@ -404,33 +418,35 @@
 
 .form-check-input {
   appearance: none;
-  flex-shrink: 0;
-  width: 1.2em;
-  height: 1.2em;
-  margin: 0;
   background: var(--ls-surface);
   border: 1.5px solid var(--ls-border-strong);
   cursor: pointer;
+  flex-shrink: 0;
+  height: 1.2em;
+  margin: 0;
   transition:
     background 0.12s ease,
     border-color 0.12s ease;
   vertical-align: middle;
+  width: 1.2em;
 
   &[type='checkbox'] {
     border-radius: 0.25em;
   }
+
   &[type='radio'] {
     border-radius: 50%;
   }
 
   &:checked {
     background: var(--ls-accent);
-    border-color: var(--ls-accent-strong);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
     background-position: center;
+    background-repeat: no-repeat;
     background-size: 80% 80%;
+    border-color: var(--ls-accent-strong);
   }
+
   &:focus-visible {
     outline: 3px solid var(--ls-accent-soft);
     outline-offset: 2px;
@@ -438,9 +454,9 @@
 }
 
 .form-check-label {
+  color: var(--ls-fg);
   cursor: pointer;
   font-size: var(--ls-fs-base);
-  color: var(--ls-fg);
 }
 
 // switch — pill-shaped toggle
@@ -448,24 +464,25 @@
   padding-inline-start: 0;
 
   .form-check-input {
-    width: 2.4em;
+    background-color: var(--ls-surface-2);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23555'/%3E%3C/svg%3E");
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: var(--ls-r-pill);
     height: 1.35em;
     margin-inline-end: 0.5rem;
-    background-color: var(--ls-surface-2);
-    border-radius: var(--ls-r-pill);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23555'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: contain;
     transition:
       background-position 0.15s ease,
       background-color 0.15s ease;
+    width: 2.4em;
   }
+
   .form-check-input:checked {
     background-color: var(--ls-accent);
-    border-color: var(--ls-accent-strong);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E");
     background-position: right center;
+    border-color: var(--ls-accent-strong);
   }
 }
 
@@ -473,56 +490,62 @@
 // Input group
 // ============================================================
 .input-group {
+  align-items: stretch;
   display: flex;
   flex-wrap: wrap;
-  align-items: stretch;
   width: 100%;
 
   > .form-control,
   > .form-select {
     flex: 1 1 auto;
-    width: 1%;
     min-width: 0;
+    width: 1%;
   }
+
   > * {
     border-radius: 0;
   }
+
   > *:first-child {
-    border-start-start-radius: var(--ls-r-md);
     border-end-start-radius: var(--ls-r-md);
+    border-start-start-radius: var(--ls-r-md);
   }
+
   > *:last-child {
-    border-start-end-radius: var(--ls-r-md);
     border-end-end-radius: var(--ls-r-md);
+    border-start-end-radius: var(--ls-r-md);
   }
+
   > * + * {
     border-inline-start-width: 0;
   }
 }
 
 .input-group-text {
-  display: flex;
   align-items: center;
-  padding: var(--ls-sp-2) var(--ls-sp-3);
   background: var(--ls-surface-2);
   border: 1.5px solid var(--ls-border-strong);
   color: var(--ls-muted);
+  display: flex;
   font-size: var(--ls-fs-base);
+  padding: var(--ls-sp-2) var(--ls-sp-3);
 }
 
 .input-group-sm {
   > .form-control,
   > .form-select,
   > .input-group-text {
-    padding: var(--ls-sp-1) var(--ls-sp-2);
     font-size: var(--ls-fs-sm);
+    padding: var(--ls-sp-1) var(--ls-sp-2);
   }
+
   > *:first-child {
-    border-start-start-radius: var(--ls-r-sm);
     border-end-start-radius: var(--ls-r-sm);
+    border-start-start-radius: var(--ls-r-sm);
   }
+
   > *:last-child {
-    border-start-end-radius: var(--ls-r-sm);
     border-end-end-radius: var(--ls-r-sm);
+    border-start-end-radius: var(--ls-r-sm);
   }
 }
