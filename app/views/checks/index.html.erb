@@ -23,7 +23,7 @@
 
         <div class="mb-3">
           <%= f.label :participant_names, "Who's splitting?", class: "form-label" %>
-          <%= f.text_area :participant_names, class: "form-control", rows: 3, placeholder: "Alice\nBob\nCarol", data: { controller: "autogrow" } %>
+          <%= f.text_area :participant_names, class: "form-control", rows: 3, placeholder: "Alice\nBob\nCarol", data: {controller: "autogrow"} %>
           <div class="form-text">Enter names separated by newlines, spaces, periods, or commas</div>
         </div>
 
@@ -33,7 +33,6 @@
       <% end %>
     </div>
   </div>
-
 
   <% if @recent_checks.any? %>
     <div class="card">

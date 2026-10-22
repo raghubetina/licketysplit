@@ -1,6 +1,6 @@
 <%# Accepts: check (required), open (optional, defaults to false — parsing renders it open since that's the sharing moment) %>
 
-<%= tag.details id: "share_details", class: "ls-share mb-3", open: local_assigns[:open], data: { turbo_permanent: true } do %>
+<%= tag.details id: "share_details", class: "ls-share mb-3", open: local_assigns[:open], data: {turbo_permanent: true} do %>
   <summary class="sticker compact">
     <i class="bi bi-qr-code-scan"></i> Share with the table
   </summary>

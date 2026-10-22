@@ -26,7 +26,7 @@
     </div>
   <% end %>
   <div class="d-flex gap-2 small" style="margin-left: calc(50px + 0.5rem);">
-    <%= link_to "Edit", edit_check_line_item_path(check, line_item), class: "text-muted", data: { turbo_stream: true } %>
-    <%= link_to "Delete", check_line_item_path(check, line_item), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: "Delete this item?" } %>
+    <%= link_to "Edit", edit_check_line_item_path(check, line_item), class: "text-muted", data: {turbo_stream: true} %>
+    <%= link_to "Delete", check_line_item_path(check, line_item), class: "text-muted", data: {turbo_method: :delete, turbo_confirm: "Delete this item?"} %>
   </div>
 </div>

@@ -5,13 +5,13 @@
 <li id="new_global_fee_form" class="list-group-item py-3 px-3" data-turbo-refresh-preserve
     data-controller="disclosure" data-action="keydown->disclosure#closeOnEscape">
   <%= tag.button type: "button", class: "sticker ghost compact", hidden: expanded,
-        aria: { controls: "new_global_fee_fields", expanded: expanded },
-        data: { disclosure_target: "trigger", action: "disclosure#open" } do %>
+        aria: {controls: "new_global_fee_fields", expanded: expanded},
+        data: {disclosure_target: "trigger", action: "disclosure#open"} do %>
     <i class="bi bi-plus-lg"></i>
     Add a fee
   <% end %>
 
-  <%= tag.div id: "new_global_fee_fields", hidden: !expanded, data: { disclosure_target: "panel" } do %>
+  <%= tag.div id: "new_global_fee_fields", hidden: !expanded, data: {disclosure_target: "panel"} do %>
     <%= form_with model: [check, global_fee], class: "global-fee-form" do |f| %>
       <% if global_fee.errors.any? %>
         <div class="alert alert-danger mb-2 py-1">
@@ -24,7 +24,7 @@
       <div class="row g-2 mb-2">
         <div class="col">
           <%= f.label :description, class: "form-label mb-1" %>
-          <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Add a fee…", data: { disclosure_target: "field" } %>
+          <%= f.text_field :description, class: "form-control form-control-sm", placeholder: "Add a fee…", data: {disclosure_target: "field"} %>
         </div>
         <div class="col-auto">
           <%= f.label :amount, class: "form-label mb-1" %>
@@ -36,12 +36,12 @@
       </div>
 
       <% default_fee_type = if !check.has_tip?
-                              "tip"
-                            elsif !check.global_fees.tax.exists?
-                              "tax"
-                            else
-                              "other"
-                            end %>
+           "tip"
+         elsif !check.global_fees.tax.exists?
+           "tax"
+         else
+           "other"
+         end %>
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex gap-2">
           <% GlobalFee.fee_types.keys.each do |fee_type| %>

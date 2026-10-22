@@ -15,7 +15,7 @@
     </div>
   <% end %>
 
-  <%= render partial: "checks/share", locals: { check: @check, open: @check.parsing? } %>
+  <%= render partial: "checks/share", locals: {check: @check, open: @check.parsing?} %>
 
   <% if @check.parsing? %>
     <div class="row">
@@ -73,17 +73,17 @@
             <% end %>
           </div>
         </div>
-        <%= render partial: "checks/header_stats", locals: { check: @check } %>
+        <%= render partial: "checks/header_stats", locals: {check: @check} %>
       </div>
     </div>
     <div class="card-footer">
       <div class="d-flex justify-content-between align-items-center">
         <%= form_with url: update_currency_check_path(@check), method: :patch, local: true do %>
           <%= select_tag :currency,
-              options_for_select(currency_options_for_select, @check.currency),
-              class: "form-select form-select-sm",
-              style: "width: auto;",
-              data: {controller: "autosubmit", action: "change->autosubmit#submit"} %>
+                options_for_select(currency_options_for_select, @check.currency),
+                class: "form-select form-select-sm",
+                style: "width: auto;",
+                data: {controller: "autosubmit", action: "change->autosubmit#submit"} %>
         <% end %>
         <div class="form-check form-switch m-0">
           <%= form_with url: toggle_zero_items_check_path(@check), method: :post, local: true do %>
@@ -104,9 +104,9 @@
 
     <ul class="list-group list-group-flush">
       <% @participants.each do |participant| %>
-        <%= render partial: "participants/participant", locals: { participant: participant, check: @check } %>
+        <%= render partial: "participants/participant", locals: {participant: participant, check: @check} %>
       <% end %>
-      <%= render partial: "participants/new_form", locals: { participant: Participant.new, check: @check } %>
+      <%= render partial: "participants/new_form", locals: {participant: Participant.new, check: @check} %>
     </ul>
   </div>
 
@@ -133,7 +133,7 @@
     </div>
 
     <% if @check.split_even? %>
-      <%= render partial: "checks/even_split_pane", locals: { check: @check } %>
+      <%= render partial: "checks/even_split_pane", locals: {check: @check} %>
     <% end %>
 
     <div class="card mb-3">
@@ -144,12 +144,12 @@
       <ul id="line_items_list" class="list-group list-group-flush">
         <% @line_items.each do |item| %>
           <% next if !@show_zero_items && item.total_with_addons == 0 %>
-          <%= render partial: "line_items/line_item", locals: { line_item: item, participants: @participants, show_zero_items: @show_zero_items, show_assignment: @check.split_itemized? } %>
+          <%= render partial: "line_items/line_item", locals: {line_item: item, participants: @participants, show_zero_items: @show_zero_items, show_assignment: @check.split_itemized?} %>
         <% end %>
-        <%= render partial: "line_items/new_form", locals: { line_item: LineItem.new, check: @check } %>
+        <%= render partial: "line_items/new_form", locals: {line_item: LineItem.new, check: @check} %>
       </ul>
 
-      <%= render partial: "checks/item_total", locals: { check: @check } %>
+      <%= render partial: "checks/item_total", locals: {check: @check} %>
     </div>
 
     <div class="card mb-3">
@@ -159,13 +159,13 @@
 
       <ul class="list-group list-group-flush">
         <% @global_discounts.each do |discount| %>
-          <%= render partial: "global_discounts/global_discount", locals: { global_discount: discount, check: @check } %>
+          <%= render partial: "global_discounts/global_discount", locals: {global_discount: discount, check: @check} %>
         <% end %>
-        <%= render partial: "global_discounts/new_form", locals: { global_discount: GlobalDiscount.new, check: @check } %>
+        <%= render partial: "global_discounts/new_form", locals: {global_discount: GlobalDiscount.new, check: @check} %>
       </ul>
 
       <% if @global_discounts.any? %>
-        <%= render partial: "checks/after_discounts_total", locals: { check: @check } %>
+        <%= render partial: "checks/after_discounts_total", locals: {check: @check} %>
       <% end %>
     </div>
 
@@ -177,19 +177,19 @@
       <ul class="list-group list-group-flush">
         <% @global_fees.in_order_of(:fee_type, %w[tax other tip]).order(amount: :desc).each do |fee| %>
           <% next if !@show_zero_items && fee.amount == 0 %>
-          <%= render partial: "global_fees/global_fee", locals: { global_fee: fee, check: @check } %>
+          <%= render partial: "global_fees/global_fee", locals: {global_fee: fee, check: @check} %>
         <% end %>
 
-        <%= render partial: "global_fees/tip_suggestion", locals: { check: @check } %>
+        <%= render partial: "global_fees/tip_suggestion", locals: {check: @check} %>
 
-        <%= render partial: "global_fees/new_form", locals: { global_fee: GlobalFee.new, check: @check } %>
+        <%= render partial: "global_fees/new_form", locals: {global_fee: GlobalFee.new, check: @check} %>
       </ul>
 
-      <%= render partial: "checks/grand_total", locals: { check: @check } %>
+      <%= render partial: "checks/grand_total", locals: {check: @check} %>
     </div>
 
     <% if @participants.any? %>
-      <%= render partial: "checks/breakdown", locals: { check: @check, participants: @participants, line_items: @line_items, show_zero_items: @show_zero_items } %>
+      <%= render partial: "checks/breakdown", locals: {check: @check, participants: @participants, line_items: @line_items, show_zero_items: @show_zero_items} %>
     <% end %>
   <% end %>
 
@@ -211,6 +211,6 @@
   <% end %>
 
   <% if !@check.parsing? && @line_items.any? %>
-    <%= render partial: "checks/sticky_summary", locals: { check: @check, line_items: @line_items, show_zero_items: @show_zero_items } %>
+    <%= render partial: "checks/sticky_summary", locals: {check: @check, line_items: @line_items, show_zero_items: @show_zero_items} %>
   <% end %>
 </div>
