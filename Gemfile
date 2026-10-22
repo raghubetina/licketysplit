@@ -69,12 +69,10 @@ group :development, :test do
   gem "shoulda-matchers", "~> 7.0"
   gem "standard", require: false
   gem "standard-rails", require: false
+  gem "rubocop-erb", require: false
   gem "herb", require: false
   gem "bullet"
   gem "bundler-audit", require: false
-  gem "better_html", require: false
-  gem "erb_lint", require: false
-  gem "erblint-github", require: false
 end
 
 group :development do

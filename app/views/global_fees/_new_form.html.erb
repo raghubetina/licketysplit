@@ -35,13 +35,15 @@
         </div>
       </div>
 
-      <% default_fee_type = if !check.has_tip?
-           "tip"
-         elsif !check.global_fees.tax.exists?
-           "tax"
-         else
-           "other"
-         end %>
+      <%
+        default_fee_type = if !check.has_tip?
+          "tip"
+        elsif !check.global_fees.tax.exists?
+          "tax"
+        else
+          "other"
+        end
+      %>
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex gap-2">
           <% GlobalFee.fee_types.keys.each do |fee_type| %>

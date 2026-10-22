@@ -1,20 +1,15 @@
 # Herb configuration for HTML+ERB linting and analysis
-# https://herb-tools.dev
+# https://herb-tools.dev/configuration
 
-# Files to analyze
-include:
-  - "app/views/**/*.html.erb"
-  - "app/views/**/*.erb"
-  - "app/components/**/*.html.erb"
+version: 0.11.1
+framework: actionview
 
-# Files to exclude
-exclude:
-  - "vendor/**/*"
-  - "node_modules/**/*"
-  - "tmp/**/*"
+files:
+  exclude:
+    - "public/**/*"
 
-# Linter rules (customize as needed)
-# Full list: https://herb-tools.dev/projects/linter#rules
-rules:
-  # Enable all default rules
-  all: true
+linter:
+  enabled: true
+
+formatter:
+  enabled: false

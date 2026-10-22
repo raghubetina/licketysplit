@@ -14,9 +14,9 @@
 
 - Ruby: StandardRB
 - HTML+ERB: Herb
+- Ruby inside ERB: Standard's rules through rubocop-erb
 - JavaScript: ESLint with Thoughtbot config
-    - CSS: Stylelint with Thoughtbot config
-    - ERB: erb_lint
+- CSS: Stylelint with Thoughtbot config
 
 ## Testing
 
