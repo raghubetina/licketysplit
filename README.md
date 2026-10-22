@@ -60,7 +60,7 @@ Run the test suite:
 bundle exec rspec
 ```
 
-CI runs the specs, standardrb, herb, Brakeman and bundler-audit on every push
+CI runs the specs, every linter below, Brakeman and bundler-audit on every push
 and pull request.
 
 Receipt parsing is scored against verified labels in

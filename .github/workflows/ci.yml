@@ -44,6 +44,21 @@ jobs:
       - name: Lint ERB
         run: bundle exec herb analyze .
 
+      - name: Lint Ruby in ERB
+        run: bundle exec erb_lint --lint-all
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install JavaScript dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint JavaScript and stylesheets
+        run: yarn lint
+
   test:
     runs-on: ubuntu-latest
 
