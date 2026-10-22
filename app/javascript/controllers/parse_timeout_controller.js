@@ -8,6 +8,7 @@ import { Controller } from '@hotwired/stimulus'
 // and so the deadline does not depend on the client's clock being correct.
 export default class extends Controller {
   static targets = ['waiting', 'stalled']
+
   static values = { after: Number, elapsed: Number }
 
   connect() {

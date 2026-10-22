@@ -7,5 +7,12 @@
   "env": {
     "browser": true,
     "es2021": true
+  },
+  "ignorePatterns": [
+    "app/javascript/controllers/application.js",
+    "app/javascript/controllers/index.js"
+  ],
+  "rules": {
+    "no-console": ["warn", { "allow": ["error"] }]
   }
 }
