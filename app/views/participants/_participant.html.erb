@@ -6,27 +6,27 @@
       <span class="ls-avatar"><%= participant_initial(participant) %></span>
       <div class="d-flex flex-wrap align-items-center gap-3 small flex-grow-1">
         <span class="ls-participant-name"><%= participant.name %></span>
-        <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: { turbo_stream: true } %>
-        <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: { turbo_method: :delete, turbo_confirm: t("participants.delete_confirm") } %>
+        <%= link_to "Edit", edit_check_participant_path(check, participant), class: "text-muted", data: {turbo_stream: true} %>
+        <%= link_to "Delete", check_participant_path(check, participant), class: "text-muted", data: {turbo_method: :delete, turbo_confirm: t("participants.delete_confirm")} %>
       </div>
     </div>
     <div class="d-flex flex-wrap align-items-center gap-3 small">
       <%= form_with url: toggle_treated_check_participant_path(check, participant), method: :post, local: true, class: "m-0" do %>
         <div class="form-check form-switch m-0">
           <%= check_box_tag(
-            "participant_#{participant.id}_being_treated",
-            "1",
-            participant.is_being_treated?,
-            id: "participant_#{participant.id}_being_treated",
-            class: "form-check-input",
-            role: "switch",
-            data: {controller: "autosubmit", action: "change->autosubmit#submit"}
-          ) %>
+                "participant_#{participant.id}_being_treated",
+                "1",
+                participant.is_being_treated?,
+                id: "participant_#{participant.id}_being_treated",
+                class: "form-check-input",
+                role: "switch",
+                data: {controller: "autosubmit", action: "change->autosubmit#submit"}
+              ) %>
           <%= label_tag(
-            "participant_#{participant.id}_being_treated",
-            "Covered by everyone else",
-            class: "form-check-label #{'text-success' if participant.is_being_treated?}"
-          ) %>
+                "participant_#{participant.id}_being_treated",
+                "Covered by everyone else",
+                class: "form-check-label #{"text-success" if participant.is_being_treated?}"
+              ) %>
         </div>
       <% end %>
     </div>

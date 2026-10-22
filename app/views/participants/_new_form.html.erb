@@ -5,13 +5,13 @@
 <li id="new_participant_form" class="list-group-item py-3 px-3" data-turbo-refresh-preserve
     data-controller="disclosure" data-action="keydown->disclosure#closeOnEscape">
   <%= tag.button type: "button", class: "sticker ghost compact", hidden: expanded,
-        aria: { controls: "new_participant_fields", expanded: expanded },
-        data: { disclosure_target: "trigger", action: "disclosure#open" } do %>
+        aria: {controls: "new_participant_fields", expanded: expanded},
+        data: {disclosure_target: "trigger", action: "disclosure#open"} do %>
     <i class="bi bi-plus-lg"></i>
     <%= check.participants_count.positive? ? t("participants.add_another_trigger") : t("participants.add_trigger") %>
   <% end %>
 
-  <%= tag.div id: "new_participant_fields", hidden: !expanded, data: { disclosure_target: "panel" } do %>
+  <%= tag.div id: "new_participant_fields", hidden: !expanded, data: {disclosure_target: "panel"} do %>
     <%= form_with model: [check, participant], class: "participant-form" do |f| %>
       <% if participant.errors.any? %>
         <div class="alert alert-danger  mb-2 py-1">
@@ -24,7 +24,7 @@
       <div class="row g-2 mb-2">
         <div class="col">
           <%= f.label :name, class: "form-label  mb-1" %>
-          <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder"), data: { disclosure_target: "field" } %>
+          <%= f.text_field :name, class: "form-control form-control-sm", placeholder: t("participants.add_placeholder"), data: {disclosure_target: "field"} %>
         </div>
       </div>
 

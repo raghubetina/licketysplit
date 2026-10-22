@@ -1,12 +1,21 @@
 ---
 glob: "**/*.{html,html.erb,turbo_stream.erb}"
+exclude:
+  - "**/node_modules/**"
+  - "public/**"
+  - "tmp/**"
+  - "vendor/**"
 linters:
   Rubocop:
     enabled: true
     rubocop_config:
-      inherit_from:
-        - .standard.yml
+      inherit_gem:
+        standard: config/base.yml
       Layout/InitialIndentation:
+        Enabled: false
+      # Its autocorrect strips the opening <% from multi-line blocks:
+      # https://github.com/Shopify/erb_lint/issues/461
+      Layout/LeadingEmptyLines:
         Enabled: false
       Layout/TrailingEmptyLines:
         Enabled: false
