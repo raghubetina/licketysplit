@@ -16,6 +16,17 @@
     <meta name="apple-mobile-web-app-title" content="Lickety Split" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <meta name="description" content="Snap the receipt, tap what you had, see what you owe.">
+    <meta property="og:site_name" content="Lickety Split">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= content_for(:title) || "Lickety Split" %>">
+    <meta property="og:description" content="Snap the receipt, tap what you had, see what you owe.">
+    <meta property="og:image" content="<%= image_url("og-image.png") %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="licketysplit: snap the receipt, tap what you had, see what you owe.">
+    <meta name="twitter:card" content="summary_large_image">
+
     <%= yield :head %>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
