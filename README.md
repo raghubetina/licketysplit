@@ -60,6 +60,9 @@ Run the test suite:
 bundle exec rspec
 ```
 
+CI runs the specs, standardrb, herb, Brakeman and bundler-audit on every push
+and pull request.
+
 Receipt parsing is scored against verified labels in
 `spec/fixtures/parsed_receipts`. Every parse is a paid OpenAI call, so these
 run only on request:
