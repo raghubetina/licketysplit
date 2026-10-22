@@ -1,6 +1,28 @@
 require "rails_helper"
 
 RSpec.describe "Checks", type: :request do
+  describe "GET show" do
+    it "renders a check with owned, shared and unassigned items" do
+      check = Check.create!(status: "reviewing", currency: "USD")
+      maya = check.participants.create!(name: "Maya")
+      raghu = check.participants.create!(name: "Raghu")
+      burger = check.line_items.create!(description: "Burger", unit_price: 15)
+      burger.line_item_participants.create!(participant: maya)
+      burger.addons.create!(description: "Add Bacon", unit_price: 2)
+      wine = check.line_items.create!(description: "Wine", unit_price: 14, quantity: 2)
+      wine.line_item_participants.create!(participant: maya)
+      wine.line_item_participants.create!(participant: raghu)
+      check.line_items.create!(description: "Fries", unit_price: 6)
+      check.global_fees.create!(description: "Tip", amount: 8, fee_type: "tip")
+
+      get check_path(check)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("Burger", "Add Bacon", "Wine", "Fries", "Maya", "Raghu")
+      expect(response.body).to include("ls-item-tinted", "ls-item-unassigned")
+    end
+  end
+
   describe "POST create" do
     # file_field with multiple: true submits a hidden empty value, so this is
     # what an empty form actually sends -- not a missing param.
