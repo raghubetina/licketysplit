@@ -85,7 +85,7 @@ class ReceiptParser
 
   MODEL = "gpt-6.1-sol"
   REASONING_EFFORT = :low
-  SERVICE_TIER = :ultrafast
+  SERVICE_TIER = :auto
 
   attr_reader :model, :reasoning_effort, :service_tier, :response
 
