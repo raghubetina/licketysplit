@@ -1,0 +1,16 @@
+# Lints the Ruby inside templates with Standard's rules:
+#
+#   bundle exec rubocop -c .rubocop_erb.yml app/views
+#
+# This goes through RuboCop because standardrb can't load rubocop-erb:
+# Standard won't let a plugin set AllCops/Include or configure Lint/Syntax,
+# and rubocop-erb needs both. HTML and ERB structure are Herb's job
+# (bundle exec herb lint).
+plugins:
+  - rubocop-erb
+
+inherit_gem:
+  standard: config/base.yml
+
+AllCops:
+  SuggestExtensions: false

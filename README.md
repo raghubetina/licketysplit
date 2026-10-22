@@ -79,21 +79,22 @@ bundle exec standardrb
 bundle exec standardrb --fix
 ```
 
-HTML+ERB analysis:
+HTML+ERB linting ([Herb](https://herb-tools.dev), configured in `.herb.yml`):
 ```bash
-bundle exec herb analyze .
-bundle exec herb parse app/views/path/to/file.html.erb
+bundle exec herb lint
+bundle exec herb lint --fix
 ```
+
+Ruby inside templates, with Standard's rules (see `.rubocop_erb.yml` for why
+this isn't `standardrb`):
+```bash
+bundle exec rubocop -c .rubocop_erb.yml app/views
+```
+
 JavaScript/CSS linting:
 ```bash
 yarn lint
 yarn fix:prettier
-```
-
-ERB linting:
-```bash
-bundle exec erb_lint --lint-all
-bundle exec erb_lint --lint-all --autocorrect
 ```
 
 Security scanning:

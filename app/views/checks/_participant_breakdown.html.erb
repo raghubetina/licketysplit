@@ -9,16 +9,18 @@
 <% treated_coverage_amount = check.treated_coverage_amount_for(participant) %>
 <% treated_participants = check.treated_participants %>
 <% non_treated_count = check.non_treated_count %>
-<% treating_lines = if participant.is_being_treated? || non_treated_count <= 0
-     []
-   else
-     treated_participants.filter_map do |treated_participant|
-       treated_participant_coverage_amount = check.treated_coverage_amount_for(treated_participant)
-       next if treated_participant_coverage_amount <= 0
+<%
+  treating_lines = if participant.is_being_treated? || non_treated_count <= 0
+    []
+  else
+    treated_participants.filter_map do |treated_participant|
+      treated_participant_coverage_amount = check.treated_coverage_amount_for(treated_participant)
+      next if treated_participant_coverage_amount <= 0
 
-       [treated_participant, treated_participant_coverage_amount / non_treated_count]
-     end
-   end %>
+      [treated_participant, treated_participant_coverage_amount / non_treated_count]
+    end
+  end
+%>
 <div id="<%= dom_id(participant, :breakdown) %>" class="list-group-item py-3 px-3 d-flex flex-column gap-3 <%= participant_color_class(participant) %>" data-turbo-refresh-animate>
   <div class="d-flex justify-content-between align-items-center gap-2">
     <div class="ls-participant-row">
