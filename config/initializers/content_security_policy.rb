@@ -3,6 +3,7 @@
 # Defense-in-depth against injected content (complements sanitizing AI reasoning
 # before render). script-src is kept to :self — the app ships a single bundled
 # module and has no inline scripts — so injected <script> cannot execute.
+# Authenticated Blazer pages add script nonces in blazer_auth.rb.
 # style-src allows inline styles (the app uses style="" attributes and Bootstrap)
 # and Google Fonts; img-src allows Cloudinary-delivered receipts and data URIs.
 Rails.application.configure do

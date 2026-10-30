@@ -14,4 +14,13 @@ Rails.application.config.to_prepare do
   elsif Rails.env.production?
     Blazer::BaseController.before_action { head :forbidden }
   end
+
+  # Query responses insert chart scripts into the editor's existing document,
+  # so they must share its nonce. Only authenticated Blazer requests use it.
+  Blazer::BaseController.before_action do
+    request.content_security_policy_nonce_directives = %w[script-src]
+    request.content_security_policy_nonce_generator = ->(request) {
+      request.session[:blazer_csp_nonce] ||= SecureRandom.base64(16)
+    }
+  end
 end
