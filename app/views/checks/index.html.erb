@@ -1,7 +1,29 @@
 <div class="container py-3">
+  <section class="mb-4" aria-labelledby="how-it-works">
+    <h1 id="how-it-works" class="fs-2 mb-2">Split the check without the math.</h1>
+    <p>Lickety Split turns a restaurant receipt into a shared check, so everyone can see what they owe, including tax and tip.</p>
+
+    <ol class="d-flex flex-column gap-2" role="list">
+      <li class="d-flex gap-2">
+        <span class="text-primary fw-bold" aria-hidden="true">1.</span>
+        <div><strong>Upload your receipt.</strong> Add photos or a PDF and everyone's names below. We'll read the items and prices.</div>
+      </li>
+      <li class="d-flex gap-2">
+        <span class="text-primary fw-bold" aria-hidden="true">2.</span>
+        <div><strong>Share with the table.</strong> Send the check's link or have friends scan its QR code to join.</div>
+      </li>
+      <li class="d-flex gap-2">
+        <span class="text-primary fw-bold" aria-hidden="true">3.</span>
+        <div><strong>Tap what you had.</strong> Select your name under each item. Select multiple names for shared dishes, or choose <strong>Even split</strong> to divide the bill equally.</div>
+      </li>
+    </ol>
+
+    <p class="small mt-3 mb-0">Totals update as everyone makes their picks. Review the items, tax, and tip before settling up.</p>
+  </section>
+
   <div class="card mb-4">
     <div class="card-header py-3">
-      <strong class="ls-display fs-5">Split a Check</strong>
+      <h2 class="ls-display fs-5 mb-0 d-inline-block">Split a Check</h2>
     </div>
     <div class="card-body">
       <% if @check.errors.any? %>
@@ -37,7 +59,7 @@
   <% if @recent_checks.any? %>
     <div class="card">
       <div class="card-header py-3">
-        <strong class="ls-display fs-5">Recently Visited</strong>
+        <h2 class="ls-display fs-5 mb-0 d-inline-block">Recently Visited</h2>
       </div>
       <ul class="list-group list-group-flush">
         <% @recent_checks.each do |check| %>
