@@ -169,6 +169,11 @@ Sample queries are available in `db/blazer_queries.yml`.
 
 ### Securing Blazer in Production
 
+Blazer's editor and AJAX charts use inline scripts. Authenticated analytics
+requests get a nonce stored in the encrypted session so chart responses can
+run in the editor's existing document. The public app keeps `script-src 'self'`;
+Blazer's permissive `override_csp` setting is not used.
+
 The dashboard uses basic authentication with a unique auto-generated password.
 For production, you can:
 1. Keep the strong auto-generated password
